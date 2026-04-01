@@ -1,0 +1,3589 @@
+{
+  "data": [
+    {
+      "id": 65,
+      "firstName": "Théo",
+      "lastName": "BACHELIER",
+      "fullName": "Théo BACHELIER",
+      "mail": "theo@spk-group.fr",
+      "jobTitle": "Directeur SPK PULSE",
+      "dtContractStart": "2024-03-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 14,
+          "autre": 1.5,
+          "teletravail": 2
+        },
+        "2025-07": {
+          "cp": 1,
+          "teletravail": 5,
+          "autre": 4
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 3.5,
+          "autre": 2,
+          "deplacement": 0.5,
+          "cp": 1
+        },
+        "2025-09": {
+          "teletravail": 8,
+          "autre": 5,
+          "rtt": 1,
+          "deplacement": 1
+        },
+        "2025-11": {
+          "cp": 3,
+          "teletravail": 5
+        },
+        "2025-12": {
+          "rtt": 4,
+          "teletravail": 6,
+          "cp": 2
+        },
+        "2026-01": {
+          "cp": 3,
+          "teletravail": 7.5,
+          "deplacement": 1
+        },
+        "2026-03": {
+          "rtt": 0.5,
+          "cp": 1,
+          "teletravail": 8,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "teletravail": 6,
+          "deplacement": 1
+        },
+        "2026-05": {
+          "cp": 5
+        },
+        "2026-06": {
+          "cp": 2,
+          "rtt": 1
+        },
+        "2026-04": {
+          "rtt": 0.5,
+          "teletravail": 3
+        }
+      },
+      "totals": {
+        "cp": 32,
+        "autre": 12.5,
+        "teletravail": 54,
+        "seminaire": 2,
+        "deplacement": 4.5,
+        "rtt": 7
+      }
+    },
+    {
+      "id": 46,
+      "firstName": "Lucie",
+      "lastName": "BARBARIT",
+      "fullName": "Lucie BARBARIT",
+      "mail": "lucie@spk-group.fr",
+      "jobTitle": "Responsable Ressources Humaines",
+      "dtContractStart": "2023-01-03T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 10,
+          "teletravail": 5
+        },
+        "2025-08": {
+          "cp": 8,
+          "teletravail": 5
+        },
+        "2025-09": {
+          "cp": 1,
+          "teletravail": 7
+        },
+        "2025-10": {
+          "rtt": 2,
+          "seminaire": 2,
+          "teletravail": 5,
+          "cp": 2
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 6,
+          "cp": 0.5
+        },
+        "2025-12": {
+          "cp": 3.5,
+          "teletravail": 4.5
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 8
+        },
+        "2026-02": {
+          "teletravail": 8
+        },
+        "2026-05": {
+          "cp": 3
+        },
+        "2026-04": {
+          "cp": 6,
+          "teletravail": 3
+        },
+        "2026-03": {
+          "rtt": 1.5,
+          "teletravail": 7,
+          "autre": 1
+        }
+      },
+      "totals": {
+        "cp": 36,
+        "teletravail": 58.5,
+        "rtt": 4.5,
+        "seminaire": 2,
+        "autre": 1
+      }
+    },
+    {
+      "id": 27,
+      "firstName": "Florian",
+      "lastName": "BARON",
+      "fullName": "Florian BARON",
+      "mail": "florian@spk-group.fr",
+      "jobTitle": "Graphiste senior",
+      "dtContractStart": "2022-03-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 18,
+          "teletravail": 1
+        },
+        "2025-07": {
+          "teletravail": 9.5,
+          "autre": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 8
+        },
+        "2025-09": {
+          "teletravail": 9.5,
+          "rtt": 1,
+          "autre": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 8.5
+        },
+        "2025-12": {
+          "cp": 2,
+          "rtt": 1,
+          "teletravail": 8.5
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 8
+        },
+        "2026-06": {
+          "cp": 4
+        },
+        "2026-02": {
+          "teletravail": 8
+        },
+        "2026-03": {
+          "teletravail": 6,
+          "recuperation": 3
+        },
+        "2026-05": {
+          "cp": 1
+        }
+      },
+      "totals": {
+        "cp": 27,
+        "teletravail": 67,
+        "autre": 2,
+        "seminaire": 2,
+        "rtt": 3,
+        "recuperation": 3
+      }
+    },
+    {
+      "id": 34,
+      "firstName": "Edouard",
+      "lastName": "BARRE",
+      "fullName": "Edouard BARRE",
+      "mail": "edouard@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2024-04-20T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 11,
+          "teletravail": 3,
+          "deplacement": 5
+        },
+        "2025-07": {
+          "cp": 2,
+          "rtt": 2,
+          "deplacement": 3,
+          "teletravail": 5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 6.5,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "cp": 1.5,
+          "rtt": 1,
+          "deplacement": 2,
+          "teletravail": 8
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 6
+        },
+        "2025-12": {
+          "rtt": 1.5,
+          "autre": 1,
+          "recuperation": 2,
+          "deplacement": 2.5,
+          "teletravail": 7
+        },
+        "2026-01": {
+          "teletravail": 6,
+          "deplacement": 5.5,
+          "recuperation": 1
+        },
+        "2026-05": {
+          "cp": 16
+        },
+        "2026-06": {
+          "rtt": 2,
+          "cp": 3
+        },
+        "2026-02": {
+          "rtt": 1,
+          "teletravail": 6,
+          "deplacement": 4
+        },
+        "2026-03": {
+          "teletravail": 5,
+          "cp": 0.5,
+          "rtt": 0.5,
+          "maladie": 9,
+          "deplacement": 1.5
+        },
+        "2026-04": {
+          "teletravail": 3
+        }
+      },
+      "totals": {
+        "cp": 34,
+        "teletravail": 55.5,
+        "deplacement": 23.5,
+        "rtt": 9,
+        "seminaire": 2,
+        "recuperation": 4,
+        "autre": 1,
+        "maladie": 9
+      }
+    },
+    {
+      "id": 97,
+      "firstName": "Justine",
+      "lastName": "BOUILDE",
+      "fullName": "Justine BOUILDE",
+      "mail": "justine@spk-group.fr",
+      "jobTitle": "Assistante Ressources Humaines",
+      "dtContractStart": "2024-09-02T00:00:00",
+      "dtContractEnd": "2026-10-02T00:00:00",
+      "monthly": {
+        "2025-09": {
+          "ecole": 7
+        },
+        "2025-10": {
+          "ecole": 9,
+          "seminaire": 2,
+          "teletravail": 1
+        },
+        "2025-11": {
+          "ecole": 9,
+          "cp": 2
+        },
+        "2025-12": {
+          "ecole": 3,
+          "cp": 7,
+          "teletravail": 1
+        },
+        "2026-02": {
+          "ecole": 9,
+          "cp": 5
+        },
+        "2026-03": {
+          "ecole": 6,
+          "cp": 2
+        },
+        "2026-06": {
+          "ecole": 5
+        },
+        "2025-07": {
+          "cp": 4,
+          "autre": 1,
+          "teletravail": 1,
+          "maladie": 2
+        },
+        "2025-08": {
+          "cp": 10,
+          "teletravail": 1
+        },
+        "2026-01": {
+          "ecole": 9,
+          "teletravail": 2.5
+        },
+        "2026-04": {
+          "ecole": 9,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "ecole": 3,
+          "cp": 3,
+          "teletravail": 1
+        }
+      },
+      "totals": {
+        "ecole": 69,
+        "seminaire": 2,
+        "teletravail": 8.5,
+        "cp": 33,
+        "autre": 1,
+        "maladie": 2
+      }
+    },
+    {
+      "id": 88,
+      "firstName": "Gaël",
+      "lastName": "BRAULT",
+      "fullName": "Gaël BRAULT",
+      "mail": "gael@spk-group.fr",
+      "jobTitle": "Responsable RP & Influence",
+      "dtContractStart": "2024-07-22T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "deplacement": 2.5,
+          "recuperation": 1
+        },
+        "2025-08": {
+          "recuperation": 2,
+          "deplacement": 2
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "cp": 5,
+          "recuperation": 1,
+          "teletravail": 0.5
+        },
+        "2025-09": {
+          "autre": 3,
+          "deplacement": 7,
+          "recuperation": 2.5
+        },
+        "2025-11": {
+          "rtt": 2,
+          "recuperation": 1.5,
+          "deplacement": 2,
+          "teletravail": 0.5
+        },
+        "2025-12": {
+          "rtt": 5,
+          "autre": 1,
+          "cp": 1,
+          "teletravail": 1
+        },
+        "2026-01": {
+          "cp": 1,
+          "teletravail": 4
+        },
+        "2026-05": {
+          "rtt": 1
+        },
+        "2026-02": {
+          "teletravail": 1
+        },
+        "2026-03": {
+          "teletravail": 2
+        }
+      },
+      "totals": {
+        "deplacement": 13.5,
+        "recuperation": 8,
+        "seminaire": 2,
+        "cp": 7,
+        "teletravail": 9,
+        "autre": 4,
+        "rtt": 8
+      }
+    },
+    {
+      "id": 30,
+      "firstName": "Ninon",
+      "lastName": "BRETON",
+      "fullName": "Ninon BRETON",
+      "mail": "ninon@spk-group.fr",
+      "jobTitle": "Directrice Clientèle",
+      "dtContractStart": "2022-04-19T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "recuperation": 2,
+          "cp": 2.5,
+          "teletravail": 5,
+          "deplacement": 1
+        },
+        "2025-08": {
+          "deplacement": 10,
+          "cp": 3,
+          "teletravail": 2,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "deplacement": 2,
+          "recuperation": 5,
+          "teletravail": 1,
+          "cp": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "recuperation": 2,
+          "deplacement": 2.5,
+          "teletravail": 5.5
+        },
+        "2025-11": {
+          "cp": 6.5,
+          "recuperation": 0.5,
+          "teletravail": 2,
+          "deplacement": 4
+        },
+        "2025-12": {
+          "cp": 8,
+          "recuperation": 1.5,
+          "deplacement": 1.5,
+          "rtt": 1,
+          "teletravail": 3.5
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 3,
+          "deplacement": 1,
+          "recuperation": 0.5
+        },
+        "2026-03": {
+          "cp": 6,
+          "teletravail": 4,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "teletravail": 3.5,
+          "deplacement": 2
+        },
+        "2026-05": {
+          "cp": 12
+        },
+        "2026-04": {
+          "cp": 1.5,
+          "rtt": 1.5,
+          "deplacement": 4
+        }
+      },
+      "totals": {
+        "recuperation": 12.5,
+        "cp": 42,
+        "teletravail": 29.5,
+        "deplacement": 29,
+        "seminaire": 2,
+        "rtt": 2.5
+      }
+    },
+    {
+      "id": 62,
+      "firstName": "Marianne",
+      "lastName": "BURON",
+      "fullName": "Marianne BURON",
+      "mail": "marianne@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2023-08-07T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "teletravail": 5,
+          "cp": 1
+        },
+        "2025-08": {
+          "cp": 17,
+          "deplacement": 4
+        },
+        "2025-09": {
+          "rtt": 1,
+          "autre": 1.5,
+          "recuperation": 1,
+          "teletravail": 5.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 3,
+          "teletravail": 4,
+          "recuperation": 3
+        },
+        "2025-11": {
+          "cp": 4,
+          "deplacement": 1,
+          "teletravail": 3
+        },
+        "2025-12": {
+          "rtt": 4,
+          "teletravail": 2,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "cp": 1,
+          "teletravail": 7
+        },
+        "2026-02": {
+          "rtt": 0.5,
+          "recuperation": 2.5,
+          "deplacement": 4,
+          "teletravail": 4
+        },
+        "2026-04": {
+          "rtt": 1,
+          "recuperation": 1
+        },
+        "2026-05": {
+          "rtt": 1
+        },
+        "2026-03": {
+          "teletravail": 5,
+          "deplacement": 5.5
+        }
+      },
+      "totals": {
+        "teletravail": 35.5,
+        "cp": 23,
+        "deplacement": 17.5,
+        "rtt": 7.5,
+        "autre": 1.5,
+        "recuperation": 8.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 20,
+      "firstName": "Germain",
+      "lastName": "BUTROT",
+      "fullName": "Germain BUTROT",
+      "mail": "germain@spk-group.fr",
+      "jobTitle": "Co-fondateur SPK",
+      "dtContractStart": "2020-01-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "autre": 8,
+          "deplacement": 4,
+          "teletravail": 1
+        },
+        "2025-08": {
+          "teletravail": 1.5,
+          "deplacement": 5.5,
+          "autre": 3
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 4,
+          "autre": 1,
+          "teletravail": 1
+        },
+        "2025-09": {
+          "teletravail": 3.5,
+          "deplacement": 4,
+          "autre": 3
+        },
+        "2026-03": {
+          "autre": 5,
+          "teletravail": 2,
+          "deplacement": 5,
+          "recuperation": 0.5
+        },
+        "2025-11": {
+          "autre": 0.5,
+          "deplacement": 3.5
+        },
+        "2025-12": {
+          "teletravail": 2,
+          "deplacement": 5,
+          "autre": 1,
+          "recuperation": 3.5
+        },
+        "2026-01": {
+          "autre": 2,
+          "teletravail": 1.5,
+          "deplacement": 8
+        },
+        "2026-02": {
+          "deplacement": 5,
+          "recuperation": 0.5,
+          "teletravail": 0.5,
+          "autre": 3
+        },
+        "2026-04": {
+          "deplacement": 7,
+          "recuperation": 1
+        },
+        "2026-06": {
+          "autre": 5
+        }
+      },
+      "totals": {
+        "autre": 31.5,
+        "deplacement": 51,
+        "teletravail": 13,
+        "seminaire": 2,
+        "recuperation": 5.5
+      }
+    },
+    {
+      "id": 1,
+      "firstName": "Alizée",
+      "lastName": "CHANTREAU",
+      "fullName": "Alizée CHANTREAU",
+      "mail": "alizee@spk-group.fr",
+      "jobTitle": "Directrice Relation Client",
+      "dtContractStart": "2020-03-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 13,
+          "teletravail": 0.5,
+          "recuperation": 0.5
+        },
+        "2025-07": {
+          "recuperation": 1,
+          "teletravail": 5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 0.5,
+          "recuperation": 3,
+          "autre": 1,
+          "cp": 2,
+          "teletravail": 1
+        },
+        "2025-09": {
+          "recuperation": 4,
+          "teletravail": 2,
+          "cp": 0.5
+        },
+        "2025-11": {
+          "teletravail": 2,
+          "deplacement": 4.5
+        },
+        "2025-12": {
+          "deplacement": 2,
+          "teletravail": 2,
+          "rtt": 4
+        },
+        "2026-01": {
+          "recuperation": 1,
+          "teletravail": 1.5,
+          "deplacement": 1,
+          "cp": 3
+        },
+        "2026-02": {
+          "cp": 2,
+          "teletravail": 3
+        },
+        "2026-04": {
+          "cp": 4,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "cp": 3
+        },
+        "2026-03": {
+          "deplacement": 3,
+          "teletravail": 1.5,
+          "rtt": 0.5,
+          "cp": 1
+        }
+      },
+      "totals": {
+        "cp": 28.5,
+        "teletravail": 19.5,
+        "recuperation": 9.5,
+        "seminaire": 2,
+        "deplacement": 11,
+        "autre": 1,
+        "rtt": 4.5
+      }
+    },
+    {
+      "id": 61,
+      "firstName": "Mathieu",
+      "lastName": "CHASSAGNE",
+      "fullName": "Mathieu CHASSAGNE",
+      "mail": "mathieu@spk-group.fr",
+      "jobTitle": "Chef de projet senior",
+      "dtContractStart": "2023-07-19T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-09": {
+          "cp": 8,
+          "recuperation": 6,
+          "deplacement": 9,
+          "teletravail": 0.5
+        },
+        "2025-10": {
+          "cp": 11,
+          "seminaire": 2,
+          "deplacement": 0.5,
+          "teletravail": 4
+        },
+        "2025-07": {
+          "rtt": 1,
+          "deplacement": 4,
+          "teletravail": 2,
+          "recuperation": 1
+        },
+        "2025-08": {
+          "recuperation": 3,
+          "teletravail": 3.5,
+          "deplacement": 11
+        },
+        "2025-12": {
+          "rtt": 7,
+          "teletravail": 4,
+          "autre": 1,
+          "cp": 1,
+          "deplacement": 1
+        },
+        "2025-11": {
+          "deplacement": 5,
+          "teletravail": 3,
+          "recuperation": 2
+        },
+        "2026-01": {
+          "cp": 4,
+          "teletravail": 2.5
+        },
+        "2026-02": {
+          "cp": 2,
+          "teletravail": 5,
+          "deplacement": 1
+        },
+        "2026-03": {
+          "cp": 1,
+          "teletravail": 4
+        },
+        "2026-05": {
+          "cp": 1
+        }
+      },
+      "totals": {
+        "cp": 28,
+        "recuperation": 12,
+        "deplacement": 31.5,
+        "teletravail": 28.5,
+        "seminaire": 2,
+        "rtt": 8,
+        "autre": 1
+      }
+    },
+    {
+      "id": 44,
+      "firstName": "Anaïs",
+      "lastName": "CHENE",
+      "fullName": "Anaïs CHENE",
+      "mail": "anais@spk-group.fr",
+      "jobTitle": "Chef de projet senior",
+      "dtContractStart": "2022-11-21T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 5,
+          "teletravail": 3,
+          "deplacement": 1.5,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "cp": 12,
+          "recuperation": 3
+        },
+        "2025-08": {
+          "teletravail": 3,
+          "recuperation": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 4
+        },
+        "2025-11": {
+          "teletravail": 5,
+          "recuperation": 1
+        },
+        "2025-12": {
+          "rtt": 4,
+          "teletravail": 4,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "teletravail": 7.5,
+          "formation": 0.5,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "teletravail": 7,
+          "recuperation": 0.5
+        },
+        "2026-05": {
+          "cp": 6
+        },
+        "2026-04": {
+          "cp": 7,
+          "teletravail": 3,
+          "rtt": 1
+        },
+        "2026-03": {
+          "teletravail": 7
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "teletravail": 43.5,
+        "deplacement": 2.5,
+        "recuperation": 7,
+        "seminaire": 2,
+        "rtt": 5,
+        "formation": 0.5
+      }
+    },
+    {
+      "id": 87,
+      "firstName": "Romain",
+      "lastName": "CLOUET",
+      "fullName": "Romain CLOUET",
+      "mail": "romain@spk-group.fr",
+      "jobTitle": "Directeur Administratif & Financier",
+      "dtContractStart": "2024-07-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 9,
+          "teletravail": 1,
+          "rtt": 0.5
+        },
+        "2025-09": {
+          "cp": 2,
+          "teletravail": 2
+        },
+        "2025-07": {
+          "teletravail": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 2,
+          "autre": 2
+        },
+        "2026-02": {
+          "cp": 3,
+          "deplacement": 1,
+          "rtt": 0.5
+        },
+        "2026-03": {
+          "cp": 13
+        },
+        "2025-11": {
+          "deplacement": 1,
+          "teletravail": 1.5
+        },
+        "2025-12": {
+          "rtt": 4
+        },
+        "2026-01": {
+          "teletravail": 4.5,
+          "deplacement": 2
+        }
+      },
+      "totals": {
+        "cp": 27,
+        "teletravail": 12,
+        "rtt": 5,
+        "seminaire": 2,
+        "autre": 2,
+        "deplacement": 4
+      }
+    },
+    {
+      "id": 2,
+      "firstName": "Fabio",
+      "lastName": "CREPIN",
+      "fullName": "Fabio CREPIN",
+      "mail": "fabio@spk-group.fr",
+      "jobTitle": "Responsable planning stratégique",
+      "dtContractStart": "2022-12-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 3,
+          "teletravail": 1.5,
+          "deplacement": 3
+        },
+        "2025-09": {
+          "cp": 18,
+          "teletravail": 1
+        },
+        "2025-08": {
+          "deplacement": 1,
+          "rtt": 1,
+          "teletravail": 1.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 0.5,
+          "teletravail": 1
+        },
+        "2025-11": {
+          "rtt": 1.5,
+          "deplacement": 0.5
+        },
+        "2025-12": {
+          "cp": 5,
+          "teletravail": 3,
+          "rtt": 0.5,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 1
+        },
+        "2026-02": {
+          "teletravail": 2.5
+        },
+        "2026-05": {
+          "cp": 1
+        },
+        "2026-03": {
+          "teletravail": 3
+        }
+      },
+      "totals": {
+        "cp": 29,
+        "teletravail": 14.5,
+        "deplacement": 6,
+        "rtt": 3,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 98,
+      "firstName": "Paul",
+      "lastName": "DE BEL AIR",
+      "fullName": "Paul DE BEL AIR",
+      "mail": "paul.dba@spk-group.fr",
+      "jobTitle": "Directeur Développement Commercial & Communication",
+      "dtContractStart": "2024-08-26T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-09": {
+          "cp": 6,
+          "teletravail": 5.5,
+          "rtt": 0.5,
+          "deplacement": 5,
+          "recuperation": 1
+        },
+        "2025-07": {
+          "deplacement": 6.5,
+          "rtt": 0.5,
+          "teletravail": 2
+        },
+        "2025-08": {
+          "autre": 4,
+          "teletravail": 5,
+          "deplacement": 3.5,
+          "cp": 2,
+          "recuperation": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "rtt": 0.5,
+          "autre": 2,
+          "deplacement": 6,
+          "teletravail": 1.5
+        },
+        "2025-11": {
+          "deplacement": 7,
+          "rtt": 1,
+          "teletravail": 6,
+          "autre": 1
+        },
+        "2025-12": {
+          "autre": 2,
+          "deplacement": 5,
+          "teletravail": 5,
+          "rtt": 2,
+          "recuperation": 1,
+          "cp": 1
+        },
+        "2026-03": {
+          "cp": 10,
+          "rtt": 0.5,
+          "autre": 2,
+          "deplacement": 7.5,
+          "teletravail": 4
+        },
+        "2026-01": {
+          "cp": 2,
+          "autre": 1,
+          "deplacement": 8,
+          "teletravail": 4.5
+        },
+        "2026-02": {
+          "deplacement": 6,
+          "rtt": 1,
+          "autre": 6,
+          "teletravail": 1,
+          "cp": 1
+        },
+        "2026-04": {
+          "rtt": 1,
+          "deplacement": 3,
+          "teletravail": 4,
+          "autre": 3
+        },
+        "2026-05": {
+          "autre": 5
+        }
+      },
+      "totals": {
+        "cp": 22,
+        "teletravail": 38.5,
+        "rtt": 7,
+        "deplacement": 57.5,
+        "recuperation": 3,
+        "autre": 26,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 111,
+      "firstName": "Mathéo",
+      "lastName": "DE GOESBRIAND",
+      "fullName": "Mathéo DE GOESBRIAND",
+      "mail": "matheo@spk-group.fr",
+      "jobTitle": "Assistant chef de projet Social Media",
+      "dtContractStart": "2026-03-02T00:00:00",
+      "dtContractEnd": "2026-08-14T00:00:00",
+      "monthly": {
+        "2026-03": {
+          "teletravail": 0.5,
+          "deplacement": 0.5
+        },
+        "2026-04": {
+          "deplacement": 1
+        }
+      },
+      "totals": {
+        "teletravail": 0.5,
+        "deplacement": 1.5
+      }
+    },
+    {
+      "id": 43,
+      "firstName": "Clément",
+      "lastName": "DELAGE",
+      "fullName": "Clément DELAGE",
+      "mail": "clement@spk-group.fr",
+      "jobTitle": "Directeur de clientèle",
+      "dtContractStart": "2022-10-24T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "recuperation": 1,
+          "rtt": 3,
+          "teletravail": 0.5
+        },
+        "2025-08": {
+          "rtt": 1,
+          "cp": 11
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 1.5,
+          "teletravail": 2,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "teletravail": 3,
+          "recuperation": 1
+        },
+        "2025-12": {
+          "cp": 6,
+          "deplacement": 4,
+          "recuperation": 1,
+          "teletravail": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 3,
+          "deplacement": 1
+        },
+        "2025-11": {
+          "deplacement": 3
+        },
+        "2026-02": {
+          "teletravail": 3,
+          "cp": 3,
+          "deplacement": 1
+        },
+        "2026-03": {
+          "teletravail": 4
+        },
+        "2026-04": {
+          "cp": 5
+        }
+      },
+      "totals": {
+        "recuperation": 4,
+        "rtt": 4,
+        "teletravail": 16.5,
+        "cp": 27,
+        "seminaire": 2,
+        "deplacement": 10.5
+      }
+    },
+    {
+      "id": 69,
+      "firstName": "Lucas",
+      "lastName": "DELHOMME",
+      "fullName": "Lucas DELHOMME",
+      "mail": "lucas@spk-medias.fr",
+      "jobTitle": "Créateur de contenu",
+      "dtContractStart": "2024-09-07T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "rtt": 3,
+          "cp": 1,
+          "teletravail": 7.5,
+          "recuperation": 0.5,
+          "deplacement": 1
+        },
+        "2025-08": {
+          "recuperation": 2,
+          "teletravail": 8.5,
+          "deplacement": 1.5
+        },
+        "2025-09": {
+          "cp": 12,
+          "autre": 0.5,
+          "teletravail": 4.5,
+          "deplacement": 1.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 13,
+          "recuperation": 2
+        },
+        "2025-11": {
+          "recuperation": 2,
+          "teletravail": 8,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "rtt": 1,
+          "cp": 6,
+          "recuperation": 2,
+          "teletravail": 6,
+          "deplacement": 2.5
+        },
+        "2026-01": {
+          "recuperation": 1,
+          "teletravail": 13,
+          "deplacement": 2
+        },
+        "2026-02": {
+          "recuperation": 2,
+          "teletravail": 12
+        },
+        "2026-03": {
+          "rtt": 1,
+          "cp": 4,
+          "teletravail": 9.5,
+          "deplacement": 2.5
+        },
+        "2026-04": {
+          "teletravail": 6,
+          "deplacement": 3
+        },
+        "2026-05": {
+          "rtt": 1,
+          "cp": 1,
+          "recuperation": 0.5,
+          "teletravail": 4.5
+        }
+      },
+      "totals": {
+        "rtt": 6,
+        "cp": 24,
+        "teletravail": 92.5,
+        "recuperation": 12,
+        "deplacement": 15,
+        "autre": 0.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 113,
+      "firstName": "Adeline",
+      "lastName": "DENIAUD",
+      "fullName": "Adeline DENIAUD",
+      "mail": "adeline@spk-group.fr",
+      "jobTitle": "Responsable évènementiel & logistique",
+      "dtContractStart": "2026-03-09T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2026-03": {
+          "teletravail": 1.5
+        }
+      },
+      "totals": {
+        "teletravail": 1.5
+      }
+    },
+    {
+      "id": 110,
+      "firstName": "Augustin",
+      "lastName": "DEVOS",
+      "fullName": "Augustin DEVOS",
+      "mail": "augustin@spk-group.fr",
+      "jobTitle": "Assistant Chef de Projet",
+      "dtContractStart": "2026-03-09T00:00:00",
+      "dtContractEnd": "2026-09-09T00:00:00",
+      "monthly": {},
+      "totals": {}
+    },
+    {
+      "id": 22,
+      "firstName": "Constant",
+      "lastName": "DUCLOS",
+      "fullName": "Constant DUCLOS",
+      "mail": "constant@spk-group.fr",
+      "jobTitle": "Assistant Sport Marketing",
+      "dtContractStart": "2022-01-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "deplacement": 2,
+          "teletravail": 1
+        },
+        "2025-08": {
+          "recuperation": 2,
+          "cp": 1
+        },
+        "2025-09": {
+          "teletravail": 2,
+          "deplacement": 1
+        },
+        "2025-10": {
+          "deplacement": 3
+        },
+        "2025-11": {
+          "deplacement": 3
+        },
+        "2025-12": {
+          "recuperation": 2,
+          "rtt": 4
+        },
+        "2026-04": {
+          "cp": 2
+        },
+        "2026-05": {
+          "cp": 11
+        },
+        "2026-02": {
+          "cp": 6,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "deplacement": 2
+        }
+      },
+      "totals": {
+        "deplacement": 12,
+        "teletravail": 3,
+        "recuperation": 4,
+        "cp": 20,
+        "rtt": 4
+      }
+    },
+    {
+      "id": 76,
+      "firstName": "Thomas",
+      "lastName": "FAURIE",
+      "fullName": "Thomas FAURIE",
+      "mail": "thomas.f@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2023-10-04T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 12,
+          "rtt": 1.5,
+          "teletravail": 4.5,
+          "deplacement": 1
+        },
+        "2025-10": {
+          "cp": 12,
+          "seminaire": 2,
+          "teletravail": 7
+        },
+        "2025-09": {
+          "rtt": 1,
+          "cp": 1,
+          "teletravail": 6,
+          "deplacement": 2,
+          "recuperation": 2
+        },
+        "2025-08": {
+          "teletravail": 11
+        },
+        "2025-11": {
+          "teletravail": 8
+        },
+        "2025-12": {
+          "rtt": 1,
+          "teletravail": 10,
+          "deplacement": 4
+        },
+        "2026-01": {
+          "teletravail": 11.5,
+          "deplacement": 1.5,
+          "recuperation": 0.5
+        },
+        "2026-02": {
+          "teletravail": 11,
+          "deplacement": 2
+        },
+        "2026-04": {
+          "cp": 5,
+          "teletravail": 3
+        },
+        "2026-03": {
+          "teletravail": 13
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "rtt": 3.5,
+        "teletravail": 85,
+        "deplacement": 10.5,
+        "seminaire": 2,
+        "recuperation": 2.5
+      }
+    },
+    {
+      "id": 100,
+      "firstName": "Baptiste",
+      "lastName": "FAUVEL",
+      "fullName": "Baptiste FAUVEL",
+      "mail": "Baptiste@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2024-10-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 10,
+          "rtt": 1,
+          "deplacement": 1,
+          "teletravail": 2
+        },
+        "2025-09": {
+          "cp": 12,
+          "rtt": 1,
+          "teletravail": 5
+        },
+        "2025-07": {
+          "deplacement": 5,
+          "teletravail": 6,
+          "autre": 0.5,
+          "recuperation": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 5.5,
+          "deplacement": 2.5,
+          "recuperation": 0.5,
+          "rtt": 0.5
+        },
+        "2025-11": {
+          "teletravail": 8,
+          "deplacement": 2
+        },
+        "2026-04": {
+          "cp": 5,
+          "rtt": 1,
+          "deplacement": 1,
+          "recuperation": 1,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "cp": 6
+        },
+        "2025-12": {
+          "teletravail": 10
+        },
+        "2026-01": {
+          "rtt": 0.5,
+          "teletravail": 7.5,
+          "recuperation": 0.5,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "cp": 3,
+          "teletravail": 7,
+          "deplacement": 2
+        },
+        "2026-03": {
+          "teletravail": 9.5,
+          "deplacement": 1
+        }
+      },
+      "totals": {
+        "cp": 36,
+        "rtt": 4,
+        "deplacement": 15.5,
+        "teletravail": 61.5,
+        "autre": 0.5,
+        "recuperation": 2.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 31,
+      "firstName": "Audrey",
+      "lastName": "FIEVRE",
+      "fullName": "Audrey FIEVRE",
+      "mail": "audrey@spk-group.fr",
+      "jobTitle": "Directrice clientèle",
+      "dtContractStart": "2022-05-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 12,
+          "teletravail": 4
+        },
+        "2025-07": {
+          "rtt": 1,
+          "teletravail": 6,
+          "cp": 3,
+          "autre": 0.5
+        },
+        "2025-09": {
+          "deplacement": 8,
+          "recuperation": 1,
+          "teletravail": 5
+        },
+        "2025-10": {
+          "deplacement": 5,
+          "seminaire": 2,
+          "recuperation": 1,
+          "teletravail": 4
+        },
+        "2025-11": {
+          "rtt": 1,
+          "cp": 0.5,
+          "deplacement": 2.5,
+          "recuperation": 0.5,
+          "teletravail": 6
+        },
+        "2025-12": {
+          "rtt": 2.5,
+          "recuperation": 2,
+          "teletravail": 5
+        },
+        "2026-02": {
+          "cp": 3,
+          "deplacement": 1,
+          "teletravail": 7
+        },
+        "2026-01": {
+          "teletravail": 8
+        },
+        "2026-05": {
+          "rtt": 1,
+          "deplacement": 5
+        },
+        "2026-06": {
+          "cp": 18
+        },
+        "2026-03": {
+          "teletravail": 5.5,
+          "deplacement": 1.5,
+          "cp": 5.5,
+          "rtt": 0.5
+        },
+        "2026-04": {
+          "teletravail": 1,
+          "deplacement": 4.5
+        }
+      },
+      "totals": {
+        "cp": 42,
+        "teletravail": 51.5,
+        "rtt": 6,
+        "autre": 0.5,
+        "deplacement": 27.5,
+        "recuperation": 4.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 82,
+      "firstName": "Hadrien",
+      "lastName": "GEFFROY",
+      "fullName": "Hadrien GEFFROY",
+      "mail": "hadrien@spk-group.fr",
+      "jobTitle": "Directeur de Clientèle",
+      "dtContractStart": "2024-03-18T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 16,
+          "teletravail": 1
+        },
+        "2025-07": {
+          "autre": 1,
+          "teletravail": 7,
+          "cp": 2,
+          "deplacement": 1
+        },
+        "2025-09": {
+          "teletravail": 6
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 4,
+          "recuperation": 1,
+          "autre": 1
+        },
+        "2025-11": {
+          "cp": 1,
+          "teletravail": 7.5,
+          "rtt": 0.5
+        },
+        "2025-12": {
+          "rtt": 3,
+          "teletravail": 4.5,
+          "deplacement": 1,
+          "cp": 2
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 4,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "recuperation": 2,
+          "teletravail": 4
+        },
+        "2026-03": {
+          "cp": 2,
+          "rtt": 1,
+          "teletravail": 4
+        },
+        "2026-05": {
+          "rtt": 1,
+          "cp": 4
+        },
+        "2026-04": {
+          "rtt": 0.5,
+          "teletravail": 1.5
+        }
+      },
+      "totals": {
+        "cp": 29,
+        "teletravail": 43.5,
+        "autre": 2,
+        "deplacement": 3,
+        "seminaire": 2,
+        "recuperation": 3,
+        "rtt": 6
+      }
+    },
+    {
+      "id": 4,
+      "firstName": "Kévin",
+      "lastName": "GEOFFROY",
+      "fullName": "Kévin GEOFFROY",
+      "mail": "kevin@spk-group.fr",
+      "jobTitle": "Co-fondateur SPK",
+      "dtContractStart": "2024-01-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 12,
+          "teletravail": 2
+        },
+        "2025-07": {
+          "deplacement": 2,
+          "recuperation": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 4.5,
+          "rtt": 1
+        },
+        "2025-09": {
+          "deplacement": 3.5,
+          "recuperation": 1,
+          "rtt": 1
+        },
+        "2025-12": {
+          "rtt": 2,
+          "cp": 3,
+          "autre": 0.5,
+          "deplacement": 3.5
+        },
+        "2026-01": {
+          "cp": 2,
+          "deplacement": 2
+        },
+        "2025-11": {
+          "deplacement": 1.5
+        },
+        "2026-02": {
+          "autre": 2,
+          "deplacement": 1,
+          "cp": 1
+        },
+        "2026-03": {
+          "deplacement": 2
+        }
+      },
+      "totals": {
+        "cp": 18,
+        "teletravail": 2,
+        "deplacement": 20,
+        "recuperation": 1.5,
+        "seminaire": 2,
+        "rtt": 4,
+        "autre": 2.5
+      }
+    },
+    {
+      "id": 26,
+      "firstName": "Eddy",
+      "lastName": "GHADDAR",
+      "fullName": "Eddy GHADDAR",
+      "mail": "eddy@spk-medias.fr",
+      "jobTitle": "Créateur de contenu",
+      "dtContractStart": "2023-05-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 11,
+          "rtt": 4,
+          "teletravail": 2
+        },
+        "2025-08": {
+          "teletravail": 8,
+          "autre": 0.5
+        },
+        "2025-09": {
+          "autre": 0.5,
+          "teletravail": 7
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 8,
+          "deplacement": 2,
+          "cp": 2
+        },
+        "2025-11": {
+          "teletravail": 8
+        },
+        "2025-12": {
+          "cp": 2,
+          "rtt": 1,
+          "teletravail": 6.5,
+          "autre": 2
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 8,
+          "recuperation": 1
+        },
+        "2026-02": {
+          "teletravail": 8,
+          "rtt": 1
+        },
+        "2026-03": {
+          "cp": 3,
+          "teletravail": 8.5
+        },
+        "2026-04": {
+          "cp": 6,
+          "teletravail": 7
+        },
+        "2026-06": {
+          "cp": 6,
+          "rtt": 1
+        }
+      },
+      "totals": {
+        "cp": 32,
+        "rtt": 7,
+        "teletravail": 71,
+        "autre": 3,
+        "seminaire": 2,
+        "deplacement": 2,
+        "recuperation": 1
+      }
+    },
+    {
+      "id": 86,
+      "firstName": "Romain",
+      "lastName": "GUILHOTO",
+      "fullName": "Romain GUILHOTO",
+      "mail": "romain.g@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2024-06-19T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 6,
+          "teletravail": 2,
+          "deplacement": 1
+        },
+        "2025-07": {
+          "cp": 1,
+          "recuperation": 3,
+          "deplacement": 4,
+          "teletravail": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "cp": 8,
+          "rtt": 3.5,
+          "recuperation": 0.5,
+          "deplacement": 0.5,
+          "teletravail": 2.5
+        },
+        "2025-09": {
+          "recuperation": 1,
+          "teletravail": 4
+        },
+        "2025-11": {
+          "deplacement": 4,
+          "teletravail": 1
+        },
+        "2025-12": {
+          "deplacement": 2,
+          "teletravail": 7.5,
+          "rtt": 1,
+          "cp": 4.5,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 7.5,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "teletravail": 7,
+          "deplacement": 1,
+          "rtt": 1
+        },
+        "2026-03": {
+          "teletravail": 6,
+          "recuperation": 2
+        },
+        "2026-04": {
+          "rtt": 1,
+          "teletravail": 1.5,
+          "recuperation": 0.5
+        }
+      },
+      "totals": {
+        "cp": 21.5,
+        "teletravail": 40,
+        "deplacement": 13.5,
+        "recuperation": 8,
+        "seminaire": 2,
+        "rtt": 6.5
+      }
+    },
+    {
+      "id": 15,
+      "firstName": "Rémi",
+      "lastName": "HERVE",
+      "fullName": "Rémi HERVE",
+      "mail": "remi@spk-group.fr",
+      "jobTitle": "Responsable contenus",
+      "dtContractStart": "2019-01-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 17,
+          "teletravail": 1
+        },
+        "2025-08": {
+          "autre": 2.5,
+          "teletravail": 1
+        },
+        "2025-09": {
+          "teletravail": 3,
+          "rtt": 1,
+          "autre": 2
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 2,
+          "autre": 3
+        },
+        "2025-12": {
+          "rtt": 2,
+          "teletravail": 6
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 3
+        },
+        "2026-01": {
+          "cp": 3,
+          "teletravail": 5
+        },
+        "2026-05": {
+          "rtt": 1
+        },
+        "2026-03": {
+          "recuperation": 1,
+          "teletravail": 3,
+          "cp": 2
+        },
+        "2026-04": {
+          "cp": 6
+        },
+        "2026-06": {
+          "cp": 8
+        },
+        "2026-02": {
+          "teletravail": 4
+        }
+      },
+      "totals": {
+        "cp": 36,
+        "teletravail": 28,
+        "autre": 7.5,
+        "rtt": 5,
+        "seminaire": 2,
+        "recuperation": 1
+      }
+    },
+    {
+      "id": 48,
+      "firstName": "Nao",
+      "lastName": "LE BRUN",
+      "fullName": "Nao LE BRUN",
+      "mail": "nao@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2023-03-06T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 16,
+          "teletravail": 3
+        },
+        "2025-07": {
+          "teletravail": 10
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 3.5,
+          "recuperation": 2,
+          "cp": 2,
+          "teletravail": 7
+        },
+        "2026-02": {
+          "cp": 2.5,
+          "teletravail": 8.5,
+          "deplacement": 1
+        },
+        "2025-09": {
+          "teletravail": 7,
+          "deplacement": 6,
+          "recuperation": 2
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 6,
+          "deplacement": 5
+        },
+        "2025-12": {
+          "rtt": 3,
+          "cp": 1,
+          "deplacement": 4,
+          "recuperation": 2.5,
+          "teletravail": 6.5
+        },
+        "2026-01": {
+          "cp": 1.5,
+          "recuperation": 0.5,
+          "teletravail": 9,
+          "deplacement": 1
+        },
+        "2026-03": {
+          "recuperation": 1,
+          "teletravail": 11,
+          "deplacement": 2,
+          "cp": 1
+        },
+        "2026-04": {
+          "cp": 3,
+          "teletravail": 1,
+          "deplacement": 5
+        },
+        "2026-05": {
+          "cp": 3
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "teletravail": 69,
+        "seminaire": 2,
+        "deplacement": 27.5,
+        "recuperation": 8,
+        "rtt": 4
+      }
+    },
+    {
+      "id": 91,
+      "firstName": "Léo",
+      "lastName": "LE TENNIER",
+      "fullName": "Léo LE TENNIER",
+      "mail": "leo@spk-medias.fr",
+      "jobTitle": "Content creator",
+      "dtContractStart": "2025-10-27T00:00:00",
+      "dtContractEnd": "2026-04-27T00:00:00",
+      "monthly": {
+        "2025-07": {
+          "cp": 7,
+          "teletravail": 3.5,
+          "deplacement": 1.5
+        },
+        "2025-08": {
+          "cp": 1.5,
+          "recuperation": 1,
+          "deplacement": 2.5,
+          "teletravail": 1
+        },
+        "2025-09": {
+          "deplacement": 2.5,
+          "teletravail": 1.5
+        },
+        "2025-10": {
+          "teletravail": 2
+        },
+        "2025-11": {
+          "teletravail": 5,
+          "recuperation": 1,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "deplacement": 1.5,
+          "teletravail": 6,
+          "rtt": 1,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "teletravail": 6,
+          "recuperation": 2,
+          "deplacement": 0.5
+        },
+        "2026-02": {
+          "teletravail": 7
+        },
+        "2026-03": {
+          "cp": 3,
+          "teletravail": 7
+        },
+        "2026-04": {
+          "recuperation": 2
+        }
+      },
+      "totals": {
+        "cp": 11.5,
+        "teletravail": 39,
+        "deplacement": 9.5,
+        "recuperation": 7,
+        "rtt": 1
+      }
+    },
+    {
+      "id": 108,
+      "firstName": "Laura",
+      "lastName": "LELOUP",
+      "fullName": "Laura LELOUP",
+      "mail": "laura@spk-medias.fr",
+      "jobTitle": "Créatrice de contenu (en alternance)",
+      "dtContractStart": "2025-07-07T00:00:00",
+      "dtContractEnd": "2026-09-04T00:00:00",
+      "monthly": {
+        "2025-09": {
+          "ecole": 10,
+          "recuperation": 3,
+          "autre": 0.5
+        },
+        "2025-10": {
+          "ecole": 5,
+          "seminaire": 2,
+          "recuperation": 1,
+          "teletravail": 2.5
+        },
+        "2025-11": {
+          "ecole": 8,
+          "teletravail": 2.5,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "ecole": 5,
+          "teletravail": 2,
+          "recuperation": 4,
+          "cp": 4
+        },
+        "2026-01": {
+          "ecole": 10,
+          "recuperation": 1.5,
+          "teletravail": 2,
+          "deplacement": 1.5
+        },
+        "2026-02": {
+          "ecole": 5,
+          "cp": 1,
+          "teletravail": 4
+        },
+        "2026-03": {
+          "ecole": 10,
+          "deplacement": 3,
+          "teletravail": 1
+        },
+        "2026-04": {
+          "ecole": 5,
+          "cp": 6,
+          "teletravail": 1.5
+        },
+        "2026-05": {
+          "ecole": 8
+        },
+        "2026-06": {
+          "ecole": 5
+        },
+        "2025-07": {
+          "teletravail": 1
+        },
+        "2025-08": {
+          "teletravail": 1,
+          "deplacement": 5
+        }
+      },
+      "totals": {
+        "ecole": 71,
+        "recuperation": 9.5,
+        "autre": 0.5,
+        "seminaire": 2,
+        "teletravail": 17.5,
+        "deplacement": 10.5,
+        "cp": 11
+      }
+    },
+    {
+      "id": 64,
+      "firstName": "Yoann",
+      "lastName": "MANCEAU",
+      "fullName": "Yoann MANCEAU",
+      "mail": "yoann@spk-group.fr",
+      "jobTitle": "Comptable projets",
+      "dtContractStart": "2023-09-04T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-09": {
+          "cp": 12,
+          "rtt": 3
+        },
+        "2025-07": {
+          "teletravail": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 1
+        },
+        "2025-12": {
+          "teletravail": 1
+        },
+        "2026-04": {
+          "cp": 1,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "cp": 7
+        },
+        "2026-01": {
+          "teletravail": 1.5
+        },
+        "2026-02": {
+          "teletravail": 1
+        },
+        "2026-03": {
+          "rtt": 0.5
+        }
+      },
+      "totals": {
+        "cp": 20,
+        "rtt": 3.5,
+        "teletravail": 6.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 47,
+      "firstName": "Corentin",
+      "lastName": "MATHIOUX",
+      "fullName": "Corentin MATHIOUX",
+      "mail": "corentin@spk-group.fr",
+      "jobTitle": "Graphiste",
+      "dtContractStart": "2023-01-16T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 10,
+          "teletravail": 8
+        },
+        "2025-08": {
+          "cp": 5,
+          "teletravail": 10
+        },
+        "2025-09": {
+          "rtt": 1,
+          "teletravail": 11.5,
+          "deplacement": 1.5,
+          "autre": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 13
+        },
+        "2025-11": {
+          "teletravail": 12
+        },
+        "2025-12": {
+          "rtt": 1,
+          "cp": 3,
+          "teletravail": 11,
+          "autre": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 11
+        },
+        "2026-04": {
+          "cp": 9,
+          "teletravail": 2
+        },
+        "2026-05": {
+          "rtt": 2
+        },
+        "2026-02": {
+          "teletravail": 12
+        },
+        "2026-03": {
+          "teletravail": 13
+        },
+        "2026-06": {
+          "cp": 1
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "teletravail": 103.5,
+        "rtt": 4,
+        "deplacement": 1.5,
+        "autre": 1.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 32,
+      "firstName": "Jules",
+      "lastName": "MAUCOURT",
+      "fullName": "Jules MAUCOURT",
+      "mail": "jules@spk-medias.fr",
+      "jobTitle": "Créateur de contenu",
+      "dtContractStart": "2022-05-09T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 6,
+          "teletravail": 7,
+          "recuperation": 3
+        },
+        "2025-09": {
+          "cp": 6,
+          "autre": 0.5,
+          "teletravail": 8,
+          "deplacement": 3,
+          "recuperation": 1
+        },
+        "2025-07": {
+          "deplacement": 10,
+          "teletravail": 6,
+          "recuperation": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 7,
+          "deplacement": 5,
+          "recuperation": 2,
+          "rtt": 1
+        },
+        "2026-01": {
+          "cp": 4,
+          "recuperation": 2,
+          "teletravail": 5.5,
+          "deplacement": 5.5
+        },
+        "2025-11": {
+          "teletravail": 11,
+          "recuperation": 1,
+          "rtt": 1
+        },
+        "2025-12": {
+          "recuperation": 2,
+          "deplacement": 3,
+          "teletravail": 7,
+          "rtt": 1
+        },
+        "2026-02": {
+          "deplacement": 4,
+          "recuperation": 1,
+          "teletravail": 12
+        },
+        "2026-03": {
+          "recuperation": 1,
+          "teletravail": 11,
+          "deplacement": 3
+        },
+        "2026-04": {
+          "recuperation": 1,
+          "teletravail": 7,
+          "deplacement": 5
+        },
+        "2026-05": {
+          "recuperation": 1,
+          "teletravail": 2
+        }
+      },
+      "totals": {
+        "cp": 16,
+        "teletravail": 83.5,
+        "recuperation": 16,
+        "autre": 0.5,
+        "deplacement": 38.5,
+        "seminaire": 2,
+        "rtt": 3
+      }
+    },
+    {
+      "id": 78,
+      "firstName": "Colas",
+      "lastName": "MERCERON",
+      "fullName": "Colas MERCERON",
+      "mail": "colas@spk-group.fr",
+      "jobTitle": "Chef de projet",
+      "dtContractStart": "2023-12-11T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 15,
+          "recuperation": 1,
+          "deplacement": 1,
+          "teletravail": 2
+        },
+        "2025-08": {
+          "cp": 2,
+          "teletravail": 3.5,
+          "deplacement": 4,
+          "rtt": 0.5,
+          "recuperation": 0.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "autre": 1,
+          "recuperation": 4,
+          "deplacement": 0.5,
+          "teletravail": 5
+        },
+        "2025-09": {
+          "teletravail": 8,
+          "recuperation": 2.5,
+          "deplacement": 2
+        },
+        "2025-11": {
+          "teletravail": 6,
+          "rtt": 1
+        },
+        "2025-12": {
+          "recuperation": 3,
+          "rtt": 1,
+          "cp": 3,
+          "deplacement": 1,
+          "teletravail": 3.5
+        },
+        "2026-01": {
+          "cp": 4,
+          "teletravail": 5.5,
+          "rtt": 0.5
+        },
+        "2026-02": {
+          "teletravail": 7,
+          "cp": 1,
+          "deplacement": 0.5
+        },
+        "2026-03": {
+          "deplacement": 2,
+          "recuperation": 2,
+          "teletravail": 8,
+          "autre": 1
+        },
+        "2026-04": {
+          "recuperation": 2,
+          "teletravail": 1
+        }
+      },
+      "totals": {
+        "cp": 25,
+        "recuperation": 15,
+        "deplacement": 11,
+        "teletravail": 49.5,
+        "rtt": 3,
+        "seminaire": 2,
+        "autre": 2
+      }
+    },
+    {
+      "id": 7,
+      "firstName": "Jérémy",
+      "lastName": "MERLET",
+      "fullName": "Jérémy MERLET",
+      "mail": "jeremy@spk-group.fr",
+      "jobTitle": "Directeur des opérations",
+      "dtContractStart": "2021-01-04T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 16.5,
+          "teletravail": 1,
+          "recuperation": 0.5
+        },
+        "2025-09": {
+          "rtt": 3,
+          "teletravail": 3
+        },
+        "2025-10": {
+          "rtt": 1,
+          "seminaire": 2,
+          "cp": 0.5,
+          "teletravail": 5.5
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 3.5,
+          "autre": 4.5
+        },
+        "2025-07": {
+          "teletravail": 4.5,
+          "autre": 1
+        },
+        "2026-04": {
+          "cp": 8,
+          "teletravail": 1
+        },
+        "2025-12": {
+          "rtt": 1,
+          "teletravail": 5,
+          "cp": 3
+        },
+        "2026-01": {
+          "rtt": 0.5,
+          "cp": 1,
+          "teletravail": 5.5
+        },
+        "2026-03": {
+          "rtt": 1,
+          "teletravail": 6,
+          "deplacement": 1.5
+        },
+        "2026-02": {
+          "teletravail": 7
+        },
+        "2026-05": {
+          "cp": 1
+        },
+        "2026-06": {
+          "rtt": 0.5
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "teletravail": 42,
+        "recuperation": 0.5,
+        "rtt": 8,
+        "seminaire": 2,
+        "autre": 5.5,
+        "deplacement": 1.5
+      }
+    },
+    {
+      "id": 95,
+      "firstName": "Manar",
+      "lastName": "MRAIH",
+      "fullName": "Manar MRAIH",
+      "mail": "manar@spk-group.fr",
+      "jobTitle": "Assistante Chef de projet",
+      "dtContractStart": "2024-09-02T00:00:00",
+      "dtContractEnd": "2026-08-26T00:00:00",
+      "monthly": {
+        "2025-09": {
+          "ecole": 10,
+          "recuperation": 2,
+          "teletravail": 1
+        },
+        "2025-10": {
+          "ecole": 10,
+          "seminaire": 2,
+          "recuperation": 1,
+          "autre": 1
+        },
+        "2025-11": {
+          "ecole": 5,
+          "teletravail": 2
+        },
+        "2025-12": {
+          "ecole": 5,
+          "teletravail": 2,
+          "cp": 5,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "ecole": 10,
+          "cp": 2,
+          "teletravail": 2.5,
+          "recuperation": 1
+        },
+        "2026-02": {
+          "ecole": 5,
+          "teletravail": 2
+        },
+        "2026-03": {
+          "ecole": 7,
+          "teletravail": 3
+        },
+        "2026-04": {
+          "ecole": 13,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "ecole": 8
+        },
+        "2026-06": {
+          "ecole": 4,
+          "cp": 2
+        },
+        "2025-08": {
+          "cp": 11.5
+        },
+        "2025-07": {
+          "recuperation": 0.5,
+          "teletravail": 2.5
+        }
+      },
+      "totals": {
+        "ecole": 77,
+        "recuperation": 4.5,
+        "teletravail": 16,
+        "seminaire": 2,
+        "autre": 1,
+        "cp": 20.5,
+        "deplacement": 1
+      }
+    },
+    {
+      "id": 8,
+      "firstName": "Pierre",
+      "lastName": "NICOULEAUD",
+      "fullName": "Pierre NICOULEAUD",
+      "mail": "pierre@spk-group.fr",
+      "jobTitle": "Coordinateur Logistique",
+      "dtContractStart": "2022-03-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 13,
+          "autre": 1,
+          "deplacement": 6.5
+        },
+        "2025-07": {
+          "teletravail": 6,
+          "deplacement": 0.5,
+          "autre": 6.5,
+          "recuperation": 1.5
+        },
+        "2025-09": {
+          "rtt": 1,
+          "autre": 10.5,
+          "recuperation": 1.5,
+          "teletravail": 2,
+          "maladie": 8
+        },
+        "2025-10": {
+          "maladie": 31
+        },
+        "2025-11": {
+          "maladie": 30
+        },
+        "2025-12": {
+          "maladie": 26,
+          "rtt": 3
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 6.5
+        },
+        "2026-02": {
+          "teletravail": 10,
+          "rtt": 1
+        },
+        "2026-03": {
+          "cp": 2,
+          "teletravail": 7.5
+        },
+        "2026-04": {
+          "cp": 9.5
+        },
+        "2026-05": {
+          "rtt": 2,
+          "cp": 0.5
+        },
+        "2026-06": {
+          "cp": 2
+        }
+      },
+      "totals": {
+        "cp": 29,
+        "autre": 18,
+        "deplacement": 7,
+        "teletravail": 32,
+        "recuperation": 3,
+        "rtt": 7,
+        "maladie": 95
+      }
+    },
+    {
+      "id": 80,
+      "firstName": "Claudio",
+      "lastName": "PACIELLO",
+      "fullName": "Claudio PACIELLO",
+      "mail": "claudio@sportpack.com",
+      "jobTitle": "Chef de projet senior",
+      "dtContractStart": "2024-01-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "teletravail": 3,
+          "autre": 1
+        },
+        "2025-08": {
+          "teletravail": 4,
+          "autre": 13
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "deplacement": 0.5,
+          "teletravail": 4
+        },
+        "2025-09": {
+          "teletravail": 7
+        },
+        "2025-11": {
+          "deplacement": 6,
+          "teletravail": 3
+        },
+        "2025-12": {
+          "teletravail": 6,
+          "autre": 2
+        },
+        "2026-01": {
+          "recuperation": 1,
+          "autre": 3,
+          "teletravail": 5
+        },
+        "2026-03": {
+          "autre": 2,
+          "recuperation": 1
+        },
+        "2026-02": {
+          "teletravail": 4
+        }
+      },
+      "totals": {
+        "teletravail": 36,
+        "autre": 21,
+        "seminaire": 2,
+        "deplacement": 6.5,
+        "recuperation": 2
+      }
+    },
+    {
+      "id": 18,
+      "firstName": "Pierre-Alain",
+      "lastName": "PERENNOU",
+      "fullName": "Pierre-Alain PERENNOU",
+      "mail": "pierre-alain@spk-medias.Fr",
+      "jobTitle": "Responsable Editorial",
+      "dtContractStart": "2022-09-24T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "rtt": 1,
+          "cp": 10,
+          "teletravail": 6,
+          "deplacement": 1
+        },
+        "2025-07": {
+          "cp": 4,
+          "teletravail": 8,
+          "deplacement": 3,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "autre": 0.5,
+          "teletravail": 11.5,
+          "deplacement": 2.5,
+          "recuperation": 1
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 12,
+          "autre": 1,
+          "deplacement": 3
+        },
+        "2025-11": {
+          "teletravail": 10,
+          "deplacement": 3,
+          "recuperation": 2
+        },
+        "2026-03": {
+          "teletravail": 9.5,
+          "cp": 3.5,
+          "rtt": 1,
+          "deplacement": 2,
+          "autre": 1
+        },
+        "2025-12": {
+          "teletravail": 7.5,
+          "cp": 4,
+          "rtt": 2,
+          "deplacement": 2.5,
+          "recuperation": 0.5
+        },
+        "2026-01": {
+          "teletravail": 11.5,
+          "cp": 3,
+          "deplacement": 1.5,
+          "recuperation": 1
+        },
+        "2026-02": {
+          "teletravail": 12,
+          "deplacement": 1
+        },
+        "2026-05": {
+          "cp": 6,
+          "rtt": 2
+        },
+        "2026-04": {
+          "teletravail": 7
+        }
+      },
+      "totals": {
+        "rtt": 6,
+        "cp": 30.5,
+        "teletravail": 95,
+        "deplacement": 19.5,
+        "recuperation": 5.5,
+        "autre": 2.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 102,
+      "firstName": "Théo",
+      "lastName": "PICOT",
+      "fullName": "Théo PICOT",
+      "mail": "theo.p@spk-group.fr",
+      "jobTitle": "Coordinateur événementiel",
+      "dtContractStart": "2025-01-06T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "cp": 5,
+          "deplacement": 0.5,
+          "teletravail": 3.5,
+          "recuperation": 1.5
+        },
+        "2025-08": {
+          "teletravail": 1,
+          "deplacement": 4,
+          "autre": 15
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "autre": 9,
+          "teletravail": 5.5
+        },
+        "2025-09": {
+          "recuperation": 6,
+          "autre": 9.5,
+          "teletravail": 3,
+          "deplacement": 6
+        },
+        "2025-11": {
+          "cp": 1,
+          "teletravail": 6,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "rtt": 5,
+          "teletravail": 6,
+          "cp": 2,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "cp": 1,
+          "teletravail": 8
+        },
+        "2026-02": {
+          "teletravail": 6.5,
+          "deplacement": 2.5
+        },
+        "2026-03": {
+          "teletravail": 6,
+          "rtt": 1,
+          "cp": 1
+        },
+        "2026-05": {
+          "cp": 15
+        },
+        "2026-06": {
+          "cp": 4
+        },
+        "2026-04": {
+          "teletravail": 2
+        }
+      },
+      "totals": {
+        "cp": 29,
+        "deplacement": 15,
+        "teletravail": 47.5,
+        "recuperation": 7.5,
+        "autre": 33.5,
+        "seminaire": 2,
+        "rtt": 6
+      }
+    },
+    {
+      "id": 85,
+      "firstName": "Alex",
+      "lastName": "PIQUART",
+      "fullName": "Alex PIQUART",
+      "mail": "alex@spk-group.fr",
+      "jobTitle": "Creative Maker",
+      "dtContractStart": "2026-03-27T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 11,
+          "teletravail": 1,
+          "deplacement": 5
+        },
+        "2025-07": {
+          "teletravail": 1,
+          "deplacement": 4,
+          "rtt": 0.5
+        },
+        "2025-09": {
+          "recuperation": 4,
+          "deplacement": 5.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "recuperation": 3,
+          "deplacement": 4,
+          "teletravail": 1
+        },
+        "2025-11": {
+          "recuperation": 2,
+          "teletravail": 1.5
+        },
+        "2025-12": {
+          "recuperation": 3,
+          "rtt": 4,
+          "deplacement": 7,
+          "teletravail": 0.5
+        },
+        "2026-01": {
+          "cp": 2,
+          "recuperation": 2,
+          "teletravail": 2,
+          "deplacement": 4
+        },
+        "2026-02": {
+          "deplacement": 3,
+          "recuperation": 4
+        },
+        "2026-03": {
+          "deplacement": 6.5,
+          "recuperation": 2.5,
+          "teletravail": 1.5
+        },
+        "2026-05": {
+          "cp": 5
+        },
+        "2026-04": {
+          "deplacement": 15,
+          "teletravail": 0.5,
+          "recuperation": 7
+        }
+      },
+      "totals": {
+        "cp": 18,
+        "teletravail": 9,
+        "deplacement": 54,
+        "rtt": 4.5,
+        "recuperation": 27.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 33,
+      "firstName": "Thomas",
+      "lastName": "PIQUART",
+      "fullName": "Thomas PIQUART",
+      "mail": "thomas.p@spk-medias.fr",
+      "jobTitle": "Créateur de contenu",
+      "dtContractStart": "2024-10-19T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 12.5,
+          "rtt": 0.5,
+          "deplacement": 5
+        },
+        "2025-07": {
+          "deplacement": 1,
+          "teletravail": 2
+        },
+        "2025-09": {
+          "autre": 0.5,
+          "recuperation": 4,
+          "deplacement": 5.5
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 3.5,
+          "recuperation": 0.5,
+          "deplacement": 2
+        },
+        "2025-12": {
+          "cp": 5,
+          "deplacement": 5,
+          "rtt": 2.5,
+          "recuperation": 0.5,
+          "teletravail": 1.5
+        },
+        "2026-01": {
+          "cp": 2,
+          "recuperation": 2,
+          "teletravail": 5.5,
+          "deplacement": 4
+        },
+        "2025-11": {
+          "cp": 6,
+          "recuperation": 0.5,
+          "teletravail": 2
+        },
+        "2026-02": {
+          "deplacement": 3,
+          "recuperation": 2.5,
+          "teletravail": 1.5
+        },
+        "2026-03": {
+          "recuperation": 1.5,
+          "deplacement": 10,
+          "teletravail": 4
+        },
+        "2026-04": {
+          "cp": 4,
+          "deplacement": 16,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "cp": 6
+        }
+      },
+      "totals": {
+        "cp": 35.5,
+        "rtt": 3,
+        "deplacement": 51.5,
+        "teletravail": 21,
+        "autre": 0.5,
+        "recuperation": 11.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 19,
+      "firstName": "Thomas",
+      "lastName": "PROUTEAU",
+      "fullName": "Thomas PROUTEAU",
+      "mail": "thomas@spk-medias.fr",
+      "jobTitle": "Coordinateur Editorial",
+      "dtContractStart": "2021-07-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "cp": 15,
+          "teletravail": 2
+        },
+        "2025-07": {
+          "teletravail": 7
+        },
+        "2025-09": {
+          "autre": 0.5,
+          "teletravail": 8
+        },
+        "2025-10": {
+          "seminaire": 2,
+          "teletravail": 6,
+          "autre": 0.5
+        },
+        "2025-11": {
+          "teletravail": 7,
+          "rtt": 1
+        },
+        "2025-12": {
+          "cp": 8,
+          "teletravail": 4,
+          "rtt": 1
+        },
+        "2026-01": {
+          "cp": 2,
+          "teletravail": 9
+        },
+        "2026-05": {
+          "autre": 4,
+          "cp": 4,
+          "rtt": 1,
+          "teletravail": 2
+        },
+        "2026-02": {
+          "teletravail": 4.5,
+          "rtt": 1,
+          "cp": 0.5
+        },
+        "2026-04": {
+          "cp": 5,
+          "teletravail": 7
+        },
+        "2026-03": {
+          "teletravail": 8,
+          "rtt": 1,
+          "cp": 0.5
+        }
+      },
+      "totals": {
+        "cp": 35,
+        "teletravail": 64.5,
+        "autre": 5,
+        "seminaire": 2,
+        "rtt": 5
+      }
+    },
+    {
+      "id": 21,
+      "firstName": "Sophie",
+      "lastName": "RABILLARD",
+      "fullName": "Sophie RABILLARD",
+      "mail": "comptabilite@spk-group.fr",
+      "jobTitle": "Externe",
+      "dtContractStart": "2020-01-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "autre": 14
+        },
+        "2025-09": {
+          "autre": 0.5
+        },
+        "2025-11": {
+          "autre": 10.5
+        },
+        "2025-12": {
+          "autre": 11
+        },
+        "2026-01": {
+          "autre": 9
+        },
+        "2026-02": {
+          "autre": 8
+        },
+        "2026-03": {
+          "autre": 13
+        },
+        "2026-04": {
+          "autre": 11
+        },
+        "2026-05": {
+          "autre": 9
+        }
+      },
+      "totals": {
+        "autre": 86
+      }
+    },
+    {
+      "id": 90,
+      "firstName": "Simon",
+      "lastName": "RAFFI",
+      "fullName": "Simon RAFFI",
+      "mail": "simon@spk-medias.fr",
+      "jobTitle": "Créateur de contenu (en alternance)",
+      "dtContractStart": "2024-09-02T00:00:00",
+      "dtContractEnd": "2026-09-05T00:00:00",
+      "monthly": {
+        "2025-07": {
+          "cp": 10,
+          "deplacement": 0.5,
+          "teletravail": 3
+        },
+        "2025-08": {
+          "cp": 2,
+          "teletravail": 4,
+          "deplacement": 5,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "ecole": 7,
+          "recuperation": 3.5,
+          "autre": 0.5,
+          "teletravail": 2.5,
+          "deplacement": 1
+        },
+        "2025-10": {
+          "ecole": 5,
+          "seminaire": 2,
+          "deplacement": 5,
+          "teletravail": 2,
+          "recuperation": 3,
+          "autre": 3
+        },
+        "2025-11": {
+          "ecole": 7,
+          "cp": 1,
+          "teletravail": 3,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "ecole": 7,
+          "cp": 6,
+          "deplacement": 0.5,
+          "teletravail": 3.5,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "ecole": 7,
+          "teletravail": 6,
+          "deplacement": 1
+        },
+        "2026-02": {
+          "ecole": 7,
+          "cp": 6,
+          "teletravail": 2,
+          "recuperation": 1
+        },
+        "2026-03": {
+          "ecole": 6,
+          "autre": 4,
+          "teletravail": 5,
+          "deplacement": 4,
+          "recuperation": 1
+        },
+        "2026-04": {
+          "ecole": 12,
+          "deplacement": 1.5,
+          "teletravail": 3.5
+        },
+        "2026-05": {
+          "ecole": 7
+        },
+        "2026-06": {
+          "ecole": 12
+        }
+      },
+      "totals": {
+        "cp": 25,
+        "deplacement": 19.5,
+        "teletravail": 34.5,
+        "recuperation": 10.5,
+        "ecole": 77,
+        "autre": 7.5,
+        "seminaire": 2
+      }
+    },
+    {
+      "id": 16,
+      "firstName": "François",
+      "lastName": "RICHARD",
+      "fullName": "François RICHARD",
+      "mail": "paco@spk-group.fr",
+      "jobTitle": "Photographe",
+      "dtContractStart": "2021-03-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-09": {
+          "cp": 15,
+          "deplacement": 1.5
+        },
+        "2025-10": {
+          "cp": 6,
+          "seminaire": 2,
+          "autre": 2
+        },
+        "2025-07": {
+          "deplacement": 8,
+          "recuperation": 2,
+          "autre": 0.5
+        },
+        "2025-08": {
+          "deplacement": 1.5,
+          "teletravail": 0.5,
+          "recuperation": 0.5,
+          "autre": 2
+        },
+        "2025-11": {
+          "rtt": 1,
+          "teletravail": 2,
+          "deplacement": 2
+        },
+        "2025-12": {
+          "rtt": 2,
+          "cp": 3,
+          "deplacement": 2,
+          "recuperation": 1.5,
+          "teletravail": 1.5
+        },
+        "2026-01": {
+          "teletravail": 4,
+          "deplacement": 2.5,
+          "recuperation": 1.5
+        },
+        "2026-02": {
+          "teletravail": 1.5,
+          "recuperation": 0.5
+        },
+        "2026-03": {
+          "teletravail": 2,
+          "cp": 3,
+          "deplacement": 0.5
+        },
+        "2026-04": {
+          "cp": 3,
+          "teletravail": 0.5,
+          "recuperation": 0.5,
+          "deplacement": 1
+        }
+      },
+      "totals": {
+        "cp": 30,
+        "deplacement": 19,
+        "seminaire": 2,
+        "autre": 4.5,
+        "recuperation": 6.5,
+        "teletravail": 12,
+        "rtt": 3
+      }
+    },
+    {
+      "id": 68,
+      "firstName": "Tao",
+      "lastName": "ROBARD",
+      "fullName": "Tao ROBARD",
+      "mail": "tao@spk-medias.fr",
+      "jobTitle": "Créateur de contenu (en alternance)",
+      "dtContractStart": "2024-09-07T00:00:00",
+      "dtContractEnd": "2026-08-28T00:00:00",
+      "monthly": {
+        "2025-07": {
+          "ecole": 1,
+          "teletravail": 3,
+          "cp": 2,
+          "deplacement": 2
+        },
+        "2025-09": {
+          "ecole": 8,
+          "autre": 0.5,
+          "teletravail": 4,
+          "deplacement": 4.5
+        },
+        "2025-10": {
+          "ecole": 5,
+          "seminaire": 2,
+          "cp": 1,
+          "recuperation": 0.5,
+          "teletravail": 5.5,
+          "deplacement": 2
+        },
+        "2025-11": {
+          "ecole": 8,
+          "cp": 2,
+          "teletravail": 5
+        },
+        "2025-12": {
+          "ecole": 7,
+          "cp": 3.5,
+          "teletravail": 3,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "ecole": 4,
+          "recuperation": 1,
+          "teletravail": 6
+        },
+        "2026-02": {
+          "ecole": 8,
+          "cp": 2,
+          "teletravail": 2.5,
+          "recuperation": 0.5
+        },
+        "2026-03": {
+          "ecole": 8,
+          "teletravail": 3,
+          "deplacement": 1,
+          "cp": 1
+        },
+        "2026-04": {
+          "ecole": 4,
+          "teletravail": 4
+        },
+        "2026-05": {
+          "ecole": 7,
+          "cp": 3
+        },
+        "2026-06": {
+          "ecole": 4
+        },
+        "2025-08": {
+          "cp": 17,
+          "recuperation": 3
+        }
+      },
+      "totals": {
+        "ecole": 64,
+        "teletravail": 36,
+        "cp": 31.5,
+        "deplacement": 10.5,
+        "autre": 0.5,
+        "seminaire": 2,
+        "recuperation": 5
+      }
+    },
+    {
+      "id": 83,
+      "firstName": "Paul",
+      "lastName": "ROY",
+      "fullName": "Paul ROY",
+      "mail": "paul.r@spk-group.fr",
+      "jobTitle": "Responsable Social Media",
+      "dtContractStart": "2024-05-15T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-07": {
+          "rtt": 2,
+          "cp": 12,
+          "deplacement": 3,
+          "teletravail": 2
+        },
+        "2025-08": {
+          "teletravail": 8.5,
+          "formation": 0.5,
+          "recuperation": 1
+        },
+        "2025-09": {
+          "rtt": 1,
+          "teletravail": 6,
+          "autre": 6,
+          "recuperation": 0.5
+        },
+        "2025-10": {
+          "autre": 23,
+          "teletravail": 3
+        },
+        "2025-12": {
+          "rtt": 3,
+          "cp": 3,
+          "teletravail": 6,
+          "deplacement": 1
+        },
+        "2026-01": {
+          "cp": 3,
+          "teletravail": 9,
+          "maladie": 2
+        },
+        "2025-11": {
+          "teletravail": 8
+        },
+        "2026-05": {
+          "rtt": 2
+        },
+        "2026-02": {
+          "rtt": 1,
+          "teletravail": 7
+        },
+        "2026-03": {
+          "teletravail": 6
+        },
+        "2026-04": {
+          "teletravail": 1
+        }
+      },
+      "totals": {
+        "rtt": 9,
+        "cp": 18,
+        "deplacement": 4,
+        "teletravail": 56.5,
+        "formation": 0.5,
+        "recuperation": 1.5,
+        "autre": 29,
+        "maladie": 2
+      }
+    },
+    {
+      "id": 96,
+      "firstName": "Edvin",
+      "lastName": "TAHE",
+      "fullName": "Edvin TAHE",
+      "mail": "edvin@spk-group.fr",
+      "jobTitle": "Assistant Chef de projet",
+      "dtContractStart": "2024-09-16T00:00:00",
+      "dtContractEnd": "2026-08-28T00:00:00",
+      "monthly": {
+        "2025-07": {
+          "ecole": 1,
+          "cp": 1,
+          "teletravail": 4.5,
+          "recuperation": 0.5
+        },
+        "2025-09": {
+          "ecole": 8,
+          "teletravail": 4,
+          "recuperation": 1
+        },
+        "2025-10": {
+          "ecole": 4,
+          "seminaire": 2,
+          "recuperation": 1,
+          "teletravail": 4
+        },
+        "2025-11": {
+          "ecole": 8,
+          "recuperation": 1,
+          "teletravail": 2
+        },
+        "2025-12": {
+          "ecole": 7,
+          "recuperation": 1,
+          "teletravail": 6
+        },
+        "2026-01": {
+          "ecole": 4,
+          "cp": 2,
+          "teletravail": 5
+        },
+        "2026-03": {
+          "ecole": 8,
+          "teletravail": 3
+        },
+        "2026-02": {
+          "ecole": 8,
+          "deplacement": 1,
+          "teletravail": 4
+        },
+        "2026-04": {
+          "ecole": 3,
+          "teletravail": 1
+        },
+        "2026-05": {
+          "ecole": 7,
+          "cp": 5
+        },
+        "2026-06": {
+          "ecole": 4
+        },
+        "2025-08": {
+          "cp": 17,
+          "deplacement": 0.5,
+          "teletravail": 1
+        }
+      },
+      "totals": {
+        "ecole": 62,
+        "cp": 25,
+        "teletravail": 34.5,
+        "recuperation": 4.5,
+        "seminaire": 2,
+        "deplacement": 1.5
+      }
+    },
+    {
+      "id": 58,
+      "firstName": "Kévin",
+      "lastName": "TRAORE",
+      "fullName": "Kévin TRAORE",
+      "mail": "kevin.t@spk-group.fr",
+      "jobTitle": "Players Manager",
+      "dtContractStart": "2024-06-01T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {
+        "2025-08": {
+          "recuperation": 2
+        },
+        "2025-09": {
+          "recuperation": 0.5
+        },
+        "2025-11": {
+          "cp": 1
+        },
+        "2025-10": {
+          "recuperation": 1.5
+        },
+        "2025-12": {
+          "rtt": 4,
+          "deplacement": 3,
+          "recuperation": 1
+        },
+        "2026-01": {
+          "cp": 4,
+          "recuperation": 0.5
+        },
+        "2026-03": {
+          "cp": 4,
+          "recuperation": 1
+        },
+        "2026-05": {
+          "cp": 3,
+          "recuperation": 1
+        },
+        "2026-04": {
+          "cp": 6
+        }
+      },
+      "totals": {
+        "recuperation": 7.5,
+        "cp": 18,
+        "rtt": 4,
+        "deplacement": 3
+      }
+    },
+    {
+      "id": 89,
+      "firstName": "Zelia",
+      "lastName": "VERGEREAU",
+      "fullName": "Zelia VERGEREAU",
+      "mail": "zelia@spk-group.fr",
+      "jobTitle": "Vidéaste (en alternance)",
+      "dtContractStart": "2024-09-02T00:00:00",
+      "dtContractEnd": "2026-09-04T00:00:00",
+      "monthly": {
+        "2025-07": {
+          "cp": 2.5,
+          "teletravail": 0.5,
+          "recuperation": 1,
+          "autre": 2,
+          "deplacement": 1
+        },
+        "2025-08": {
+          "cp": 15,
+          "teletravail": 1,
+          "recuperation": 0.5
+        },
+        "2025-09": {
+          "deplacement": 2,
+          "ecole": 2,
+          "teletravail": 2
+        },
+        "2025-10": {
+          "ecole": 8,
+          "cp": 1
+        },
+        "2025-11": {
+          "ecole": 8,
+          "deplacement": 1
+        },
+        "2025-12": {
+          "ecole": 7,
+          "cp": 5,
+          "teletravail": 1
+        },
+        "2026-01": {
+          "ecole": 8,
+          "cp": 2,
+          "teletravail": 2
+        },
+        "2026-02": {
+          "ecole": 4
+        },
+        "2026-03": {
+          "ecole": 8,
+          "deplacement": 3
+        },
+        "2026-04": {
+          "ecole": 6,
+          "teletravail": 1.5,
+          "deplacement": 1.5
+        },
+        "2026-05": {
+          "ecole": 7,
+          "cp": 2
+        },
+        "2026-06": {
+          "ecole": 10
+        }
+      },
+      "totals": {
+        "cp": 27.5,
+        "teletravail": 8,
+        "recuperation": 1.5,
+        "autre": 2,
+        "deplacement": 8.5,
+        "ecole": 68
+      }
+    }
+  ],
+  "syncDate": "2026-03-31T12:56:57.976Z"
+}

@@ -1,0 +1,313 @@
+{
+  "objectives": {
+    "Hadrien": [
+      {
+        "client": "FEDERATION FRANCAISE DE FOOTBALL",
+        "target": 300000,
+        "signed": 35085.65
+      },
+      {
+        "client": "DECATHLON",
+        "target": 250000,
+        "signed": 51000
+      },
+      {
+        "client": "CNOSF",
+        "target": 200000,
+        "signed": 196000
+      },
+      {
+        "client": "KAPPA",
+        "originalName": "Kappa",
+        "target": 150000,
+        "signed": 36000
+      },
+      {
+        "client": "ADIDAS FRANCE",
+        "target": 80000,
+        "signed": 133000
+      },
+      {
+        "client": "LFP",
+        "originalName": "LFP Media",
+        "target": 75000,
+        "signed": 25000
+      },
+      {
+        "client": "SYNERGIE",
+        "target": 30000,
+        "signed": 38166.3
+      },
+      {
+        "client": "BALLERS PRIDE",
+        "target": 20000,
+        "signed": 8000
+      },
+      {
+        "client": "FC Nantes",
+        "target": 20000,
+        "signed": 16000
+      },
+      {
+        "client": "RACING CLUB DE LENS",
+        "target": 15000,
+        "signed": 3885
+      },
+      {
+        "client": "CCI NANTES ST-NAZAIRE",
+        "target": 11000,
+        "signed": 3000
+      },
+      {
+        "client": "CIC",
+        "target": 0,
+        "signed": 48000
+      },
+      {
+        "client": "EVENTEAM",
+        "target": 1,
+        "signed": 5000
+      },
+      {
+        "client": "NANTES METROPOLE FUTSAL",
+        "target": 0,
+        "signed": 3459.2
+      },
+      {
+        "client": "_BIZ_DEV",
+        "label": "Business Development (Nouveaux clients)",
+        "target": 200000,
+        "type": "biz_dev"
+      }
+    ],
+    "Ninon": [
+      {
+        "client": "INTERSPORT FRANCE",
+        "target": 2700000,
+        "signed": 1917054.3900000001
+      },
+      {
+        "client": "ABEILLE ASSURANCES",
+        "target": 0,
+        "signed": 27000
+      },
+      {
+        "client": "IIC - INTERSPORT International Corporation GmbH",
+        "target": 300000,
+        "signed": 16228.82
+      },
+      {
+        "client": "BROOKS",
+        "originalName": "Brooks Running",
+        "target": 50000,
+        "signed": 0
+      },
+      {
+        "client": "NUTRIDRY",
+        "target": 50000,
+        "signed": 0
+      },
+      {
+        "client": "NIKE",
+        "originalName": "NIKE FRANCE",
+        "target": 15000,
+        "signed": 0
+      },
+      {
+        "client": "AZZA FENCING",
+        "target": 0,
+        "signed": 14577.33
+      },
+      {
+        "client": "INTERSPORT FRANCE",
+        "originalName": "LACADEMIE INTERSPORT",
+        "target": 0,
+        "signed": 15298.41
+      },
+      {
+        "client": "NIKE",
+        "originalName": "NIKE RETAIL BV",
+        "target": 0,
+        "signed": 0
+      },
+      {
+        "client": "_BIZ_DEV",
+        "label": "Business Development (Nouveaux clients)",
+        "target": 200000,
+        "type": "biz_dev"
+      }
+    ],
+    "Clément": [
+      {
+        "client": "PUMA FRANCE SAS",
+        "target": 1027000,
+        "signed": 820611.6099999996
+      },
+      {
+        "client": "PUMA SE",
+        "target": 690000,
+        "signed": 372227.78
+      },
+      {
+        "client": "PSF ITALY",
+        "target": 255000,
+        "signed": 194340.5
+      },
+      {
+        "client": "PUMA NORDICS AB",
+        "target": 117000,
+        "signed": 49902
+      },
+      {
+        "client": "PUMA IBERIA, S.L.U.",
+        "target": 110000,
+        "signed": 55000
+      },
+      {
+        "client": "PUMA UNITED KINGDOM LTD",
+        "target": 75000,
+        "signed": 65840
+      },
+      {
+        "client": "PUMA NORTH AMERICA",
+        "target": 50000,
+        "signed": 0
+      },
+      {
+        "client": "TIKTOK",
+        "originalName": "TITOK",
+        "target": 40000,
+        "signed": 16799.94
+      },
+      {
+        "client": "CERCLE DES NAGEURS",
+        "target": 20000,
+        "signed": 25873.21
+      },
+      {
+        "client": "HYUNDAI MOTOR FRANCE",
+        "target": 0,
+        "signed": 4525.8
+      },
+      {
+        "client": "LACOSTE",
+        "originalName": "LACOSTE SAS",
+        "target": 0,
+        "signed": 41140
+      },
+      {
+        "client": "PENNYLANE",
+        "target": 0,
+        "signed": 122279.75
+      },
+      {
+        "client": "_BIZ_DEV",
+        "label": "Business Development (Nouveaux clients)",
+        "target": 200000,
+        "type": "biz_dev"
+      }
+    ],
+    "Audrey": [
+      {
+        "client": "PUMA Motorsport",
+        "target": 320000,
+        "signed": 140981.09000000003
+      },
+      {
+        "client": "SailGP Italia Ltd",
+        "target": 160000,
+        "signed": 108281.55
+      },
+      {
+        "client": "LE MANS ENDURANCE MANAGEMENT",
+        "target": 110000,
+        "signed": 89855.06
+      },
+      {
+        "client": "GMF ASSURANCES",
+        "target": 100000,
+        "signed": 91323.5
+      },
+      {
+        "client": "NEW BALANCE FRANCE SARL",
+        "target": 100000,
+        "signed": 36268.87
+      },
+      {
+        "client": "HUMMEL",
+        "originalName": "HUMMEL FRANCE",
+        "target": 70000,
+        "signed": 59911
+      },
+      {
+        "client": "MIZUNO FRANCE",
+        "target": 70000,
+        "signed": 39471.9
+      },
+      {
+        "client": "FEDERATION FRANCAISE SPORTS POUR TOUS",
+        "target": 0,
+        "signed": 29131.2
+      },
+      {
+        "client": "ACO",
+        "target": 30000,
+        "signed": 0
+      },
+      {
+        "client": "FFA",
+        "target": 30000,
+        "signed": 0
+      },
+      {
+        "client": "ASICS FRANCE",
+        "target": 25000,
+        "signed": 0
+      },
+      {
+        "client": "2Ride Group",
+        "target": 60000,
+        "signed": 53046.23
+      },
+      {
+        "client": "AS MONACO FOOTBALL CLUB",
+        "target": 0,
+        "signed": 7783.5
+      },
+      {
+        "client": "FEDERATION FRANCAISE MOTOCYC",
+        "target": 0,
+        "signed": 500
+      },
+      {
+        "client": "HUMMEL",
+        "originalName": "HUMMEL GLOBAL",
+        "target": 0,
+        "signed": 0
+      },
+      {
+        "client": "Match Worn Shirt",
+        "target": 0,
+        "signed": 29291.35
+      },
+      {
+        "client": "Meltonic",
+        "target": 0,
+        "signed": 0
+      },
+      {
+        "client": "RED BULL FRANCE",
+        "target": 0,
+        "signed": 0
+      },
+      {
+        "client": "_BIZ_DEV",
+        "label": "Business Development (Nouveaux clients)",
+        "target": 200000,
+        "type": "biz_dev"
+      }
+    ]
+  },
+  "importedAt": "2026-03-31T13:57:06.670Z",
+  "source": "Objectifs DC.xlsx"
+}

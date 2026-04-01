@@ -1,0 +1,12 @@
+[
+  {
+    "id": "admin-1",
+    "login": "admin",
+    "password": "$2a$10$B0.LQVOGYYlfkG8qOTZgtumQH2gDyUy3ptxlaJIvng7tGf6f/IjAW",
+    "name": "Administrateur",
+    "role": "admin",
+    "furiousName": "",
+    "createdAt": "2026-03-31T12:55:56.345Z",
+    "lastLogin": "2026-04-01T14:34:57.414Z"
+  }
+]
