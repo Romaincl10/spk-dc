@@ -7,6 +7,16 @@
     "role": "admin",
     "furiousName": "",
     "createdAt": "2026-03-31T12:55:56.345Z",
-    "lastLogin": "2026-04-01T14:34:57.414Z"
+    "lastLogin": "2026-04-01T15:28:44.199Z"
+  },
+  {
+    "id": "admin-2",
+    "login": "alizee.chantreau",
+    "password": "$2a$10$0JGzbAbUineAnTagav.LPujGJFj1s58qoANKJjfPAkh0QNuv5RXv6",
+    "name": "Alizée CHANTREAU",
+    "role": "admin",
+    "furiousName": "Alizée Chantreau",
+    "createdAt": "2026-04-01T00:00:00.000Z",
+    "lastLogin": null
   }
 ]

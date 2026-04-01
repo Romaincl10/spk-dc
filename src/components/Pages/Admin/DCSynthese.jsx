@@ -5,37 +5,23 @@ import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
 
-/** Arc gauge — semi-circle SVG */
-function RingGauge({ value, max, label, color, subtitle }) {
+/** Horizontal gauge — barre + % */
+function HorizGauge({ value, max, label, color, subtitle }) {
   const pct = max > 0 ? Math.min(Math.round(value / max * 100), 999) : 0;
-  const arcPct = Math.min(pct, 100);
-  const c = color || (pct >= 80 ? '#2ecc71' : pct >= 50 ? '#f39c12' : '#e74c3c');
-  const r = 46, cx = 60, cy = 60, sw = 10;
-  const circ = Math.PI * r;
+  const barPct = Math.min(pct, 100);
   return (
-    <div className="flex flex-col items-center py-4 px-2">
-      <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#555] text-center mb-2 leading-tight">{label}</p>
-      <svg viewBox="0 0 120 68" className="w-40 overflow-visible">
-        {/* Track */}
-        <path d={`M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}`}
-          fill="none" stroke="#1e1e1e" strokeWidth={sw} strokeLinecap="round" />
-        {/* Glow */}
-        {arcPct > 0 && <path d={`M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}`}
-          fill="none" stroke={c} strokeWidth={sw + 12} strokeLinecap="round" opacity={0.12}
-          strokeDasharray={`${arcPct / 100 * circ} ${circ}`} />}
-        {/* Arc */}
-        {arcPct > 0 && <path d={`M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}`}
-          fill="none" stroke={c} strokeWidth={sw} strokeLinecap="round"
-          strokeDasharray={`${arcPct / 100 * circ} ${circ}`}
-          style={{ transition: 'stroke-dasharray 0.8s ease' }} />}
-        {/* % */}
-        <text x={cx} y={cy - 10} textAnchor="middle" fill="white" fontSize="26" fontWeight="900" fontStyle="italic">
-          {pct > 999 ? '999+' : pct}%
-        </text>
-      </svg>
-      <div className="text-center -mt-1 space-y-0.5">
-        <p className="text-sm font-bold" style={{ color: c }}>{fmtK(value)}</p>
-        <p className="text-[10px] text-[#555]">{subtitle || 'CA signé'} · <span className="text-[#888] font-medium">obj. {fmtK(max)}</span></p>
+    <div className="p-5 space-y-3">
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#555] leading-tight pt-0.5">{label}</p>
+        <span className="text-3xl font-black italic shrink-0 leading-none" style={{ color }}>{pct > 999 ? '999+' : pct}%</span>
+      </div>
+      <div className="relative w-full h-2 bg-[#1e1e1e] rounded-full overflow-hidden">
+        <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
+          style={{ width: `${barPct}%`, background: `linear-gradient(90deg, ${color}55 0%, ${color} 100%)` }} />
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-bold" style={{ color }}>{fmtK(value)}</span>
+        <span className="text-[10px] text-[#555]">{subtitle || 'CA signé'} · obj. <span className="text-[#888] font-semibold">{fmtK(max)}</span></span>
       </div>
     </div>
   );
@@ -140,28 +126,28 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
             <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs — Exercice 01/07/2025 au 30/06/2026</h3>
           </div>
 
-          {/* 3 Jauges arc : Clients / Biz Dev / Total */}
+          {/* 3 Jauges horizontales : Clients / Biz Dev / Total */}
           <div className="grid grid-cols-1 md:grid-cols-3 divide-x divide-[#2a2a2a] mb-6">
-            <RingGauge
+            <HorizGauge
               value={isProjection ? clientsProjection : clientsCA}
               max={totalObjectif}
               label="CA Clients vs Objectifs"
               subtitle={isProjection ? 'Signé + pipe' : 'CA signé'}
-              color={isProjection ? '#3b82f6' : undefined}
+              color={isProjection ? '#3b82f6' : '#e63946'}
             />
-            <RingGauge
+            <HorizGauge
               value={isProjection ? bizDevCA + bizDevPipe : bizDevCA}
               max={bizDevData.target || 0}
               label="Biz Dev vs Objectif BD"
               subtitle={isProjection ? 'Signé + pipe' : 'CA signé'}
               color={isProjection ? '#a855f7' : '#f39c12'}
             />
-            <RingGauge
+            <HorizGauge
               value={isProjection ? totalProjection : totalSigne}
               max={grandTotalObjectif}
               label="Total (Clients + BD)"
               subtitle={isProjection ? 'Signé + pipe' : 'CA signé'}
-              color={isProjection ? '#3b82f6' : undefined}
+              color={isProjection ? '#22d3ee' : '#8b5cf6'}
             />
           </div>
 

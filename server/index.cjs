@@ -304,7 +304,14 @@ function buildDCPortfolios() {
     // Bornes FY pour filtrage factures (chart mensuel uniquement)
     const fyStartDate = new Date(fyStartYear, 6, 1);
     const fyEndDate = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
-    const validInvoices = dcInvoices.filter(inv => !inv.is_cancelled && inv.statut !== 'cancelled');
+    // Exclure les factures annulées ET les factures planifiées (id=0, invoice_date='0000-00-00')
+    const validInvoices = dcInvoices.filter(inv =>
+      !inv.is_cancelled &&
+      inv.statut !== 'cancelled' &&
+      String(inv.id) !== '0' &&
+      inv.invoice_date &&
+      inv.invoice_date !== '0000-00-00'
+    );
     const projetsActifs = fyProjects.filter(p => p.actif === '1' || p.actif === 1).length;
     const totalSold = fyProjects.reduce((s, p) => s + p.time_sold_days, 0);
     const totalSpent = fyProjects.reduce((s, p) => s + p.time_spent_days, 0);

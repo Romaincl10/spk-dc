@@ -116,8 +116,8 @@ export default function DCFocusProjet({ portfolio, color }) {
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
         {[
           { label: 'Projets', value: filtered.length, fmt: v => v },
-          { label: 'CA Total', value: kpis.totalCA, fmt: fmtK, suffix: '€' },
-          { label: 'Marge Brute', value: kpis.totalMB, fmt: fmtK, suffix: '€', sub: `MB ${fmtPct(mbPct)}`, color: mbColor(mbPct) },
+          { label: 'CA Total', value: kpis.totalCA, fmt: fmtK },
+          { label: 'Marge Brute', value: kpis.totalMB, fmt: fmtK, sub: `MB ${fmtPct(mbPct)}`, color: mbColor(mbPct) },
           { label: 'Jours Vendus', value: kpis.totalSold, fmt: v => `${fmtNum(v, 0)}j` },
           { label: 'Jours Faits', value: kpis.totalFait, fmt: v => `${fmtNum(v, 0)}j` },
           { label: 'Avanc. Moy.', value: Math.round(kpis.avgAdv), fmt: v => `${v}%`, color: kpis.avgAdv >= 70 ? '#2ecc71' : kpis.avgAdv >= 40 ? '#f39c12' : '#e74c3c' },
@@ -158,7 +158,7 @@ export default function DCFocusProjet({ portfolio, color }) {
 
       {/* Table */}
       <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="overflow-auto max-h-[520px]">
           <table className="w-full text-sm" style={{ minWidth: '900px' }}>
             <thead className="sticky top-0 z-20">
               <tr className="border-b-2 border-[#333] bg-[#111]">

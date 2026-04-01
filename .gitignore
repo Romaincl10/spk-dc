@@ -1,0 +1,18 @@
+# Dépendances
+node_modules/
+
+# Build
+dist/
+
+# Variables d'environnement (à configurer dans Railway)
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
