@@ -20,7 +20,7 @@ const assign = require('./assignments.cjs');
 const { getCanonicalClientName, getCanonicalClientNameForProject } = require('./clientGroups.cjs');
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 3002;
+const PORT = process.env.PORT || process.env.SERVER_PORT || 3002;
 const DATA_DIR = path.join(__dirname, 'data');
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
