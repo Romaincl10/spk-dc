@@ -1,13 +1,23 @@
 [
   {
+    "id": "admin-0",
+    "login": "romain.clouet",
+    "password": "$2a$10$BzEBhd1F.AKGEJwNvI5BHuCZ2B7gBW13Wrix/hgmV7jVIYc/D4ixe",
+    "name": "Romain CLOUET",
+    "role": "admin",
+    "furiousName": "Romain Clouet",
+    "createdAt": "2026-04-03T00:00:00.000Z",
+    "lastLogin": null
+  },
+  {
     "id": "admin-1",
     "login": "admin",
-    "password": "$2a$10$B0.LQVOGYYlfkG8qOTZgtumQH2gDyUy3ptxlaJIvng7tGf6f/IjAW",
+    "password": "$2a$10$0j1QYh.yTEEB5zQivv0zQ.WfQBSaKvqKWLPfVXQ6Cow7Nhlh8r.6y",
     "name": "Administrateur",
     "role": "admin",
     "furiousName": "",
     "createdAt": "2026-03-31T12:55:56.345Z",
-    "lastLogin": "2026-04-01T15:28:44.199Z"
+    "lastLogin": null
   },
   {
     "id": "admin-2",
