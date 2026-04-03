@@ -133,7 +133,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
               max={totalObjectif}
               label="CA Clients vs Objectifs"
               subtitle={isProjection ? 'Signé + pipe' : 'CA signé'}
-              color={isProjection ? '#3b82f6' : '#e63946'}
+              color={isProjection ? '#06b6d4' : '#e63946'}
             />
             <HorizGauge
               value={isProjection ? bizDevCA + bizDevPipe : bizDevCA}
@@ -147,7 +147,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
               max={grandTotalObjectif}
               label="Total (Clients + BD)"
               subtitle={isProjection ? 'Signé + pipe' : 'CA signé'}
-              color={isProjection ? '#22d3ee' : '#8b5cf6'}
+              color={isProjection ? '#34d399' : '#8b5cf6'}
             />
           </div>
 
@@ -264,6 +264,21 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
                     </tr>
                   );
                 })}
+
+                {/* Autres clients BD (non listés dans les objectifs) */}
+                {bizDevData.actual > 0 && (
+                  <tr className="border-b border-[#1a1a1a] bg-[#f39c12]/5">
+                    <td className="py-2.5 px-3 text-[#888] italic text-xs">Autres clients BD</td>
+                    <td className="py-2.5 px-3 text-right text-[#aaa]">{fmtK(bizDevData.actual)}</td>
+                    <td className="py-2.5 px-3 text-right text-[#888]">—</td>
+                    <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#2ecc71] font-bold text-base italic">OK</span></td>
+                    {isProjection && <>
+                      <td className="py-2.5 px-3 text-right text-[#3b82f6]">{bizDevData.pipe > 0 ? fmtK(bizDevData.pipe) : <span className="text-[#666]">—</span>}</td>
+                      <td className="py-2.5 px-3 text-right text-[#aaa]">{fmtK(bizDevData.actual + (bizDevData.pipe || 0))}</td>
+                      <td className="py-2.5 px-3" />
+                    </>}
+                  </tr>
+                )}
 
                 {bizDevData.target > 0 && (
                   <tr className="border-t border-[#f39c12]/30 bg-[#f39c12]/5 font-bold">

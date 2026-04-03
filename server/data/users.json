@@ -18,5 +18,15 @@
     "furiousName": "Alizée Chantreau",
     "createdAt": "2026-04-01T00:00:00.000Z",
     "lastLogin": null
+  },
+  {
+    "id": "admin-3",
+    "login": "germain.butrot",
+    "password": "$2a$10$k3.nH6x7fJ2KUD0IFETBbudES3o/P.NPNdFBWKZ7gG5ZyNKKAlIIW",
+    "name": "Germain BUTROT",
+    "role": "admin",
+    "furiousName": "Germain Butrot",
+    "createdAt": "2026-04-03T00:00:00.000Z",
+    "lastLogin": null
   }
 ]
