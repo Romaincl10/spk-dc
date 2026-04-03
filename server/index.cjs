@@ -324,6 +324,8 @@ function buildDCPortfolios() {
       if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
       // Exclure devis perdus
       if (p.pipe_name === 'Perdu') return false;
+      // Exclure devis hors entité SPK (spk_medias, spk_activate, spk_studio)
+      if (p.entity && p.entity !== 'spk') return false;
       // Exclure devis Achats Médias (M0*, MED0*)
       const title = (p.title || '').trim();
       if (/^M0/i.test(title) || /^MED0/i.test(title)) return false;
