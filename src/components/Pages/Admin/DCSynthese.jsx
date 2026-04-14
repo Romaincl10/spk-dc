@@ -265,20 +265,36 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
                   );
                 })}
 
-                {/* Autres clients BD (non listés dans les objectifs) — seulement si objectif BD défini */}
-                {bizDevData.actual > 0 && bizDevData.target > 0 && (
-                  <tr className="border-b border-[#1a1a1a] bg-[#f39c12]/5">
-                    <td className="py-2.5 px-3 text-[#888] italic text-xs">Autres clients BD</td>
-                    <td className="py-2.5 px-3 text-right text-[#aaa]">{fmtK(bizDevData.actual)}</td>
-                    <td className="py-2.5 px-3 text-right text-[#888]">—</td>
-                    <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#2ecc71] font-bold text-base italic">OK</span></td>
-                    {isProjection && <>
-                      <td className="py-2.5 px-3 text-right text-[#3b82f6]">{bizDevData.pipe > 0 ? fmtK(bizDevData.pipe) : <span className="text-[#666]">—</span>}</td>
-                      <td className="py-2.5 px-3 text-right text-[#aaa]">{fmtK(bizDevData.actual + (bizDevData.pipe || 0))}</td>
-                      <td className="py-2.5 px-3" />
-                    </>}
-                  </tr>
-                )}
+                {/* Clients BD individuels (non listés dans les objectifs) */}
+                {(bizDevData.clients || []).map((c, i) => {
+                  const isSelSigne = selectedClient === c.client && selectedType === 'signe';
+                  const isSelPipe = selectedClient === c.client && selectedType === 'pipe';
+                  return (
+                    <tr key={`bd-auto-${i}`} className="border-b border-[#1a1a1a] bg-[#f39c12]/5 hover:bg-[#f39c12]/10">
+                      <td className="py-2.5 px-3 text-[#f39c12] font-medium">{c.client}</td>
+                      <td className="py-2.5 px-3 text-right">
+                        <button onClick={() => handleSelectClient(c.client, 'signe')}
+                          className={`font-bold hover:underline ${isSelSigne ? 'text-[#e63946]' : 'text-white'}`}>
+                          {fmtK(c.actual || 0)}
+                        </button>
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#888]">—</td>
+                      <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#2ecc71] font-bold text-base italic">OK</span></td>
+                      {isProjection && <>
+                        <td className="py-2.5 px-3 text-right">
+                          {(c.pipe || 0) > 0 ? (
+                            <button onClick={() => handleSelectClient(c.client, 'pipe')}
+                              className={`font-medium hover:underline ${isSelPipe ? 'text-[#e63946]' : 'text-[#3b82f6]'}`}>
+                              {fmtK(c.pipe)}
+                            </button>
+                          ) : <span className="text-[#666]">—</span>}
+                        </td>
+                        <td className="py-2.5 px-3 text-right text-white font-medium">{fmtK((c.actual || 0) + (c.pipe || 0))}</td>
+                        <td className="py-2.5 px-3" />
+                      </>}
+                    </tr>
+                  );
+                })}
 
                 {bizDevData.target > 0 && (
                   <tr className="border-t border-[#f39c12]/30 bg-[#f39c12]/5 font-bold">

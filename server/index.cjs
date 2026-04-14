@@ -423,7 +423,11 @@ function buildDCPortfolios() {
         const bizDevClients = clientBreakdown.filter(c => !objCanonicalNames.includes(c.name));
         const bizDevCA = bizDevClients.reduce((s, c) => s + c.ca, 0);
         const bizDevPipe = bizDevClients.reduce((s, c) => s + (c.pipeProbabilise || 0), 0);
-        return { ...obj, actual: bizDevCA, pipe: bizDevPipe, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
+        // Expose individual clients so frontend can show them one by one
+        const clients = bizDevClients
+          .filter(c => c.ca > 0 || (c.pipeProbabilise || 0) > 0)
+          .map(c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 }));
+        return { ...obj, actual: bizDevCA, pipe: bizDevPipe, clients, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
       }
       const canonicalObj = getCanonicalClientName(obj.client);
       const match = clientBreakdown.find(c => c.name === canonicalObj);
