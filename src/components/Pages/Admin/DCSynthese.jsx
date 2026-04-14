@@ -265,8 +265,8 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
                   );
                 })}
 
-                {/* Autres clients BD (non listés dans les objectifs) */}
-                {bizDevData.actual > 0 && (
+                {/* Autres clients BD (non listés dans les objectifs) — seulement si objectif BD défini */}
+                {bizDevData.actual > 0 && bizDevData.target > 0 && (
                   <tr className="border-b border-[#1a1a1a] bg-[#f39c12]/5">
                     <td className="py-2.5 px-3 text-[#888] italic text-xs">Autres clients BD</td>
                     <td className="py-2.5 px-3 text-right text-[#aaa]">{fmtK(bizDevData.actual)}</td>
