@@ -41,14 +41,16 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
 
   const now = new Date();
 
-  // Objectives split
-  const objWithTarget = objectifsList.filter(o => o.client !== '_BIZ_DEV' && o.target > 0);
+  // Objectives split — triés par CA décroissant (plus important en premier)
+  const objWithTarget = objectifsList
+    .filter(o => o.client !== '_BIZ_DEV' && o.target > 0)
+    .sort((a, b) => (b.actual || 0) - (a.actual || 0));
   const objBizDev = objectifsList.filter(o => o.client === '_BIZ_DEV');
   // objNoTarget: clients with no target but CA, excluding those already in objWithTarget (avoid double-count)
   const objWithTargetClients = new Set(objWithTarget.map(o => o.client));
-  const objNoTarget = objectifsList.filter(o =>
-    o.client !== '_BIZ_DEV' && !o.target && o.actual > 0 && !objWithTargetClients.has(o.client)
-  );
+  const objNoTarget = objectifsList
+    .filter(o => o.client !== '_BIZ_DEV' && !o.target && o.actual > 0 && !objWithTargetClients.has(o.client))
+    .sort((a, b) => (b.actual || 0) - (a.actual || 0));
 
   const totalObjectif = objWithTarget.reduce((s, o) => s + o.target, 0);
   const totalPipeProba = kpis.pipelineProbabilise || 0;
@@ -266,7 +268,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
                 })}
 
                 {/* Clients BD individuels (non listés dans les objectifs) */}
-                {(bizDevData.clients || []).map((c, i) => {
+                {[...(bizDevData.clients || [])].sort((a, b) => (b.actual || 0) - (a.actual || 0)).map((c, i) => {
                   const isSelSigne = selectedClient === c.client && selectedType === 'signe';
                   const isSelPipe = selectedClient === c.client && selectedType === 'pipe';
                   return (
