@@ -7,7 +7,8 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(__dirname, 'data');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
 const JWT_SECRET = process.env.JWT_SECRET || 'spk-dc-secret-2026';
 const JWT_EXPIRES = '24h';
 

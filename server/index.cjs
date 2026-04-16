@@ -21,10 +21,30 @@ const { getCanonicalClientName, getCanonicalClientNameForProject } = require('./
 
 const app = express();
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3002;
-const DATA_DIR = path.join(__dirname, 'data');
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
+
+// ── Répertoire de données persistant ─────────────────────
+// Si DATA_DIR est défini (ex: Railway Volume monté sur /mnt/data),
+// on l'utilise ; sinon on utilise server/data/ (défaut local).
+const DEFAULT_DATA_DIR = path.join(__dirname, 'data');
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : DEFAULT_DATA_DIR;
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+
+// Initialisation : si DATA_DIR ≠ default, on copie les fichiers de config
+// (users, assignments, objectives) depuis les defaults commités si absents.
+if (DATA_DIR !== DEFAULT_DATA_DIR) {
+  const CONFIG_FILES = ['users.json', 'client_assignments.json', 'project_assignments.json', 'objectives.json'];
+  CONFIG_FILES.forEach(file => {
+    const dest = path.join(DATA_DIR, file);
+    const src = path.join(DEFAULT_DATA_DIR, file);
+    if (!fs.existsSync(dest) && fs.existsSync(src)) {
+      fs.copyFileSync(src, dest);
+      console.log(`[Init] Seeded ${file} from defaults to ${DATA_DIR}`);
+    }
+  });
+}
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));

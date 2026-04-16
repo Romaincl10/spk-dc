@@ -5,7 +5,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const OBJ_FILE = path.join(__dirname, 'data', 'objectives.json');
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(__dirname, 'data');
+const OBJ_FILE = path.join(DATA_DIR, 'objectives.json');
 
 function loadObjectives() {
   try {

@@ -5,8 +5,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const CLIENT_FILE = path.join(__dirname, 'data', 'client_assignments.json');
-const PROJECT_FILE = path.join(__dirname, 'data', 'project_assignments.json');
+const DATA_DIR = process.env.DATA_DIR ? require('path').resolve(process.env.DATA_DIR) : path.join(__dirname, 'data');
+const CLIENT_FILE = path.join(DATA_DIR, 'client_assignments.json');
+const PROJECT_FILE = path.join(DATA_DIR, 'project_assignments.json');
 
 // ── Client assignments ───────────────────────────────────
 
