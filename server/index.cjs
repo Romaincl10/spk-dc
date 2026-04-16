@@ -169,24 +169,10 @@ function buildDCPortfolios() {
   const purchases = purchasesData?.data || [];
   const allSprints = sprintsData?.data || [];
   // Retraitement Achats Médias : { project_id → montant à déduire du CA }
-  // Base = BU31 rate cards (budget planifié). On prend max(BU31, achats paid media réels)
-  // pour couvrir les cas où le spend réel dépasse le budget initial (ex: K0519 Google Ads).
-  const achatsMediasBU31 = achatsMediasData?.data || {};
-  const MEDIA_PURCHASE_TYPES = ['paid_', 'achat_de_publicits_'];
-  const mediaPurchasesByProject = {};
-  purchases.forEach(p => {
-    if (MEDIA_PURCHASE_TYPES.some(t => (p.type || '').startsWith(t))) {
-      const pid = String(p.project_id);
-      mediaPurchasesByProject[pid] = (mediaPurchasesByProject[pid] || 0) + (Number(p.cost) || 0);
-    }
-  });
-  const achatsMediasByProject = {};
-  const allPids = new Set([...Object.keys(achatsMediasBU31), ...Object.keys(mediaPurchasesByProject)]);
-  allPids.forEach(pid => {
-    const bu31 = achatsMediasBU31[pid] || 0;
-    const actual = mediaPurchasesByProject[pid] || 0;
-    achatsMediasByProject[pid] = Math.max(bu31, actual);
-  });
+  // On utilise uniquement le BU31 (ligne facturée au client = montant contractuel médias).
+  // Le spend réel (achats Google/Meta) est un COÛT, pas une déduction de CA.
+  // Le CA NET est cappé à ≥ 0 pour éviter les valeurs négatives.
+  const achatsMediasByProject = achatsMediasData?.data || {};
 
   const clientAssignments = assign.getAllClientAssignments();
   const projectAssignments = assign.getAllProjectAssignments();
