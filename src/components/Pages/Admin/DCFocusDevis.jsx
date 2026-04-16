@@ -48,7 +48,7 @@ export default function DCFocusDevis({ portfolio, color }) {
 
   const filtered = useMemo(() => {
     let list = allProposals.filter(p => Number(p.amount) > 0 && p.company_name);
-    if (pipeFilter === 'active') list = list.filter(p => p.pipe_name !== 'Perdu' && p.pipe_name !== 'Gagnés, finis et payés');
+    if (pipeFilter === 'active') list = list.filter(p => p.pipe_name !== 'Perdu' && p.pipe_name !== 'Gagnés, finis et payés' && p.pipe_name !== 'Gagnés en cours');
     if (pipeFilter === 'perdu') list = list.filter(p => p.pipe_name === 'Perdu');
     if (selectedClient) list = list.filter(p => (p.canonical_client || p.company_name) === selectedClient);
     if (search) {
