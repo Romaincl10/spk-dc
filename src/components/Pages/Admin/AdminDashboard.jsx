@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase } from 'lucide-react';
+import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -7,6 +7,7 @@ import DCSynthese from './DCSynthese';
 import DCFocusClient from './DCFocusClient';
 import DCRoadmap from './DCRoadmap';
 import DCFocusProjet from './DCFocusProjet';
+import DCFocusDevis from './DCFocusDevis';
 
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899' };
 const FALLBACK_COLORS = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#ec4899'];
@@ -14,9 +15,10 @@ const DC_ORDER = ['Audrey', 'Hadrien', 'Ninon', 'Clément'];
 function getColor(name, i) { return DC_COLORS[name] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]; }
 
 const DC_SUBTABS = [
-  { id: 'synthese', label: 'Synthese', icon: FileText },
+  { id: 'synthese', label: 'Synthèse', icon: FileText },
   { id: 'focus', label: 'Focus Client', icon: UsersIcon },
   { id: 'projets', label: 'Focus Projet', icon: Briefcase },
+  { id: 'devis', label: 'Focus Devis', icon: ClipboardList },
   { id: 'roadmap', label: 'Roadmap', icon: Map },
 ];
 
@@ -302,6 +304,7 @@ export default function AdminDashboard({ portfolios }) {
           {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} />}
           {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
+          {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} />}
         </>
       )}

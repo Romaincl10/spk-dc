@@ -301,10 +301,10 @@ function buildDCPortfolios() {
     const clientNames = [...group.clientSet];
     const projectIds = projectsList.map(p => p.id);
 
-    // Proposals for these clients
-    const dcProposals = proposals.filter(p =>
-      clientNames.some(cn => normalize(p.company_name) === normalize(cn))
-    );
+    // Proposals for these clients (with canonical_client enrichment)
+    const dcProposals = proposals
+      .filter(p => clientNames.some(cn => normalize(p.company_name) === normalize(cn)))
+      .map(p => ({ ...p, canonical_client: getCanonicalClientName(p.company_name) }));
     // Invoices & purchases for these projects
     const dcInvoices = invoices.filter(inv => projectIds.includes(inv.project_id));
     const dcPurchases = purchases.filter(pu => projectIds.includes(pu.project_id));

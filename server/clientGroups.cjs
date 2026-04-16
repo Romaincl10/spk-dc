@@ -32,7 +32,7 @@ const CLIENT_GROUPS = {
   'BROOKS': ['brooks running', 'brooks bv', 'brooks sports sarl', 'brooks'],
 
   // 2RIDE group (inclut SHARK et TROPHY comme sous-marques)
-  '2Ride Group': ['2ride group'],
+  '2Ride Group': ['2ride group', 'shark', 'trophy'],
 
   // PUMA Motorsport (regroupement des projets motorsport)
   'PUMA Motorsport': ['puma motorsport'],
