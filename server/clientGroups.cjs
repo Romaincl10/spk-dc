@@ -40,6 +40,9 @@ const CLIENT_GROUPS = {
   // PSF ITALY = PUMA ITALY
   'PSF ITALY': ['psf italy', 'puma italy'],
 
+  // GMF group (anciens projets K-numérotés + nouveaux SPK)
+  'GMF ASSURANCES': ['gmf assurances', 'gmf'],
+
   // ABEILLE
   'ABEILLE ASSURANCES': ['abeille assurances', 'abeille assurances holding'],
 
