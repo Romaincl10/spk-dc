@@ -38,5 +38,55 @@
     "furiousName": "Germain Butrot",
     "createdAt": "2026-04-03T00:00:00.000Z",
     "lastLogin": null
+  },
+  {
+    "id": "dc-0",
+    "login": "audrey",
+    "password": "$2a$10$V1zzVlStjKI1QKsVSiup1eTNWGK7X6IiYgRO.TJJQvLNxKy/islSO",
+    "name": "Audrey",
+    "role": "dc",
+    "furiousName": "Audrey",
+    "createdAt": "2026-04-21T00:00:00.000Z",
+    "lastLogin": null
+  },
+  {
+    "id": "dc-1",
+    "login": "hadrien",
+    "password": "$2a$10$v3kW6PYG0AQjPa2qdKq7k.nekhNBOJ8Vtbs2PG78ZRk6R3kN7fFNC",
+    "name": "Hadrien",
+    "role": "dc",
+    "furiousName": "Hadrien",
+    "createdAt": "2026-04-21T00:00:00.000Z",
+    "lastLogin": null
+  },
+  {
+    "id": "dc-2",
+    "login": "ninon",
+    "password": "$2a$10$zK8706kY2r/7jBTdgkRXAezFFnqlNonbIVbKa8kLesNgQdXZj9sCO",
+    "name": "Ninon",
+    "role": "dc",
+    "furiousName": "Ninon",
+    "createdAt": "2026-04-21T00:00:00.000Z",
+    "lastLogin": null
+  },
+  {
+    "id": "dc-3",
+    "login": "clement",
+    "password": "$2a$10$Wrb25hFS0/hIO3c59uhDpOZtZr24kwo9iZsIdM3qKPnnnCUu454xC",
+    "name": "Clément",
+    "role": "dc",
+    "furiousName": "Clément",
+    "createdAt": "2026-04-21T00:00:00.000Z",
+    "lastLogin": null
+  },
+  {
+    "id": "dc-4",
+    "login": "nael",
+    "password": "$2a$10$CQluWhuVIJlJGBpJM.80V.BBOHCJ/pLVxD8mhH9kTc.nOsWH8TxaC",
+    "name": "Naël",
+    "role": "dc",
+    "furiousName": "Naël",
+    "createdAt": "2026-04-21T00:00:00.000Z",
+    "lastLogin": null
   }
 ]
