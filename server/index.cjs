@@ -519,6 +519,33 @@ function buildDCPortfolios() {
     };
   }
 
+  // Ensure every DC-role user has a portfolio entry, even without Furious data
+  try {
+    const USERS_FILE = path.join(DATA_DIR, 'users.json');
+    if (fs.existsSync(USERS_FILE)) {
+      const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
+      users.filter(u => u.role === 'dc').forEach(u => {
+        const key = u.furiousName || u.name;
+        if (key && !portfolios[key]) {
+          portfolios[key] = {
+            dcName: key,
+            projects: [], proposals: [], invoices: [], purchases: [],
+            clients: [], clientBreakdown: [], objectives: [],
+            recentProjects: [], recentDevis: [],
+            kpis: {
+              caTotal: 0, caFacture: 0, mbTotal: 0,
+              margeBrutePct: 0, margeBruteMoy: 0,
+              projetsActifs: 0, projetsTotal: 0,
+              clientsActifs: 0, pipelineTotal: 0, pipelineProbabilise: 0,
+              totalSold: 0, totalSpent: 0, avancementGlobal: 0,
+              objectifTotal: 0, objectifActuel: 0, objectifProgress: 0,
+            },
+          };
+        }
+      });
+    }
+  } catch (e) { console.error('[Portfolio] Error injecting empty DC portfolios:', e.message); }
+
   return portfolios;
 }
 

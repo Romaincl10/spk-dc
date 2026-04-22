@@ -96,16 +96,28 @@ function assignProjectsBulk(assignments) {
   return Object.keys(assignments).length;
 }
 
-// ── DC list (derived from assignments) ───────────────────
+// ── DC list (assignments + users.json) ───────────────────
 
 function getActiveDCs() {
   const clientData = loadClientAssignments();
   const projectData = loadProjectAssignments();
   const dcs = new Set();
+  // From assignments
   Object.values(clientData.assignments).forEach(dc => { if (dc) dcs.add(dc); });
   Object.values(projectData.assignments).forEach(dcList => {
     if (Array.isArray(dcList)) dcList.forEach(dc => { if (dc) dcs.add(dc); });
   });
+  // Always include all DC-role users (so new DCs without assignments still appear)
+  try {
+    const USERS_FILE = path.join(DATA_DIR, 'users.json');
+    if (fs.existsSync(USERS_FILE)) {
+      const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
+      users.filter(u => u.role === 'dc').forEach(u => {
+        const label = u.furiousName || u.name;
+        if (label) dcs.add(label);
+      });
+    }
+  } catch (e) { /* ignore */ }
   return [...dcs].sort();
 }
 
