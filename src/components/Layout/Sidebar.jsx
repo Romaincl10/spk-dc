@@ -1,12 +1,8 @@
-import { LayoutDashboard, Users, FolderKanban, FileBarChart, Target, Shield, UserCog, Upload, Link2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Shield, UserCog, Upload, Link2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 const DC_PAGES = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'clients', label: 'Mes Clients', icon: Users },
-  { id: 'projets', label: 'Mes Projets', icon: FolderKanban },
-  { id: 'pipeline', label: 'Mon Pipeline', icon: FileBarChart },
-  { id: 'objectifs', label: 'Mes Objectifs', icon: Target },
+  { id: 'admin-dashboard', label: 'Mon Portfolio', icon: LayoutDashboard },
 ];
 
 const ADMIN_PAGES = [

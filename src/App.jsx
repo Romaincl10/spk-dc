@@ -18,10 +18,10 @@ import ObjectifImport from './components/Pages/Admin/ObjectifImport';
 const PAGE_KEY = 'spk_dc_page';
 
 function getInitialPage(user) {
-  if (!user) return 'dashboard';
+  if (!user) return 'admin-dashboard';
   const saved = sessionStorage.getItem(PAGE_KEY);
   if (saved) return saved;
-  return user.role === 'admin' ? 'admin-dashboard' : 'dashboard';
+  return 'admin-dashboard';
 }
 
 export default function App() {
@@ -38,9 +38,8 @@ export default function App() {
 
   const handleLogin = (userData) => {
     setUser(userData);
-    const page = userData.role === 'admin' ? 'admin-dashboard' : 'dashboard';
-    setCurrentPage(page);
-    sessionStorage.setItem(PAGE_KEY, page);
+    setCurrentPage('admin-dashboard');
+    sessionStorage.setItem(PAGE_KEY, 'admin-dashboard');
   };
 
   const handleLogout = () => {
@@ -59,23 +58,15 @@ export default function App() {
       const data = await apiFetch('/api/data/portfolio');
       if (user.role === 'admin') {
         setPortfolios(data.portfolios || {});
-        // Pick first DC portfolio for DC views when admin
-        const firstDC = Object.values(data.portfolios || {})[0] || null;
-        setPortfolio(firstDC);
       } else {
-        setPortfolio(data.myPortfolio || null);
+        // DC user: wrap their portfolio in an object keyed by their furiousName
+        const dcName = user.furiousName || user.name;
+        setPortfolios({ [dcName]: data.myPortfolio || {} });
       }
 
       const objData = await apiFetch('/api/data/objectives');
       if (user.role === 'admin') {
         setAllObjectives(objData.objectives || {});
-        // For admin viewing DC pages, get first DC's objectives
-        const firstDCName = Object.keys(data.portfolios || {})[0];
-        if (firstDCName) {
-          const norm = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-          const key = Object.keys(objData.objectives || {}).find(k => norm(k) === norm(firstDCName));
-          setObjectives(key ? objData.objectives[key] : []);
-        }
       } else {
         setObjectives(objData.objectives || []);
       }
@@ -129,16 +120,11 @@ export default function App() {
     }
 
     switch (currentPage) {
-      case 'dashboard': return <Dashboard portfolio={portfolio} objectives={objectives} />;
-      case 'clients': return <Clients portfolio={portfolio} />;
-      case 'projets': return <Projets portfolio={portfolio} />;
-      case 'pipeline': return <Pipeline portfolio={portfolio} />;
-      case 'objectifs': return <Objectifs portfolio={portfolio} objectives={objectives} />;
-      case 'admin-dashboard': return <AdminDashboard portfolios={portfolios} />;
-      case 'admin-assignments': return <Assignments onAssigned={handleAssigned} />;
-      case 'admin-users': return <UserManagement />;
-      case 'admin-objectifs': return <ObjectifImport />;
-      default: return <Dashboard portfolio={portfolio} objectives={objectives} />;
+      case 'admin-dashboard': return <AdminDashboard portfolios={portfolios} userRole={user.role} />;
+      case 'admin-assignments': return user.role === 'admin' ? <Assignments onAssigned={handleAssigned} /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;
+      case 'admin-users': return user.role === 'admin' ? <UserManagement /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;
+      case 'admin-objectifs': return user.role === 'admin' ? <ObjectifImport /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;
+      default: return <AdminDashboard portfolios={portfolios} userRole={user.role} />;
     }
   };
 

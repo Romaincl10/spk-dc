@@ -1,19 +1,12 @@
-import { LayoutDashboard, Users, FolderKanban, FileBarChart, Target, Shield, Link2 } from 'lucide-react';
+import { LayoutDashboard, Shield, Link2 } from 'lucide-react';
 
 const DC_TABS = [
-  { id: 'dashboard', label: 'Home', icon: LayoutDashboard },
-  { id: 'clients', label: 'Clients', icon: Users },
-  { id: 'projets', label: 'Projets', icon: FolderKanban },
-  { id: 'pipeline', label: 'Pipeline', icon: FileBarChart },
-  { id: 'objectifs', label: 'Objectifs', icon: Target },
+  { id: 'admin-dashboard', label: 'Portfolio', icon: LayoutDashboard },
 ];
 
 const ADMIN_TABS = [
   { id: 'admin-dashboard', label: 'Global', icon: Shield },
   { id: 'admin-assignments', label: 'Assigner', icon: Link2 },
-  { id: 'projets', label: 'Projets', icon: FolderKanban },
-  { id: 'pipeline', label: 'Pipeline', icon: FileBarChart },
-  { id: 'objectifs', label: 'Objectifs', icon: Target },
 ];
 
 export default function MobileNav({ currentPage, onPageChange, userRole }) {

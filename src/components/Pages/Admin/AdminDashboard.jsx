@@ -37,8 +37,16 @@ function MiniGauge({ pct, color }) {
   );
 }
 
-export default function AdminDashboard({ portfolios }) {
-  const [selectedDC, setSelectedDC] = useState('Globale');
+export default function AdminDashboard({ portfolios, userRole }) {
+  const isDC = userRole === 'dc';
+  // DC users auto-select their only portfolio; admins start on Globale
+  const [selectedDC, setSelectedDC] = useState(() => {
+    if (isDC && portfolios) {
+      const first = Object.keys(portfolios).find(k => k !== 'A assigner');
+      return first || 'Globale';
+    }
+    return 'Globale';
+  });
   const [subTab, setSubTab] = useState('synthese');
   const [viewMode, setViewMode] = useState('signe'); // 'signe' | 'projection'
 
@@ -92,29 +100,31 @@ export default function AdminDashboard({ portfolios }) {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* DC Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
-          className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-            ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}>
-          Globale
-        </button>
-        {dcNames.filter(n => n !== 'A assigner').map((name, i) => (
-          <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
+      {/* DC Tabs — masqués pour les utilisateurs DC (vue unique sur leur portfolio) */}
+      {!isDC && (
+        <div className="flex items-center gap-2 overflow-x-auto pb-2">
+          <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
             className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-              ${selectedDC === name ? 'text-white' : 'text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
-            style={selectedDC === name ? { backgroundColor: getColor(name, i) } : { backgroundColor: '#161616' }}>
-            {name}
+              ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}>
+            Globale
           </button>
-        ))}
-        {unassigned && (
-          <button onClick={() => { setSelectedDC('A assigner'); setSubTab('synthese'); }}
-            className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-              ${selectedDC === 'A assigner' ? 'bg-[#666] text-white' : 'bg-[#161616] text-[#666] hover:text-white border border-[#333] border-dashed'}`}>
-            A assigner ({unassigned.projetsTotal || 0})
-          </button>
-        )}
-      </div>
+          {dcNames.filter(n => n !== 'A assigner').map((name, i) => (
+            <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
+                ${selectedDC === name ? 'text-white' : 'text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
+              style={selectedDC === name ? { backgroundColor: getColor(name, i) } : { backgroundColor: '#161616' }}>
+              {name}
+            </button>
+          ))}
+          {unassigned && (
+            <button onClick={() => { setSelectedDC('A assigner'); setSubTab('synthese'); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
+                ${selectedDC === 'A assigner' ? 'bg-[#666] text-white' : 'bg-[#161616] text-[#666] hover:text-white border border-[#333] border-dashed'}`}>
+              A assigner ({unassigned.projetsTotal || 0})
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Sub-tabs (DC detail) */}
       {selectedDC !== 'Globale' && (
@@ -135,8 +145,8 @@ export default function AdminDashboard({ portfolios }) {
         </div>
       )}
 
-      {/* ═══ GLOBALE ═══ */}
-      {selectedDC === 'Globale' && (
+      {/* ═══ GLOBALE ═══ (admin seulement) */}
+      {!isDC && selectedDC === 'Globale' && (
         <>
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-white">Vue Globale — Exercice 2025/2026</h2>
