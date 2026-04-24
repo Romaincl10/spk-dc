@@ -567,9 +567,14 @@ app.get('/api/status', (req, res) => {
 app.post('/api/auth/login', (req, res) => {
   const { login, password } = req.body;
   if (!login || !password) return res.status(400).json({ error: 'Login et mot de passe requis' });
-  const result = auth.login(login, password);
-  if (result.error) return res.status(401).json(result);
-  res.json(result);
+  try {
+    const result = auth.login(login, password);
+    if (result.error) return res.status(401).json(result);
+    res.json(result);
+  } catch (e) {
+    console.error('[Login] Erreur:', e.message);
+    res.status(500).json({ error: 'Erreur serveur lors de la connexion' });
+  }
 });
 
 app.get('/api/auth/me', auth.authMiddleware, (req, res) => {

@@ -42,7 +42,7 @@
   {
     "id": "dc-0",
     "login": "audrey.penven.dc",
-    "password": "$2a$12$kHGSSsw.G.s2UmUcVMIQAOChl1jHu.z2a7hyBN9qx2aTDLcxehFV2",
+    "password": "$2a$12$IvBZBB4SfVbinQ56vSJn0OI0RGx1vcMhpSxAY0LJZFhaXbYK9Y4Zq",
     "name": "Audrey",
     "role": "dc",
     "furiousName": "Audrey",
@@ -52,7 +52,7 @@
   {
     "id": "dc-1",
     "login": "hadrien.cochet.dc",
-    "password": "$2a$12$EAGj.luLS9G.W9VeG8L4ZeQ6y22dgYTivUWfFj7TxDnXuO8n/YAUW",
+    "password": "$2a$12$Q.WCcfJQLJyO0E8DKKFjWOuP2cQ20JjrZElf52Vg5264FLoE0MeRu",
     "name": "Hadrien",
     "role": "dc",
     "furiousName": "Hadrien",
@@ -62,7 +62,7 @@
   {
     "id": "dc-2",
     "login": "ninon.vannier.dc",
-    "password": "$2a$12$EMeAIUGzF1XorNboC6WbdOApePSg/hX2Zd53YOFWvxbNuYmyDBPCq",
+    "password": "$2a$12$INxHvnnh/A9P0IpXIdSkJetru1gKlxadS31CHPOQkui8k5J6mU5F6",
     "name": "Ninon",
     "role": "dc",
     "furiousName": "Ninon",
@@ -72,7 +72,7 @@
   {
     "id": "dc-3",
     "login": "clement.caille.dc",
-    "password": "$2a$12$QQFwrEqjyp.xQRxMx9KXHeE5v3xye4oIjdwuqNrosVYlPeCGyXcNS",
+    "password": "$2a$12$7IscET7w/JURvdKOb7ihZ.qL0i9oRTjj72zV310qnt3a88YM377ve",
     "name": "Clément",
     "role": "dc",
     "furiousName": "Clément",
@@ -82,7 +82,7 @@
   {
     "id": "dc-4",
     "login": "nael.vallet.dc",
-    "password": "$2a$12$fqzIZ5.CzvkBlgGXX5lUfO1qeR0Piq329Urah.OKCztWcFkV16Jea",
+    "password": "$2a$12$ia0mKXgJXpsk1Qysbu91IeNGBr6MOxsTmfUfaFn5me174ewY2xgxW",
     "name": "Naël",
     "role": "dc",
     "furiousName": "Naël",
