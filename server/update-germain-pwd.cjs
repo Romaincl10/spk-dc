@@ -12,7 +12,7 @@ const path = require('path');
 
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
-const NEW_PASSWORD = process.env.GERMAIN_PWD || 'zmpibMWuXhLTmnuP8p';
+const NEW_PASSWORD = process.env.GERMAIN_PASSWORD || process.env.GERMAIN_PWD || 'zmpibMWuXhLTmnuP8p';
 const LOGIN = 'germain.butrot';
 
 async function main() {

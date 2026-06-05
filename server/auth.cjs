@@ -53,7 +53,7 @@ function initDefaultUsers() {
 
 function login(loginStr, password) {
   const users = loadUsers();
-  const user = users.find(u => u.login === loginStr);
+  const user = users.find(u => u.login.toLowerCase() === String(loginStr).trim().toLowerCase());
   if (!user) return { error: 'Identifiant inconnu' };
   if (!bcrypt.compareSync(password, user.password)) return { error: 'Mot de passe incorrect' };
 
