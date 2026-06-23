@@ -382,10 +382,13 @@ function buildDCPortfolios() {
       // Exclure devis Achats Médias (M0*, MED0*)
       const title = (p.title || '').trim();
       if (/^M0/i.test(title) || /^MED0/i.test(title)) return false;
-      // Couper au 30/06 fin d'exercice
-      if (p.projet_stop) {
-        const stop = new Date(p.projet_stop);
-        if (stop > FY_END) return false;
+      // Prise en compte basée sur la date de DÉBUT de prod :
+      // inclure tout devis qui démarre sur l'exercice courant (start <= 30/06),
+      // même si la prod se termine sur l'exercice suivant.
+      // Les devis qui démarrent après le 30/06 relèvent de l'exercice suivant.
+      if (p.projet_start) {
+        const start = new Date(p.projet_start);
+        if (start > FY_END) return false;
       }
       return true;
     });
@@ -765,9 +768,11 @@ app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, r
       if (p.entity && p.entity !== 'spk') return false;
       const title = (p.title || '').trim();
       if (/^M0/i.test(title) || /^MED0/i.test(title)) return false;
-      if (p.projet_stop) {
-        const stop = new Date(p.projet_stop);
-        if (stop > FY_END) return false;
+      // Inclure si la prod démarre sur l'exercice courant (start <= 30/06),
+      // même si elle se termine sur l'exercice suivant.
+      if (p.projet_start) {
+        const start = new Date(p.projet_start);
+        if (start > FY_END) return false;
       }
       return true;
     })
