@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Search, Users, FolderKanban, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Search, Users, FolderKanban, FileText, CheckCircle, AlertTriangle } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
 
@@ -7,6 +7,7 @@ export default function Assignments({ onAssigned }) {
   const [tab, setTab] = useState('clients');
   const [clients, setClients] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [proposals, setProposals] = useState([]);
   const [dcs, setDcs] = useState([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all'); // all, assigned, unassigned
@@ -28,7 +29,15 @@ export default function Assignments({ onAssigned }) {
     } catch (e) { console.error(e); }
   };
 
-  useEffect(() => { loadClients(); loadProjects(); }, []);
+  const loadProposals = async () => {
+    try {
+      const data = await apiFetch('/api/admin/all-proposals');
+      setProposals(data.proposals || []);
+      if (data.dcs?.length) setDcs(data.dcs);
+    } catch (e) { console.error(e); }
+  };
+
+  useEffect(() => { loadClients(); loadProjects(); loadProposals(); }, []);
 
   const handleAssignClient = async (clientName, dcName) => {
     setSaving(clientName);
@@ -50,6 +59,20 @@ export default function Assignments({ onAssigned }) {
       });
       setProjects(prev => prev.map(p => p.id === projectId
         ? { ...p, assignedDCs: dcNames, source: dcNames.length ? 'project' : 'none' }
+        : p));
+      onAssigned?.();
+    } catch (e) { console.error(e); }
+    setSaving(null);
+  };
+
+  const handleAssignProposal = async (proposalId, dcNames) => {
+    setSaving(proposalId);
+    try {
+      await apiFetch('/api/admin/assignments/proposal', {
+        method: 'PUT', body: JSON.stringify({ proposalId, dcNames }),
+      });
+      setProposals(prev => prev.map(p => p.id === proposalId
+        ? { ...p, assignedDCs: dcNames, source: dcNames.length ? 'proposal' : 'none' }
         : p));
       onAssigned?.();
     } catch (e) { console.error(e); }
@@ -80,12 +103,25 @@ export default function Assignments({ onAssigned }) {
     return list;
   }, [projects, search, filter]);
 
+  // Filtered proposals (devis)
+  const filteredProposals = useMemo(() => {
+    let list = proposals;
+    if (search) {
+      const s = search.toLowerCase();
+      list = list.filter(p => (p.title || '').toLowerCase().includes(s) || (p.company_name || '').toLowerCase().includes(s));
+    }
+    if (filter === 'assigned') list = list.filter(p => p.assignedDCs?.length > 0);
+    if (filter === 'unassigned') list = list.filter(p => !p.assignedDCs?.length);
+    return list;
+  }, [proposals, search, filter]);
+
   const unassignedClientCount = clients.filter(c => !c.dc).length;
   const unassignedProjectCount = projects.filter(p => !p.assignedDCs?.length).length;
+  const unassignedProposalCount = proposals.filter(p => !p.assignedDCs?.length).length;
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <h2 className="text-xl font-bold text-white">Assignations Client / Projet</h2>
+      <h2 className="text-xl font-bold text-white">Assignations Client / Projet / Devis</h2>
 
       {/* Tabs */}
       <div className="flex items-center gap-3 flex-wrap">
@@ -104,6 +140,14 @@ export default function Assignments({ onAssigned }) {
             <FolderKanban size={16} /> Projets
             {unassignedProjectCount > 0 && (
               <span className="bg-[#f39c12] text-black text-[10px] font-bold px-1.5 rounded-full">{unassignedProjectCount}</span>
+            )}
+          </button>
+          <button onClick={() => { setTab('proposals'); setSearch(''); setFilter('all'); }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-md transition-colors
+              ${tab === 'proposals' ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>
+            <FileText size={16} /> Devis
+            {unassignedProposalCount > 0 && (
+              <span className="bg-[#f39c12] text-black text-[10px] font-bold px-1.5 rounded-full">{unassignedProposalCount}</span>
             )}
           </button>
         </div>
@@ -179,6 +223,51 @@ export default function Assignments({ onAssigned }) {
                       const val = e.target.value;
                       if (val.startsWith('_client:')) return; // Don't save client-inherited
                       handleAssignProject(p.id, val ? [val] : []);
+                    }}
+                    className={`bg-[#0a0a0a] border rounded-lg px-3 py-1.5 text-sm font-medium focus:outline-none focus:border-[#e63946] w-36
+                      ${!isUnassigned ? 'border-[#2a2a2a] text-white' : 'border-[#f39c12]/50 text-[#f39c12]'}`}>
+                    <option value="">{p.source === 'client' ? `(${currentDC} via client)` : 'A assigner'}</option>
+                    {dcs.filter(d => d !== 'A assigner').map(dc => (
+                      <option key={dc} value={dc}>{dc}</option>
+                    ))}
+                  </select>
+                  {saving === p.id && <div className="w-4 h-4 border-2 border-[#e63946] border-t-transparent rounded-full animate-spin" />}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* PROPOSAL (DEVIS) ASSIGNMENTS */}
+      {tab === 'proposals' && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+          <div className="text-xs text-[#888] mb-3">{filteredProposals.length} devis en cours</div>
+          <div className="space-y-1 max-h-[600px] overflow-y-auto">
+            {filteredProposals.map(p => {
+              const currentDC = p.assignedDCs?.[0] || '';
+              const isUnassigned = !p.assignedDCs?.length;
+              return (
+                <div key={p.id} className={`flex items-center gap-3 py-2 px-3 rounded-lg transition-colors
+                  ${isUnassigned ? 'bg-[#f39c12]/5 border border-[#f39c12]/20' : 'hover:bg-[#1a1a1a]'}`}>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-white font-medium truncate">{p.title}</p>
+                    <p className="text-xs text-[#888]">
+                      {p.company_name} — {fmtK(p.amount)}
+                      {p.probability ? ` · ${p.probability}%` : ''}
+                      {p.pipe_name ? ` · ${p.pipe_name}` : ''}
+                    </p>
+                  </div>
+                  {p.source === 'client' && (
+                    <span className="text-[10px] text-[#555] bg-[#2a2a2a] px-1.5 py-0.5 rounded shrink-0">via client</span>
+                  )}
+                  {isUnassigned && <AlertTriangle size={14} className="text-[#f39c12] shrink-0" />}
+                  <select
+                    value={p.source === 'proposal' ? currentDC : (p.source === 'client' ? `_client:${currentDC}` : '')}
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (val.startsWith('_client:')) return; // Don't save client-inherited
+                      handleAssignProposal(p.id, val ? [val] : []);
                     }}
                     className={`bg-[#0a0a0a] border rounded-lg px-3 py-1.5 text-sm font-medium focus:outline-none focus:border-[#e63946] w-36
                       ${!isUnassigned ? 'border-[#2a2a2a] text-white' : 'border-[#f39c12]/50 text-[#f39c12]'}`}>

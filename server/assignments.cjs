@@ -8,6 +8,7 @@ const path = require('path');
 const DATA_DIR = process.env.DATA_DIR ? require('path').resolve(process.env.DATA_DIR) : path.join(__dirname, 'data');
 const CLIENT_FILE = path.join(DATA_DIR, 'client_assignments.json');
 const PROJECT_FILE = path.join(DATA_DIR, 'project_assignments.json');
+const PROPOSAL_FILE = path.join(DATA_DIR, 'proposal_assignments.json');
 
 // ── Client assignments ───────────────────────────────────
 
@@ -96,15 +97,66 @@ function assignProjectsBulk(assignments) {
   return Object.keys(assignments).length;
 }
 
+// ── Proposal assignments (devis) ─────────────────────────
+// Même logique que les projets : assignation explicite devis→DC
+// qui prime sur l'assignation par client.
+
+function loadProposalAssignments() {
+  try {
+    if (fs.existsSync(PROPOSAL_FILE)) {
+      return JSON.parse(fs.readFileSync(PROPOSAL_FILE, 'utf8'));
+    }
+  } catch (e) { console.error('[Assignments] Error loading proposals:', e.message); }
+  return { assignments: {}, updatedAt: null };
+}
+
+function saveProposalAssignments(data) {
+  data.updatedAt = new Date().toISOString();
+  fs.writeFileSync(PROPOSAL_FILE, JSON.stringify(data, null, 2), 'utf8');
+}
+
+function getProposalDCs(proposalId) {
+  const data = loadProposalAssignments();
+  return data.assignments[proposalId] || [];
+}
+
+function getAllProposalAssignments() {
+  return loadProposalAssignments().assignments;
+}
+
+/**
+ * Assign a proposal (devis) to one or more DCs
+ * @param {string} proposalId
+ * @param {string[]} dcNames - array of DC names
+ */
+function assignProposal(proposalId, dcNames) {
+  const data = loadProposalAssignments();
+  data.assignments[proposalId] = Array.isArray(dcNames) ? dcNames : [dcNames];
+  saveProposalAssignments(data);
+}
+
+function assignProposalsBulk(assignments) {
+  const data = loadProposalAssignments();
+  for (const [proposalId, dcs] of Object.entries(assignments)) {
+    data.assignments[proposalId] = Array.isArray(dcs) ? dcs : [dcs];
+  }
+  saveProposalAssignments(data);
+  return Object.keys(assignments).length;
+}
+
 // ── DC list (assignments + users.json) ───────────────────
 
 function getActiveDCs() {
   const clientData = loadClientAssignments();
   const projectData = loadProjectAssignments();
+  const proposalData = loadProposalAssignments();
   const dcs = new Set();
   // From assignments
   Object.values(clientData.assignments).forEach(dc => { if (dc) dcs.add(dc); });
   Object.values(projectData.assignments).forEach(dcList => {
+    if (Array.isArray(dcList)) dcList.forEach(dc => { if (dc) dcs.add(dc); });
+  });
+  Object.values(proposalData.assignments).forEach(dcList => {
     if (Array.isArray(dcList)) dcList.forEach(dc => { if (dc) dcs.add(dc); });
   });
   // Always include all DC-role users (so new DCs without assignments still appear)
@@ -124,5 +176,6 @@ function getActiveDCs() {
 module.exports = {
   getAllClientAssignments, getClientDC, assignClient, assignClientsBulk,
   getAllProjectAssignments, getProjectDCs, assignProject, assignProjectsBulk,
-  getActiveDCs, loadClientAssignments, loadProjectAssignments,
+  getAllProposalAssignments, getProposalDCs, assignProposal, assignProposalsBulk,
+  getActiveDCs, loadClientAssignments, loadProjectAssignments, loadProposalAssignments,
 };

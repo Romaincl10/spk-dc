@@ -33,7 +33,7 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 // Initialisation : si DATA_DIR ≠ default, on copie les fichiers de config
 // (users, assignments, objectives) depuis les defaults commités si absents.
 if (DATA_DIR !== DEFAULT_DATA_DIR) {
-  const CONFIG_FILES = ['users.json', 'client_assignments.json', 'project_assignments.json', 'objectives.json'];
+  const CONFIG_FILES = ['users.json', 'client_assignments.json', 'project_assignments.json', 'proposal_assignments.json', 'objectives.json'];
   CONFIG_FILES.forEach(file => {
     const dest = path.join(DATA_DIR, file);
     const src = path.join(DEFAULT_DATA_DIR, file);
@@ -176,6 +176,7 @@ function buildDCPortfolios() {
 
   const clientAssignments = assign.getAllClientAssignments();
   const projectAssignments = assign.getAllProjectAssignments();
+  const proposalAssignments = assign.getAllProposalAssignments();
 
   // Fiscal year
   const now = new Date();
@@ -285,6 +286,31 @@ function buildDCPortfolios() {
     return ['A assigner'];
   }
 
+  // Determine DC for each proposal (devis) — même logique que les projets :
+  // 1. Assignation explicite du devis  2. Assignation par client  3. "A assigner"
+  function getDCsForProposal(proposal) {
+    const propDCs = proposalAssignments[proposal.id];
+    if (propDCs && propDCs.length > 0) return propDCs;
+
+    const clientName = proposal.company_name;
+    if (clientName) {
+      const normClient = normalize(clientName);
+      const matchKey = Object.keys(clientAssignments).find(k => normalize(k) === normClient);
+      if (matchKey && clientAssignments[matchKey]) return [clientAssignments[matchKey]];
+    }
+
+    return ['A assigner'];
+  }
+
+  // Bucket proposals by DC (assignment-aware, like projects)
+  const proposalsByDC = {};
+  proposals.forEach(p => {
+    getDCsForProposal(p).forEach(dc => {
+      if (!proposalsByDC[dc]) proposalsByDC[dc] = [];
+      proposalsByDC[dc].push(p);
+    });
+  });
+
   // Map project_id → canonical client (for invoice bucketing)
   const projectToCanonical = {};
   enrichedAll.forEach(p => { projectToCanonical[String(p.id)] = p.canonical_client || p.company_name; });
@@ -300,6 +326,11 @@ function buildDCPortfolios() {
     });
   });
 
+  // Ensure DCs that only have assigned devis (no projects) still get a portfolio
+  Object.keys(proposalsByDC).forEach(dc => {
+    if (!dcGroups[dc]) dcGroups[dc] = { projects: [], clientSet: new Set() };
+  });
+
   // Build portfolio per DC
   const portfolios = {};
   for (const [dcName, group] of Object.entries(dcGroups)) {
@@ -307,9 +338,8 @@ function buildDCPortfolios() {
     const clientNames = [...group.clientSet];
     const projectIds = projectsList.map(p => p.id);
 
-    // Proposals for these clients (with canonical_client enrichment)
-    const dcProposals = proposals
-      .filter(p => clientNames.some(cn => normalize(p.company_name) === normalize(cn)))
+    // Proposals assigned to this DC (explicit devis assignment > client assignment)
+    const dcProposals = (proposalsByDC[dcName] || [])
       .map(p => ({ ...p, canonical_client: getCanonicalClientName(p.company_name) }));
     // Invoices & purchases for these projects
     const dcInvoices = invoices.filter(inv => projectIds.includes(inv.project_id));
@@ -469,10 +499,8 @@ function buildDCPortfolios() {
     const twoMonthsAgoStr = twoMonthsAgo.toISOString().split('T')[0];
     const recentProjects = projectsList.filter(p => p.created_at && p.created_at >= twoMonthsAgoStr)
       .sort((a, b) => b.created_at.localeCompare(a.created_at));
-    // All proposals for DC clients (not just active pipeline) for recent devis
-    const allDcProposals = proposals.filter(p =>
-      clientNames.some(cn => normalize(p.company_name) === normalize(cn))
-    );
+    // All proposals assigned to this DC (not just active pipeline) for recent devis
+    const allDcProposals = proposalsByDC[dcName] || [];
     const recentDevis = allDcProposals
       .filter(p => {
         if (!p.created_at) return false;
@@ -647,6 +675,17 @@ app.put('/api/admin/assignments/project', auth.authMiddleware, auth.adminOnly, (
   res.json({ success: true });
 });
 
+app.get('/api/admin/assignments/proposals', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  res.json({ assignments: assign.getAllProposalAssignments(), dcs: assign.getActiveDCs() });
+});
+
+app.put('/api/admin/assignments/proposal', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  const { proposalId, dcNames } = req.body;
+  if (!proposalId) return res.status(400).json({ error: 'proposalId requis' });
+  assign.assignProposal(proposalId, dcNames || []);
+  res.json({ success: true });
+});
+
 // List all unique clients from projects (for assignment UI)
 app.get('/api/admin/all-clients', auth.authMiddleware, auth.adminOnly, (req, res) => {
   const projectsData = loadData('furious_projects');
@@ -702,6 +741,55 @@ app.get('/api/admin/all-projects', auth.authMiddleware, auth.adminOnly, (req, re
     });
 
   res.json({ projects: list, dcs: assign.getActiveDCs() });
+});
+
+// List all active devis en cours (for assignment UI)
+app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  const proposalsData = loadData('furious_proposals');
+  const allProposals = proposalsData?.data || [];
+  const proposalAssignments = assign.getAllProposalAssignments();
+  const clientAssignments = assign.getAllClientAssignments();
+
+  // Fin d'exercice (30 juin) pour couper le pipeline
+  const now = new Date();
+  const fyStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const FY_END = new Date(fyStartYear + 1, 5, 30);
+
+  // Même filtre que activePipeline : devis en cours, hors médias / perdus / convertis
+  const list = allProposals
+    .filter(p => {
+      const pipe = Number(p.pipe);
+      if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
+      if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
+      if (p.pipe_name === 'Perdu') return false;
+      if (p.entity && p.entity !== 'spk') return false;
+      const title = (p.title || '').trim();
+      if (/^M0/i.test(title) || /^MED0/i.test(title)) return false;
+      if (p.projet_stop) {
+        const stop = new Date(p.projet_stop);
+        if (stop > FY_END) return false;
+      }
+      return true;
+    })
+    .map(p => {
+      // Determine assigned DCs (explicit > client)
+      const propDCs = proposalAssignments[p.id];
+      let assignedDCs = propDCs && propDCs.length > 0 ? propDCs : null;
+      if (!assignedDCs && p.company_name) {
+        const normClient = normalize(p.company_name);
+        const matchKey = Object.keys(clientAssignments).find(k => normalize(k) === normClient);
+        if (matchKey && clientAssignments[matchKey]) assignedDCs = [clientAssignments[matchKey]];
+      }
+      return {
+        id: p.id, title: p.title, company_name: p.company_name,
+        amount: Number(p.amount) || 0, probability: Number(p.probability) || 0,
+        pipe_name: p.pipe_name,
+        assignedDCs: assignedDCs || [], source: propDCs?.length ? 'proposal' : (assignedDCs ? 'client' : 'none'),
+      };
+    })
+    .sort((a, b) => b.amount - a.amount);
+
+  res.json({ proposals: list, dcs: assign.getActiveDCs() });
 });
 
 // ── Routes: Objectives ───────────────────────────────────
