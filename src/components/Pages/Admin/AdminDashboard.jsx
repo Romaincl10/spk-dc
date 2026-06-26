@@ -8,7 +8,9 @@ import DCFocusClient from './DCFocusClient';
 import DCRoadmap from './DCRoadmap';
 import DCFocusProjet from './DCFocusProjet';
 import DCFocusDevis from './DCFocusDevis';
+import DirecteurCommercial from './DirecteurCommercial';
 
+const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
 const FALLBACK_COLORS = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#ec4899', '#0ea5e9'];
 const DC_ORDER = ['Audrey', 'Hadrien', 'Ninon', 'Clément', 'Naël', 'Paul'];
@@ -37,11 +39,13 @@ function MiniGauge({ pct, color }) {
   );
 }
 
-export default function AdminDashboard({ portfolios, userRole }) {
-  const isDC = userRole === 'dc';
-  // DC users auto-select their only portfolio; admins start on Globale
+export default function AdminDashboard({ portfolios, userRole, viewerName }) {
+  const isDirectorViewer = DIRECTOR_NAMES.includes(viewerName);
+  // DC opérationnel : vue verrouillée sur son portfolio. Le directeur commercial navigue comme un admin.
+  const isDC = userRole === 'dc' && !isDirectorViewer;
   const [selectedDC, setSelectedDC] = useState(() => {
-    if (isDC && portfolios) {
+    if (isDirectorViewer) return viewerName; // Paul atterrit sur son cockpit directeur
+    if (userRole === 'dc' && portfolios) {
       const first = Object.keys(portfolios).find(k => k !== 'A assigner');
       return first || 'Globale';
     }
@@ -66,6 +70,7 @@ export default function AdminDashboard({ portfolios, userRole }) {
     return dcNames.map(name => ({ name, ...portfolios[name]?.kpis }));
   }, [portfolios, dcNames]);
 
+  const selectedIsDirector = DIRECTOR_NAMES.includes(selectedDC);
   const currentPortfolio = selectedDC !== 'Globale' && portfolios ? portfolios[selectedDC] : null;
   const currentColor = getColor(selectedDC, dcNames.indexOf(selectedDC));
 
@@ -126,8 +131,8 @@ export default function AdminDashboard({ portfolios, userRole }) {
         </div>
       )}
 
-      {/* Sub-tabs (DC detail) */}
-      {selectedDC !== 'Globale' && (
+      {/* Sub-tabs (DC detail) — masqués pour le directeur commercial (cockpit dédié) */}
+      {selectedDC !== 'Globale' && !selectedIsDirector && (
         <div className="flex items-center justify-between gap-3">
           <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
             {DC_SUBTABS.map(t => {
@@ -308,8 +313,11 @@ export default function AdminDashboard({ portfolios, userRole }) {
         </>
       )}
 
+      {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) */}
+      {selectedIsDirector && <DirecteurCommercial portfolios={portfolios} />}
+
       {/* ═══ DC DETAIL ═══ */}
-      {selectedDC !== 'Globale' && currentPortfolio && (
+      {selectedDC !== 'Globale' && !selectedIsDirector && currentPortfolio && (
         <>
           {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} />}
           {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} />}

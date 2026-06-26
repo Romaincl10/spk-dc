@@ -634,10 +634,14 @@ app.get('/api/sync/status', auth.authMiddleware, (req, res) => res.json(syncStat
 
 // ── Routes: Portfolio ────────────────────────────────────
 
+// Directeurs commerciaux : accès équipe complet (comme un admin) sur le pilotage.
+const DIRECTORS = new Set(['Paul']);
+const isDirector = (user) => DIRECTORS.has(user?.furiousName) || DIRECTORS.has(user?.name);
+
 app.get('/api/data/portfolio', auth.authMiddleware, (req, res) => {
   const portfolios = buildDCPortfolios();
 
-  if (req.user.role === 'admin') {
+  if (req.user.role === 'admin' || isDirector(req.user)) {
     return res.json({ portfolios, dcList: Object.keys(portfolios) });
   }
 
@@ -835,6 +839,19 @@ app.put('/api/data/activity', auth.authMiddleware, (req, res) => {
   const result = activity.upsertEntry(dcName, week, { leads, rdv, briefs, note });
   if (result.error) return res.status(400).json(result);
   res.json({ dc: dcName, ...result });
+});
+
+// Portefeuille prospects du directeur commercial (objectifs par prospect)
+app.get('/api/data/director-prospects', auth.authMiddleware, (req, res) => {
+  const fp = path.join(DATA_DIR, 'director_prospects.json');
+  try {
+    if (fs.existsSync(fp)) {
+      const data = JSON.parse(fs.readFileSync(fp, 'utf8'));
+      const total = (data.prospects || []).reduce((s, p) => s + (p.objectif || 0), 0);
+      return res.json({ ...data, total });
+    }
+  } catch (e) { console.error('[DirectorProspects] Error:', e.message); }
+  res.json({ prospects: [], total: 0 });
 });
 
 // Dernier snapshot de pipe (répartition par statut : Proactif / Reco / Brief en attente…)
