@@ -88,5 +88,15 @@
     "furiousName": "Naël",
     "createdAt": "2026-04-21T00:00:00.000Z",
     "lastLogin": null
+  },
+  {
+    "id": "dc-5",
+    "login": "paul.debelair.dc",
+    "password": "$2a$10$.BMkc3XsLU7hTcNMZAmYNu/96zX0uu/EGVI4LUD4h6PGx6HMMSziW",
+    "name": "Paul",
+    "role": "dc",
+    "furiousName": "Paul",
+    "createdAt": "2026-06-26T00:00:00.000Z",
+    "lastLogin": null
   }
 ]

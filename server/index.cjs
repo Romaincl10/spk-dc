@@ -17,6 +17,7 @@ const lucca = require('./lucca.cjs');
 const auth = require('./auth.cjs');
 const objectives = require('./objectives.cjs');
 const assign = require('./assignments.cjs');
+const activity = require('./activity.cjs');
 const { getCanonicalClientName, getCanonicalClientNameForProject } = require('./clientGroups.cjs');
 
 const app = express();
@@ -812,6 +813,42 @@ app.post('/api/admin/objectives/import', auth.authMiddleware, auth.adminOnly, up
   const result = objectives.importCSV(req.file.buffer.toString('utf8'), req.user.name);
   if (result.error) return res.status(400).json(result);
   res.json(result);
+});
+
+// ── Routes: Pilotage commercial / Activité hebdo ─────────
+
+// Lecture : admin → toutes les saisies ; DC → uniquement les siennes.
+app.get('/api/data/activity', auth.authMiddleware, (req, res) => {
+  const currentWeek = activity.currentWeek();
+  if (req.user.role === 'admin') {
+    return res.json({ activity: activity.getAllActivity(), currentWeek });
+  }
+  const myName = req.user.furiousName || req.user.name;
+  res.json({ activity: { [myName]: activity.getDCActivity(myName) }, currentWeek, myName });
+});
+
+// Saisie : un DC ne peut écrire que sa propre semaine ; un admin peut saisir pour n'importe quel DC (body.dc).
+app.put('/api/data/activity', auth.authMiddleware, (req, res) => {
+  const { dc, week, leads, rdv, briefs, note } = req.body || {};
+  const dcName = req.user.role === 'admin' ? (dc || req.user.furiousName) : (req.user.furiousName || req.user.name);
+  if (!dcName) return res.status(400).json({ error: 'DC non identifié' });
+  const result = activity.upsertEntry(dcName, week, { leads, rdv, briefs, note });
+  if (result.error) return res.status(400).json(result);
+  res.json({ dc: dcName, ...result });
+});
+
+// Dernier snapshot de pipe (répartition par statut : Proactif / Reco / Brief en attente…)
+app.get('/api/data/pipe-stages', auth.authMiddleware, (req, res) => {
+  const snapDir = path.join(DATA_DIR, '_pipe_snapshots');
+  let snapshot = null;
+  try {
+    if (fs.existsSync(snapDir)) {
+      const files = fs.readdirSync(snapDir)
+        .filter(f => f.startsWith('pipe_') && f.endsWith('.json')).sort();
+      if (files.length) snapshot = JSON.parse(fs.readFileSync(path.join(snapDir, files[files.length - 1]), 'utf8'));
+    }
+  } catch (e) { console.error('[PipeStages] Error:', e.message); }
+  res.json({ snapshot });
 });
 
 // ── Routes: Admin - Users ────────────────────────────────

@@ -1,12 +1,14 @@
-import { LayoutDashboard, Shield, UserCog, Upload, Link2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Shield, UserCog, Upload, Link2, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 const DC_PAGES = [
   { id: 'admin-dashboard', label: 'Mon Portfolio', icon: LayoutDashboard },
+  { id: 'pilotage', label: 'Pilotage', icon: Activity },
 ];
 
 const ADMIN_PAGES = [
   { id: 'admin-dashboard', label: 'Vue Globale', icon: Shield },
+  { id: 'pilotage', label: 'Pilotage', icon: Activity },
   { id: 'admin-assignments', label: 'Assignations', icon: Link2 },
   { id: 'admin-users', label: 'Gestion DC', icon: UserCog },
   { id: 'admin-objectifs', label: 'Import Objectifs', icon: Upload },

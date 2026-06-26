@@ -9,9 +9,9 @@ import DCRoadmap from './DCRoadmap';
 import DCFocusProjet from './DCFocusProjet';
 import DCFocusDevis from './DCFocusDevis';
 
-const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9' };
+const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
 const FALLBACK_COLORS = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#ec4899', '#0ea5e9'];
-const DC_ORDER = ['Audrey', 'Hadrien', 'Ninon', 'Clément', 'Naël'];
+const DC_ORDER = ['Audrey', 'Hadrien', 'Ninon', 'Clément', 'Naël', 'Paul'];
 function getColor(name, i) { return DC_COLORS[name] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]; }
 
 const DC_SUBTABS = [

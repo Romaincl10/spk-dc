@@ -10,6 +10,7 @@ import Projets from './components/Pages/Projets';
 import Pipeline from './components/Pages/Pipeline';
 import Objectifs from './components/Pages/Objectifs';
 import AdminDashboard from './components/Pages/Admin/AdminDashboard';
+import Pilotage from './components/Pages/Pilotage';
 import Assignments from './components/Pages/Admin/Assignments';
 import UserManagement from './components/Pages/Admin/UserManagement';
 import ObjectifImport from './components/Pages/Admin/ObjectifImport';
@@ -121,6 +122,7 @@ export default function App() {
 
     switch (currentPage) {
       case 'admin-dashboard': return <AdminDashboard portfolios={portfolios} userRole={user.role} />;
+      case 'pilotage': return <Pilotage portfolios={portfolios} user={user} />;
       case 'admin-assignments': return user.role === 'admin' ? <Assignments onAssigned={handleAssigned} /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;
       case 'admin-users': return user.role === 'admin' ? <UserManagement /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;
       case 'admin-objectifs': return user.role === 'admin' ? <ObjectifImport /> : <AdminDashboard portfolios={portfolios} userRole={user.role} />;

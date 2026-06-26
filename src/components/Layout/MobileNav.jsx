@@ -1,11 +1,13 @@
-import { LayoutDashboard, Shield, Link2 } from 'lucide-react';
+import { LayoutDashboard, Shield, Link2, Activity } from 'lucide-react';
 
 const DC_TABS = [
   { id: 'admin-dashboard', label: 'Portfolio', icon: LayoutDashboard },
+  { id: 'pilotage', label: 'Pilotage', icon: Activity },
 ];
 
 const ADMIN_TABS = [
   { id: 'admin-dashboard', label: 'Global', icon: Shield },
+  { id: 'pilotage', label: 'Pilotage', icon: Activity },
   { id: 'admin-assignments', label: 'Assigner', icon: Link2 },
 ];
 
