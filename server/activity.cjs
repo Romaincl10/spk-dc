@@ -47,9 +47,16 @@ function saveActivity(data) {
   fs.writeFileSync(ACTIVITY_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
-function toInt(v) {
-  const n = parseInt(v, 10);
-  return Number.isFinite(n) && n >= 0 ? n : 0;
+// Chaque lead / RDV / brief est caractérisé : { label, kind } où kind = 'personne' | 'societe'.
+function sanitizeItems(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr
+    .map((x) => {
+      if (typeof x === 'string') return { label: x.trim().slice(0, 80), kind: 'societe' };
+      return { label: String(x?.label || '').trim().slice(0, 80), kind: x?.kind === 'personne' ? 'personne' : 'societe' };
+    })
+    .filter((x) => x.label)
+    .slice(0, 60);
 }
 
 /** Renvoie toutes les semaines d'un DC : { "2026-W26": {leads,rdv,briefs,note,updatedAt} } */
@@ -70,9 +77,9 @@ function upsertEntry(dcName, week, { leads, rdv, briefs, note }) {
   const data = loadActivity();
   if (!data.entries[dcName]) data.entries[dcName] = {};
   data.entries[dcName][wk] = {
-    leads: toInt(leads),
-    rdv: toInt(rdv),
-    briefs: toInt(briefs),
+    leads: sanitizeItems(leads),
+    rdv: sanitizeItems(rdv),
+    briefs: sanitizeItems(briefs),
     note: typeof note === 'string' ? note.slice(0, 500) : '',
     updatedAt: new Date().toISOString(),
   };

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Users, Calendar, FileSearch, FileText, TrendingUp, Briefcase, Save, ChevronRight, Target, Crosshair } from 'lucide-react';
+import { Users, Calendar, FileSearch, FileText, TrendingUp, Briefcase, Save, ChevronRight, Target, Crosshair, Building2, User, X, Plus } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import { apiFetch } from '../../../utils/api';
 
@@ -30,12 +30,16 @@ const STAGES = [
   { key: 'ca', label: 'CA signé', icon: Briefcase, src: 'furious', money: true },
 ];
 
+// Compte un indicateur qu'il soit une liste d'items {label,kind} (nouveau) ou un nombre (ancien format)
+const cnt = (v) => (Array.isArray(v) ? v.length : Number(v) || 0);
+const asItems = (v) => (Array.isArray(v) ? v : []);
+
 function funnelOf(portfolio, entry) {
   const k = portfolio?.kpis || {};
   return {
-    leads: entry?.leads || 0,
-    rdv: entry?.rdv || 0,
-    briefs: entry?.briefs || 0,
+    leads: cnt(entry?.leads),
+    rdv: cnt(entry?.rdv),
+    briefs: cnt(entry?.briefs),
     devis: portfolio?.proposals?.length || 0,
     pipe: Math.round(k.pipelineProbabilise || 0),
     ca: Math.round(k.caTotal || 0),
@@ -44,15 +48,88 @@ function funnelOf(portfolio, entry) {
 
 const ratio = (a, b) => (b > 0 ? Math.round((a / b) * 100) : null);
 
+const convColor = (c) => (c == null ? '#555' : c >= 60 ? '#2ecc71' : c >= 30 ? '#f39c12' : '#e74c3c');
+
+/** Graphique en entonnoir — bandes trapézoïdales dégradées, ombrées + pastilles de taux de passage */
+function FunnelChart({ data }) {
+  const CX = 250, H = 54, GAP = 10, TOP = 30;
+  const TH = [210, 182, 154, 126, 98, 70]; // demi-largeur haute par bande
+  const BH = [188, 160, 132, 104, 76, 48]; // demi-largeur basse par bande
+  return (
+    <svg viewBox="0 0 760 434" role="img" className="w-full h-auto" style={{ maxWidth: 760 }}
+      fontFamily="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+      <title>Funnel commercial de l'équipe</title>
+      <defs>
+        <linearGradient id="fSaisi" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f7b733" />
+          <stop offset="1" stopColor="#b45309" />
+        </linearGradient>
+        <linearGradient id="fFurious" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#3fe0a3" />
+          <stop offset="1" stopColor="#15803d" />
+        </linearGradient>
+        <filter id="fShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.45" />
+        </filter>
+      </defs>
+
+      {STAGES.map((s, i) => {
+        const yTop = TOP + i * (H + GAP), yBot = yTop + H, cy = yTop + H / 2;
+        const grad = s.src === 'saisi' ? 'url(#fSaisi)' : 'url(#fFurious)';
+        const color = s.src === 'saisi' ? '#f39c12' : '#2ecc71';
+        const val = data[s.key];
+        const pts = `${CX - TH[i]},${yTop} ${CX + TH[i]},${yTop} ${CX + BH[i]},${yBot} ${CX - BH[i]},${yBot}`;
+        return (
+          <g key={s.key}>
+            <polygon points={pts} fill={grad} filter="url(#fShadow)" stroke="#ffffff" strokeOpacity="0.12" />
+            <text x={CX} y={cy + 8} textAnchor="middle" fill="#fff" fontSize="23" fontWeight="800" fontStyle="italic"
+              style={{ paintOrder: 'stroke' }} stroke="#000" strokeOpacity="0.25" strokeWidth="0.6">
+              {s.money ? eur(val) : val.toLocaleString('fr-FR')}
+            </text>
+            {/* Libellé + badge source à droite */}
+            <text x="524" y={cy - 2} fill="#fff" fontSize="14" fontWeight="700">{s.label}</text>
+            <rect x="524" y={cy + 5} width="62" height="18" rx="9" fill={color} fillOpacity="0.18" />
+            <text x="555" y={cy + 17} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={color} letterSpacing="0.6">
+              {s.src === 'saisi' ? 'SAISI' : 'FURIOUS'}
+            </text>
+            {s.sub && <text x="594" y={cy + 18} fontSize="10.5" fill="#888">{s.sub}</text>}
+          </g>
+        );
+      })}
+
+      {/* Pastilles de taux de passage entre les étapes hautes */}
+      {[0, 1, 2].map((i) => {
+        const yB = TOP + i * (H + GAP) + H + GAP / 2;
+        const conv = ratio(data[STAGES[i + 1].key], data[STAGES[i].key]);
+        const c = convColor(conv);
+        return (
+          <g key={`conv-${i}`}>
+            <circle cx={CX} cy={yB} r="18" fill="#0d0d0d" stroke={c} strokeWidth="2" filter="url(#fShadow)" />
+            <text x={CX} y={yB + 4} textAnchor="middle" fontSize="10.5" fontWeight="800" fill={c}>
+              {conv == null ? '—' : `${conv}%`}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Légende */}
+      <rect x="150" y="416" width="12" height="12" rx="3" fill="url(#fSaisi)" />
+      <text x="168" y="426" fontSize="11" fill="#aaa">Saisi — capté chaque semaine (hors Furious)</text>
+      <rect x="470" y="416" width="12" height="12" rx="3" fill="url(#fFurious)" />
+      <text x="488" y="426" fontSize="11" fill="#aaa">Furious — automatique</text>
+    </svg>
+  );
+}
+
+/** Rangée de cartes détaillées (complément chiffré du graphique) */
 function FunnelBand({ data }) {
   return (
     <div className="flex flex-wrap items-stretch gap-2">
       {STAGES.map((s, i) => {
         const Icon = s.icon;
         const val = data[s.key];
-        const next = STAGES[i + 1];
-        const showConv = next && i < 3;
-        const conv = showConv ? ratio(data[next.key], val) : null;
+        const showConv = i < 3;
+        const conv = showConv ? ratio(data[STAGES[i + 1].key], val) : null;
         return (
           <div key={s.key} className="flex items-stretch gap-2">
             <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-3 md:p-4 w-[140px] flex flex-col justify-between">
@@ -70,7 +147,7 @@ function FunnelBand({ data }) {
             {showConv && (
               <div className="hidden md:flex flex-col items-center justify-center w-12 text-center">
                 <ChevronRight size={16} className="text-[#444]" />
-                <span className="text-[11px] font-bold" style={{ color: conv == null ? '#444' : conv >= 50 ? '#2ecc71' : conv >= 25 ? '#f39c12' : '#e74c3c' }}>
+                <span className="text-[11px] font-bold" style={{ color: convColor(conv) }}>
                   {conv == null ? '—' : `${conv}%`}
                 </span>
               </div>
@@ -82,15 +159,68 @@ function FunnelBand({ data }) {
   );
 }
 
+/** Éditeur d'une catégorie (leads / RDV / briefs) : liste d'items nominatifs personne ou société */
+function ItemEditor({ label, icon: Icon, accent, items, onChange }) {
+  const [draft, setDraft] = useState('');
+  const [kind, setKind] = useState('societe');
+
+  const add = () => {
+    const l = draft.trim();
+    if (!l) return;
+    onChange([...items, { label: l, kind }]);
+    setDraft('');
+  };
+  const remove = (i) => onChange(items.filter((_, idx) => idx !== i));
+
+  return (
+    <div className="bg-[#0a0a0a] border border-[#2a2a2a] rounded-lg p-3 flex flex-col">
+      <div className="flex items-center justify-between mb-2">
+        <span className="flex items-center gap-2 text-[#888] text-xs font-semibold uppercase tracking-wide">
+          <Icon size={14} /> {label}
+        </span>
+        <span className="text-sm font-extrabold italic" style={{ color: accent }}>{items.length}</span>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 mb-2 min-h-[24px]">
+        {items.map((it, i) => {
+          const K = it.kind === 'personne' ? User : Building2;
+          return (
+            <span key={i} className="group flex items-center gap-1 bg-[#161616] border border-[#2a2a2a] rounded-md pl-1.5 pr-1 py-0.5 text-xs text-white">
+              <K size={11} className="text-[#888]" />
+              <span className="max-w-[130px] truncate">{it.label}</span>
+              <button onClick={() => remove(i)} className="text-[#666] hover:text-[#e63946]"><X size={12} /></button>
+            </span>
+          );
+        })}
+        {items.length === 0 && <span className="text-[#555] text-[11px] italic">Aucun — ajoute une personne ou une société</span>}
+      </div>
+
+      <div className="flex items-center gap-1 mt-auto">
+        <div className="flex bg-[#161616] border border-[#2a2a2a] rounded-md overflow-hidden shrink-0">
+          <button onClick={() => setKind('societe')} title="Société"
+            className={`p-1.5 ${kind === 'societe' ? 'bg-[#2a2a2a] text-white' : 'text-[#666]'}`}><Building2 size={13} /></button>
+          <button onClick={() => setKind('personne')} title="Personne"
+            className={`p-1.5 ${kind === 'personne' ? 'bg-[#2a2a2a] text-white' : 'text-[#666]'}`}><User size={13} /></button>
+        </div>
+        <input value={draft} onChange={e => setDraft(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add(); } }}
+          placeholder={kind === 'personne' ? 'Nom de la personne' : 'Nom de la société'}
+          className="flex-1 min-w-0 bg-[#161616] border border-[#2a2a2a] rounded-md px-2 py-1.5 text-sm text-white outline-none focus:border-[#e63946]" />
+        <button onClick={add} className="shrink-0 bg-[#2a2a2a] hover:bg-[#e63946] text-white rounded-md p-1.5"><Plus size={15} /></button>
+      </div>
+    </div>
+  );
+}
+
 function SaisieHebdo({ dcNames, currentWeek, entries, onSaved }) {
   const [dc, setDc] = useState(dcNames[0] || '');
-  const [form, setForm] = useState({ leads: 0, rdv: 0, briefs: 0, note: '' });
+  const [form, setForm] = useState({ leads: [], rdv: [], briefs: [], note: '' });
   const [saving, setSaving] = useState(false);
   const [ok, setOk] = useState(false);
 
   useEffect(() => {
     const e = entries?.[dc]?.[currentWeek];
-    setForm({ leads: e?.leads || 0, rdv: e?.rdv || 0, briefs: e?.briefs || 0, note: e?.note || '' });
+    setForm({ leads: asItems(e?.leads), rdv: asItems(e?.rdv), briefs: asItems(e?.briefs), note: e?.note || '' });
     setOk(false);
   }, [dc, currentWeek, entries]);
 
@@ -110,9 +240,9 @@ function SaisieHebdo({ dcNames, currentWeek, entries, onSaved }) {
   };
 
   const fields = [
-    { k: 'leads', label: 'Leads générés', icon: Users },
-    { k: 'rdv', label: 'RDV réalisés', icon: Calendar },
-    { k: 'briefs', label: 'Briefs détectés', icon: FileSearch },
+    { k: 'leads', label: 'Leads générés', icon: Users, accent: '#f39c12' },
+    { k: 'rdv', label: 'RDV réalisés', icon: Calendar, accent: '#f39c12' },
+    { k: 'briefs', label: 'Briefs détectés', icon: FileSearch, accent: '#f39c12' },
   ];
 
   return (
@@ -120,7 +250,7 @@ function SaisieHebdo({ dcNames, currentWeek, entries, onSaved }) {
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div>
           <h3 className="text-white font-extrabold italic text-lg">Saisie hebdo</h3>
-          <p className="text-[#888] text-xs">Semaine {currentWeek} · le bas du funnel est déjà rempli par Furious</p>
+          <p className="text-[#888] text-xs">Semaine {currentWeek} · chaque lead / RDV / brief est nominatif (société ou personne)</p>
         </div>
         <select value={dc} onChange={e => setDc(e.target.value)}
           className="bg-[#0a0a0a] border border-[#2a2a2a] text-white text-sm rounded-lg px-3 py-2">
@@ -128,20 +258,11 @@ function SaisieHebdo({ dcNames, currentWeek, entries, onSaved }) {
         </select>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
-        {fields.map(f => {
-          const Icon = f.icon;
-          return (
-            <label key={f.k} className="bg-[#0a0a0a] border border-[#2a2a2a] rounded-lg p-3 flex flex-col gap-2">
-              <span className="flex items-center gap-2 text-[#888] text-xs font-semibold uppercase tracking-wide">
-                <Icon size={14} /> {f.label}
-              </span>
-              <input type="number" min="0" value={form[f.k]}
-                onChange={e => set(f.k, e.target.value)}
-                className="bg-transparent text-white text-2xl font-extrabold italic w-full outline-none" />
-            </label>
-          );
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+        {fields.map(f => (
+          <ItemEditor key={f.k} label={f.label} icon={f.icon} accent={f.accent}
+            items={form[f.k]} onChange={v => set(f.k, v)} />
+        ))}
       </div>
 
       <textarea value={form.note} onChange={e => set('note', e.target.value)}
@@ -240,7 +361,13 @@ export default function DirecteurCommercial({ portfolios }) {
             <span className="text-[#2ecc71] font-semibold">Furious</span> = automatique
           </span>
         </div>
-        <FunnelBand data={teamFunnel} />
+        <FunnelChart data={teamFunnel} />
+
+        {/* Rangée de cartes détaillées, en complément du graphique */}
+        <div className="mt-5 pt-5 border-t border-[#2a2a2a] overflow-x-auto">
+          <FunnelBand data={teamFunnel} />
+        </div>
+
         <p className="text-[#555] text-[11px] mt-3">
           Taux de passage de la semaine (indicatifs tant que la saisie hebdo n'est pas généralisée à toute l'équipe).
         </p>
@@ -299,6 +426,49 @@ export default function DirecteurCommercial({ portfolios }) {
           Leads / RDV / Briefs = saisie hebdo · Devis / Pipe / CA = Furious (exercice en cours).
         </p>
       </div>
+
+      {/* Détail nominatif de la semaine */}
+      {dcNames.some(n => { const e = activity?.[n]?.[currentWeek]; return e && (asItems(e.leads).length + asItems(e.rdv).length + asItems(e.briefs).length) > 0; }) && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+          <h3 className="text-white font-extrabold italic text-lg mb-4">Détail nominatif — semaine {currentWeek}</h3>
+          <div className="space-y-3">
+            {dcNames.map((n, i) => {
+              const e = activity?.[n]?.[currentWeek];
+              const groups = [
+                { key: 'leads', label: 'Leads', items: asItems(e?.leads) },
+                { key: 'rdv', label: 'RDV', items: asItems(e?.rdv) },
+                { key: 'briefs', label: 'Briefs', items: asItems(e?.briefs) },
+              ];
+              if (!groups.reduce((s, g) => s + g.items.length, 0)) return null;
+              return (
+                <div key={n} className="border-b border-[#1a1a1a] pb-3 last:border-0 last:pb-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: colorFor(n, i) }} />
+                    <span className="font-semibold text-white text-sm">{n}</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    {groups.map(g => (
+                      <div key={g.key}>
+                        <div className="text-[#888] text-[11px] font-semibold uppercase mb-1">{g.label} ({g.items.length})</div>
+                        <div className="flex flex-wrap gap-1">
+                          {g.items.length ? g.items.map((it, idx) => {
+                            const K = it.kind === 'personne' ? User : Building2;
+                            return (
+                              <span key={idx} className="flex items-center gap-1 bg-[#0a0a0a] border border-[#2a2a2a] rounded px-1.5 py-0.5 text-xs text-[#ccc]">
+                                <K size={10} className="text-[#666]" />{it.label}
+                              </span>
+                            );
+                          }) : <span className="text-[#555] text-[11px]">—</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Pipe Furious par statut */}
       {pipeSnapshot?.byStatus?.length > 0 && (
