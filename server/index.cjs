@@ -343,6 +343,24 @@ function buildDCPortfolios(fyStartYearParam) {
     marginRateByProject[String(p.id)] = p.total_amount > 0 ? (p.marginEur || 0) / p.total_amount : 0;
   });
 
+  // Appariement annulation ↔ avoir : une facture annulée (is_cancelled) est neutralisée
+  // par un avoir (montant négatif, même projet, montant opposé). On exclut les DEUX :
+  // sinon l'avoir seul (l'annulée étant déjà filtrée) soustrait un CA fantôme.
+  // Les avoirs commerciaux réels (sans facture annulée en face) restent comptés.
+  const pairedAvoirs = new Set();
+  {
+    const negByProject = {};
+    invoices.forEach(inv => {
+      if (Number(inv.amount_ht) < 0) (negByProject[String(inv.project_id)] ||= []).push(inv);
+    });
+    invoices.forEach(inv => {
+      if (inv.is_cancelled != 1) return;
+      const list = negByProject[String(inv.project_id)] || [];
+      const idx = list.findIndex(n => Math.abs(Math.abs(Number(n.amount_ht)) - Math.abs(Number(inv.amount_ht))) < 0.01);
+      if (idx >= 0) { pairedAvoirs.add(list[idx]); list.splice(idx, 1); }
+    });
+  }
+
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
   enrichedAll.forEach(p => {
@@ -379,11 +397,12 @@ function buildDCPortfolios(fyStartYearParam) {
     // Bornes de l'exercice pour le filtrage des factures
     const fyStartDate = new Date(fyStartYear, 6, 1);
     const fyEndDate = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
-    // Factures valides = non annulées, disposant d'une date effective
-    // (émise OU prévue via issue_date pour les factures planifiées statut 0)
+    // Factures valides = non annulées, hors avoir neutralisant une annulée,
+    // disposant d'une date effective (émise OU prévue via issue_date, statut 0)
     const validInvoices = dcInvoices.filter(inv =>
       !inv.is_cancelled &&
       inv.statut !== 'cancelled' &&
+      !pairedAvoirs.has(inv) &&
       invoiceEffectiveDate(inv)
     );
     // Factures rattachées à l'exercice via leur DATE EFFECTIVE (émise ou prévue) →
