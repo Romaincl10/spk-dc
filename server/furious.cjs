@@ -147,7 +147,7 @@ async function fetchCRM() {
 async function fetchInvoices() {
   return fetchAll(
     'stand-alone-invoice', 'Invoices',
-    'id,id_system,proposal_id,project_id,project_name,company_name,company_id,amount_ht,vat,amount_inc_tax,statut,is_cancelled,invoice_date,due_date,payment_date,entity,currency,period_start,period_stop,author,tags'
+    'id,id_system,proposal_id,project_id,project_name,company_name,company_id,amount_ht,vat,amount_inc_tax,statut,is_cancelled,invoice_date,issue_date,due_date,payment_date,entity,currency,period_start,period_stop,author,tags'
   );
 }
 

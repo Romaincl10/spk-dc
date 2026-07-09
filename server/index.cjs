@@ -70,6 +70,25 @@ function normalize(str) {
   return (str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 }
 
+/** Date de valeur ('YYYY-MM-DD') si renseign\u00e9e et != 0000-00-00, sinon null */
+function realDate(d) {
+  return d && d !== '0000-00-00' ? d : null;
+}
+
+/**
+ * Date effective d'une facture pour la reconnaissance du CA :
+ * date d'\u00e9mission r\u00e9elle (invoice_date) si saisie, sinon date de facture PR\u00c9VUE
+ * (issue_date, port\u00e9e par les factures planifi\u00e9es statut 0). null si aucune.
+ */
+function invoiceEffectiveDate(inv) {
+  return realDate(inv.invoice_date) || realDate(inv.issue_date);
+}
+
+/** True si la facture est r\u00e9ellement \u00e9mise (par opposition \u00e0 planifi\u00e9e statut 0) */
+function isInvoiceIssued(inv) {
+  return !!realDate(inv.invoice_date) && String(inv.statut) !== '0';
+}
+
 /** Clients internes / reciprocites a exclure */
 const EXCLUDED_CLIENTS = ['sportpack', 'spk medias', 'spk activate', 'spk studio', 'spk group'];
 
@@ -317,6 +336,13 @@ function buildDCPortfolios(fyStartYearParam) {
   const projectToCanonical = {};
   enrichedAll.forEach(p => { projectToCanonical[String(p.id)] = p.canonical_client || p.company_name; });
 
+  // Taux de marge par projet (marge contractuelle / CA contractuel) — sert à proratiser
+  // la marge en fonction du CA réellement facturé dans l'exercice.
+  const marginRateByProject = {};
+  enrichedAll.forEach(p => {
+    marginRateByProject[String(p.id)] = p.total_amount > 0 ? (p.marginEur || 0) / p.total_amount : 0;
+  });
+
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
   enrichedAll.forEach(p => {
@@ -347,31 +373,42 @@ function buildDCPortfolios(fyStartYearParam) {
     const dcInvoices = invoices.filter(inv => projectIds.includes(inv.project_id));
     const dcPurchases = purchases.filter(pu => projectIds.includes(pu.project_id));
 
-    // KPIs (fiscal year only)
+    // Projets rattachés à l'exercice (chevauchement de dates) — sert aux compteurs (projets actifs, jours)
     const fyProjects = projectsList.filter(p => p.inFY);
-    // CA basé sur le total_amount des projets (montant contracté, indépendant des dates de facturation)
-    const caTotal = fyProjects.reduce((s, p) => s + p.total_amount, 0);
-    const mbTotal = fyProjects.reduce((s, p) => s + (p.marginEur || 0), 0);
-    const margins = fyProjects.filter(p => p.margin > 0).map(p => p.margin);
-    const margeBruteMoy = margins.length > 0 ? margins.reduce((s, m) => s + m, 0) / margins.length : 0;
-    const margeBrutePct = caTotal > 0 ? Math.round(mbTotal / caTotal * 1000) / 10 : 0;
 
-    // Bornes FY pour filtrage factures (chart mensuel uniquement)
+    // Bornes de l'exercice pour le filtrage des factures
     const fyStartDate = new Date(fyStartYear, 6, 1);
     const fyEndDate = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
-    // Exclure les factures annulées ET les factures planifiées (id=0, invoice_date='0000-00-00')
+    // Factures valides = non annulées, disposant d'une date effective
+    // (émise OU prévue via issue_date pour les factures planifiées statut 0)
     const validInvoices = dcInvoices.filter(inv =>
       !inv.is_cancelled &&
       inv.statut !== 'cancelled' &&
-      String(inv.id) !== '0' &&
-      inv.invoice_date &&
-      inv.invoice_date !== '0000-00-00'
+      invoiceEffectiveDate(inv)
     );
+    // Factures rattachées à l'exercice via leur DATE EFFECTIVE (émise ou prévue) →
+    // base de reconnaissance du CA. Un projet à cheval sur 2 exercices voit son CA
+    // ventilé selon les dates de facturation (réelles ou prévues), pas en bloc.
+    const fyInvoices = validInvoices.filter(inv => {
+      const d = new Date(invoiceEffectiveDate(inv));
+      return d >= fyStartDate && d <= fyEndDate;
+    });
+
+    // CA de l'exercice = somme des factures datées dans l'exercice
+    // MB = CA facturé × taux de marge du projet (prorata du contractuel)
+    const caTotal = fyInvoices.reduce((s, inv) => s + (Number(inv.amount_ht) || 0), 0);
+    const mbTotal = fyInvoices.reduce((s, inv) =>
+      s + (Number(inv.amount_ht) || 0) * (marginRateByProject[String(inv.project_id)] || 0), 0);
+    const margeBrutePct = caTotal > 0 ? Math.round(mbTotal / caTotal * 1000) / 10 : 0;
+    // Marge brute moyenne = moyenne des taux de marge des projets facturés dans l'exercice
+    const billedProjectIds = new Set(fyInvoices.map(inv => String(inv.project_id)));
+    const margins = fyProjects.filter(p => billedProjectIds.has(String(p.id)) && p.margin > 0).map(p => p.margin);
+    const margeBruteMoy = margins.length > 0 ? margins.reduce((s, m) => s + m, 0) / margins.length : 0;
+
     const projetsActifs = fyProjects.filter(p => p.actif === '1' || p.actif === 1).length;
     const totalSold = fyProjects.reduce((s, p) => s + p.time_sold_days, 0);
     const totalSpent = fyProjects.reduce((s, p) => s + p.time_spent_days, 0);
 
-    const FY_END = new Date(fyStartYear + 1, 5, 30); // 30 juin fin exercice
     const activePipeline = dcProposals.filter(p => {
       const pipe = Number(p.pipe);
       if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
@@ -384,33 +421,35 @@ function buildDCPortfolios(fyStartYearParam) {
       // Exclure devis Achats Médias (M0*, MED0*)
       const title = (p.title || '').trim();
       if (/^M0/i.test(title) || /^MED0/i.test(title)) return false;
-      // Prise en compte basée sur la date de DÉBUT de prod :
-      // inclure tout devis qui démarre sur l'exercice courant (start <= 30/06),
-      // même si la prod se termine sur l'exercice suivant.
-      // Les devis qui démarrent après le 30/06 relèvent de l'exercice suivant.
-      if (p.projet_start) {
-        const start = new Date(p.projet_start);
-        if (start > FY_END) return false;
-      }
+      // Rattachement à l'exercice par la DATE DE FIN envisagée du devis (projet_stop) :
+      // un devis compte pour l'exercice où sa fin de prod est prévue.
+      // (fallback sur projet_start si projet_stop absent)
+      const ref = p.projet_stop ? new Date(p.projet_stop) : (p.projet_start ? new Date(p.projet_start) : null);
+      if (ref && (ref < fyStartDate || ref > fyEndDate)) return false;
       return true;
     });
     const pipelineTotal = activePipeline.reduce((s, p) => s + (Number(p.amount) || 0), 0);
     const pipelineProbabilise = activePipeline.reduce((s, p) =>
       s + (Number(p.amount) || 0) * (Number(p.probability) || 0) / 100, 0);
 
-    const caFacture = validInvoices.filter(inv => {
-      if (!inv.invoice_date) return false;
-      return new Date(inv.invoice_date) <= now;
-    }).reduce((s, inv) => s + (Number(inv.amount_ht) || 0), 0);
+    const caFacture = fyInvoices.filter(inv => isInvoiceIssued(inv) && new Date(inv.invoice_date) <= now)
+      .reduce((s, inv) => s + (Number(inv.amount_ht) || 0), 0);
 
-    // Build client breakdown with canonical names + pipeline per client (CA = project-based)
+    // Build client breakdown — CA/MB basés sur les factures datées dans l'exercice
     const clientMap = {};
     fyProjects.forEach(p => {
       const canonical = p.canonical_client || p.company_name || 'Inconnu';
       if (!clientMap[canonical]) clientMap[canonical] = { name: canonical, ca: 0, mb: 0, pipe: 0, pipeProbabilise: 0, projects: [] };
-      clientMap[canonical].ca += p.total_amount;
-      clientMap[canonical].mb += p.marginEur || 0;
       clientMap[canonical].projects.push(p);
+    });
+    // CA/MB par client = factures de l'exercice ventilées par client canonique
+    fyInvoices.forEach(inv => {
+      const canonical = projectToCanonical[String(inv.project_id)];
+      if (!canonical) return;
+      if (!clientMap[canonical]) clientMap[canonical] = { name: canonical, ca: 0, mb: 0, pipe: 0, pipeProbabilise: 0, projects: [] };
+      const amt = Number(inv.amount_ht) || 0;
+      clientMap[canonical].ca += amt;
+      clientMap[canonical].mb += amt * (marginRateByProject[String(inv.project_id)] || 0);
     });
 
     // Add pipeline per canonical client + store devis per client
@@ -442,16 +481,16 @@ function buildDCPortfolios(fyStartYearParam) {
     // Ensure all clients have devis array
     Object.values(clientMap).forEach(c => { if (!c.devis) c.devis = []; });
 
-    // Monthly invoice CA per canonical client (FY dates only): split past (facturé) vs future (planifié)
+    // Ventilation mensuelle du CA par client (dans l'exercice) : facturé (émis) vs planifié (prévu)
     validInvoices.forEach(inv => {
       const canonical = projectToCanonical[String(inv.project_id)];
       if (!canonical || !clientMap[canonical]) return;
-      if (!inv.invoice_date) return;
-      const d = new Date(inv.invoice_date);
+      const ed = invoiceEffectiveDate(inv);
+      if (!ed) return;
+      const d = new Date(ed);
       if (d < fyStartDate || d > fyEndDate) return; // exclude invoices outside FY
-      const month = inv.invoice_date.substring(0, 7);
-      const isPast = d <= now;
-      if (isPast) {
+      const month = ed.substring(0, 7);
+      if (isInvoiceIssued(inv)) {
         if (!clientMap[canonical].monthlyInvoiceCA) clientMap[canonical].monthlyInvoiceCA = {};
         clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + (Number(inv.amount_ht) || 0);
       } else {
