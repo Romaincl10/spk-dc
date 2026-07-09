@@ -23,16 +23,31 @@ function saveObjectives(data) {
   fs.writeFileSync(OBJ_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
-function getObjectivesForDC(dcName) {
-  const data = loadObjectives();
-  // Match by normalized name (case-insensitive, accent-insensitive)
-  const norm = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-  const key = Object.keys(data.objectives).find(k => norm(k) === norm(dcName));
-  return key ? data.objectives[key] : [];
+// Exercice fiscal courant (d\u00e9marre le 01/07) \u2014 fyStartYear = ann\u00e9e de d\u00e9but
+function currentFyStartYear() {
+  const d = new Date();
+  return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
 }
 
-function getAllObjectives() {
-  return loadObjectives().objectives;
+// Retourne la map { dc: [...] } pour un exercice donn\u00e9, en g\u00e9rant la structure
+// scind\u00e9e { "2025": {...}, "2026": {...} } ou l'ancienne structure plate.
+function objectivesByDC(root, fyStartYear) {
+  const scoped = Object.keys(root || {}).some(k => /^\d{4}$/.test(k));
+  if (!scoped) return root || {};
+  return root[String(fyStartYear ?? currentFyStartYear())] || {};
+}
+
+function getObjectivesForDC(dcName, fyStartYear) {
+  const data = loadObjectives();
+  const byDc = objectivesByDC(data.objectives, fyStartYear);
+  // Match by normalized name (case-insensitive, accent-insensitive)
+  const norm = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const key = Object.keys(byDc).find(k => norm(k) === norm(dcName));
+  return key ? byDc[key] : [];
+}
+
+function getAllObjectives(fyStartYear) {
+  return objectivesByDC(loadObjectives().objectives, fyStartYear);
 }
 
 function getImportHistory() {
@@ -97,14 +112,23 @@ function importCSV(content, importedBy) {
     });
   }
 
-  // Merge/replace objectives
-  store.objectives = { ...store.objectives, ...grouped };
+  // Merge/replace objectives — cible l'exercice courant si structure scindée par exercice
+  const root = store.objectives || {};
+  const scoped = Object.keys(root).some(k => /^\d{4}$/.test(k));
+  if (scoped) {
+    const yk = String(currentFyStartYear());
+    root[yk] = { ...(root[yk] || {}), ...grouped };
+    store.objectives = root;
+  } else {
+    store.objectives = { ...root, ...grouped };
+  }
 
   // Track import
   store.imports.push({
     date: new Date().toISOString(),
     by: importedBy || 'admin',
     count: parsed.data.length,
+    exercise: scoped ? String(currentFyStartYear()) : undefined,
     dcs: Object.keys(grouped),
   });
 

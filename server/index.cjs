@@ -160,12 +160,16 @@ async function syncLucca() {
 
 // ── Objectives loader ────────────────────────────────────
 
-function loadObjectivesForDC(dcName) {
+function loadObjectivesForDC(dcName, fyStartYear) {
   try {
     const fp = path.join(DATA_DIR, 'objectives.json');
     if (fs.existsSync(fp)) {
       const data = JSON.parse(fs.readFileSync(fp, 'utf8'));
-      return data.objectives?.[dcName] || [];
+      const root = data.objectives || {};
+      // Structure scindée par exercice : { "2025": {dc:[]}, "2026": {dc:[]} }
+      const scoped = Object.keys(root).some(k => /^\d{4}$/.test(k));
+      const byDc = scoped ? (root[String(fyStartYear)] || {}) : root;
+      return byDc?.[dcName] || [];
     }
   } catch (e) {}
   return [];
@@ -524,8 +528,21 @@ function buildDCPortfolios(fyStartYearParam) {
 
     const clientBreakdown = Object.values(clientMap).sort((a, b) => (b.ca + b.pipeProbabilise) - (a.ca + a.pipeProbabilise));
 
-    // Load objectives for this DC
-    const objData = loadObjectivesForDC(dcName);
+    // Load objectives for this DC (exercice courant)
+    const objData = loadObjectivesForDC(dcName, fyStartYear);
+    // Agrège le CA/pipe des clients d'un objectif : par motifs `match` (niveau groupe)
+    // sinon par nom canonique exact. Retourne { actual, pipe }.
+    const matchObjective = (obj) => {
+      if (Array.isArray(obj.match) && obj.match.length) {
+        const matched = clientBreakdown.filter(c => obj.match.some(p => normalize(c.name).includes(p)));
+        return {
+          actual: matched.reduce((s, c) => s + (c.ca || 0), 0),
+          pipe: matched.reduce((s, c) => s + (c.pipeProbabilise || 0), 0),
+        };
+      }
+      const m = clientBreakdown.find(c => c.name === getCanonicalClientName(obj.client));
+      return { actual: m ? m.ca : 0, pipe: m ? (m.pipeProbabilise || 0) : 0 };
+    };
 
     // Enrich objectives with actual values from clientBreakdown
     // Use getCanonicalClientName() on both sides to ensure robust matching
@@ -545,10 +562,7 @@ function buildDCPortfolios(fyStartYearParam) {
           .map(c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 }));
         return { ...obj, actual: bizDevCA, pipe: bizDevPipe, clients, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
       }
-      const canonicalObj = getCanonicalClientName(obj.client);
-      const match = clientBreakdown.find(c => c.name === canonicalObj);
-      const actual = match ? match.ca : 0;
-      const pipe = match ? match.pipeProbabilise : 0;
+      const { actual, pipe } = matchObjective(obj);
       return { ...obj, actual, pipe, progress: obj.target > 0 ? Math.round(actual / obj.target * 100) : (actual > 0 ? 100 : 0) };
     });
 
@@ -618,10 +632,16 @@ function buildDCPortfolios(fyStartYearParam) {
       users.filter(u => u.role === 'dc').forEach(u => {
         const key = u.furiousName || u.name;
         if (key && !portfolios[key]) {
+          // DC sans données Furious : on charge quand même ses objectifs (réalisé = 0)
+          const objData = loadObjectivesForDC(key, fyStartYear);
+          const emptyObjectives = objData
+            .filter(o => o.client !== '_BIZ_DEV')
+            .map(o => ({ ...o, actual: 0, pipe: 0, progress: 0 }));
+          const objTarget = emptyObjectives.reduce((s, o) => s + (o.target || 0), 0);
           portfolios[key] = {
             dcName: key,
             projects: [], proposals: [], invoices: [], purchases: [],
-            clients: [], clientBreakdown: [], objectives: [],
+            clients: [], clientBreakdown: [], objectives: emptyObjectives,
             recentProjects: [], recentDevis: [],
             kpis: {
               caTotal: 0, caFacture: 0, mbTotal: 0,
@@ -629,7 +649,7 @@ function buildDCPortfolios(fyStartYearParam) {
               projetsActifs: 0, projetsTotal: 0,
               clientsActifs: 0, pipelineTotal: 0, pipelineProbabilise: 0,
               totalSold: 0, totalSpent: 0, avancementGlobal: 0,
-              objectifTotal: 0, objectifActuel: 0, objectifProgress: 0,
+              objectifTotal: objTarget, objectifActuel: 0, objectifProgress: 0,
             },
           };
         }
@@ -866,10 +886,12 @@ app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, r
 // ── Routes: Objectives ───────────────────────────────────
 
 app.get('/api/data/objectives', auth.authMiddleware, (req, res) => {
+  const fyParam = parseInt(req.query.fy, 10);
+  const fy = Number.isInteger(fyParam) ? fyParam : undefined;
   if (req.user.role === 'admin') {
-    return res.json({ objectives: objectives.getAllObjectives(), imports: objectives.getImportHistory() });
+    return res.json({ objectives: objectives.getAllObjectives(fy), imports: objectives.getImportHistory() });
   }
-  const myObjectives = objectives.getObjectivesForDC(req.user.furiousName || req.user.name);
+  const myObjectives = objectives.getObjectivesForDC(req.user.furiousName || req.user.name, fy);
   res.json({ objectives: myObjectives });
 });
 

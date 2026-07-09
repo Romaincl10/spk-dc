@@ -72,7 +72,7 @@ export default function App() {
         setPortfolios({ [dcName]: data.myPortfolio || {} });
       }
 
-      const objData = await apiFetch('/api/data/objectives');
+      const objData = await apiFetch(`/api/data/objectives?fy=${fyStartYear}`);
       if (user.role === 'admin') {
         setAllObjectives(objData.objectives || {});
       } else {
