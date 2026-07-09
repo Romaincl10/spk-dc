@@ -24,9 +24,16 @@ function getInitialPage(user) {
   return 'admin-dashboard';
 }
 
+// Exercice fiscal courant (démarre le 01/07) — fyStartYear = année de début
+function getCurrentFyStartYear() {
+  const d = new Date();
+  return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+}
+
 export default function App() {
   const [user, setUser] = useState(() => getUser());
   const [currentPage, setCurrentPage] = useState(() => getInitialPage(getUser()));
+  const [fyStartYear, setFyStartYear] = useState(getCurrentFyStartYear);
   const [portfolio, setPortfolio] = useState(null);
   const [portfolios, setPortfolios] = useState(null);
   const [objectives, setObjectives] = useState(null);
@@ -55,7 +62,7 @@ export default function App() {
     if (!user) return;
     setLoading(true);
     try {
-      const data = await apiFetch('/api/data/portfolio');
+      const data = await apiFetch(`/api/data/portfolio?fy=${fyStartYear}`);
       if (data.portfolios) {
         // Admin et directeur commercial : portefeuilles de toute l'équipe
         setPortfolios(data.portfolios);
@@ -75,7 +82,7 @@ export default function App() {
       console.error('[App] Data load error:', e);
     }
     setLoading(false);
-  }, [user]);
+  }, [user, fyStartYear]);
 
   useEffect(() => { loadData(); }, [loadData]);
 
@@ -120,7 +127,8 @@ export default function App() {
       );
     }
 
-    const dashboard = <AdminDashboard portfolios={portfolios} userRole={user.role} viewerName={user.furiousName || user.name} />;
+    const dashboard = <AdminDashboard portfolios={portfolios} userRole={user.role} viewerName={user.furiousName || user.name}
+      fyStartYear={fyStartYear} onFyChange={setFyStartYear} currentFyStartYear={getCurrentFyStartYear()} loading={loading} />;
     switch (currentPage) {
       case 'admin-dashboard': return dashboard;
       case 'admin-assignments': return user.role === 'admin' ? <Assignments onAssigned={handleAssigned} /> : dashboard;

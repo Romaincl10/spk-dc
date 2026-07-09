@@ -154,7 +154,7 @@ function loadObjectivesForDC(dcName) {
 
 // ── Portfolio builder (assignment-based) ─────────────────
 
-function buildDCPortfolios() {
+function buildDCPortfolios(fyStartYearParam) {
   const projectsData = loadData('furious_projects');
   const kpisData = loadData('furious_project_kpis');
   const proposalsData = loadData('furious_proposals');
@@ -179,10 +179,11 @@ function buildDCPortfolios() {
   const projectAssignments = assign.getAllProjectAssignments();
   const proposalAssignments = assign.getAllProposalAssignments();
 
-  // Fiscal year
+  // Fiscal year — exercice courant par défaut, ou exercice demandé (fyStartYear = année de début, ex: 2025 → 01/07/2025 au 30/06/2026)
   const now = new Date();
   const todayStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
-  const fyStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const currentFyStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const fyStartYear = Number.isInteger(fyStartYearParam) ? fyStartYearParam : currentFyStartYear;
   const fyStart = new Date(fyStartYear, 6, 1);
   const fyEnd = new Date(fyStartYear + 1, 5, 30);
 
@@ -639,7 +640,9 @@ const DIRECTORS = new Set(['Paul']);
 const isDirector = (user) => DIRECTORS.has(user?.furiousName) || DIRECTORS.has(user?.name);
 
 app.get('/api/data/portfolio', auth.authMiddleware, (req, res) => {
-  const portfolios = buildDCPortfolios();
+  const fyParam = parseInt(req.query.fy, 10);
+  const fyStartYear = Number.isInteger(fyParam) ? fyParam : undefined;
+  const portfolios = buildDCPortfolios(fyStartYear);
 
   if (req.user.role === 'admin' || isDirector(req.user)) {
     return res.json({ portfolios, dcList: Object.keys(portfolios) });

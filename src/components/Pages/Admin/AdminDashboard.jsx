@@ -39,8 +39,13 @@ function MiniGauge({ pct, color }) {
   );
 }
 
-export default function AdminDashboard({ portfolios, userRole, viewerName }) {
+const fyLabel = (y) => `${y}/${y + 1}`;
+
+export default function AdminDashboard({ portfolios, userRole, viewerName, fyStartYear, onFyChange, currentFyStartYear, loading }) {
   const isDirectorViewer = DIRECTOR_NAMES.includes(viewerName);
+  // Exercices disponibles : courant + précédent (le plus récent en premier)
+  const cur = currentFyStartYear ?? fyStartYear;
+  const exercises = [cur, cur - 1];
   // DC opérationnel : vue verrouillée sur son portfolio. Le directeur commercial navigue comme un admin.
   const isDC = userRole === 'dc' && !isDirectorViewer;
   const [selectedDC, setSelectedDC] = useState(() => {
@@ -105,6 +110,24 @@ export default function AdminDashboard({ portfolios, userRole, viewerName }) {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      {/* Sélecteur d'exercice fiscal — garde les deux exercices consultables */}
+      {onFyChange && (
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#666]">Exercice</span>
+          <div className="flex gap-1 bg-[#111] rounded-lg p-0.5">
+            {exercises.map(y => (
+              <button key={y} onClick={() => onFyChange(y)}
+                className={`px-4 py-1.5 text-xs font-bold rounded-md transition-colors
+                  ${fyStartYear === y ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>
+                Exercice {fyLabel(y)}
+                {y === cur && <span className="ml-1.5 text-[9px] opacity-70">en cours</span>}
+              </button>
+            ))}
+          </div>
+          {loading && <div className="w-4 h-4 border-2 border-[#e63946] border-t-transparent rounded-full animate-spin" />}
+        </div>
+      )}
+
       {/* DC Tabs — masqués pour les utilisateurs DC (vue unique sur leur portfolio) */}
       {!isDC && (
         <div className="flex items-center gap-2 overflow-x-auto pb-2">
@@ -154,19 +177,19 @@ export default function AdminDashboard({ portfolios, userRole, viewerName }) {
       {!isDC && selectedDC === 'Globale' && (
         <>
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Vue Globale — Exercice 2025/2026</h2>
+            <h2 className="text-lg font-bold text-white">Vue Globale — Exercice {fyLabel(fyStartYear)}</h2>
             <ViewToggle />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
             <KPICard label={isProjection ? 'CA + Pipeline' : 'CA Signe'} value={isProjection ? totalProjection : totalCA} suffix="€"
-              subtitle={isProjection ? `dont ${fmtK(totalCA)} signés` : 'Exercice en cours'}
+              subtitle={isProjection ? `dont ${fmtK(totalCA)} signés` : `Exercice ${fyLabel(fyStartYear)}`}
               color={isProjection ? 'text-[#3b82f6]' : undefined} />
             <KPICard label="Marge Brute" value={totalMB} suffix="€"
               subtitle={`MB ${fmtPct(mbPct)}`}
               color={mbPct >= 54 ? 'text-[#2ecc71]' : mbPct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
             <KPICard label="Objectifs" value={totalObj} suffix="€" />
-            {isProjection && <KPICard label="Pipe Proba 30/06" value={totalPipeProba} suffix="€" color="text-[#3b82f6]" />}
+            {isProjection && <KPICard label={`Pipe Proba 30/06/${fyStartYear + 1}`} value={totalPipeProba} suffix="€" color="text-[#3b82f6]" />}
             <KPICard label="Projets Actifs" value={totalProjets} />
             <KPICard label="Clients" value={totalClients} />
           </div>
@@ -319,11 +342,11 @@ export default function AdminDashboard({ portfolios, userRole, viewerName }) {
       {/* ═══ DC DETAIL ═══ */}
       {selectedDC !== 'Globale' && !selectedIsDirector && currentPortfolio && (
         <>
-          {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} />}
+          {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
           {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
-          {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} />}
+          {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
         </>
       )}
     </div>

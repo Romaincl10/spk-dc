@@ -27,7 +27,8 @@ function HorizGauge({ value, max, label, color, subtitle }) {
   );
 }
 
-export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
+export default function DCSynthese({ portfolio, color, viewMode = 'signe', fyStartYear }) {
+  const fy = fyStartYear ?? (new Date().getMonth() >= 6 ? new Date().getFullYear() : new Date().getFullYear() - 1);
   const kpis = portfolio.kpis;
   const projects = portfolio.projects || [];
   const fyProjects = projects.filter(p => p.inFY);
@@ -108,11 +109,11 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
         <KPICard
           label={isProjection ? 'CA + Pipeline' : 'CA Signe'}
           value={displayedCA} suffix="€"
-          subtitle={isProjection ? `dont ${fmtK(kpis.caTotal)} signés` : 'Exercice 25/26'}
+          subtitle={isProjection ? `dont ${fmtK(kpis.caTotal)} signés` : `Exercice ${String(fy).slice(2)}/${String(fy + 1).slice(2)}`}
           color={isProjection ? 'text-[#3b82f6]' : undefined} />
         <KPICard label="Marge Brute" value={kpis.mbTotal} suffix="€" subtitle={`MB ${fmtPct(kpis.margeBrutePct)}`}
           color={kpis.margeBrutePct >= 54 ? 'text-[#2ecc71]' : kpis.margeBrutePct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
-        <KPICard label="Pipe Proba 30/06" value={kpis.pipelineProbabilise} suffix="€" color="text-[#3b82f6]" />
+        <KPICard label={`Pipe Proba 30/06/${fy + 1}`} value={kpis.pipelineProbabilise} suffix="€" color="text-[#3b82f6]" />
         <KPICard label="Projets Actifs" value={kpis.projetsActifs} />
         <KPICard label="Clients" value={kpis.clientsActifs} />
         <KPICard label={isProjection ? 'Obj. Projeté' : 'Obj. Réalisé'}
@@ -125,7 +126,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe' }) {
         <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
           <div className="flex items-center gap-2 mb-5">
             <TrendingUp size={16} className="text-[#888]" />
-            <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs — Exercice 01/07/2025 au 30/06/2026</h3>
+            <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs — Exercice 01/07/{fy} au 30/06/{fy + 1}</h3>
           </div>
 
           {/* 3 Jauges horizontales : Clients / Biz Dev / Total */}

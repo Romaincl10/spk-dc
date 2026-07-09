@@ -3,41 +3,46 @@ import { Search, ChevronDown, ChevronRight, Maximize2, Minimize2 } from 'lucide-
 import { fmtK, fmtNum } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
 
-// All FY months
-const ALL_FY_MONTHS = [];
-for (let m = 6; m < 18; m++) {
-  const y = m < 12 ? 2025 : 2026;
-  const mo = m % 12;
-  ALL_FY_MONTHS.push({
-    key: `${y}-${String(mo + 1).padStart(2, '0')}`,
-    label: new Date(y, mo).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', ''),
-    year: y, month: mo,
-    start: new Date(y, mo, 1),
-    end: new Date(y, mo + 1, 0),
-  });
+// Mois de l'exercice (12 mois à partir du 01/07 de fyStartYear)
+function buildFyMonths(fyStartYear) {
+  const months = [];
+  for (let m = 6; m < 18; m++) {
+    const y = m < 12 ? fyStartYear : fyStartYear + 1;
+    const mo = m % 12;
+    months.push({
+      key: `${y}-${String(mo + 1).padStart(2, '0')}`,
+      label: new Date(y, mo).toLocaleDateString('fr-FR', { month: 'short' }).replace('.', ''),
+      year: y, month: mo,
+      start: new Date(y, mo, 1),
+      end: new Date(y, mo + 1, 0),
+    });
+  }
+  return months;
 }
 
 const now = new Date();
 const currentMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 
-function getVisibleMonths(period) {
+function getVisibleMonths(period, allMonths, fyStartYear) {
   const nowYear = now.getFullYear();
   const nowMonth = now.getMonth();
   if (period === 'mois') {
-    return ALL_FY_MONTHS.filter(m => m.key === currentMonthKey);
+    const m = allMonths.filter(m => m.key === currentMonthKey);
+    return m.length ? m : allMonths; // exercice passé : pas de mois courant → tout l'exercice
   }
   if (period === 'trimestre') {
     // current calendar quarter
     const qStart = Math.floor(nowMonth / 3) * 3;
-    return ALL_FY_MONTHS.filter(m => m.year === nowYear && m.month >= qStart && m.month < qStart + 3);
+    const m = allMonths.filter(m => m.year === nowYear && m.month >= qStart && m.month < qStart + 3);
+    return m.length ? m : allMonths;
   }
   if (period === 'semestre') {
-    // H2 of FY = Jan-Jun 2026, H1 = Jul-Dec 2025
-    const isH2 = nowYear === 2026 && nowMonth < 6;
-    if (isH2) return ALL_FY_MONTHS.filter(m => m.year === 2026);
-    return ALL_FY_MONTHS.filter(m => m.year === 2025);
+    // H1 de l'exercice = Jul-Dec (fyStartYear), H2 = Jan-Jun (fyStartYear+1)
+    const isH2 = nowYear === fyStartYear + 1 && nowMonth < 6;
+    const half = allMonths.filter(m => m.year === (isH2 ? fyStartYear + 1 : fyStartYear));
+    return half.length ? half : allMonths;
   }
-  return ALL_FY_MONTHS; // exercice complet
+  return allMonths; // exercice complet
 }
 
 function isActiveInMonth(startDate, endDate, month) {
@@ -54,7 +59,8 @@ const PERIOD_OPTIONS = [
   { key: 'mois', label: 'Mois' },
 ];
 
-export default function DCRoadmap({ portfolio, color, viewMode = 'signe' }) {
+export default function DCRoadmap({ portfolio, color, viewMode = 'signe', fyStartYear }) {
+  const fy = fyStartYear ?? (now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1);
   const [search, setSearch] = useState('');
   const [collapsedClients, setCollapsedClients] = useState({});
   const [allCollapsed, setAllCollapsed] = useState(false);
@@ -70,7 +76,8 @@ export default function DCRoadmap({ portfolio, color, viewMode = 'signe' }) {
   const clientBreakdown = portfolio.clientBreakdown || [];
 
   const isProjection = viewMode === 'projection';
-  const FY_MONTHS = useMemo(() => getVisibleMonths(period), [period]);
+  const allMonths = useMemo(() => buildFyMonths(fy), [fy]);
+  const FY_MONTHS = useMemo(() => getVisibleMonths(period, allMonths, fy), [period, allMonths, fy]);
 
   // Build devis by canonical client (for projection mode), filter proba >= 50
   const devisByClient = useMemo(() => {
@@ -143,7 +150,7 @@ export default function DCRoadmap({ portfolio, color, viewMode = 'signe' }) {
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Roadmap — Exercice 2025/2026</h3>
+          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Roadmap — Exercice {fy}/{fy + 1}</h3>
           <p className="text-xs text-[#888]">
             {fyProjects.length} projets — {clientGroups.length} clients — {totalActiveProjects} actifs ce mois
             {isProjection && Object.keys(devisByClient).length > 0 && (
