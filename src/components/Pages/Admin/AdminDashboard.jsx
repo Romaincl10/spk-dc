@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList } from 'lucide-react';
+import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -10,6 +10,7 @@ import DCFocusProjet from './DCFocusProjet';
 import DCFocusDevis from './DCFocusDevis';
 import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
+import DCFarming from './DCFarming';
 
 const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
@@ -24,6 +25,9 @@ const DC_SUBTABS = [
   { id: 'devis', label: 'Focus Devis', icon: ClipboardList },
   { id: 'roadmap', label: 'Roadmap', icon: Map },
 ];
+// Onglet Farming — test sur Hadrien uniquement (contenu éditorial hors Furious)
+const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
+const FARMING_DCS = ['Hadrien'];
 
 /** Mini SVG arc gauge for table cells */
 function MiniGauge({ pct, color }) {
@@ -148,7 +152,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
                 ${selectedDC === name ? 'text-white' : 'text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
               style={selectedDC === name ? { backgroundColor: getColor(name, i) } : { backgroundColor: '#161616' }}>
-              {name}
+              {DIRECTOR_NAMES.includes(name) ? 'Biz Dev' : name}
             </button>
           ))}
           {unassigned && (
@@ -165,7 +169,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {selectedDC !== 'Globale' && selectedDC !== 'Médias' && !selectedIsDirector && (
         <div className="flex items-center justify-between gap-3">
           <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
-            {DC_SUBTABS.map(t => {
+            {(FARMING_DCS.includes(selectedDC) ? [...DC_SUBTABS, FARMING_SUBTAB] : DC_SUBTABS).map(t => {
               const Icon = t.icon;
               return (
                 <button key={t.id} onClick={() => setSubTab(t.id)}
@@ -357,6 +361,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
+          {subTab === 'farming' && FARMING_DCS.includes(selectedDC) && <DCFarming color={currentColor} />}
         </>
       )}
     </div>

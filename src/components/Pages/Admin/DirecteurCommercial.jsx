@@ -42,7 +42,7 @@ export default function DirecteurCommercial({ fyStartYear }) {
           <Crosshair size={20} className="text-[#8b5cf6]" />
         </div>
         <div>
-          <h2 className="text-xl font-extrabold italic text-white">Paul — Biz Dev · Nouveaux clients</h2>
+          <h2 className="text-xl font-extrabold italic text-white">Biz Dev · Nouveaux clients</h2>
           <p className="text-[#888] text-sm">
             Sociétés jamais mouvementées auparavant, entrées en relation sur l'exercice {fyLabel(fyStartYear)}
           </p>
