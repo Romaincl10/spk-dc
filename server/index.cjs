@@ -31,10 +31,12 @@ const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : DEF
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
-// Initialisation : si DATA_DIR ≠ default, on copie les fichiers de config
-// (users, assignments, objectives) depuis les defaults commités si absents.
+// Initialisation : si DATA_DIR ≠ default (= volume persistant monté), on copie les
+// fichiers de config (users, assignments, objectifs, activité) depuis les defaults
+// commités UNIQUEMENT s'ils sont absents. Ensuite, toute modif (assignation, objectif)
+// écrit sur le volume et persiste → les redéploiements et syncs ne l'écrasent plus.
 if (DATA_DIR !== DEFAULT_DATA_DIR) {
-  const CONFIG_FILES = ['users.json', 'client_assignments.json', 'project_assignments.json', 'proposal_assignments.json', 'objectives.json'];
+  const CONFIG_FILES = ['users.json', 'client_assignments.json', 'project_assignments.json', 'proposal_assignments.json', 'objectives.json', 'weekly_activity.json'];
   CONFIG_FILES.forEach(file => {
     const dest = path.join(DATA_DIR, file);
     const src = path.join(DEFAULT_DATA_DIR, file);
@@ -44,6 +46,10 @@ if (DATA_DIR !== DEFAULT_DATA_DIR) {
     }
   });
 }
+// Diagnostic de persistance — visible dans les logs Railway au démarrage.
+console.log(DATA_DIR !== DEFAULT_DATA_DIR
+  ? `[Init] Persistance ACTIVE — DATA_DIR=${DATA_DIR} (volume). Les assignations survivent aux redéploiements et aux syncs.`
+  : `[Init] ⚠ Stockage ÉPHÉMÈRE (server/data). Monte un volume Railway et définis DATA_DIR pour stocker les assignations en dur.`);
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
 
