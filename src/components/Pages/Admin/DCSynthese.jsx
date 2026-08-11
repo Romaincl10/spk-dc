@@ -94,11 +94,22 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
     }
   };
 
+  // Noms canoniques réels rattachés au client cliqué (résout le mismatch nom d'objectif
+  // court « Intersport » vs canonique projet « INTERSPORT FRANCE »).
+  const canonicalNamesFor = (clientName) => {
+    const obj = objectifsList.find(o => o.client === clientName && Array.isArray(o.canonicalNames) && o.canonicalNames.length);
+    return obj ? obj.canonicalNames : [clientName];
+  };
   // Get projects/devis for selected client
-  const getProjectsForClient = (clientName) => fyProjects.filter(p => (p.canonical_client || p.company_name) === clientName).sort((a, b) => b.total_amount - a.total_amount);
+  const getProjectsForClient = (clientName) => {
+    const names = canonicalNamesFor(clientName);
+    return fyProjects.filter(p => names.includes(p.canonical_client || p.company_name)).sort((a, b) => b.total_amount - a.total_amount);
+  };
   const getDevisForClient = (clientName) => {
-    const c = clientBreakdown.find(c => c.name === clientName);
-    return (c?.devis || []).sort((a, b) => b.probabilise - a.probabilise);
+    const names = canonicalNamesFor(clientName);
+    const devis = [];
+    names.forEach(n => { const c = clientBreakdown.find(cb => cb.name === n); if (c?.devis) devis.push(...c.devis); });
+    return devis.sort((a, b) => b.probabilise - a.probabilise);
   };
 
   return (

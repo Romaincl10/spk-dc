@@ -6,7 +6,7 @@ import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
 
 const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
-const MEDIA = '#8b5cf6';
+const MEDIA = '#06b6d4';
 
 export default function MediasView({ fyStartYear }) {
   const [data, setData] = useState(null);
@@ -24,7 +24,7 @@ export default function MediasView({ fyStartYear }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#06b6d4] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -37,8 +37,8 @@ export default function MediasView({ fyStartYear }) {
     <div className="space-y-5 animate-fade-in">
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-[#8b5cf6]/15 flex items-center justify-center">
-          <Radio size={20} className="text-[#8b5cf6]" />
+        <div className="w-10 h-10 rounded-lg bg-[#06b6d4]/15 flex items-center justify-center">
+          <Radio size={20} className="text-[#06b6d4]" />
         </div>
         <div>
           <h2 className="text-xl font-extrabold italic text-white">Médias — BU footpack · runpack · velopack…</h2>
@@ -49,7 +49,7 @@ export default function MediasView({ fyStartYear }) {
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <KPICard label="CA signé médias" value={totals.caSigne} suffix="€"
-          subtitle={`${totals.projectsCount} projets`} color="text-[#8b5cf6]" />
+          subtitle={`${totals.projectsCount} projets`} color="text-[#06b6d4]" />
         <KPICard label="Marge brute" value={totals.mbEur} suffix="€" subtitle={`MB ${fmtPct(totals.margePct || 0)}`}
           color={totals.margePct >= 54 ? 'text-[#2ecc71]' : totals.margePct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
         <KPICard label="Pipe pondéré" value={totals.pipe} suffix="€"
@@ -60,7 +60,7 @@ export default function MediasView({ fyStartYear }) {
       {/* Projets médias */}
       <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
         <div className="flex items-center gap-2 mb-3">
-          <Briefcase size={16} className="text-[#8b5cf6]" />
+          <Briefcase size={16} className="text-[#06b6d4]" />
           <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Projets médias</h3>
           <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{projects.length}</span>
         </div>
@@ -90,7 +90,7 @@ export default function MediasView({ fyStartYear }) {
                 ))}
               </tbody>
               <tfoot>
-                <tr className="border-t-2 border-[#8b5cf6]/30 bg-[#8b5cf6]/5 font-bold">
+                <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
                   <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({projects.length})</td>
                   <td className="py-2 px-2 text-right text-white">{fmtK(totals.caSigne)}</td>
                   <td className="py-2 px-2 text-right text-[#888] text-xs">{fmtPct(totals.margePct || 0)}</td>

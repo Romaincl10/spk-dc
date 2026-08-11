@@ -246,13 +246,34 @@ function buildDCPortfolios(fyStartYearParam) {
   // Filter: agency only (exclude M0*, MED0*)
   const agencyProjects = allProjects.filter(p => !shouldExcludeProject(p));
 
+  // Rattachement à l'exercice basé sur les FACTURES : le cut 25/26 ↔ 26/27 suit la
+  // date de facture EFFECTIVE (émise si émise, sinon prévue via issue_date), pas les
+  // dates de projet. Un projet appartient à l'exercice s'il a ≥1 facture datée dedans.
+  // Fallback sur les dates de projet uniquement pour les projets sans aucune facture.
+  const fyEndInclusive = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
+  const projectsWithAnyInvoice = new Set();
+  const projectsWithFYInvoice = new Set();
+  invoices.forEach(inv => {
+    if (inv.is_cancelled == 1) return;
+    const pid = String(inv.project_id);
+    projectsWithAnyInvoice.add(pid);
+    const ed = invoiceEffectiveDate(inv);
+    if (!ed) return;
+    const d = new Date(ed);
+    if (d >= fyStart && d <= fyEndInclusive) projectsWithFYInvoice.add(pid);
+  });
+
   // Enrich all projects
   const enrichedAll = agencyProjects.map(p => {
     const k = kpiMap[p.id] || {};
     const sp = sprintMap[String(p.id)] || { fait: 0, planifie: 0 };
     const startDate = p.start_date ? new Date(p.start_date) : null;
     const endDate = p.end_date ? new Date(p.end_date) : null;
-    const inFY = startDate && endDate ? !(endDate < fyStart || startDate > fyEnd) : true;
+    // Appartenance à l'exercice : par les factures si le projet en a, sinon par ses dates.
+    const inFYDates = startDate && endDate ? !(endDate < fyStart || startDate > fyEnd) : true;
+    const inFY = projectsWithAnyInvoice.has(String(p.id))
+      ? projectsWithFYInvoice.has(String(p.id))
+      : inFYDates;
     const amt = Number(p.total_amount) || 0;
     const mEur = Number(p.margin) || 0;
 
@@ -538,10 +559,12 @@ function buildDCPortfolios(fyStartYearParam) {
         return {
           actual: matched.reduce((s, c) => s + (c.ca || 0), 0),
           pipe: matched.reduce((s, c) => s + (c.pipeProbabilise || 0), 0),
+          names: matched.map(c => c.name),
         };
       }
-      const m = clientBreakdown.find(c => c.name === getCanonicalClientName(obj.client));
-      return { actual: m ? m.ca : 0, pipe: m ? (m.pipeProbabilise || 0) : 0 };
+      const cn = getCanonicalClientName(obj.client);
+      const m = clientBreakdown.find(c => c.name === cn);
+      return { actual: m ? m.ca : 0, pipe: m ? (m.pipeProbabilise || 0) : 0, names: m ? [m.name] : [cn] };
     };
 
     // Ensemble des clients (du breakdown) déjà rattachés à un objectif nominatif,
@@ -573,8 +596,8 @@ function buildDCPortfolios(fyStartYearParam) {
     // (e.g. "Intersport" → "INTERSPORT FRANCE" matches clientBreakdown canonical name)
     const enrichedObjectives = objData.map(obj => {
       if (obj.client === '_BIZ_DEV') return computeBizDev(obj);
-      const { actual, pipe } = matchObjective(obj);
-      return { ...obj, actual, pipe, progress: obj.target > 0 ? Math.round(actual / obj.target * 100) : (actual > 0 ? 100 : 0) };
+      const { actual, pipe, names } = matchObjective(obj);
+      return { ...obj, actual, pipe, canonicalNames: names, progress: obj.target > 0 ? Math.round(actual / obj.target * 100) : (actual > 0 ? 100 : 0) };
     });
 
     // Filet de sécurité : si aucune ligne _BIZ_DEV n'est saisie mais que le DC a des

@@ -15,7 +15,9 @@ import DCFarming from './DCFarming';
 const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
 const FALLBACK_COLORS = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#ec4899', '#0ea5e9'];
-const DC_ORDER = ['Audrey', 'Hadrien', 'Ninon', 'Clément', 'Naël', 'Paul'];
+const DC_ORDER = ['Audrey', 'Hadrien', 'Clément', 'Naël', 'Ninon', 'Alizée'];
+const MEDIAS_COLOR = '#06b6d4';
+const BIZDEV_COLOR = '#8b5cf6';
 function getColor(name, i) { return DC_COLORS[name] || FALLBACK_COLORS[i % FALLBACK_COLORS.length]; }
 
 const DC_SUBTABS = [
@@ -135,31 +137,46 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
 
       {/* DC Tabs — masqués pour les utilisateurs DC (vue unique sur leur portfolio) */}
       {!isDC && (
-        <div className="flex items-center gap-2 overflow-x-auto pb-2">
-          <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
-            className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-              ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}>
-            Globale
-          </button>
-          <button onClick={() => { setSelectedDC('Médias'); setSubTab('synthese'); }}
-            className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-              ${selectedDC === 'Médias' ? 'text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
-            style={selectedDC === 'Médias' ? { backgroundColor: '#8b5cf6' } : { backgroundColor: '#161616' }}>
-            Médias
-          </button>
-          {dcNames.filter(n => n !== 'A assigner').map((name, i) => (
-            <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
-              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
-                ${selectedDC === name ? 'text-white' : 'text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
-              style={selectedDC === name ? { backgroundColor: getColor(name, i) } : { backgroundColor: '#161616' }}>
-              {DIRECTOR_NAMES.includes(name) ? 'Biz Dev' : name}
+        <div className="flex items-center gap-3 overflow-x-auto pb-2">
+          {/* Groupe DC : Global DC + les DC opérationnels, dans une même barre */}
+          <div className="flex items-center gap-1 bg-[#111] border border-[#2a2a2a] rounded-lg p-1 shrink-0">
+            <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
+              className={`px-3.5 py-1.5 rounded-md text-sm font-bold whitespace-nowrap transition-colors
+                ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'text-[#ccc] hover:text-white'}`}>
+              Global DC
             </button>
-          ))}
+            {dcNames.filter(n => n !== 'A assigner' && !DIRECTOR_NAMES.includes(n)).map((name, i) => (
+              <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
+                className={`px-3.5 py-1.5 rounded-md text-sm font-bold whitespace-nowrap transition-colors
+                  ${selectedDC === name ? 'text-white' : 'text-[#ccc] hover:text-white'}`}
+                style={selectedDC === name ? { backgroundColor: getColor(name, i) } : undefined}>
+                {name}
+              </button>
+            ))}
+          </div>
+
+          {/* Groupe transverse : Biz Dev + Médias — sujets distincts, chacun sa couleur */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button onClick={() => { setSelectedDC('Paul'); setSubTab('synthese'); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                ${selectedDC === 'Paul' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
+              style={{ backgroundColor: selectedDC === 'Paul' ? BIZDEV_COLOR : '#161616' }}>
+              Biz Dev
+            </button>
+            <button onClick={() => { setSelectedDC('Médias'); setSubTab('synthese'); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                ${selectedDC === 'Médias' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
+              style={{ backgroundColor: selectedDC === 'Médias' ? MEDIAS_COLOR : '#161616' }}>
+              Médias
+            </button>
+          </div>
+
+          {/* À assigner — toujours sur le côté */}
           {unassigned && (
             <button onClick={() => { setSelectedDC('A assigner'); setSubTab('synthese'); }}
-              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
+              className={`ml-auto shrink-0 px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
                 ${selectedDC === 'A assigner' ? 'bg-[#666] text-white' : 'bg-[#161616] text-[#666] hover:text-white border border-[#333] border-dashed'}`}>
-              A assigner ({unassigned.projetsTotal || 0})
+              À assigner ({unassigned.projetsTotal || 0})
             </button>
           )}
         </div>
