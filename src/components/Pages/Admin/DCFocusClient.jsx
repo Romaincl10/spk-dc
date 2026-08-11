@@ -1,34 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Search, ArrowLeft } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import ChartWrapper from '../../Common/ChartWrapper';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct, fmtNum } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
-
-/** SVG half-arc gauge — larger, readable */
-function Gauge({ value, max, label, color, size = 'md' }) {
-  const pct = max > 0 ? Math.min(Math.round(value / max * 100), 200) : 0;
-  const arcPct = Math.min(pct, 100);
-  const c = color || (pct > 100 ? '#e74c3c' : pct >= 80 ? '#2ecc71' : pct >= 50 ? '#f39c12' : '#e74c3c');
-  const dim = size === 'lg' ? { cls: 'w-44 h-28', r: 55, cx: 65, cy: 72, sw: 9, fs: 22 }
-    : { cls: 'w-36 h-24', r: 45, cx: 54, cy: 60, sw: 8, fs: 18 };
-  const { cls, r, cx, cy, sw, fs } = dim;
-  const circ = Math.PI * r;
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <svg viewBox={`0 0 ${cx * 2} ${cy + 8}`} className={cls}>
-        <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-          fill="none" stroke="#2a2a2a" strokeWidth={sw} strokeLinecap="round" />
-        <path d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-          fill="none" stroke={c} strokeWidth={sw} strokeLinecap="round"
-          strokeDasharray={`${arcPct / 100 * circ} ${circ}`} />
-        <text x={cx} y={cy - 6} textAnchor="middle" fill="white" fontSize={fs} fontWeight="900" fontStyle="italic">{pct}%</text>
-        <text x={cx} y={cy + 6} textAnchor="middle" fill="#888" fontSize="8">{label}</text>
-      </svg>
-    </div>
-  );
-}
 
 export default function DCFocusClient({ portfolio, color }) {
   const [search, setSearch] = useState('');
@@ -93,9 +69,15 @@ export default function DCFocusClient({ portfolio, color }) {
     const avancementFait = totalSold > 0 ? Math.round(totalSpent / totalSold * 100) : 0;
     const avancementTotal = totalSold > 0 ? Math.round((totalSpent + totalPlanified) / totalSold * 100) : 0;
 
+    const isActive = p => p.actif === '1' || p.actif === 1;
     return {
       ...client,
-      projects: [...projects].sort((a, b) => b.total_amount - a.total_amount),
+      // Projets en cours (actifs) remontés en priorité, puis par CA décroissant
+      projects: [...projects].sort((a, b) => {
+        const aa = isActive(a) ? 1 : 0, bb = isActive(b) ? 1 : 0;
+        if (aa !== bb) return bb - aa;
+        return b.total_amount - a.total_amount;
+      }),
       active,
       totalSold, totalSpent, totalPlanified,
       avancementFait, avancementTotal,
@@ -181,121 +163,9 @@ function ClientDetailView({ client, color, onBack }) {
         </div>
       </div>
 
-      {/* Jours & Gauges avancement */}
+      {/* Projets — projets en cours (actifs) remontés en priorité */}
       <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-4">Jours & Avancement</h4>
-        <div className="flex flex-wrap items-center gap-8">
-          {/* Jours summary */}
-          <div className="grid grid-cols-3 gap-6 flex-1 min-w-[220px]">
-            <div>
-              <p className="text-xs text-[#888] mb-1">Vendus</p>
-              <p className="text-2xl font-extrabold italic text-white">{fmtNum(client.totalSold, 1)}<span className="text-sm font-normal text-[#888]">j</span></p>
-            </div>
-            <div>
-              <p className="text-xs text-[#888] mb-1">Faits</p>
-              <p className="text-2xl font-extrabold italic" style={{ color }}>{fmtNum(client.totalSpent, 1)}<span className="text-sm font-normal text-[#888]">j</span></p>
-            </div>
-            <div>
-              <p className="text-xs text-[#888] mb-1">Planifiés</p>
-              <p className="text-2xl font-extrabold italic text-[#3b82f6]">{fmtNum(client.totalPlanified, 1)}<span className="text-sm font-normal text-[#888]">j</span></p>
-            </div>
-          </div>
-          {/* Two gauges, properly sized */}
-          <div className="flex gap-6 justify-center">
-            <div className="flex flex-col items-center">
-              <Gauge value={client.avancementFait} max={100} label="JOURS FAITS" size="lg"
-                color={client.avancementFait > 100 ? '#e74c3c' : undefined} />
-              <p className="text-xs text-[#888]">{fmtNum(client.totalSpent, 1)}j / {fmtNum(client.totalSold, 1)}j</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Gauge value={client.avancementTotal} max={100} label="FAITS + PLANIFIÉS" size="lg" color="#3b82f6" />
-              <p className="text-xs text-[#888]">{fmtNum(client.totalSpent + client.totalPlanified, 1)}j / {fmtNum(client.totalSold, 1)}j</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Graphique Jours par mois — passé (fait) vs futur (planifié) */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-1">Jours par mois — Exercice</h4>
-        <div className="flex items-center gap-4 mb-3 text-[10px] text-[#888]">
-          <span><span className="inline-block w-2 h-2 rounded-sm mr-1" style={{ backgroundColor: color }} />Faits (passé)</span>
-          <span><span className="inline-block w-2 h-2 rounded-sm mr-1 bg-[#3b82f6]" />Planifiés (futur)</span>
-        </div>
-        <ChartWrapper height={200}>
-          <BarChart data={client.monthlyData} barSize={16}>
-            <XAxis dataKey="label" tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} width={25} />
-            <Tooltip contentStyle={{ background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 8, color: '#fff' }} labelStyle={{ color: '#ccc' }} itemStyle={{ color: '#fff' }}
-              formatter={(v, name) => [`${v}j`, name]} />
-            <Bar dataKey="fait" name="Jours faits" radius={[3, 3, 0, 0]}>
-              {client.monthlyData.map((m, i) => (
-                <Cell key={i} fill={m.isCurrent ? `${color}cc` : color} />
-              ))}
-            </Bar>
-            <Bar dataKey="planifie" name="Jours planifiés" radius={[3, 3, 0, 0]}>
-              {client.monthlyData.map((m, i) => (
-                <Cell key={i} fill={m.isCurrent ? '#3b82f6cc' : '#3b82f6'} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ChartWrapper>
-      </div>
-
-      {/* CA Mensuel */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-1">CA par mois (facturé)</h4>
-        <div className="flex items-center gap-4 mb-3 text-[10px] text-[#888]">
-          <span><span className="inline-block w-2 h-2 rounded-sm mr-1" style={{ backgroundColor: color }} />CA facturé (émis)</span>
-          <span><span className="inline-block w-2 h-2 rounded-sm mr-1 bg-[#3b82f6]" />CA planifié (factures futures)</span>
-        </div>
-        <ChartWrapper height={180}>
-          <BarChart data={client.monthlyData} barSize={14} barCategoryGap="20%">
-            <XAxis dataKey="label" tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} width={40}
-              tickFormatter={v => v >= 1000 ? `${Math.round(v / 1000)}K` : v} />
-            <Tooltip formatter={v => fmtK(v)} contentStyle={{ background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 8, color: '#fff' }} labelStyle={{ color: '#ccc' }} itemStyle={{ color: '#fff' }} />
-            <Bar dataKey="ca" name="CA facturé" fill={color} radius={[3, 3, 0, 0]} />
-            <Bar dataKey="caPlan" name="CA planifié" fill="#3b82f6" radius={[3, 3, 0, 0]} opacity={0.7} />
-          </BarChart>
-        </ChartWrapper>
-      </div>
-
-      {/* Devis en cours */}
-      {client.devis.length > 0 && (
-        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-          <h4 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wider mb-3">
-            Devis en cours ({client.devis.length}) — Pipe Proba: {fmtK(client.pipeProbabilise)}
-          </h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#2a2a2a]">
-                  {['Devis', 'Montant', 'Proba', 'CA Proba', 'Debut prev.', 'Fin prev.'].map(h => (
-                    <th key={h} className="text-left py-2 px-2 text-xs font-bold uppercase text-[#888]">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {client.devis.sort((a, b) => b.probabilise - a.probabilise).map(d => (
-                  <tr key={d.id} className="border-b border-[#1a1a1a]">
-                    <td className="py-2 px-2 text-white font-medium truncate max-w-[250px]">{d.title}</td>
-                    <td className="py-2 px-2 text-[#ccc]">{fmtK(d.amount)}</td>
-                    <td className="py-2 px-2"><span className={d.probability >= 70 ? 'text-[#2ecc71]' : d.probability >= 40 ? 'text-[#f39c12]' : 'text-[#888]'}>{d.probability}%</span></td>
-                    <td className="py-2 px-2 font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
-                    <td className="py-2 px-2 text-xs text-[#888]">{formatDate(d.projet_start)}</td>
-                    <td className="py-2 px-2 text-xs text-[#888]">{formatDate(d.projet_stop)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* Projets */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-3">Projets ({client.projects.length})</h4>
+        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-3">Projets ({client.projects.length})<span className="text-[#2ecc71] ml-2 normal-case">· {client.active.length} en cours</span></h4>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -335,6 +205,57 @@ function ClientDetailView({ client, color, onBack }) {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Devis en cours */}
+      {client.devis.length > 0 && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+          <h4 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wider mb-3">
+            Devis en cours ({client.devis.length}) — Pipe Proba: {fmtK(client.pipeProbabilise)}
+          </h4>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#2a2a2a]">
+                  {['Devis', 'Montant', 'Proba', 'CA Proba', 'Debut prev.', 'Fin prev.'].map(h => (
+                    <th key={h} className="text-left py-2 px-2 text-xs font-bold uppercase text-[#888]">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {client.devis.sort((a, b) => b.probabilise - a.probabilise).map(d => (
+                  <tr key={d.id} className="border-b border-[#1a1a1a]">
+                    <td className="py-2 px-2 text-white font-medium truncate max-w-[250px]">{d.title}</td>
+                    <td className="py-2 px-2 text-[#ccc]">{fmtK(d.amount)}</td>
+                    <td className="py-2 px-2"><span className={d.probability >= 70 ? 'text-[#2ecc71]' : d.probability >= 40 ? 'text-[#f39c12]' : 'text-[#888]'}>{d.probability}%</span></td>
+                    <td className="py-2 px-2 font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
+                    <td className="py-2 px-2 text-xs text-[#888]">{formatDate(d.projet_start)}</td>
+                    <td className="py-2 px-2 text-xs text-[#888]">{formatDate(d.projet_stop)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* CA Mensuel (facturé émis vs planifié) */}
+      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+        <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-1">CA par mois (facturé)</h4>
+        <div className="flex items-center gap-4 mb-3 text-[10px] text-[#888]">
+          <span><span className="inline-block w-2 h-2 rounded-sm mr-1" style={{ backgroundColor: color }} />CA facturé (émis)</span>
+          <span><span className="inline-block w-2 h-2 rounded-sm mr-1 bg-[#3b82f6]" />CA planifié (factures futures)</span>
+        </div>
+        <ChartWrapper height={180}>
+          <BarChart data={client.monthlyData} barSize={14} barCategoryGap="20%">
+            <XAxis dataKey="label" tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: '#888', fontSize: 10 }} axisLine={false} tickLine={false} width={40}
+              tickFormatter={v => v >= 1000 ? `${Math.round(v / 1000)}K` : v} />
+            <Tooltip formatter={v => fmtK(v)} contentStyle={{ background: '#1a1a1a', border: '1px solid #2a2a2a', borderRadius: 8, color: '#fff' }} labelStyle={{ color: '#ccc' }} itemStyle={{ color: '#fff' }} />
+            <Bar dataKey="ca" name="CA facturé" fill={color} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="caPlan" name="CA planifié" fill="#3b82f6" radius={[3, 3, 0, 0]} opacity={0.7} />
+          </BarChart>
+        </ChartWrapper>
       </div>
     </div>
   );

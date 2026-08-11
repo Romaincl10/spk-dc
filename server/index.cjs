@@ -544,27 +544,47 @@ function buildDCPortfolios(fyStartYearParam) {
       return { actual: m ? m.ca : 0, pipe: m ? (m.pipeProbabilise || 0) : 0 };
     };
 
+    // Ensemble des clients (du breakdown) déjà rattachés à un objectif nominatif,
+    // via patterns `match` (niveau groupe) ou nom canonique. Sert à isoler le Biz Dev
+    // (clients hors objectif) SANS double comptage — même logique que matchObjective().
+    const claimedClientNames = new Set();
+    objData.filter(o => o.client !== '_BIZ_DEV').forEach(obj => {
+      if (Array.isArray(obj.match) && obj.match.length) {
+        clientBreakdown.forEach(c => { if (obj.match.some(p => normalize(c.name).includes(p))) claimedClientNames.add(c.name); });
+      } else {
+        const m = clientBreakdown.find(c => c.name === getCanonicalClientName(obj.client));
+        if (m) claimedClientNames.add(m.name);
+      }
+    });
+    // Biz Dev = CA/pipe des clients qui ne sont réclamés par aucun objectif nominatif.
+    const computeBizDev = (obj) => {
+      const bizDevClients = clientBreakdown.filter(c => !claimedClientNames.has(c.name));
+      const bizDevCA = bizDevClients.reduce((s, c) => s + c.ca, 0);
+      const bizDevPipe = bizDevClients.reduce((s, c) => s + (c.pipeProbabilise || 0), 0);
+      // Expose individual clients so frontend can show them one by one
+      const clients = bizDevClients
+        .filter(c => c.ca > 0 || (c.pipeProbabilise || 0) > 0)
+        .map(c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 }));
+      return { ...obj, actual: bizDevCA, pipe: bizDevPipe, clients, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
+    };
+
     // Enrich objectives with actual values from clientBreakdown
     // Use getCanonicalClientName() on both sides to ensure robust matching
     // (e.g. "Intersport" → "INTERSPORT FRANCE" matches clientBreakdown canonical name)
     const enrichedObjectives = objData.map(obj => {
-      if (obj.client === '_BIZ_DEV') {
-        // Biz Dev = CA from clients NOT explicitly targeted by an objective
-        const objCanonicalNames = objData
-          .filter(o => o.client !== '_BIZ_DEV')
-          .map(o => getCanonicalClientName(o.client));
-        const bizDevClients = clientBreakdown.filter(c => !objCanonicalNames.includes(c.name));
-        const bizDevCA = bizDevClients.reduce((s, c) => s + c.ca, 0);
-        const bizDevPipe = bizDevClients.reduce((s, c) => s + (c.pipeProbabilise || 0), 0);
-        // Expose individual clients so frontend can show them one by one
-        const clients = bizDevClients
-          .filter(c => c.ca > 0 || (c.pipeProbabilise || 0) > 0)
-          .map(c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 }));
-        return { ...obj, actual: bizDevCA, pipe: bizDevPipe, clients, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
-      }
+      if (obj.client === '_BIZ_DEV') return computeBizDev(obj);
       const { actual, pipe } = matchObjective(obj);
       return { ...obj, actual, pipe, progress: obj.target > 0 ? Math.round(actual / obj.target * 100) : (actual > 0 ? 100 : 0) };
     });
+
+    // Filet de sécurité : si aucune ligne _BIZ_DEV n'est saisie mais que le DC a des
+    // clients hors objectif (ex. Decathlon/FFF chez Hadrien), on synthétise une ligne
+    // Biz Dev pour que le détail par objectif réconcilie avec le CA total. Sans ça, ce
+    // CA est compté dans caTotal (carte "CA Signé") mais invisible dans la ventilation.
+    if (!enrichedObjectives.some(o => o.client === '_BIZ_DEV')) {
+      const synth = computeBizDev({ client: '_BIZ_DEV', label: 'Business Development (Hors objectif)', target: 0, type: 'biz_dev' });
+      if (synth.clients.length) enrichedObjectives.push(synth);
+    }
 
     // Total objective
     const totalObjTarget = enrichedObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + o.target, 0);
@@ -660,6 +680,163 @@ function buildDCPortfolios(fyStartYearParam) {
   return portfolios;
 }
 
+// ── Vues transverses : Biz Dev (nouveaux clients) & Médias ──────────
+
+/** Bornes de l'exercice fiscal (démarre le 01/07). */
+function fyBounds(fyStartYearParam) {
+  const now = new Date();
+  const cur = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const y = Number.isInteger(fyStartYearParam) ? fyStartYearParam : cur;
+  return { y, fyStart: new Date(y, 6, 1), fyEnd: new Date(y + 1, 5, 30, 23, 59, 59) };
+}
+
+/** Devis actif (pipe ouvert, non signé, non perdu, entité SPK). */
+function isActiveProposal(p) {
+  const pipe = Number(p.pipe);
+  if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
+  if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
+  if (p.pipe_name === 'Perdu') return false;
+  if (p.entity && p.entity !== 'spk') return false;
+  return true;
+}
+
+/**
+ * Biz Dev = tous les projets/devis de l'exercice sur des sociétés JAMAIS mouvementées
+ * auparavant (= nouveaux clients). Un client est "nouveau" si son tout premier mouvement
+ * (projet créé/démarré OU facture, sur tout l'historique) tombe dans l'exercice courant.
+ * Les projets médias/internes (M0*, MED0*, internes) sont exclus du calcul de l'historique.
+ */
+function buildBizDev(fyStartYearParam) {
+  const allProjects = loadData('furious_projects')?.data || [];
+  const proposals = loadData('furious_proposals')?.data || [];
+  const invoices = loadData('furious_invoices')?.data || [];
+  const achatsMediasByProject = loadData('furious_achats_medias')?.data || {};
+  const { y: fyStartYear, fyStart, fyEnd } = fyBounds(fyStartYearParam);
+
+  // Premier mouvement par client canonique, sur tout l'historique (projets agence + factures).
+  // Canonical unifié via getCanonicalClientName(company_name) pour éviter toute fragmentation.
+  const firstMove = {};
+  const note = (canon, d) => {
+    const rd = realDate(d); if (!canon || !rd) return;
+    const t = new Date(rd); if (isNaN(t)) return;
+    if (!firstMove[canon] || t < firstMove[canon]) firstMove[canon] = t;
+  };
+  allProjects.forEach(p => {
+    if (shouldExcludeProject(p)) return;
+    const canon = getCanonicalClientName(p.company_name);
+    note(canon, p.created_at); note(canon, p.start_date);
+  });
+  invoices.forEach(inv => {
+    if (inv.is_cancelled) return;
+    note(getCanonicalClientName(inv.company_name), invoiceEffectiveDate(inv));
+  });
+  const isNew = canon => !!firstMove[canon] && firstMove[canon] >= fyStart && firstMove[canon] <= fyEnd;
+
+  const clientsMap = {};
+  const ensure = (canon) => {
+    if (!clientsMap[canon]) clientsMap[canon] = { name: canon, firstMove: firstMove[canon], projects: [], devis: [], caSigne: 0, mbEur: 0, pipe: 0 };
+    return clientsMap[canon];
+  };
+  // Un client "nouveau" n'a par construction AUCUN mouvement avant l'exercice :
+  // on prend donc TOUS ses projets (hors exclus) et TOUS ses devis actifs, sans filtre de date.
+  allProjects.forEach(p => {
+    if (shouldExcludeProject(p)) return;
+    const canon = getCanonicalClientName(p.company_name);
+    if (!isNew(canon)) return;
+    const amt = Number(p.total_amount) || 0;
+    const amtNet = Math.max(0, amt - (achatsMediasByProject[String(p.id)] || 0));
+    const mEur = Number(p.margin) || 0;
+    const c = ensure(canon);
+    c.projects.push({
+      id: p.id, title: p.title, total_amount: amtNet, marginEur: mEur,
+      margin: amtNet > 0 ? Math.round(mEur / amtNet * 1000) / 10 : 0,
+      actif: p.actif, advancement: Number(p.advancement) || 0,
+      start_date: p.start_date, end_date: p.end_date, created_at: p.created_at,
+    });
+    c.caSigne += amtNet; c.mbEur += mEur;
+  });
+  proposals.forEach(p => {
+    if (!isActiveProposal(p)) return;
+    const canon = getCanonicalClientName(p.company_name);
+    if (!isNew(canon)) return;
+    const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
+    const probabilise = amount * proba / 100;
+    const c = ensure(canon);
+    c.devis.push({ id: p.id, title: p.title, amount, probability: proba, probabilise, pipe_name: p.pipe_name, projet_start: p.projet_start, projet_stop: p.projet_stop });
+    c.pipe += probabilise;
+  });
+
+  const clients = Object.values(clientsMap)
+    .map(c => ({
+      ...c,
+      firstMove: c.firstMove ? c.firstMove.toISOString().slice(0, 10) : null,
+      margePct: c.caSigne > 0 ? Math.round(c.mbEur / c.caSigne * 1000) / 10 : 0,
+      projects: c.projects.sort((a, b) => b.total_amount - a.total_amount),
+      devis: c.devis.sort((a, b) => b.probabilise - a.probabilise),
+    }))
+    .sort((a, b) => (b.caSigne + b.pipe) - (a.caSigne + a.pipe));
+
+  const totals = clients.reduce((t, c) => ({
+    count: t.count + 1, caSigne: t.caSigne + c.caSigne, mbEur: t.mbEur + c.mbEur,
+    pipe: t.pipe + c.pipe, projects: t.projects + c.projects.length, devis: t.devis + c.devis.length,
+  }), { count: 0, caSigne: 0, mbEur: 0, pipe: 0, projects: 0, devis: 0 });
+  totals.margePct = totals.caSigne > 0 ? Math.round(totals.mbEur / totals.caSigne * 1000) / 10 : 0;
+
+  return { fyStartYear, clients, totals };
+}
+
+/**
+ * Médias = tous les projets & devis dont le titre commence par "MED0" (BU Médias),
+ * transverses (tous DC), rattachés à l'exercice. Projets → CA/marge ; devis → pipe pondéré.
+ */
+function buildMedias(fyStartYearParam) {
+  const allProjects = loadData('furious_projects')?.data || [];
+  const proposals = loadData('furious_proposals')?.data || [];
+  const { y: fyStartYear, fyStart, fyEnd } = fyBounds(fyStartYearParam);
+  const isMed = t => /^MED0/i.test((t || '').trim());
+
+  const projects = allProjects.filter(p => isMed(p.title)).map(p => {
+    const startDate = p.start_date ? new Date(p.start_date) : null;
+    const endDate = p.end_date ? new Date(p.end_date) : null;
+    const inFY = startDate && endDate ? !(endDate < fyStart || startDate > fyEnd) : true;
+    const amt = Number(p.total_amount) || 0;
+    const mEur = Number(p.margin) || 0;
+    return {
+      id: p.id, title: p.title, company_name: p.company_name,
+      canonical_client: getCanonicalClientName(p.company_name),
+      start_date: p.start_date, end_date: p.end_date, created_at: p.created_at,
+      total_amount: amt, marginEur: mEur, margin: amt > 0 ? Math.round(mEur / amt * 1000) / 10 : 0,
+      actif: p.actif, advancement: Number(p.advancement) || 0, inFY,
+    };
+  }).filter(p => p.inFY).sort((a, b) => b.total_amount - a.total_amount);
+
+  const devis = proposals.filter(p => isMed(p.title)).map(p => {
+    const pipe = Number(p.pipe);
+    const active = pipe >= 0 && pipe < 6 && !p.signature_date
+      && !(p.project_id && p.project_id !== '0' && p.project_id !== 0) && p.pipe_name !== 'Perdu';
+    const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
+    const ref = p.projet_stop ? new Date(p.projet_stop) : (p.projet_start ? new Date(p.projet_start) : null);
+    const inFY = ref ? !(ref < fyStart || ref > fyEnd) : true;
+    return {
+      id: p.id, title: p.title, company_name: p.company_name,
+      canonical_client: getCanonicalClientName(p.company_name),
+      amount, probability: proba, probabilise: amount * proba / 100,
+      pipe_name: p.pipe_name, projet_start: p.projet_start, projet_stop: p.projet_stop, active, inFY,
+    };
+  }).filter(p => p.inFY && p.active).sort((a, b) => b.probabilise - a.probabilise);
+
+  const totals = {
+    projectsCount: projects.length,
+    caSigne: projects.reduce((s, p) => s + p.total_amount, 0),
+    mbEur: projects.reduce((s, p) => s + p.marginEur, 0),
+    devisCount: devis.length,
+    pipe: devis.reduce((s, p) => s + p.probabilise, 0),
+    pipeBrut: devis.reduce((s, p) => s + p.amount, 0),
+  };
+  totals.margePct = totals.caSigne > 0 ? Math.round(totals.mbEur / totals.caSigne * 1000) / 10 : 0;
+  return { fyStartYear, projects, devis, totals };
+}
+
 // ── Routes: Health ───────────────────────────────────────
 
 app.get('/health', (req, res) => res.json({ status: 'ok', app: 'spk-dc' }));
@@ -738,6 +915,24 @@ app.get('/api/data/portfolio', auth.authMiddleware, (req, res) => {
   }
 
   res.json({ myPortfolio: portfolios[myKey] });
+});
+
+// Biz Dev — nouveaux clients (transverse). Admin + directeur uniquement.
+app.get('/api/data/biz-dev', auth.authMiddleware, (req, res) => {
+  if (!(req.user.role === 'admin' || isDirector(req.user))) {
+    return res.status(403).json({ error: 'Acces reserve' });
+  }
+  const fyParam = parseInt(req.query.fy, 10);
+  res.json(buildBizDev(Number.isInteger(fyParam) ? fyParam : undefined));
+});
+
+// Médias — projets & devis MED0 (transverse). Admin + directeur uniquement.
+app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
+  if (!(req.user.role === 'admin' || isDirector(req.user))) {
+    return res.status(403).json({ error: 'Acces reserve' });
+  }
+  const fyParam = parseInt(req.query.fy, 10);
+  res.json(buildMedias(Number.isInteger(fyParam) ? fyParam : undefined));
 });
 
 // ── Routes: Assignments (admin) ──────────────────────────
@@ -1013,10 +1208,20 @@ app.listen(PORT, () => {
   console.log(`[SPK DC] Client assignments: ${Object.keys(assign.getAllClientAssignments()).length}`);
   console.log(`[SPK DC] Active DCs: ${assign.getActiveDCs().join(', ')}`);
 
-  if (!loadData('furious_sprints')) {
+  // Contrôle de fraîcheur au démarrage : Railway a un filesystem éphémère,
+  // donc après chaque redéploiement/réveil on repart du seed committé.
+  // Si les données ont plus de STALE_HOURS, on resync immédiatement (en fond)
+  // pour ne jamais servir des chiffres périmés, même si le cron du soir a été manqué.
+  const STALE_HOURS = Number(process.env.STALE_HOURS) || 18;
+  const cached = loadData('furious_sprints');
+  const ageH = cached?.syncDate ? (Date.now() - new Date(cached.syncDate).getTime()) / 36e5 : Infinity;
+  if (!cached) {
     console.log('[SPK DC] No cached data, starting initial sync...');
     syncFurious().then(() => syncLucca());
+  } else if (ageH > STALE_HOURS) {
+    console.log(`[SPK DC] Cached data is ${ageH.toFixed(1)}h old (> ${STALE_HOURS}h) — refreshing in background...`);
+    syncFurious().then(() => syncLucca());
   } else {
-    console.log('[SPK DC] Cached data found, skipping initial sync');
+    console.log(`[SPK DC] Cached data is fresh (${ageH.toFixed(1)}h) — skipping initial sync`);
   }
 });

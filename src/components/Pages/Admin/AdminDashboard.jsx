@@ -9,6 +9,7 @@ import DCRoadmap from './DCRoadmap';
 import DCFocusProjet from './DCFocusProjet';
 import DCFocusDevis from './DCFocusDevis';
 import DirecteurCommercial from './DirecteurCommercial';
+import MediasView from './MediasView';
 
 const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
@@ -136,6 +137,12 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}>
             Globale
           </button>
+          <button onClick={() => { setSelectedDC('Médias'); setSubTab('synthese'); }}
+            className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
+              ${selectedDC === 'Médias' ? 'text-white' : 'bg-[#161616] text-[#ccc] hover:text-white border border-[#2a2a2a]'}`}
+            style={selectedDC === 'Médias' ? { backgroundColor: '#8b5cf6' } : { backgroundColor: '#161616' }}>
+            Médias
+          </button>
           {dcNames.filter(n => n !== 'A assigner').map((name, i) => (
             <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
               className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
@@ -154,8 +161,8 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
         </div>
       )}
 
-      {/* Sub-tabs (DC detail) — masqués pour le directeur commercial (cockpit dédié) */}
-      {selectedDC !== 'Globale' && !selectedIsDirector && (
+      {/* Sub-tabs (DC detail) — masqués pour le directeur commercial (cockpit dédié) et l'onglet Médias */}
+      {selectedDC !== 'Globale' && selectedDC !== 'Médias' && !selectedIsDirector && (
         <div className="flex items-center justify-between gap-3">
           <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
             {DC_SUBTABS.map(t => {
@@ -336,8 +343,11 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
         </>
       )}
 
-      {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) */}
-      {selectedIsDirector && <DirecteurCommercial portfolios={portfolios} />}
+      {/* ═══ MÉDIAS ═══ projets & devis MED0 (transverse) */}
+      {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} />}
+
+      {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) — Biz Dev nouveaux clients */}
+      {selectedIsDirector && <DirecteurCommercial fyStartYear={fyStartYear} />}
 
       {/* ═══ DC DETAIL ═══ */}
       {selectedDC !== 'Globale' && !selectedIsDirector && currentPortfolio && (

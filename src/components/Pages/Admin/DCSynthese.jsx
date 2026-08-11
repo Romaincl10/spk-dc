@@ -1,5 +1,5 @@
 import { useMemo, useState, useRef } from 'react';
-import { Calendar, TrendingUp, Target, FolderOpen, FileText } from 'lucide-react';
+import { TrendingUp, Target, FolderOpen, FileText } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -7,13 +7,14 @@ import { formatDate } from '../../../utils/dateRange';
 
 /** Horizontal gauge — barre + % */
 function HorizGauge({ value, max, label, color, subtitle }) {
-  const pct = max > 0 ? Math.min(Math.round(value / max * 100), 999) : 0;
+  const hasTarget = max > 0;
+  const pct = hasTarget ? Math.min(Math.round(value / max * 100), 999) : 0;
   const barPct = Math.min(pct, 100);
   return (
     <div className="p-5 space-y-3">
       <div className="flex items-start justify-between gap-2">
         <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#555] leading-tight pt-0.5">{label}</p>
-        <span className="text-3xl font-black italic shrink-0 leading-none" style={{ color }}>{pct > 999 ? '999+' : pct}%</span>
+        <span className="text-3xl font-black italic shrink-0 leading-none" style={{ color }}>{hasTarget ? `${pct > 999 ? '999+' : pct}%` : '—'}</span>
       </div>
       <div className="relative w-full h-2 bg-[#1e1e1e] rounded-full overflow-hidden">
         <div className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
@@ -21,7 +22,7 @@ function HorizGauge({ value, max, label, color, subtitle }) {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-sm font-bold" style={{ color }}>{fmtK(value)}</span>
-        <span className="text-[10px] text-[#555]">{subtitle || 'CA signé'} · obj. <span className="text-[#888] font-semibold">{fmtK(max)}</span></span>
+        <span className="text-[10px] text-[#555]">{subtitle || 'CA signé'} · {hasTarget ? <>obj. <span className="text-[#888] font-semibold">{fmtK(max)}</span></> : 'hors objectif'}</span>
       </div>
     </div>
   );
@@ -34,8 +35,6 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
   const fyProjects = projects.filter(p => p.inFY);
   const objectifsList = portfolio.objectives || [];
   const clientBreakdown = portfolio.clientBreakdown || [];
-  const recentProjects = portfolio.recentProjects || [];
-  const recentDevis = portfolio.recentDevis || [];
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedType, setSelectedType] = useState(null); // 'signe' | 'pipe'
   const detailRef = useRef(null);
@@ -232,9 +231,10 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                 </tr>
 
                 {/* BIZ DEV */}
-                {(objNoTarget.length > 0 || bizDevData.target > 0) && (
+                {(objNoTarget.length > 0 || bizDevData.target > 0 || (bizDevData.clients || []).length > 0) && (
                   <tr><td colSpan={isProjection ? 7 : 4} className="pt-5 pb-1 px-3">
                     <span className="text-xs font-bold text-[#f39c12] uppercase tracking-wider">Business Development</span>
+                    <span className="text-[10px] text-[#666] normal-case font-normal ml-2">(clients hors objectif)</span>
                   </td></tr>
                 )}
 
@@ -299,20 +299,20 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                   );
                 })}
 
-                {bizDevData.target > 0 && (
+                {(bizDevData.target > 0 || bizDevCA > 0) && (
                   <tr className="border-t border-[#f39c12]/30 bg-[#f39c12]/5 font-bold">
                     <td className="py-2.5 px-3 text-[#f39c12] italic">Total Biz Dev</td>
                     <td className="py-2.5 px-3 text-right text-white">{fmtK(bizDevCA)}</td>
-                    <td className="py-2.5 px-3 text-right text-[#ccc]">{fmtK(bizDevData.target)}</td>
+                    <td className="py-2.5 px-3 text-right text-[#ccc]">{bizDevData.target > 0 ? fmtK(bizDevData.target) : '—'}</td>
                     <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20">
-                      <span className="text-base font-extrabold italic text-[#f39c12]">
-                        {bizDevData.target > 0 ? Math.round(bizDevCA / bizDevData.target * 100) : 0}%
-                      </span>
+                      {bizDevData.target > 0
+                        ? <span className="text-base font-extrabold italic text-[#f39c12]">{Math.round(bizDevCA / bizDevData.target * 100)}%</span>
+                        : <span className="text-[#2ecc71] font-bold text-base italic">OK</span>}
                     </td>
                     {isProjection && <>
                       <td className="py-2.5 px-3 text-right text-[#3b82f6]">{fmtK(bizDevPipe)}</td>
                       <td className="py-2.5 px-3 text-right text-white">{fmtK(bizDevCA + bizDevPipe)}</td>
-                      <td className="py-2.5 px-3"><ProgressBar value={bizDevCA} max={bizDevData.target} color="#f39c12" /></td>
+                      <td className="py-2.5 px-3">{bizDevData.target > 0 ? <ProgressBar value={bizDevCA} max={bizDevData.target} color="#f39c12" /> : null}</td>
                     </>}
                   </tr>
                 )}
@@ -329,89 +329,6 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
           )}
         </div>
       )}
-
-      {/* ── Activité récente : projets créés ces 2 derniers mois ── */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <Calendar size={16} className="text-[#888]" />
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Projets créés ces 2 derniers mois</h3>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${color}20`, color }}>{recentProjects.length}</span>
-        </div>
-        {recentProjects.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun projet créé ces 2 derniers mois</p>
-        ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#2a2a2a]">
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Projet</th>
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Client</th>
-                <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">CA Net</th>
-                <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Marge</th>
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Créé le</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentProjects.map(p => (
-                <tr key={p.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                  <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{p.title}</td>
-                  <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[150px]">{p.canonical_client || p.company_name}</td>
-                  <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(p.total_amount)}</td>
-                  <td className="py-2 px-2 text-right text-xs font-semibold" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
-                  <td className="py-2 px-2 text-xs text-[#888]">{formatDate(p.created_at)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* ── Devis créés ces 2 derniers mois ── */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <FileText size={16} className="text-[#3b82f6]" />
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Devis créés ces 2 derniers mois</h3>
-          <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{recentDevis.length}</span>
-        </div>
-        {recentDevis.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun devis créé ces 2 derniers mois</p>
-        ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[#2a2a2a]">
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Devis</th>
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Client</th>
-                <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Montant</th>
-                <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#3b82f6]">Proba</th>
-                <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Probalisé</th>
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Statut</th>
-                <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Créé le</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentDevis.map(d => (
-                <tr key={d.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                  <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[200px]">{d.title}</td>
-                  <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[130px]">{d.canonical_client || d.company_name}</td>
-                  <td className="py-2 px-2 text-right text-xs text-[#ccc]">{fmtK(d.amount)}</td>
-                  <td className="py-2 px-2 text-right text-xs font-bold text-[#3b82f6]">{d.probability}%</td>
-                  <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(d.probabilise)}</td>
-                  <td className="py-2 px-2 text-xs text-[#888]">{d.pipe_name || '—'}</td>
-                  <td className="py-2 px-2 text-xs text-[#888]">{formatDate(d.created_at?.substring(0, 10))}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="border-t border-[#3b82f6]/20 font-bold">
-                <td colSpan={2} className="py-2 px-2 text-[#888] text-xs">Total ({recentDevis.length})</td>
-                <td className="py-2 px-2 text-right text-[#ccc] text-xs">{fmtK(recentDevis.reduce((s, d) => s + d.amount, 0))}</td>
-                <td />
-                <td className="py-2 px-2 text-right text-white text-xs">{fmtK(recentDevis.reduce((s, d) => s + d.probabilise, 0))}</td>
-                <td colSpan={2} />
-              </tr>
-            </tfoot>
-          </table>
-        )}
-      </div>
 
       {/* ── Detail tables (projects or devis for selected client) ── */}
       {selectedClient && (
