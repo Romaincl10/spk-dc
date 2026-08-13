@@ -1016,6 +1016,52 @@ function buildMonthlyRecap(monthParam) {
   return { month, byDC };
 }
 
+/**
+ * Heatmap des clients : objectif + CA réalisé + typologie (CRM) + avancement vs temps
+ * écoulé dans l'exercice. Vert = en avance, rouge = en retard. Filtrable DC / typologie.
+ */
+const SECTOR_LABELS = {
+  c01_annonceur: 'Annonceur', c02_institution: 'Institution', c03_equipementier: 'Équipementier',
+  c04_distributeur: 'Distributeur', c05_plateforme: 'Plateforme', c06_agence_de_com: 'Agence',
+  c07_detenteur: 'Détenteur', c10_freelance: 'Freelance',
+};
+function buildHeatmap(fyStartYearParam) {
+  const portfolios = buildDCPortfolios(fyStartYearParam);
+  const crm = loadData('furious_crm')?.data || [];
+  const { y: fyStartYear, fyStart, fyEnd } = fyBounds(fyStartYearParam);
+  const nowMs = Date.now();
+  const pctTemps = Math.min(100, Math.max(0, Math.round((nowMs - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
+
+  // Secteur (typologie) par société normalisée — clients uniquement (préfixe c0)
+  const sectorByCompany = {};
+  crm.forEach(c => {
+    const co = normalize(c.company); const s = (c.sector || '').trim();
+    if (co && /^c\d/.test(s) && !sectorByCompany[co]) sectorByCompany[co] = s;
+  });
+  const typoOf = (name, canonicalNames) => {
+    const cands = [name, ...(canonicalNames || [])].map(normalize).filter(Boolean);
+    for (const nc of cands) if (sectorByCompany[nc]) return SECTOR_LABELS[sectorByCompany[nc]] || 'Autre';
+    for (const nc of cands) {
+      const k = Object.keys(sectorByCompany).find(kk => kk.length >= 4 && (kk.includes(nc) || nc.includes(kk)));
+      if (k) return SECTOR_LABELS[sectorByCompany[k]] || 'Autre';
+    }
+    return 'Autre';
+  };
+
+  const clients = [];
+  Object.entries(portfolios).forEach(([dc, p]) => {
+    if (dc === 'A assigner') return;
+    (p.objectives || []).filter(o => o.client !== '_BIZ_DEV' && (o.target || 0) > 0).forEach(o => {
+      const ca = o.actual || 0, obj = o.target;
+      clients.push({ client: o.client, dc, objectif: obj, ca, pctRealise: Math.round(ca / obj * 100), typologie: typoOf(o.client, o.canonicalNames) });
+    });
+  });
+  clients.sort((a, b) => b.objectif - a.objectif);
+  const typologies = [...new Set(clients.map(c => c.typologie))].sort();
+  const dcs = [...new Set(clients.map(c => c.dc))].sort();
+  return { fyStartYear, pctTemps, clients, typologies, dcs };
+}
+
 // ── Routes: Health ───────────────────────────────────────
 
 app.get('/health', (req, res) => res.json({ status: 'ok', app: 'spk-dc' }));
@@ -1108,6 +1154,13 @@ app.get('/api/data/biz-dev', auth.authMiddleware, (req, res) => {
 // Récap mensuel des mouvements par DC (signés / devis créés / perdus).
 app.get('/api/data/monthly-recap', auth.authMiddleware, (req, res) => {
   res.json(buildMonthlyRecap(req.query.month));
+});
+
+// Heatmap des objectifs clients (transverse).
+app.get('/api/data/heatmap', auth.authMiddleware, (req, res) => {
+  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  const fyParam = parseInt(req.query.fy, 10);
+  res.json(buildHeatmap(Number.isInteger(fyParam) ? fyParam : undefined));
 });
 
 // Médias — projets & devis MED0 (transverse). Admin + directeur uniquement.

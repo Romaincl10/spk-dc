@@ -12,6 +12,8 @@ import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
 import DCFarming from './DCFarming';
 import RecapMois from './RecapMois';
+import GlobalTracking from './GlobalTracking';
+import HeatmapView from './HeatmapView';
 
 const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
@@ -175,6 +177,11 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               style={{ backgroundColor: selectedDC === 'Médias' ? MEDIAS_COLOR : '#161616' }}>
               Médias
             </button>
+            <button onClick={() => { setSelectedDC('Heatmap'); setSubTab('synthese'); }}
+              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                ${selectedDC === 'Heatmap' ? 'bg-[#e63946] text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white bg-[#161616]'}`}>
+              Heatmap
+            </button>
           </div>
 
           {/* À assigner — toujours sur le côté */}
@@ -188,8 +195,8 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
         </div>
       )}
 
-      {/* Sub-tabs (DC detail) — masqués pour le directeur commercial (cockpit dédié) et l'onglet Médias */}
-      {selectedDC !== 'Globale' && selectedDC !== 'Médias' && !selectedIsDirector && (
+      {/* Sub-tabs (DC detail) — masqués pour le directeur commercial et les onglets transverses */}
+      {selectedDC !== 'Globale' && selectedDC !== 'Médias' && selectedDC !== 'Heatmap' && !selectedIsDirector && (
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
             <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
@@ -392,11 +399,17 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               </table>
             </div>
           </div>
+
+          {/* Suivi clients agrégé (tous portefeuilles) */}
+          <GlobalTracking portfolios={portfolios} />
         </>
       )}
 
       {/* ═══ MÉDIAS ═══ projets & devis MED0 (transverse) */}
       {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} />}
+
+      {/* ═══ HEATMAP ═══ objectifs clients (transverse) */}
+      {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} />}
 
       {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) — Biz Dev nouveaux clients */}
       {selectedIsDirector && <DirecteurCommercial fyStartYear={fyStartYear} />}

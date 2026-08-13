@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Radio, Briefcase, FileText, Target } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import { apiFetch } from '../../../utils/api';
@@ -11,6 +11,8 @@ const MEDIA = '#06b6d4';
 export default function MediasView({ fyStartYear }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tierFilter, setTierFilter] = useState('all');
+  const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct' | 'ranking'
 
   useEffect(() => {
     let alive = true;
@@ -32,11 +34,19 @@ export default function MediasView({ fyStartYear }) {
   const projects = data?.projects || [];
   const devis = data?.devis || [];
   const totals = data?.totals || { projectsCount: 0, caSigne: 0, mbEur: 0, devisCount: 0, pipe: 0, pipeBrut: 0, margePct: 0 };
-  const clientObjectives = (data?.clientObjectives || []).filter(o => o.target > 0 || o.ca > 0);
   const objTargetTotal = data?.objTargetTotal || 0;
   const objCaTotal = data?.objCaTotal || 0;
   const objPct = objTargetTotal > 0 ? Math.round(objCaTotal / objTargetTotal * 100) : 0;
   const TIER = { 1: '#2ecc71', 2: '#3b82f6', 3: '#f39c12', 4: '#888', 5: '#e74c3c' };
+  const allObjectives = (data?.clientObjectives || []).filter(o => o.target > 0 || o.ca > 0);
+  const availTiers = useMemo(() => [...new Set(allObjectives.map(o => o.tiering))].sort(), [allObjectives]);
+  const clientObjectives = useMemo(() => {
+    let list = allObjectives.filter(o => tierFilter === 'all' || o.tiering === Number(tierFilter));
+    if (objSort === 'ca') list = [...list].sort((a, b) => b.ca - a.ca);
+    else if (objSort === 'pct') list = [...list].sort((a, b) => (a.pct ?? 9999) - (b.pct ?? 9999));
+    else list = [...list].sort((a, b) => a.ranking - b.ranking);
+    return list;
+  }, [allObjectives, tierFilter, objSort]);
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -67,9 +77,25 @@ export default function MediasView({ fyStartYear }) {
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <Target size={16} className="text-[#06b6d4]" />
           <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs CA par client</h3>
-          <span className="text-xs text-[#888] ml-auto">
+          <span className="text-xs text-[#888]">
             {fmtK(objCaTotal)} / {fmtK(objTargetTotal)} · <span className="font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : objPct >= 50 ? '#f39c12' : '#e74c3c' }}>{objPct}%</span>
           </span>
+          <div className="flex items-center gap-2 ml-auto flex-wrap">
+            {/* Filtre tiering */}
+            <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5">
+              <button onClick={() => setTierFilter('all')} className={`px-2 py-1 text-[10px] font-bold rounded ${tierFilter === 'all' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Tous</button>
+              {availTiers.map(t => (
+                <button key={t} onClick={() => setTierFilter(String(t))} className={`px-2 py-1 text-[10px] font-bold rounded ${tierFilter === String(t) ? 'text-white' : 'text-[#888] hover:text-white'}`}
+                  style={tierFilter === String(t) ? { backgroundColor: TIER[t] } : undefined}>T{t}</button>
+              ))}
+            </div>
+            {/* Tri */}
+            <select value={objSort} onChange={e => setObjSort(e.target.value)} className="bg-[#111] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[10px] font-bold text-[#ccc] outline-none">
+              <option value="ca">Tri : CA réalisé</option>
+              <option value="pct">Tri : % réalisé (retards)</option>
+              <option value="ranking">Tri : ranking</option>
+            </select>
+          </div>
         </div>
         {clientObjectives.length === 0 ? (
           <p className="text-[#666] text-sm text-center py-4">Aucun objectif média défini</p>
