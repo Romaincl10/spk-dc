@@ -167,6 +167,16 @@ async function syncLucca() {
 
 // ── Objectives loader ────────────────────────────────────
 
+// Objectif Biz Dev par défaut (nouveaux clients) garanti pour chaque DC : 400 k€.
+const DEFAULT_BIZDEV_TARGET = 400000;
+function withBizDev(list) {
+  const arr = Array.isArray(list) ? [...list] : [];
+  if (!arr.some(o => o.client === '_BIZ_DEV')) {
+    arr.push({ client: '_BIZ_DEV', label: 'Business Development (Nouveaux clients)', target: DEFAULT_BIZDEV_TARGET, type: 'biz_dev' });
+  }
+  return arr;
+}
+
 function loadObjectivesForDC(dcName, fyStartYear) {
   try {
     const fp = path.join(DATA_DIR, 'objectives.json');
@@ -176,10 +186,10 @@ function loadObjectivesForDC(dcName, fyStartYear) {
       // Structure scindée par exercice : { "2025": {dc:[]}, "2026": {dc:[]} }
       const scoped = Object.keys(root).some(k => /^\d{4}$/.test(k));
       const byDc = scoped ? (root[String(fyStartYear)] || {}) : root;
-      return byDc?.[dcName] || [];
+      return withBizDev(byDc?.[dcName] || []);
     }
   } catch (e) {}
-  return [];
+  return withBizDev([]);
 }
 
 // ── Portfolio builder (assignment-based) ─────────────────
@@ -368,12 +378,24 @@ function buildDCPortfolios(fyStartYearParam) {
   const projectToCanonical = {};
   enrichedAll.forEach(p => { projectToCanonical[String(p.id)] = p.canonical_client || p.company_name; });
 
-  // Taux de marge par projet (marge contractuelle / CA contractuel) — sert à proratiser
-  // la marge en fonction du CA réellement facturé dans l'exercice.
+  // Taux de marge par projet (marge contractuelle / CA net contractuel) — sert à proratiser
+  // la marge selon le CA facturé. Neutralisé pour les projets "placeholder" (CA quasi nul
+  // mais marge saisie dans Furious → taux aberrant, ex PUMA à 1€ avec marge -110k€).
+  const MIN_CHIFFRAGE = 100; // € : en dessous, projet non chiffré → marge neutralisée
   const marginRateByProject = {};
   enrichedAll.forEach(p => {
-    marginRateByProject[String(p.id)] = p.total_amount > 0 ? (p.marginEur || 0) / p.total_amount : 0;
+    marginRateByProject[String(p.id)] = (p.total_amount || 0) >= MIN_CHIFFRAGE ? (p.marginEur || 0) / p.total_amount : 0;
   });
+  // Facteur "net de paid média" par projet : les factures Furious sont brutes (paid
+  // pass-through inclus). On ramène le CA facturé au CA net au prorata du contractuel
+  // (net = total_amount déjà retraité, brut = net + achats médias).
+  const netFactorByProject = {};
+  enrichedAll.forEach(p => {
+    const denom = (p.total_amount || 0) + (p.achatsMedias || 0);
+    netFactorByProject[String(p.id)] = denom > 0 ? (p.total_amount || 0) / denom : 1;
+  });
+  // Montant net d'une facture (paid média déduit au prorata du projet)
+  const invNet = (inv) => (Number(inv.amount_ht) || 0) * (netFactorByProject[String(inv.project_id)] ?? 1);
 
   // Appariement annulation ↔ avoir : une facture annulée (is_cancelled) est neutralisée
   // par un avoir (montant négatif, même projet, montant opposé). On exclut les DEUX :
@@ -447,9 +469,9 @@ function buildDCPortfolios(fyStartYearParam) {
 
     // CA de l'exercice = somme des factures datées dans l'exercice
     // MB = CA facturé × taux de marge du projet (prorata du contractuel)
-    const caTotal = fyInvoices.reduce((s, inv) => s + (Number(inv.amount_ht) || 0), 0);
+    const caTotal = fyInvoices.reduce((s, inv) => s + invNet(inv), 0);
     const mbTotal = fyInvoices.reduce((s, inv) =>
-      s + (Number(inv.amount_ht) || 0) * (marginRateByProject[String(inv.project_id)] || 0), 0);
+      s + invNet(inv) * (marginRateByProject[String(inv.project_id)] || 0), 0);
     const margeBrutePct = caTotal > 0 ? Math.round(mbTotal / caTotal * 1000) / 10 : 0;
     // Marge brute moyenne = moyenne des taux de marge des projets facturés dans l'exercice
     const billedProjectIds = new Set(fyInvoices.map(inv => String(inv.project_id)));
@@ -484,7 +506,7 @@ function buildDCPortfolios(fyStartYearParam) {
       s + (Number(p.amount) || 0) * (Number(p.probability) || 0) / 100, 0);
 
     const caFacture = fyInvoices.filter(inv => isInvoiceIssued(inv) && new Date(inv.invoice_date) <= now)
-      .reduce((s, inv) => s + (Number(inv.amount_ht) || 0), 0);
+      .reduce((s, inv) => s + invNet(inv), 0);
 
     // Build client breakdown — CA/MB basés sur les factures datées dans l'exercice
     const clientMap = {};
@@ -498,7 +520,7 @@ function buildDCPortfolios(fyStartYearParam) {
       const canonical = projectToCanonical[String(inv.project_id)];
       if (!canonical) return;
       if (!clientMap[canonical]) clientMap[canonical] = { name: canonical, ca: 0, mb: 0, pipe: 0, pipeProbabilise: 0, projects: [] };
-      const amt = Number(inv.amount_ht) || 0;
+      const amt = invNet(inv);
       clientMap[canonical].ca += amt;
       clientMap[canonical].mb += amt * (marginRateByProject[String(inv.project_id)] || 0);
     });
@@ -543,10 +565,10 @@ function buildDCPortfolios(fyStartYearParam) {
       const month = ed.substring(0, 7);
       if (isInvoiceIssued(inv)) {
         if (!clientMap[canonical].monthlyInvoiceCA) clientMap[canonical].monthlyInvoiceCA = {};
-        clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + (Number(inv.amount_ht) || 0);
+        clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + invNet(inv);
       } else {
         if (!clientMap[canonical].monthlyInvoicePlan) clientMap[canonical].monthlyInvoicePlan = {};
-        clientMap[canonical].monthlyInvoicePlan[month] = (clientMap[canonical].monthlyInvoicePlan[month] || 0) + (Number(inv.amount_ht) || 0);
+        clientMap[canonical].monthlyInvoicePlan[month] = (clientMap[canonical].monthlyInvoicePlan[month] || 0) + invNet(inv);
       }
     });
     Object.values(clientMap).forEach(c => {
@@ -684,10 +706,10 @@ function buildDCPortfolios(fyStartYearParam) {
         if (key && !portfolios[key]) {
           // DC sans données Furious : on charge quand même ses objectifs (réalisé = 0)
           const objData = loadObjectivesForDC(key, fyStartYear);
-          const emptyObjectives = objData
-            .filter(o => o.client !== '_BIZ_DEV')
-            .map(o => ({ ...o, actual: 0, pipe: 0, progress: 0 }));
-          const objTarget = emptyObjectives.reduce((s, o) => s + (o.target || 0), 0);
+          const emptyObjectives = objData.map(o => o.client === '_BIZ_DEV'
+            ? { ...o, actual: 0, pipe: 0, clients: [], progress: 0 }
+            : { ...o, actual: 0, pipe: 0, progress: 0 });
+          const objTarget = emptyObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + (o.target || 0), 0);
           portfolios[key] = {
             dcName: key,
             projects: [], proposals: [], invoices: [], purchases: [],
@@ -867,6 +889,80 @@ function buildMedias(fyStartYearParam) {
   return { fyStartYear, projects, devis, totals };
 }
 
+/**
+ * Récap mensuel des mouvements par DC : projets signés (créés dans le mois),
+ * devis créés et devis perdus dans le mois. Pour les points mensuels avec les DC.
+ */
+function buildMonthlyRecap(monthParam) {
+  const allProjects = loadData('furious_projects')?.data || [];
+  const proposals = loadData('furious_proposals')?.data || [];
+  const achatsMediasByProject = loadData('furious_achats_medias')?.data || {};
+  const clientAssignments = assign.getAllClientAssignments();
+  const projectAssignments = assign.getAllProjectAssignments();
+  const proposalAssignments = assign.getAllProposalAssignments();
+
+  const now = new Date();
+  const month = /^\d{4}-\d{2}$/.test(monthParam || '') ? monthParam : now.toISOString().slice(0, 7);
+  const inMonth = (d) => !!d && String(d).slice(0, 7) === month;
+
+  const clientDC = (companyName) => {
+    if (!companyName) return null;
+    const nc = normalize(companyName);
+    const k = Object.keys(clientAssignments).find(kk => normalize(kk) === nc);
+    return k ? clientAssignments[k] : null;
+  };
+  const dcsOfProject = (p) => {
+    const a = projectAssignments[p.id]; if (a && a.length) return a;
+    const c = clientDC(p.company_name); return c ? [c] : ['A assigner'];
+  };
+  const dcsOfProposal = (p) => {
+    const a = proposalAssignments[p.id]; if (a && a.length) return a;
+    const c = clientDC(p.company_name); return c ? [c] : ['A assigner'];
+  };
+
+  const byDC = {};
+  const ensure = (dc) => (byDC[dc] = byDC[dc] || { signes: [], devisCrees: [], devisPerdus: [] });
+
+  // Projets signés = créés dans le mois (hors médias/internes)
+  allProjects.forEach(p => {
+    if (shouldExcludeProject(p)) return;
+    if (!inMonth(p.created_at)) return;
+    const amt = Number(p.total_amount) || 0;
+    const net = Math.max(0, amt - (achatsMediasByProject[String(p.id)] || 0));
+    const row = { id: p.id, title: p.title, client: getCanonicalClientName(p.company_name), amount: net, margin: Number(p.margin) || 0, created_at: p.created_at };
+    dcsOfProject(p).forEach(dc => ensure(dc).signes.push(row));
+  });
+
+  // Devis créés / perdus dans le mois
+  proposals.forEach(p => {
+    if (/^M0|^MED0/i.test((p.title || '').trim())) return; // médias à part
+    const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
+    const base = { id: p.id, title: p.title, client: getCanonicalClientName(p.company_name), amount, probability: proba, probabilise: amount * proba / 100, pipe_name: p.pipe_name };
+    if (inMonth(p.created_at)) {
+      const row = { ...base, date: String(p.created_at).slice(0, 10) };
+      dcsOfProposal(p).forEach(dc => ensure(dc).devisCrees.push(row));
+    }
+    if (p.pipe_name === 'Perdu' && inMonth(p.last_updated_at || p.created_at)) {
+      const row = { ...base, date: String(p.last_updated_at || p.created_at).slice(0, 10) };
+      dcsOfProposal(p).forEach(dc => ensure(dc).devisPerdus.push(row));
+    }
+  });
+
+  // Tri + totaux par DC
+  for (const dc of Object.keys(byDC)) {
+    const b = byDC[dc];
+    b.signes.sort((a, z) => z.amount - a.amount);
+    b.devisCrees.sort((a, z) => z.amount - a.amount);
+    b.devisPerdus.sort((a, z) => z.amount - a.amount);
+    b.totals = {
+      signesCount: b.signes.length, signesCA: b.signes.reduce((s, x) => s + x.amount, 0),
+      devisCreesCount: b.devisCrees.length, devisCreesMontant: b.devisCrees.reduce((s, x) => s + x.amount, 0),
+      devisPerdusCount: b.devisPerdus.length, devisPerdusMontant: b.devisPerdus.reduce((s, x) => s + x.amount, 0),
+    };
+  }
+  return { month, byDC };
+}
+
 // ── Routes: Health ───────────────────────────────────────
 
 app.get('/health', (req, res) => res.json({ status: 'ok', app: 'spk-dc' }));
@@ -954,6 +1050,11 @@ app.get('/api/data/biz-dev', auth.authMiddleware, (req, res) => {
   }
   const fyParam = parseInt(req.query.fy, 10);
   res.json(buildBizDev(Number.isInteger(fyParam) ? fyParam : undefined));
+});
+
+// Récap mensuel des mouvements par DC (signés / devis créés / perdus).
+app.get('/api/data/monthly-recap', auth.authMiddleware, (req, res) => {
+  res.json(buildMonthlyRecap(req.query.month));
 });
 
 // Médias — projets & devis MED0 (transverse). Admin + directeur uniquement.

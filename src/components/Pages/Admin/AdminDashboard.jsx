@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout } from 'lucide-react';
+import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout, CalendarRange } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -11,6 +11,7 @@ import DCFocusDevis from './DCFocusDevis';
 import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
 import DCFarming from './DCFarming';
+import RecapMois from './RecapMois';
 
 const DIRECTOR_NAMES = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6' };
@@ -30,6 +31,8 @@ const DC_SUBTABS = [
 // Onglet Farming — DC ayant un board (seed farming). Contenu éditorial hors Furious.
 const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
 const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
+// Onglet Récap du mois — mouvements du mois (tous DC).
+const RECAP_SUBTAB = { id: 'recap', label: 'Récap du mois', icon: CalendarRange };
 
 /** Mini SVG arc gauge for table cells */
 function MiniGauge({ pct, color }) {
@@ -186,7 +189,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {selectedDC !== 'Globale' && selectedDC !== 'Médias' && !selectedIsDirector && (
         <div className="flex items-center justify-between gap-3">
           <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
-            {(FARMING_DCS.includes(selectedDC) ? [...DC_SUBTABS, FARMING_SUBTAB] : DC_SUBTABS).map(t => {
+            {(() => { const b = [...DC_SUBTABS]; let ins = b.findIndex(t => t.id === 'focus') + 1; if (FARMING_DCS.includes(selectedDC)) { b.splice(ins, 0, FARMING_SUBTAB); ins++; } b.splice(ins, 0, RECAP_SUBTAB); return b; })().map(t => {
               const Icon = t.icon;
               return (
                 <button key={t.id} onClick={() => setSubTab(t.id)}
@@ -379,6 +382,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
           {subTab === 'farming' && FARMING_DCS.includes(selectedDC) && <DCFarming dc={selectedDC} />}
+          {subTab === 'recap' && <RecapMois dc={selectedDC} />}
         </>
       )}
     </div>

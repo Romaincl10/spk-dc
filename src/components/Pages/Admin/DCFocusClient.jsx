@@ -13,6 +13,16 @@ export default function DCFocusClient({ portfolio, color }) {
   const fyProjects = (portfolio.projects || []).filter(p => p.inFY);
   const clientBreakdown = portfolio.clientBreakdown || [];
 
+  // Objectif par client (via les noms canoniques rattachés à chaque objectif)
+  const objByClient = useMemo(() => {
+    const m = {};
+    (portfolio.objectives || []).forEach(o => {
+      if (o.client === '_BIZ_DEV' || !(o.target > 0)) return;
+      (o.canonicalNames && o.canonicalNames.length ? o.canonicalNames : [o.client]).forEach(n => { m[n] = (m[n] || 0) + o.target; });
+    });
+    return m;
+  }, [portfolio.objectives]);
+
   const filtered = useMemo(() => {
     if (!search) return clientBreakdown;
     const s = search.toLowerCase();
@@ -107,6 +117,8 @@ export default function DCFocusClient({ portfolio, color }) {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {filtered.map(c => {
           const mbPct = c.ca > 0 ? Math.round(c.mb / c.ca * 1000) / 10 : 0;
+          const obj = objByClient[c.name] || 0;
+          const objPct = obj > 0 ? Math.round(c.ca / obj * 100) : 0;
           return (
             <button key={c.name} onClick={() => setSelectedClient(c.name)}
               className="text-left bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 hover:border-[#e63946]/50 transition-colors">
@@ -119,8 +131,17 @@ export default function DCFocusClient({ portfolio, color }) {
                 <span>{c.projects?.length || 0} projets</span>
                 {c.pipeProbabilise > 0 && <span className="text-[#3b82f6]">Pipe {fmtK(c.pipeProbabilise)}</span>}
               </div>
+              {/* Rappel subtil de l'objectif du client */}
+              {obj > 0 && (
+                <div className="mt-2 flex items-center gap-2">
+                  <div className="flex-1 h-1 bg-[#2a2a2a] rounded-full overflow-hidden">
+                    <div className="h-1 rounded-full" style={{ width: `${Math.min(objPct, 100)}%`, backgroundColor: objPct >= 100 ? '#2ecc71' : objPct >= 60 ? '#f39c12' : `${color}99` }} />
+                  </div>
+                  <span className="text-[10px] text-[#666] whitespace-nowrap">Obj {fmtK(obj)} · {objPct}%</span>
+                </div>
+              )}
               {c.pipeProbabilise > 0 && (
-                <div className="mt-2">
+                <div className="mt-1.5">
                   <div className="text-[10px] text-[#888]">Projection: {fmtK(c.ca + c.pipeProbabilise)}</div>
                 </div>
               )}
