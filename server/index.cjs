@@ -415,6 +415,22 @@ function buildDCPortfolios(fyStartYearParam) {
     });
   }
 
+  // ── Médias par client (pour le suivi regroupé Agence/Médias/Cumul) ──
+  // CA médias réalisé par client canonique (projets MED0 rattachés à l'exercice)
+  const mediaCAByCanon = {};
+  allProjects.forEach(p => {
+    if (!/^MED0/i.test((p.title || '').trim())) return;
+    const sd = p.start_date ? new Date(p.start_date) : null;
+    const ed = p.end_date ? new Date(p.end_date) : null;
+    const inFYm = sd && ed ? !(ed < fyStart || sd > fyEnd) : true;
+    if (!inFYm) return;
+    const canon = getCanonicalClientName(p.company_name);
+    mediaCAByCanon[canon] = (mediaCAByCanon[canon] || 0) + (Number(p.total_amount) || 0);
+  });
+  // Matrice objectifs médias (brute) — matching par nom normalisé plus robuste
+  let mediaObjectivesRaw = [];
+  try { mediaObjectivesRaw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'media_objectives.json'), 'utf8')); } catch (e) {}
+
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
   enrichedAll.forEach(p => {
@@ -669,6 +685,17 @@ function buildDCPortfolios(fyStartYearParam) {
       }))
       .sort((a, b) => b.created_at.localeCompare(a.created_at));
 
+    // Suivi regroupé des clients : CA réalisé vs objectif, agence + médias (filtre Cumul/Agence/Médias)
+    const clientTracking = enrichedObjectives
+      .filter(o => o.client !== '_BIZ_DEV' && ((o.target || 0) > 0 || (o.actual || 0) > 0))
+      .map(o => {
+        const normO = normalize(o.client);
+        const matchName = (nm) => nm === normO || (normO.length >= 4 && (nm.includes(normO) || normO.includes(nm)));
+        const objMedia = mediaObjectivesRaw.filter(m => (m.target || 0) > 0 && matchName(normalize(m.client))).reduce((s, m) => s + m.target, 0);
+        const caMedia = Object.entries(mediaCAByCanon).filter(([k]) => matchName(normalize(k))).reduce((s, [, v]) => s + v, 0);
+        return { client: o.client, caAgence: o.actual || 0, objAgence: o.target || 0, caMedia, objMedia };
+      });
+
     portfolios[dcName] = {
       dcName,
       projects: projectsList,
@@ -678,6 +705,7 @@ function buildDCPortfolios(fyStartYearParam) {
       clients: clientNames,
       clientBreakdown,
       objectives: enrichedObjectives,
+      clientTracking,
       recentProjects,
       recentDevis,
       kpis: {
