@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Radio, Briefcase, FileText, Target } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import { apiFetch } from '../../../utils/api';
@@ -39,14 +39,14 @@ export default function MediasView({ fyStartYear }) {
   const objPct = objTargetTotal > 0 ? Math.round(objCaTotal / objTargetTotal * 100) : 0;
   const TIER = { 1: '#2ecc71', 2: '#3b82f6', 3: '#f39c12', 4: '#888', 5: '#e74c3c' };
   const allObjectives = (data?.clientObjectives || []).filter(o => o.target > 0 || o.ca > 0);
-  const availTiers = useMemo(() => [...new Set(allObjectives.map(o => o.tiering))].sort(), [allObjectives]);
-  const clientObjectives = useMemo(() => {
+  const availTiers = [...new Set(allObjectives.map(o => o.tiering))].sort();
+  const clientObjectives = (() => {
     let list = allObjectives.filter(o => tierFilter === 'all' || o.tiering === Number(tierFilter));
     if (objSort === 'ca') list = [...list].sort((a, b) => b.ca - a.ca);
     else if (objSort === 'pct') list = [...list].sort((a, b) => (a.pct ?? 9999) - (b.pct ?? 9999));
     else list = [...list].sort((a, b) => a.ranking - b.ranking);
     return list;
-  }, [allObjectives, tierFilter, objSort]);
+  })();
 
   return (
     <div className="space-y-5 animate-fade-in">
