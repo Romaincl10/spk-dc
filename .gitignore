@@ -16,3 +16,6 @@ npm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# État vivant du farming (persiste sur le volume, pas dans git)
+server/data/farming.json

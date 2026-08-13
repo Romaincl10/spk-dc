@@ -18,6 +18,7 @@ const auth = require('./auth.cjs');
 const objectives = require('./objectives.cjs');
 const assign = require('./assignments.cjs');
 const activity = require('./activity.cjs');
+const farming = require('./farming.cjs');
 const { getCanonicalClientName, getCanonicalClientNameForProject } = require('./clientGroups.cjs');
 
 const app = express();
@@ -962,6 +963,18 @@ app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
   }
   const fyParam = parseInt(req.query.fy, 10);
   res.json(buildMedias(Number.isInteger(fyParam) ? fyParam : undefined));
+});
+
+// Farming — board éditable (concepts + événements) d'un DC, persistant sur le volume.
+app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
+  const dc = req.query.dc || 'Hadrien';
+  res.json({ dc, clients: farming.getDC(dc) });
+});
+
+app.put('/api/data/farming', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  const { dc, client, data } = req.body;
+  if (!dc || !client || !data) return res.status(400).json({ error: 'dc, client, data requis' });
+  res.json({ success: true, client: farming.saveClient(dc, client, data) });
 });
 
 // ── Routes: Assignments (admin) ──────────────────────────
