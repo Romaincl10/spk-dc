@@ -431,6 +431,14 @@ function buildDCPortfolios(fyStartYearParam) {
   let mediaObjectivesRaw = [];
   try { mediaObjectivesRaw = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'media_objectives.json'), 'utf8')); } catch (e) {}
 
+  // Premier mouvement par client canonique (projets agence + factures, tout l'historique).
+  // Sert à distinguer NOUVEAU client (1er mvt dans l'exercice) vs client ÉTABLI hors objectif.
+  const firstMoveByCanon = {};
+  const noteFM = (canon, d) => { const rd = realDate(d); if (!canon || !rd) return; const t = new Date(rd); if (isNaN(t)) return; if (!firstMoveByCanon[canon] || t < firstMoveByCanon[canon]) firstMoveByCanon[canon] = t; };
+  allProjects.forEach(p => { if (shouldExcludeProject(p)) return; const c = getCanonicalClientNameForProject(p.company_name, p.title); noteFM(c, p.created_at); noteFM(c, p.start_date); });
+  invoices.forEach(inv => { if (inv.is_cancelled) return; noteFM(getCanonicalClientName(inv.company_name), invoiceEffectiveDate(inv)); });
+  const isNewCanon = (canon) => !!firstMoveByCanon[canon] && firstMoveByCanon[canon] >= fyStart && firstMoveByCanon[canon] <= fyEndInclusive;
+
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
   enrichedAll.forEach(p => {
@@ -624,16 +632,21 @@ function buildDCPortfolios(fyStartYearParam) {
         if (m) claimedClientNames.add(m.name);
       }
     });
-    // Biz Dev = CA/pipe des clients qui ne sont réclamés par aucun objectif nominatif.
+    // Clients hors objectif nominatif, séparés en NOUVEAUX (conquête, 1er mvt dans
+    // l'exercice) vs ÉTABLIS (clients existants sans objectif, ex Decathlon/FFF).
     const computeBizDev = (obj) => {
-      const bizDevClients = clientBreakdown.filter(c => !claimedClientNames.has(c.name));
-      const bizDevCA = bizDevClients.reduce((s, c) => s + c.ca, 0);
-      const bizDevPipe = bizDevClients.reduce((s, c) => s + (c.pipeProbabilise || 0), 0);
-      // Expose individual clients so frontend can show them one by one
-      const clients = bizDevClients
-        .filter(c => c.ca > 0 || (c.pipeProbabilise || 0) > 0)
-        .map(c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 }));
-      return { ...obj, actual: bizDevCA, pipe: bizDevPipe, clients, progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0 };
+      const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
+      const toRow = c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 });
+      const newClients = hors.filter(c => isNewCanon(c.name)).map(toRow);
+      const otherClients = hors.filter(c => !isNewCanon(c.name)).map(toRow);
+      // "Biz Dev" (conquête) = uniquement les nouveaux clients
+      const bizDevCA = newClients.reduce((s, c) => s + c.actual, 0);
+      const bizDevPipe = newClients.reduce((s, c) => s + c.pipe, 0);
+      return {
+        ...obj, actual: bizDevCA, pipe: bizDevPipe, clients: newClients,
+        otherClients, otherCA: otherClients.reduce((s, c) => s + c.actual, 0), otherPipe: otherClients.reduce((s, c) => s + c.pipe, 0),
+        progress: obj.target > 0 ? Math.round(bizDevCA / obj.target * 100) : 0,
+      };
     };
 
     // Enrich objectives with actual values from clientBreakdown

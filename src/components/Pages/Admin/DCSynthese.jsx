@@ -71,6 +71,9 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
   const bizDevData = objBizDev[0] || {};
   const bizDevCA = (bizDevData.actual || 0) + objNoTarget.reduce((s, o) => s + (o.actual || 0), 0);
   const bizDevPipe = (bizDevData.pipe || 0) + objNoTarget.reduce((s, o) => s + (o.pipe || 0), 0);
+  // Clients établis hors objectif (ex Decathlon, FFF) — distincts de la conquête
+  const otherClients = [...(bizDevData.otherClients || [])].sort((a, b) => (b.actual || 0) - (a.actual || 0));
+  const otherCA = bizDevData.otherCA || 0;
 
   // Grand total = clients with objectives + biz dev
   const grandTotalObjectif = totalObjectif + (bizDevData.target || 0);
@@ -260,11 +263,11 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                   </>}
                 </tr>
 
-                {/* BIZ DEV */}
+                {/* BIZ DEV — NOUVEAUX CLIENTS (conquête) */}
                 {(objNoTarget.length > 0 || bizDevData.target > 0 || (bizDevData.clients || []).length > 0) && (
                   <tr><td colSpan={isProjection ? 8 : 5} className="pt-5 pb-1 px-3">
                     <span className="text-xs font-bold text-[#f39c12] uppercase tracking-wider">Business Development</span>
-                    <span className="text-[10px] text-[#666] normal-case font-normal ml-2">(clients hors objectif)</span>
+                    <span className="text-[10px] text-[#666] normal-case font-normal ml-2">(nouveaux clients — conquête)</span>
                   </td></tr>
                 )}
 
@@ -353,6 +356,47 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                       <td className="py-2.5 px-3 text-right text-white">{fmtK(bizDevCA + bizDevPipe)}</td>
                       <td className="py-2.5 px-3">{bizDevData.target > 0 ? <ProgressBar value={bizDevCA} max={bizDevData.target} color="#f39c12" /> : null}</td>
                     </>}
+                  </tr>
+                )}
+
+                {/* AUTRES CLIENTS (hors objectif, établis — ex Decathlon, FFF) */}
+                {otherClients.length > 0 && (
+                  <tr><td colSpan={isProjection ? 8 : 5} className="pt-5 pb-1 px-3">
+                    <span className="text-xs font-bold text-[#888] uppercase tracking-wider">Autres clients</span>
+                    <span className="text-[10px] text-[#666] normal-case font-normal ml-2">(clients établis sans objectif)</span>
+                  </td></tr>
+                )}
+                {otherClients.map((c, i) => {
+                  const isSelSigne = selectedClient === c.client && selectedType === 'signe';
+                  const mb = mbByCanonical[c.client] || 0;
+                  const pct = mbPctOf(mb, c.actual || 0);
+                  return (
+                    <tr key={`oth-${i}`} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
+                      <td className="py-2.5 px-3 text-[#ccc] font-medium">{c.client}</td>
+                      <td className="py-2.5 px-3 text-right">
+                        <button onClick={() => handleSelectClient(c.client, 'signe')} className={`font-bold hover:underline ${isSelSigne ? 'text-[#e63946]' : 'text-white'}`}>{fmtK(c.actual || 0)}</button>
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-xs">
+                        {(c.actual || 0) > 0 ? <span><span className="text-[#ccc]">{fmtK(mb)}</span> <span className="font-bold" style={{ color: mbColor(pct) }}>{pct}%</span></span> : <span className="text-[#666]">—</span>}
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#888]">—</td>
+                      <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#666]">—</span></td>
+                      {isProjection && <>
+                        <td className="py-2.5 px-3 text-right">{(c.pipe || 0) > 0 ? <span className="text-[#3b82f6]">{fmtK(c.pipe)}</span> : <span className="text-[#666]">—</span>}</td>
+                        <td className="py-2.5 px-3 text-right text-white">{fmtK((c.actual || 0) + (c.pipe || 0))}</td>
+                        <td className="py-2.5 px-3" />
+                      </>}
+                    </tr>
+                  );
+                })}
+                {otherClients.length > 0 && (
+                  <tr className="border-t border-[#3a3a3a] bg-[#1a1a1a] font-bold">
+                    <td className="py-2.5 px-3 text-[#aaa] italic">Total autres clients</td>
+                    <td className="py-2.5 px-3 text-right text-white">{fmtK(otherCA)}</td>
+                    <td className="py-2.5 px-3 text-right text-xs text-[#ccc]">{fmtK(otherClients.reduce((s, c) => s + (mbByCanonical[c.client] || 0), 0))}</td>
+                    <td className="py-2.5 px-3 text-right text-[#666]">—</td>
+                    <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20 text-[#666]">—</td>
+                    {isProjection && <><td /><td className="py-2.5 px-3 text-right text-white">{fmtK(otherCA + otherClients.reduce((s, c) => s + (c.pipe || 0), 0))}</td><td /></>}
                   </tr>
                 )}
 
