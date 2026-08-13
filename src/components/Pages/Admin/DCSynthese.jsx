@@ -182,8 +182,8 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                   <th className="text-left py-2.5 px-3 text-[10px] font-bold uppercase text-[#888]">Client</th>
                   <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#888]">Signé</th>
                   <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#2ecc71]">Marge brute</th>
-                  <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#888]">Objectif</th>
-                  <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-white bg-[#2a2a2a]/50 rounded">% Réalisé</th>
+                  <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#888]">Objectif CA</th>
+                  <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-white bg-[#2a2a2a]/50 rounded">% réalisé (CA)</th>
                   {isProjection && <>
                     <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#3b82f6]">Pipe Proba</th>
                     <th className="text-right py-2.5 px-3 text-[10px] font-bold uppercase text-[#888]">Projection</th>
@@ -280,7 +280,9 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                           {fmtK(obj.actual || 0)}
                         </button>
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#ccc] text-xs">{(obj.actual || 0) > 0 ? fmtK(mbForObj(obj)) : '—'}</td>
+                      <td className="py-2.5 px-3 text-right text-xs">
+                        {(obj.actual || 0) > 0 ? (() => { const mb = mbForObj(obj); const pct = mbPctOf(mb, obj.actual || 0); return <span><span className="text-[#ccc]">{fmtK(mb)}</span> <span className="font-bold" style={{ color: mbColor(pct) }}>{pct}%</span></span>; })() : <span className="text-[#666]">—</span>}
+                      </td>
                       <td className="py-2.5 px-3 text-right text-[#888]">—</td>
                       <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#2ecc71] font-bold text-base italic">OK</span></td>
                       {isProjection && <>
@@ -312,7 +314,9 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                           {fmtK(c.actual || 0)}
                         </button>
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#ccc] text-xs">{(c.actual || 0) > 0 ? fmtK(mbByCanonical[c.client] || 0) : '—'}</td>
+                      <td className="py-2.5 px-3 text-right text-xs">
+                        {(c.actual || 0) > 0 ? (() => { const mb = mbByCanonical[c.client] || 0; const pct = mbPctOf(mb, c.actual || 0); return <span><span className="text-[#ccc]">{fmtK(mb)}</span> <span className="font-bold" style={{ color: mbColor(pct) }}>{pct}%</span></span>; })() : <span className="text-[#666]">—</span>}
+                      </td>
                       <td className="py-2.5 px-3 text-right text-[#888]">—</td>
                       <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20"><span className="text-[#2ecc71] font-bold text-base italic">OK</span></td>
                       {isProjection && <>
@@ -335,7 +339,9 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                   <tr className="border-t border-[#f39c12]/30 bg-[#f39c12]/5 font-bold">
                     <td className="py-2.5 px-3 text-[#f39c12] italic">Total Biz Dev</td>
                     <td className="py-2.5 px-3 text-right text-white">{fmtK(bizDevCA)}</td>
-                    <td className="py-2.5 px-3 text-right text-[#ccc] text-xs">{fmtK((bizDevData.clients || []).reduce((s, c) => s + (mbByCanonical[c.client] || 0), 0) + objNoTarget.reduce((s, o) => s + mbForObj(o), 0))}</td>
+                    <td className="py-2.5 px-3 text-right text-xs">
+                      {(() => { const mb = (bizDevData.clients || []).reduce((s, c) => s + (mbByCanonical[c.client] || 0), 0) + objNoTarget.reduce((s, o) => s + mbForObj(o), 0); const pct = mbPctOf(mb, bizDevCA); return <span><span className="text-[#ccc]">{fmtK(mb)}</span> <span className="font-bold" style={{ color: mbColor(pct) }}>{pct}%</span></span>; })()}
+                    </td>
                     <td className="py-2.5 px-3 text-right text-[#ccc]">{bizDevData.target > 0 ? fmtK(bizDevData.target) : '—'}</td>
                     <td className="py-2.5 px-3 text-right bg-[#2a2a2a]/20">
                       {bizDevData.target > 0

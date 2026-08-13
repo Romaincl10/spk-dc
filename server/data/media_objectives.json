@@ -1,0 +1,530 @@
+[
+ {
+  "ranking": 1,
+  "tiering": 2,
+  "client": "PRO DIRECT SOCCER",
+  "target": 10000
+ },
+ {
+  "ranking": 2,
+  "tiering": 2,
+  "client": "INTERSPORT",
+  "target": 150000
+ },
+ {
+  "ranking": 3,
+  "tiering": 2,
+  "client": "AWIN",
+  "target": 80000
+ },
+ {
+  "ranking": 4,
+  "tiering": 2,
+  "client": "DECATHLON",
+  "target": 50000
+ },
+ {
+  "ranking": 5,
+  "tiering": 1,
+  "client": "KAPPA",
+  "target": 40000
+ },
+ {
+  "ranking": 6,
+  "tiering": 1,
+  "client": "Asics",
+  "target": 50000
+ },
+ {
+  "ranking": 7,
+  "tiering": 1,
+  "client": "On",
+  "target": 40000
+ },
+ {
+  "ranking": 8,
+  "tiering": 1,
+  "client": "NUTRIPURE",
+  "target": 30000
+ },
+ {
+  "ranking": 9,
+  "tiering": 1,
+  "client": "Brooks",
+  "target": 40000
+ },
+ {
+  "ranking": 10,
+  "tiering": 1,
+  "client": "Nike",
+  "target": 60000
+ },
+ {
+  "ranking": 11,
+  "tiering": 2,
+  "client": "ALLTRICKS",
+  "target": 50000
+ },
+ {
+  "ranking": 12,
+  "tiering": 1,
+  "client": "adidas",
+  "target": 60000
+ },
+ {
+  "ranking": 13,
+  "tiering": 1,
+  "client": "MIZUNO",
+  "target": 30000
+ },
+ {
+  "ranking": 14,
+  "tiering": 5,
+  "client": "Big Mat",
+  "target": 0
+ },
+ {
+  "ranking": 15,
+  "tiering": 2,
+  "client": "MONDOVELO",
+  "target": 30000
+ },
+ {
+  "ranking": 16,
+  "tiering": 2,
+  "client": "I-run",
+  "target": 0
+ },
+ {
+  "ranking": 17,
+  "tiering": 1,
+  "client": "CRAFT",
+  "target": 15000
+ },
+ {
+  "ranking": 18,
+  "tiering": 2,
+  "client": "EKOI",
+  "target": 0
+ },
+ {
+  "ranking": 19,
+  "tiering": 5,
+  "client": "KING JOUET",
+  "target": 0
+ },
+ {
+  "ranking": 20,
+  "tiering": 1,
+  "client": "NEW BALANCE",
+  "target": 15000
+ },
+ {
+  "ranking": 21,
+  "tiering": 1,
+  "client": "SUUNTO",
+  "target": 15000
+ },
+ {
+  "ranking": 22,
+  "tiering": 1,
+  "client": "SCOTT",
+  "target": 20000
+ },
+ {
+  "ranking": 23,
+  "tiering": 1,
+  "client": "X-Bionic",
+  "target": 10000
+ },
+ {
+  "ranking": 24,
+  "tiering": 2,
+  "client": "11TEAMSPORT",
+  "target": 10000
+ },
+ {
+  "ranking": 25,
+  "tiering": 1,
+  "client": "Diadora",
+  "target": 10000
+ },
+ {
+  "ranking": 26,
+  "tiering": 1,
+  "client": "SPALDING",
+  "target": 0
+ },
+ {
+  "ranking": 27,
+  "tiering": 2,
+  "client": "SPORTS EMOTION",
+  "target": 0
+ },
+ {
+  "ranking": 28,
+  "tiering": 1,
+  "client": "SIDAS",
+  "target": 0
+ },
+ {
+  "ranking": 29,
+  "tiering": 1,
+  "client": "Anta",
+  "target": 10000
+ },
+ {
+  "ranking": 30,
+  "tiering": 5,
+  "client": "CITEO",
+  "target": 0
+ },
+ {
+  "ranking": 31,
+  "tiering": 3,
+  "client": "PSG",
+  "target": 0
+ },
+ {
+  "ranking": 32,
+  "tiering": 1,
+  "client": "MERRELL",
+  "target": 0
+ },
+ {
+  "ranking": 33,
+  "tiering": 1,
+  "client": "MX3",
+  "target": 0
+ },
+ {
+  "ranking": 34,
+  "tiering": 1,
+  "client": "Match Worn Shirt",
+  "target": 5000
+ },
+ {
+  "ranking": 35,
+  "tiering": 1,
+  "client": "ROSSIGNOL",
+  "target": 0
+ },
+ {
+  "ranking": 36,
+  "tiering": 2,
+  "client": "TTO",
+  "target": 20000
+ },
+ {
+  "ranking": 37,
+  "tiering": 1,
+  "client": "Puma",
+  "target": 20000
+ },
+ {
+  "ranking": 38,
+  "tiering": 2,
+  "client": "KWANKO",
+  "target": 10000
+ },
+ {
+  "ranking": 39,
+  "tiering": 1,
+  "client": "TRIPOINT",
+  "target": 3000
+ },
+ {
+  "ranking": 40,
+  "tiering": 1,
+  "client": "JOMA",
+  "target": 5000
+ },
+ {
+  "ranking": 41,
+  "tiering": 1,
+  "client": "JULBO",
+  "target": 15000
+ },
+ {
+  "ranking": 42,
+  "tiering": 1,
+  "client": "LA SPORTIVA",
+  "target": 5000
+ },
+ {
+  "ranking": 43,
+  "tiering": 1,
+  "client": "Saucony",
+  "target": 10000
+ },
+ {
+  "ranking": 44,
+  "tiering": 1,
+  "client": "Meltonic",
+  "target": 5000
+ },
+ {
+  "ranking": 45,
+  "tiering": 1,
+  "client": "COMPEX",
+  "target": 5000
+ },
+ {
+  "ranking": 46,
+  "tiering": 1,
+  "client": "VAN RYSEL",
+  "target": 10000
+ },
+ {
+  "ranking": 47,
+  "tiering": 3,
+  "client": "AS MONACO",
+  "target": 0
+ },
+ {
+  "ranking": 48,
+  "tiering": 1,
+  "client": "CONTINENTAL",
+  "target": 0
+ },
+ {
+  "ranking": 49,
+  "tiering": 1,
+  "client": "ABUS",
+  "target": 3000
+ },
+ {
+  "ranking": 50,
+  "tiering": 3,
+  "client": "FFC",
+  "target": 0
+ },
+ {
+  "ranking": 51,
+  "tiering": 4,
+  "client": "OPEN RUNNER",
+  "target": 0
+ },
+ {
+  "ranking": 52,
+  "tiering": 1,
+  "client": "WISE",
+  "target": 10000
+ },
+ {
+  "ranking": 53,
+  "tiering": 3,
+  "client": "PEAK",
+  "target": 0
+ },
+ {
+  "ranking": 54,
+  "tiering": 3,
+  "client": "MILES REPUBLIC",
+  "target": 0
+ },
+ {
+  "ranking": 55,
+  "tiering": 1,
+  "client": "SKECHERS",
+  "target": 5000
+ },
+ {
+  "ranking": 56,
+  "tiering": 4,
+  "client": "STANLEY",
+  "target": 0
+ },
+ {
+  "ranking": 57,
+  "tiering": 1,
+  "client": "Mnistry",
+  "target": 0
+ },
+ {
+  "ranking": 58,
+  "tiering": 1,
+  "client": "Bryton",
+  "target": 3000
+ },
+ {
+  "ranking": 59,
+  "tiering": 1,
+  "client": "SILVA",
+  "target": 0
+ },
+ {
+  "ranking": 60,
+  "tiering": 2,
+  "client": "B4B",
+  "target": 3000
+ },
+ {
+  "ranking": 61,
+  "tiering": 3,
+  "client": "CIC U NANTES",
+  "target": 0
+ },
+ {
+  "ranking": 62,
+  "tiering": 1,
+  "client": "MET",
+  "target": 5000
+ },
+ {
+  "ranking": 63,
+  "tiering": 4,
+  "client": "Wahoo",
+  "target": 0
+ },
+ {
+  "ranking": 64,
+  "tiering": 1,
+  "client": "MY RAVITO",
+  "target": 0
+ },
+ {
+  "ranking": 66,
+  "tiering": 4,
+  "client": "TREK",
+  "target": 0
+ },
+ {
+  "ranking": 67,
+  "tiering": 1,
+  "client": "SPORTEASY",
+  "target": 0
+ },
+ {
+  "ranking": 68,
+  "tiering": 1,
+  "client": "EFFINITY",
+  "target": 0
+ },
+ {
+  "ranking": 69,
+  "tiering": 1,
+  "client": "DEARBBALL",
+  "target": 0
+ },
+ {
+  "ranking": 70,
+  "tiering": 2,
+  "client": "NOLT",
+  "target": 5000
+ },
+ {
+  "ranking": 71,
+  "tiering": 1,
+  "client": "PALOMA",
+  "target": 10000
+ },
+ {
+  "ranking": 72,
+  "tiering": 1,
+  "client": "UA",
+  "target": 0
+ },
+ {
+  "ranking": 73,
+  "tiering": 1,
+  "client": "JOLT",
+  "target": 0
+ },
+ {
+  "ranking": 74,
+  "tiering": 3,
+  "client": "UPSILON",
+  "target": 0
+ },
+ {
+  "ranking": 75,
+  "tiering": 1,
+  "client": "Mount to Coast",
+  "target": 5000
+ },
+ {
+  "ranking": 76,
+  "tiering": 1,
+  "client": "G-FORM",
+  "target": 0
+ },
+ {
+  "ranking": 77,
+  "tiering": 4,
+  "client": "Les Barouleurs",
+  "target": 0
+ },
+ {
+  "ranking": 78,
+  "tiering": 4,
+  "client": "Colibri",
+  "target": 0
+ },
+ {
+  "ranking": 79,
+  "tiering": 1,
+  "client": "HOKA",
+  "target": 0
+ },
+ {
+  "ranking": 80,
+  "tiering": 1,
+  "client": "RED BULL",
+  "target": 0
+ },
+ {
+  "ranking": 81,
+  "tiering": 4,
+  "client": "GOOGLE",
+  "target": 0
+ },
+ {
+  "ranking": 82,
+  "tiering": 3,
+  "client": "STATION STORE",
+  "target": 0
+ },
+ {
+  "ranking": 83,
+  "tiering": 2,
+  "client": "6D SPORTS NUTRITION",
+  "target": 0
+ },
+ {
+  "ranking": 84,
+  "tiering": 1,
+  "client": "FLASHSCORE",
+  "target": 0
+ },
+ {
+  "ranking": 85,
+  "tiering": 4,
+  "client": "PANINI",
+  "target": 0
+ },
+ {
+  "ranking": 86,
+  "tiering": 4,
+  "client": "STRIPE / ECOMMERCE",
+  "target": 0
+ },
+ {
+  "ranking": 87,
+  "tiering": 2,
+  "client": "TECNIFIBRE",
+  "target": 8000
+ },
+ {
+  "ranking": 88,
+  "tiering": 3,
+  "client": "FFF",
+  "target": 0
+ },
+ {
+  "ranking": 89,
+  "tiering": 4,
+  "client": "SORARE",
+  "target": 0
+ }
+]

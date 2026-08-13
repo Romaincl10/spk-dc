@@ -886,7 +886,32 @@ function buildMedias(fyStartYearParam) {
     pipeBrut: devis.reduce((s, p) => s + p.amount, 0),
   };
   totals.margePct = totals.caSigne > 0 ? Math.round(totals.mbEur / totals.caSigne * 1000) / 10 : 0;
-  return { fyStartYear, projects, devis, totals };
+
+  // ── Objectifs CA par client (matrice commerciale médias) ──
+  // CA réalisé net (paid déduit au prorata) par client canonique
+  const caByClient = {};
+  projects.forEach(p => {
+    const c = p.canonical_client || p.company_name || 'Inconnu';
+    caByClient[c] = (caByClient[c] || 0) + p.total_amount;
+  });
+  let mediaObjectives = [];
+  try { mediaObjectives = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'media_objectives.json'), 'utf8')); } catch (e) {}
+  const used = new Set();
+  const clientObjectives = [...mediaObjectives].sort((a, b) => a.ranking - b.ranking).map(o => {
+    const on = normalize(o.client);
+    let matched = Object.keys(caByClient).filter(c => !used.has(c) && normalize(c) === on);
+    if (!matched.length && on.length >= 4) matched = Object.keys(caByClient).filter(c => !used.has(c) && (normalize(c).includes(on) || on.includes(normalize(c))));
+    matched.forEach(c => used.add(c));
+    const ca = matched.reduce((s, c) => s + caByClient[c], 0);
+    return { ranking: o.ranking, tiering: o.tiering, client: o.client, target: o.target, ca, pct: o.target > 0 ? Math.round(ca / o.target * 100) : null };
+  });
+  // Clients médias avec CA mais hors matrice objectifs
+  const autresCA = Object.entries(caByClient).filter(([c]) => !used.has(c) && caByClient[c] > 0)
+    .map(([client, ca]) => ({ client, ca })).sort((a, b) => b.ca - a.ca);
+  const objTargetTotal = mediaObjectives.reduce((s, o) => s + (o.target || 0), 0);
+  const objCaTotal = clientObjectives.reduce((s, o) => s + o.ca, 0);
+
+  return { fyStartYear, projects, devis, totals, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal };
 }
 
 /**

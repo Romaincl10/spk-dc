@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Radio, Briefcase, FileText } from 'lucide-react';
+import { Radio, Briefcase, FileText, Target } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -32,6 +32,11 @@ export default function MediasView({ fyStartYear }) {
   const projects = data?.projects || [];
   const devis = data?.devis || [];
   const totals = data?.totals || { projectsCount: 0, caSigne: 0, mbEur: 0, devisCount: 0, pipe: 0, pipeBrut: 0, margePct: 0 };
+  const clientObjectives = (data?.clientObjectives || []).filter(o => o.target > 0 || o.ca > 0);
+  const objTargetTotal = data?.objTargetTotal || 0;
+  const objCaTotal = data?.objCaTotal || 0;
+  const objPct = objTargetTotal > 0 ? Math.round(objCaTotal / objTargetTotal * 100) : 0;
+  const TIER = { 1: '#2ecc71', 2: '#3b82f6', 3: '#f39c12', 4: '#888', 5: '#e74c3c' };
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -55,6 +60,69 @@ export default function MediasView({ fyStartYear }) {
         <KPICard label="Pipe pondéré" value={totals.pipe} suffix="€"
           subtitle={`${totals.devisCount} devis · ${fmtK(totals.pipeBrut)} brut`} color="text-[#3b82f6]" />
         <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
+      </div>
+
+      {/* Objectifs CA par client (matrice commerciale médias) */}
+      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <Target size={16} className="text-[#06b6d4]" />
+          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs CA par client</h3>
+          <span className="text-xs text-[#888] ml-auto">
+            {fmtK(objCaTotal)} / {fmtK(objTargetTotal)} · <span className="font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : objPct >= 50 ? '#f39c12' : '#e74c3c' }}>{objPct}%</span>
+          </span>
+        </div>
+        {clientObjectives.length === 0 ? (
+          <p className="text-[#666] text-sm text-center py-4">Aucun objectif média défini</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                  <th className="text-left py-2 px-2 font-bold w-8">#</th>
+                  <th className="text-center py-2 px-2 font-bold w-10">Tier</th>
+                  <th className="text-left py-2 px-2 font-bold">Client</th>
+                  <th className="text-right py-2 px-2 font-bold">CA réalisé</th>
+                  <th className="text-right py-2 px-2 font-bold">Objectif CA</th>
+                  <th className="text-left py-2 px-2 font-bold w-40">% réalisé</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clientObjectives.map(o => {
+                  const pct = o.pct;
+                  const barPct = Math.min(pct || 0, 100);
+                  const col = pct == null ? '#888' : pct >= 100 ? '#2ecc71' : pct >= 60 ? '#f39c12' : '#e74c3c';
+                  return (
+                    <tr key={o.ranking} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
+                      <td className="py-2 px-2 text-[#666] text-xs">{o.ranking}</td>
+                      <td className="py-2 px-2 text-center">
+                        <span className="text-[9px] font-black px-1.5 py-0.5 rounded" style={{ backgroundColor: `${TIER[o.tiering]}22`, color: TIER[o.tiering] }}>T{o.tiering}</span>
+                      </td>
+                      <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{o.client}</td>
+                      <td className="py-2 px-2 text-right font-bold text-white">{o.ca > 0 ? fmtK(o.ca) : '—'}</td>
+                      <td className="py-2 px-2 text-right text-[#aaa]">{o.target > 0 ? fmtK(o.target) : '—'}</td>
+                      <td className="py-2 px-2">
+                        {o.target > 0 ? (
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
+                              <div className="h-1.5 rounded-full" style={{ width: `${barPct}%`, backgroundColor: col }} />
+                            </div>
+                            <span className="text-[10px] font-bold w-9 text-right" style={{ color: col }}>{pct}%</span>
+                          </div>
+                        ) : (o.ca > 0 ? <span className="text-[10px] text-[#2ecc71]">hors objectif</span> : <span className="text-[#555]">—</span>)}
+                      </td>
+                    </tr>
+                  );
+                })}
+                <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
+                  <td className="py-2 px-2 text-white text-xs" colSpan={3}>TOTAL ({clientObjectives.length})</td>
+                  <td className="py-2 px-2 text-right text-white">{fmtK(objCaTotal)}</td>
+                  <td className="py-2 px-2 text-right text-[#aaa]">{fmtK(objTargetTotal)}</td>
+                  <td className="py-2 px-2 text-[10px] font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : '#f39c12' }}>{objPct}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Projets médias */}

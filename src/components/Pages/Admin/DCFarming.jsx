@@ -194,8 +194,8 @@ export default function DCFarming({ dc = 'Hadrien' }) {
 
   return (
     <div className="space-y-6">
-      {/* Sélecteur de client */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+      {/* Sélecteur de client — tous visibles (wrap, sans scroll) */}
+      <div className="flex flex-wrap items-center gap-2">
         {clientList.map(name => {
           const on = name === client;
           const c = clientsData[name]?.col || '#666';

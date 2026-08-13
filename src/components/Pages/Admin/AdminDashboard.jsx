@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout, CalendarRange } from 'lucide-react';
+import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout, CalendarRange, Layers } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
@@ -33,6 +33,9 @@ const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
 const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
 // Onglet Récap du mois — mouvements du mois (tous DC).
 const RECAP_SUBTAB = { id: 'recap', label: 'Récap du mois', icon: CalendarRange };
+// Sous-onglets regroupés sous "Détail" (désencombre la barre).
+const DETAIL_IDS = ['projets', 'devis', 'roadmap'];
+const DETAIL_TAB = { id: 'detail', label: 'Détail', icon: Layers };
 
 /** Mini SVG arc gauge for table cells */
 function MiniGauge({ pct, color }) {
@@ -187,20 +190,45 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
 
       {/* Sub-tabs (DC detail) — masqués pour le directeur commercial (cockpit dédié) et l'onglet Médias */}
       {selectedDC !== 'Globale' && selectedDC !== 'Médias' && !selectedIsDirector && (
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
-            {(() => { const b = [...DC_SUBTABS]; let ins = b.findIndex(t => t.id === 'focus') + 1; if (FARMING_DCS.includes(selectedDC)) { b.splice(ins, 0, FARMING_SUBTAB); ins++; } b.splice(ins, 0, RECAP_SUBTAB); return b; })().map(t => {
-              const Icon = t.icon;
-              return (
-                <button key={t.id} onClick={() => setSubTab(t.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors
-                    ${subTab === t.id ? 'bg-[#2a2a2a] text-white' : 'text-[#ccc] hover:text-white'}`}>
-                  <Icon size={14} /> {t.label}
-                </button>
-              );
-            })}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
+              {(() => {
+                const main = DC_SUBTABS.filter(t => !DETAIL_IDS.includes(t.id)); // Synthèse, Focus Client
+                let ins = main.findIndex(t => t.id === 'focus') + 1;
+                if (FARMING_DCS.includes(selectedDC)) { main.splice(ins, 0, FARMING_SUBTAB); ins++; }
+                main.splice(ins, 0, RECAP_SUBTAB);
+                main.push(DETAIL_TAB);
+                return main;
+              })().map(t => {
+                const Icon = t.icon;
+                const active = t.id === 'detail' ? DETAIL_IDS.includes(subTab) : subTab === t.id;
+                return (
+                  <button key={t.id} onClick={() => setSubTab(t.id === 'detail' ? 'projets' : t.id)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors
+                      ${active ? 'bg-[#2a2a2a] text-white' : 'text-[#ccc] hover:text-white'}`}>
+                    <Icon size={14} /> {t.label}
+                  </button>
+                );
+              })}
+            </div>
+            {(subTab === 'synthese' || subTab === 'roadmap') && <ViewToggle />}
           </div>
-          {(subTab === 'synthese' || subTab === 'roadmap') && <ViewToggle />}
+          {/* Sous-onglets du menu Détail */}
+          {DETAIL_IDS.includes(subTab) && (
+            <div className="flex gap-1 bg-[#0d0d0d] border border-[#2a2a2a] rounded-lg p-1 w-fit">
+              {DC_SUBTABS.filter(t => DETAIL_IDS.includes(t.id)).map(t => {
+                const Icon = t.icon;
+                return (
+                  <button key={t.id} onClick={() => setSubTab(t.id)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors
+                      ${subTab === t.id ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>
+                    <Icon size={13} /> {t.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
