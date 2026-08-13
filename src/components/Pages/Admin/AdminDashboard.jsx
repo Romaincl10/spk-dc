@@ -27,9 +27,9 @@ const DC_SUBTABS = [
   { id: 'devis', label: 'Focus Devis', icon: ClipboardList },
   { id: 'roadmap', label: 'Roadmap', icon: Map },
 ];
-// Onglet Farming — test sur Hadrien uniquement (contenu éditorial hors Furious)
+// Onglet Farming — DC ayant un board (seed farming). Contenu éditorial hors Furious.
 const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
-const FARMING_DCS = ['Hadrien'];
+const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
 
 /** Mini SVG arc gauge for table cells */
 function MiniGauge({ pct, color }) {
@@ -378,7 +378,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
-          {subTab === 'farming' && FARMING_DCS.includes(selectedDC) && <DCFarming color={currentColor} />}
+          {subTab === 'farming' && FARMING_DCS.includes(selectedDC) && <DCFarming dc={selectedDC} />}
         </>
       )}
     </div>

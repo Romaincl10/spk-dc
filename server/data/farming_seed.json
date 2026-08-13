@@ -1402,5 +1402,1252 @@
     }
    ]
   }
+ },
+ "Clément": {
+  "Puma": {
+   "col": "#5B9CF6",
+   "obj": 1001,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-clement-puma-ex1",
+     "name": "Activation signature — Puma",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-clement-puma-ex2",
+     "name": "Contenus & influence — Puma",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-clement-puma-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Puma",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-clement-puma-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Puma",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Lacoste": {
+   "col": "#E6B23C",
+   "obj": 600,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-clement-lacoste-ex1",
+     "name": "Activation signature — Lacoste",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-clement-lacoste-ex2",
+     "name": "Contenus & influence — Lacoste",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-clement-lacoste-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Lacoste",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-clement-lacoste-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Lacoste",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Pennylane": {
+   "col": "#1FB8A6",
+   "obj": 200,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-clement-pennylane-ex1",
+     "name": "Activation signature — Pennylane",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-clement-pennylane-ex2",
+     "name": "Contenus & influence — Pennylane",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-clement-pennylane-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Pennylane",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-clement-pennylane-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Pennylane",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Decathlon": {
+   "col": "#EA5E7B",
+   "obj": 100,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-clement-decathlon-ex1",
+     "name": "Activation signature — Decathlon",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-clement-decathlon-ex2",
+     "name": "Contenus & influence — Decathlon",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-clement-decathlon-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Decathlon",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-clement-decathlon-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Decathlon",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  }
+ },
+ "Audrey": {
+  "SAIL GP": {
+   "col": "#5B9CF6",
+   "obj": 180,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-sail-gp-ex1",
+     "name": "Activation signature — SAIL GP",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-sail-gp-ex2",
+     "name": "Contenus & influence — SAIL GP",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-sail-gp-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — SAIL GP",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-sail-gp-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — SAIL GP",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "ON AG": {
+   "col": "#E6B23C",
+   "obj": 151,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-on-ag-ex1",
+     "name": "Activation signature — ON AG",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-on-ag-ex2",
+     "name": "Contenus & influence — ON AG",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-on-ag-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — ON AG",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-on-ag-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — ON AG",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Asics": {
+   "col": "#1FB8A6",
+   "obj": 150,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-asics-ex1",
+     "name": "Activation signature — Asics",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-asics-ex2",
+     "name": "Contenus & influence — Asics",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-asics-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Asics",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-asics-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Asics",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "GMF Assurance": {
+   "col": "#EA5E7B",
+   "obj": 143,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-gmf-assurance-ex1",
+     "name": "Activation signature — GMF Assurance",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-gmf-assurance-ex2",
+     "name": "Contenus & influence — GMF Assurance",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-gmf-assurance-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — GMF Assurance",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-gmf-assurance-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — GMF Assurance",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Match Worn Shirt": {
+   "col": "#B98AED",
+   "obj": 100,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-match-worn-shirt-ex1",
+     "name": "Activation signature — Match Worn Shirt",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-match-worn-shirt-ex2",
+     "name": "Contenus & influence — Match Worn Shirt",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-match-worn-shirt-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Match Worn Shirt",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-match-worn-shirt-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Match Worn Shirt",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "New Balance": {
+   "col": "#5FC97A",
+   "obj": 100,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-new-balance-ex1",
+     "name": "Activation signature — New Balance",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-new-balance-ex2",
+     "name": "Contenus & influence — New Balance",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-new-balance-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — New Balance",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-new-balance-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — New Balance",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Mizuno": {
+   "col": "#C9D94A",
+   "obj": 80,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-mizuno-ex1",
+     "name": "Activation signature — Mizuno",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-mizuno-ex2",
+     "name": "Contenus & influence — Mizuno",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-mizuno-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Mizuno",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-mizuno-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Mizuno",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Motorsport": {
+   "col": "#EA8A4F",
+   "obj": 60,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-motorsport-ex1",
+     "name": "Activation signature — Motorsport",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-motorsport-ex2",
+     "name": "Contenus & influence — Motorsport",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-motorsport-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Motorsport",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-motorsport-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Motorsport",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Hummel": {
+   "col": "#3b82f6",
+   "obj": 60,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-hummel-ex1",
+     "name": "Activation signature — Hummel",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-hummel-ex2",
+     "name": "Contenus & influence — Hummel",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-hummel-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Hummel",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-hummel-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Hummel",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Le Mans Endurance": {
+   "col": "#0ea5e9",
+   "obj": 40,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-le-mans-endurance-ex1",
+     "name": "Activation signature — Le Mans Endurance",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-le-mans-endurance-ex2",
+     "name": "Contenus & influence — Le Mans Endurance",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-le-mans-endurance-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Le Mans Endurance",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-le-mans-endurance-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Le Mans Endurance",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "2 Ride": {
+   "col": "#5B9CF6",
+   "obj": 30,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-2-ride-ex1",
+     "name": "Activation signature — 2 Ride",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-2-ride-ex2",
+     "name": "Contenus & influence — 2 Ride",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-2-ride-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — 2 Ride",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-2-ride-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — 2 Ride",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "FF Sport pour tous": {
+   "col": "#E6B23C",
+   "obj": 30,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-ff-sport-pour-tous-ex1",
+     "name": "Activation signature — FF Sport pour tous",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-ff-sport-pour-tous-ex2",
+     "name": "Contenus & influence — FF Sport pour tous",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-ff-sport-pour-tous-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — FF Sport pour tous",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-ff-sport-pour-tous-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — FF Sport pour tous",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "AS Monaco": {
+   "col": "#1FB8A6",
+   "obj": 30,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-as-monaco-ex1",
+     "name": "Activation signature — AS Monaco",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-as-monaco-ex2",
+     "name": "Contenus & influence — AS Monaco",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-as-monaco-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — AS Monaco",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-as-monaco-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — AS Monaco",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  }
+ },
+ "Ninon": {
+  "Intersport": {
+   "col": "#5B9CF6",
+   "obj": 2800,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-ninon-intersport-ex1",
+     "name": "Activation signature — Intersport",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-ninon-intersport-ex2",
+     "name": "Contenus & influence — Intersport",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-ninon-intersport-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Intersport",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-ninon-intersport-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Intersport",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Brooks": {
+   "col": "#E6B23C",
+   "obj": 100,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-ninon-brooks-ex1",
+     "name": "Activation signature — Brooks",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-ninon-brooks-ex2",
+     "name": "Contenus & influence — Brooks",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-ninon-brooks-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Brooks",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-ninon-brooks-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Brooks",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "Abeille Assurances": {
+   "col": "#1FB8A6",
+   "obj": 50,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-ninon-abeille-assurances-ex1",
+     "name": "Activation signature — Abeille Assurances",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-ninon-abeille-assurances-ex2",
+     "name": "Contenus & influence — Abeille Assurances",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-ninon-abeille-assurances-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Abeille Assurances",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-ninon-abeille-assurances-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Abeille Assurances",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  }
+ },
+ "Naël": {
+  "FFF": {
+   "col": "#5B9CF6",
+   "obj": 150,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-nael-fff-ex1",
+     "name": "Activation signature — FFF",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-nael-fff-ex2",
+     "name": "Contenus & influence — FFF",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-nael-fff-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — FFF",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-nael-fff-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — FFF",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  }
  }
 }
