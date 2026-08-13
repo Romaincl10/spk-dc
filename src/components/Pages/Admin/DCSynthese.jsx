@@ -113,6 +113,18 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
     const obj = objectifsList.find(o => o.client === clientName && Array.isArray(o.canonicalNames) && o.canonicalNames.length);
     return obj ? obj.canonicalNames : [clientName];
   };
+  // Répartition mensuelle du CA (basée sur les dates de facture : émise ou prévue)
+  const getMonthlyCAForClient = (clientName) => {
+    const names = canonicalNamesFor(clientName);
+    const byMonth = {};
+    names.forEach(n => {
+      const c = clientBreakdown.find(cb => cb.name === n);
+      if (!c) return;
+      Object.entries(c.monthlyInvoiceCA || {}).forEach(([m, v]) => { byMonth[m] = byMonth[m] || { ca: 0, plan: 0 }; byMonth[m].ca += v; });
+      Object.entries(c.monthlyInvoicePlan || {}).forEach(([m, v]) => { byMonth[m] = byMonth[m] || { ca: 0, plan: 0 }; byMonth[m].plan += v; });
+    });
+    return Object.entries(byMonth).map(([month, v]) => ({ month, ...v, total: v.ca + v.plan })).sort((a, b) => a.month.localeCompare(b.month));
+  };
   // Get projects/devis for selected client
   const getProjectsForClient = (clientName) => {
     const names = canonicalNamesFor(clientName);
@@ -417,43 +429,56 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
       {selectedClient && (
         <div ref={detailRef} className="space-y-4">
           {selectedType === 'signe' && (() => {
-            const projs = getProjectsForClient(selectedClient);
+            const monthly = getMonthlyCAForClient(selectedClient);
+            const totCA = monthly.reduce((s, m) => s + m.ca, 0);
+            const totPlan = monthly.reduce((s, m) => s + m.plan, 0);
+            const MF = ['Janv', 'Févr', 'Mars', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
+            const mLabel = (ym) => { const [y, m] = ym.split('-'); return `${MF[+m - 1]} ${y.slice(2)}`; };
+            const maxTot = Math.max(1, ...monthly.map(m => m.total));
             return (
               <div className="bg-[#161616] border border-[#e63946]/30 rounded-xl p-5">
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-1">
                   <FolderOpen size={16} className="text-[#e63946]" />
-                  <h3 className="text-sm font-bold text-white">Projets signés — {selectedClient}</h3>
-                  <span className="text-xs font-bold px-2 py-0.5 bg-[#e63946]/20 text-[#e63946] rounded-full ml-auto">{projs.length}</span>
+                  <h3 className="text-sm font-bold text-white">Répartition du CA par mois — {selectedClient}</h3>
+                  <span className="text-xs font-bold px-2 py-0.5 bg-[#e63946]/20 text-[#e63946] rounded-full ml-auto">{fmtK(totCA + totPlan)}</span>
                 </div>
-                {projs.length === 0 ? (
-                  <p className="text-[#666] text-sm text-center py-4">Aucun projet trouvé</p>
+                <p className="text-[10px] text-[#666] mb-3">Basé sur les dates de facture (émise ou prévue) — reconnaissance du CA de l'exercice</p>
+                {monthly.length === 0 ? (
+                  <p className="text-[#666] text-sm text-center py-4">Aucune facture rattachée à l'exercice</p>
                 ) : (
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-[#2a2a2a]">
-                        <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Projet</th>
-                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">CA Net</th>
-                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Marge</th>
-                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Avanc.</th>
-                        <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Période</th>
+                        <th className="text-left py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Mois</th>
+                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#2ecc71]">Facturé (émis)</th>
+                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#3b82f6]">Prévu</th>
+                        <th className="text-right py-2 px-2 text-[10px] font-bold uppercase text-[#888]">Total</th>
+                        <th className="text-left py-2 px-2 w-44" />
                       </tr>
                     </thead>
                     <tbody>
-                      {projs.map(p => (
-                        <tr key={p.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                          <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[240px]">{p.title}</td>
-                          <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(p.total_amount)}</td>
-                          <td className="py-2 px-2 text-right text-xs font-semibold" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
-                          <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: p.advancement >= 80 ? '#2ecc71' : p.advancement >= 40 ? '#f39c12' : '#e74c3c' }}>{p.advancement}%</td>
-                          <td className="py-2 px-2 text-xs text-[#888]">{formatDate(p.start_date)} → {formatDate(p.end_date)}</td>
+                      {monthly.map(m => (
+                        <tr key={m.month} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
+                          <td className="py-2 px-2 text-white text-xs font-medium">{mLabel(m.month)}</td>
+                          <td className="py-2 px-2 text-right text-xs text-[#2ecc71]">{m.ca > 0 ? fmtK(m.ca) : '—'}</td>
+                          <td className="py-2 px-2 text-right text-xs text-[#3b82f6]">{m.plan > 0 ? fmtK(m.plan) : '—'}</td>
+                          <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(m.total)}</td>
+                          <td className="py-2 px-2">
+                            <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden flex">
+                              <div className="h-2 bg-[#2ecc71]" style={{ width: `${m.ca / maxTot * 100}%` }} />
+                              <div className="h-2 bg-[#3b82f6]" style={{ width: `${m.plan / maxTot * 100}%` }} />
+                            </div>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                     <tfoot>
                       <tr className="border-t border-[#e63946]/20 font-bold">
-                        <td className="py-2 px-2 text-[#888] text-xs">Total ({projs.length})</td>
-                        <td className="py-2 px-2 text-right text-white text-xs">{fmtK(projs.reduce((s, p) => s + p.total_amount, 0))}</td>
-                        <td colSpan={3} />
+                        <td className="py-2 px-2 text-[#888] text-xs">Total</td>
+                        <td className="py-2 px-2 text-right text-[#2ecc71] text-xs">{fmtK(totCA)}</td>
+                        <td className="py-2 px-2 text-right text-[#3b82f6] text-xs">{fmtK(totPlan)}</td>
+                        <td className="py-2 px-2 text-right text-white text-xs">{fmtK(totCA + totPlan)}</td>
+                        <td />
                       </tr>
                     </tfoot>
                   </table>

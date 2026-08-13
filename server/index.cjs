@@ -1045,13 +1045,28 @@ function buildHeatmap(fyStartYearParam) {
   const nowMs = Date.now();
   const pctTemps = Math.min(100, Math.max(0, Math.round((nowMs - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
 
-  // Secteur (typologie) par société normalisée — clients uniquement (préfixe c0)
+  // Référentiel manuel de typologies (prioritaire) : { typologie: [motifs] }
+  let typoRef = {};
+  try { typoRef = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'client_typologies.json'), 'utf8')); } catch (e) {}
+  // Secteur CRM (fallback) par société normalisée — clients uniquement (préfixe c0)
   const sectorByCompany = {};
   crm.forEach(c => {
     const co = normalize(c.company); const s = (c.sector || '').trim();
     if (co && /^c\d/.test(s) && !sectorByCompany[co]) sectorByCompany[co] = s;
   });
   const typoOf = (name, canonicalNames) => {
+    const text = normalize([name, ...(canonicalNames || [])].join(' '));
+    const words = new Set(text.split(/[^a-z0-9]+/).filter(Boolean));
+    // 1) Référentiel manuel : mots multiples par includes, mot seul par mot entier
+    for (const [label, patterns] of Object.entries(typoRef)) {
+      for (const pat of (patterns || [])) {
+        const p = normalize(pat).trim();
+        if (!p) continue;
+        if (p.includes(' ')) { if (text.includes(p)) return label; }
+        else if (p.length >= 3 && words.has(p)) return label;
+      }
+    }
+    // 2) Fallback CRM sector
     const cands = [name, ...(canonicalNames || [])].map(normalize).filter(Boolean);
     for (const nc of cands) if (sectorByCompany[nc]) return SECTOR_LABELS[sectorByCompany[nc]] || 'Autre';
     for (const nc of cands) {
