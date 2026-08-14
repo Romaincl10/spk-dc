@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Grid3x3 } from 'lucide-react';
-import { Treemap, ResponsiveContainer } from 'recharts';
 import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
 
@@ -14,26 +13,6 @@ function heatColor(pctR, pctT) {
   if (ratio >= 0.7) return '#c99a2e';
   if (ratio >= 0.4) return '#d9633a';
   return '#c0392b';
-}
-
-function HeatCell(props) {
-  const { x, y, width, height, name, pctRealise, ca, objectif, fill } = props;
-  if (width < 2 || height < 2) return null;
-  const showTxt = width > 52 && height > 26;
-  const showSub = width > 70 && height > 44;
-  const nameMax = Math.floor(width / 6.5);
-  return (
-    <g>
-      <rect x={x} y={y} width={width} height={height} rx={2} style={{ fill: fill || '#333', stroke: '#0a0a0a', strokeWidth: 2 }} />
-      {showTxt && (
-        <text x={x + 6} y={y + 16} fill="#fff" fontSize={11} fontWeight="800" style={{ pointerEvents: 'none' }}>
-          {name.length > nameMax ? name.slice(0, nameMax - 1) + '…' : name}
-        </text>
-      )}
-      {showTxt && <text x={x + 6} y={y + 30} fill="rgba(255,255,255,.9)" fontSize={11} fontWeight="700" style={{ pointerEvents: 'none' }}>{pctRealise}%</text>}
-      {showSub && <text x={x + 6} y={y + 44} fill="rgba(255,255,255,.7)" fontSize={9} style={{ pointerEvents: 'none' }}>{fmtK(ca)} / {fmtK(objectif)}</text>}
-    </g>
-  );
 }
 
 export default function HeatmapView({ fyStartYear }) {
@@ -103,14 +82,29 @@ export default function HeatmapView({ fyStartYear }) {
         <span className="ml-auto text-[#aaa]">{rows.length} clients · CA {fmtK(totCA)} / obj {fmtK(totObj)} · <span className="font-bold text-white">{totPct}%</span></span>
       </div>
 
-      {/* Treemap */}
+      {/* Tuiles — taille ∝ objectif, couleur = avancement */}
       {rows.length === 0 ? (
         <p className="text-[#666] text-sm text-center py-10">Aucun client sur ce filtre</p>
       ) : (
-        <div className="bg-[#0d0d0d] border border-[#2a2a2a] rounded-xl p-2">
-          <ResponsiveContainer width="100%" height={540}>
-            <Treemap data={rows} dataKey="objectif" aspectRatio={4 / 3} isAnimationActive={false} content={<HeatCell />} />
-          </ResponsiveContainer>
+        <div className="flex flex-wrap gap-1.5 content-start">
+          {rows.map((r, i) => {
+            const grow = Math.max(1, Math.round(r.objectif / 5000));
+            const dark = ['#c0392b', '#15803d'].includes(r.fill);
+            return (
+              <div key={i} title={`${r.name} · ${r.typologie} · ${r.dc}`}
+                className="rounded-md p-2.5 flex flex-col justify-between overflow-hidden transition-transform hover:scale-[1.02] hover:z-10 cursor-default"
+                style={{ backgroundColor: r.fill, flexGrow: grow, flexBasis: `${Math.max(130, Math.min(320, Math.sqrt(r.objectif) * 6))}px`, minHeight: 92 }}>
+                <div className="min-w-0">
+                  <div className="text-[13px] font-black italic uppercase leading-tight text-white truncate" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.name}</div>
+                  <div className="text-[9px] font-bold uppercase tracking-wide text-white/70">{r.typologie} · {r.dc}</div>
+                </div>
+                <div className="flex items-end justify-between gap-1 mt-1">
+                  <span className="text-lg font-black italic text-white leading-none" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.pctRealise}%</span>
+                  <span className="text-[9px] font-bold text-white/80 text-right leading-tight">{fmtK(r.ca)}<br /><span className="text-white/55">/ {fmtK(r.objectif)}</span></span>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

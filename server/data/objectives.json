@@ -375,6 +375,10 @@
           "match": [
             "fc nantes"
           ]
+        },
+        {
+          "client": "Decathlon",
+          "target": 150000
         }
       ],
       "Clément": [

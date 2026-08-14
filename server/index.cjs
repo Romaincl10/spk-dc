@@ -1225,6 +1225,25 @@ app.put('/api/admin/assignments/client', auth.authMiddleware, auth.adminOnly, (r
   res.json({ success: true });
 });
 
+// Définit/modifie l'objectif CA d'un client pour un DC (exercice donné).
+app.put('/api/admin/objectives/client', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  const { dc, client, target, fyStartYear } = req.body;
+  if (!dc || !client) return res.status(400).json({ error: 'dc, client requis' });
+  const now = new Date();
+  const fy = String(fyStartYear || (now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1));
+  const fp = path.join(DATA_DIR, 'objectives.json');
+  let data = { objectives: {}, imports: [] };
+  try { if (fs.existsSync(fp)) data = JSON.parse(fs.readFileSync(fp, 'utf8')); } catch (e) {}
+  data.objectives = data.objectives || {};
+  data.objectives[fy] = data.objectives[fy] || {};
+  const list = data.objectives[fy][dc] = data.objectives[fy][dc] || [];
+  const idx = list.findIndex(o => normalize(o.client) === normalize(client));
+  if (idx >= 0) list[idx].target = Number(target) || 0;
+  else list.push({ client, target: Number(target) || 0 });
+  fs.writeFileSync(fp, JSON.stringify(data, null, 2), 'utf8');
+  res.json({ success: true, fy, dc, client, target: Number(target) || 0 });
+});
+
 app.get('/api/admin/assignments/projects', auth.authMiddleware, auth.adminOnly, (req, res) => {
   res.json({ assignments: assign.getAllProjectAssignments(), dcs: assign.getActiveDCs() });
 });
