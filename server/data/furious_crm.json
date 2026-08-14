@@ -44351,7 +44351,61 @@
       "date_creation": "2026-08-13",
       "city": "MEYRARGUES",
       "country": "FR"
+    },
+    {
+      "id": "2495",
+      "company": "PRO-DIRECT SPORT LIMITED",
+      "company_id": "329",
+      "lastname": "DIAS",
+      "firstname": "Valentin",
+      "email": "valentin.dias@prodirectsport.net",
+      "phone": null,
+      "category": "Clients",
+      "type": "client",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Yoann ",
+      "date_creation": "2026-08-13",
+      "city": "",
+      "country": "FR"
+    },
+    {
+      "id": "2496",
+      "company": "DEM PADEL",
+      "company_id": "2050",
+      "lastname": "Fernandez",
+      "firstname": "Thimoté",
+      "email": "thimote@dempadel.com",
+      "phone": null,
+      "category": "Prospects",
+      "type": "client",
+      "status": "6",
+      "sector": "",
+      "tags": "équipementier",
+      "assigned_people": "Arthur ",
+      "date_creation": "2026-08-14",
+      "city": "AVIGNON",
+      "country": "FR"
+    },
+    {
+      "id": "2497",
+      "company": "AYMAR AGENCY",
+      "company_id": "2051",
+      "lastname": "",
+      "firstname": "",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Yoann ",
+      "date_creation": "2026-08-14",
+      "city": " FRANCONVILLE",
+      "country": "FR"
     }
   ],
-  "syncDate": "2026-08-13T13:00:41.841Z"
+  "syncDate": "2026-08-14T12:00:40.577Z"
 }

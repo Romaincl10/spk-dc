@@ -31872,13 +31872,13 @@
       "statut": 0,
       "is_cancelled": 0,
       "invoice_date": "0000-00-00",
-      "issue_date": "2026-07-31",
+      "issue_date": "2026-09-30",
       "due_date": null,
       "payment_date": "",
       "entity": "spk",
       "currency": "EUR",
-      "period_start": "0000-00-00",
-      "period_stop": "0000-00-00",
+      "period_start": "2026-07-01",
+      "period_stop": "2026-07-31",
       "author": null,
       "tags": null
     },
@@ -32274,13 +32274,13 @@
       "project_name": "SPK0350_WC_Event_PDS_PUMAFR",
       "company_name": "PRO-DIRECT SPORT LIMITED",
       "company_id": "329",
-      "amount_ht": 35865,
+      "amount_ht": 36118.87,
       "vat": 20,
-      "amount_inc_tax": 43038,
+      "amount_inc_tax": 43342.64,
       "statut": 0,
       "is_cancelled": 0,
       "invoice_date": "0000-00-00",
-      "issue_date": "2026-06-29",
+      "issue_date": "2026-08-14",
       "due_date": null,
       "payment_date": "",
       "entity": "spk",
@@ -34043,5 +34043,5 @@
       "tags": null
     }
   ],
-  "syncDate": "2026-08-13T13:00:41.861Z"
+  "syncDate": "2026-08-14T12:00:40.600Z"
 }

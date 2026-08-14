@@ -406,14 +406,6 @@
           "match": [
             "pennylane"
           ]
-        },
-        {
-          "client": "Decathlon",
-          "target": 100000,
-          "mbTarget": 37420,
-          "match": [
-            "decathlon"
-          ]
         }
       ],
       "Audrey": [

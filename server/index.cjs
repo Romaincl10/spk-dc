@@ -1239,7 +1239,7 @@ app.put('/api/admin/assignments/client', auth.authMiddleware, auth.adminOnly, (r
 
 // Définit/modifie l'objectif CA d'un client pour un DC (exercice donné).
 app.put('/api/admin/objectives/client', auth.authMiddleware, auth.adminOnly, (req, res) => {
-  const { dc, client, target, fyStartYear } = req.body;
+  const { dc, client, target, fyStartYear, remove } = req.body;
   if (!dc || !client) return res.status(400).json({ error: 'dc, client requis' });
   const now = new Date();
   const fy = String(fyStartYear || (now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1));
@@ -1250,6 +1250,11 @@ app.put('/api/admin/objectives/client', auth.authMiddleware, auth.adminOnly, (re
   data.objectives[fy] = data.objectives[fy] || {};
   const list = data.objectives[fy][dc] = data.objectives[fy][dc] || [];
   const idx = list.findIndex(o => normalize(o.client) === normalize(client));
+  if (remove) {
+    if (idx >= 0) list.splice(idx, 1);
+    fs.writeFileSync(fp, JSON.stringify(data, null, 2), 'utf8');
+    return res.json({ success: true, fy, dc, client, removed: idx >= 0 });
+  }
   if (idx >= 0) list[idx].target = Number(target) || 0;
   else list.push({ client, target: Number(target) || 0 });
   fs.writeFileSync(fp, JSON.stringify(data, null, 2), 'utf8');
