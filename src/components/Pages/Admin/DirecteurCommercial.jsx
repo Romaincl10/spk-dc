@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Crosshair, TrendingUp, Briefcase, FileText, ChevronRight, Sparkles } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
+import ObjectiveGauge from '../../Common/ObjectiveGauge';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
@@ -57,6 +58,12 @@ export default function DirecteurCommercial({ fyStartYear }) {
         <KPICard label="Pipe pondéré" value={totals.pipe} suffix="€" color="text-[#3b82f6]" />
         <KPICard label="Projets / Devis" value={totals.projects} suffix={` / ${totals.devis}`} />
       </div>
+
+      {/* Jauge objectif Biz Dev */}
+      <ObjectiveGauge
+        label={`Objectif Biz Dev · exercice ${fyLabel(fyStartYear)}`}
+        realized={totals.caSigne} target={data?.objTarget || 2300000}
+        pipe={totals.pipe} pace={data?.pctTemps || 0} color="#8b5cf6" />
 
       {clients.length === 0 ? (
         <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-10 text-center">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Radio, Briefcase, FileText, Target } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
+import ObjectiveGauge from '../../Common/ObjectiveGauge';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
@@ -71,6 +72,12 @@ export default function MediasView({ fyStartYear }) {
           subtitle={`${totals.devisCount} devis · ${fmtK(totals.pipeBrut)} brut`} color="text-[#3b82f6]" />
         <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
       </div>
+
+      {/* Jauge objectif Médias */}
+      <ObjectiveGauge
+        label={`Objectif Médias · exercice ${fyLabel(fyStartYear)}`}
+        realized={totals.caSigne} target={data?.objTarget || 1200000}
+        pipe={totals.pipe} pace={data?.pctTemps || 0} color="#06b6d4" />
 
       {/* Objectifs CA par client (matrice commerciale médias) */}
       <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">

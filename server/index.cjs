@@ -885,7 +885,8 @@ function buildBizDev(fyStartYearParam) {
   }), { count: 0, caSigne: 0, mbEur: 0, pipe: 0, projects: 0, devis: 0 });
   totals.margePct = totals.caSigne > 0 ? Math.round(totals.mbEur / totals.caSigne * 1000) / 10 : 0;
 
-  return { fyStartYear, clients, totals };
+  const pctTemps = Math.min(100, Math.max(0, Math.round((Date.now() - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
+  return { fyStartYear, clients, totals, objTarget: 2300000, pctTemps };
 }
 
 /**
@@ -962,7 +963,8 @@ function buildMedias(fyStartYearParam) {
   const objTargetTotal = mediaObjectives.reduce((s, o) => s + (o.target || 0), 0);
   const objCaTotal = clientObjectives.reduce((s, o) => s + o.ca, 0);
 
-  return { fyStartYear, projects, devis, totals, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal };
+  const pctTemps = Math.min(100, Math.max(0, Math.round((Date.now() - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
+  return { fyStartYear, projects, devis, totals, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
 }
 
 /**
