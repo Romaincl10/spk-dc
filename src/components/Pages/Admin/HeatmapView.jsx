@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Grid3x3 } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
