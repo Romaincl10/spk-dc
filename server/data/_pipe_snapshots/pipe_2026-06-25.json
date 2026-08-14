@@ -1,0 +1,34 @@
+{
+ "date": "2026-06-25",
+ "byStatus": [
+  {
+   "statut": "Proactif",
+   "n": 46,
+   "ca": 5932050.517000002,
+   "caPond": 185435.945
+  },
+  {
+   "statut": "Reco En cours",
+   "n": 55,
+   "ca": 2036163.4000000001,
+   "caPond": 614207.1025
+  },
+  {
+   "statut": "En attente Réponse client",
+   "n": 43,
+   "ca": 818730.23,
+   "caPond": 407309.2245
+  },
+  {
+   "statut": "Brief en attente",
+   "n": 30,
+   "ca": 774273.0499999999,
+   "caPond": 101312.375
+  }
+ ],
+ "total": {
+  "n": 174,
+  "ca": 9561217.197000002,
+  "caPond": 1308264.647
+ }
+}

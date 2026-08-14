@@ -376,7 +376,8 @@ function buildDCPortfolios(fyStartYearParam) {
 
   // Map project_id → canonical client (for invoice bucketing)
   const projectToCanonical = {};
-  enrichedAll.forEach(p => { projectToCanonical[String(p.id)] = p.canonical_client || p.company_name; });
+  const projectTitleById = {};
+  enrichedAll.forEach(p => { projectToCanonical[String(p.id)] = p.canonical_client || p.company_name; projectTitleById[String(p.id)] = p.title; });
 
   // Taux de marge par projet (marge contractuelle / CA net contractuel) — sert à proratiser
   // la marge selon le CA facturé. Neutralisé pour les projets "placeholder" (CA quasi nul
@@ -587,17 +588,26 @@ function buildDCPortfolios(fyStartYearParam) {
       const d = new Date(ed);
       if (d < fyStartDate || d > fyEndDate) return; // exclude invoices outside FY
       const month = ed.substring(0, 7);
-      if (isInvoiceIssued(inv)) {
+      const issued = isInvoiceIssued(inv);
+      if (issued) {
         if (!clientMap[canonical].monthlyInvoiceCA) clientMap[canonical].monthlyInvoiceCA = {};
         clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + invNet(inv);
       } else {
         if (!clientMap[canonical].monthlyInvoicePlan) clientMap[canonical].monthlyInvoicePlan = {};
         clientMap[canonical].monthlyInvoicePlan[month] = (clientMap[canonical].monthlyInvoicePlan[month] || 0) + invNet(inv);
       }
+      // Détail par facture (quel projet, quel montant net, quelle date)
+      if (!clientMap[canonical].invoiceDetail) clientMap[canonical].invoiceDetail = [];
+      clientMap[canonical].invoiceDetail.push({
+        month, date: ed.substring(0, 10), amount: invNet(inv), issued,
+        project: projectTitleById[String(inv.project_id)] || inv.project_name || '—',
+      });
     });
     Object.values(clientMap).forEach(c => {
       if (!c.monthlyInvoiceCA) c.monthlyInvoiceCA = {};
       if (!c.monthlyInvoicePlan) c.monthlyInvoicePlan = {};
+      if (!c.invoiceDetail) c.invoiceDetail = [];
+      c.invoiceDetail.sort((a, b) => a.date.localeCompare(b.date));
     });
 
     const clientBreakdown = Object.values(clientMap).sort((a, b) => (b.ca + b.pipeProbabilise) - (a.ca + a.pipeProbabilise));

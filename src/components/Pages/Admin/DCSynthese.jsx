@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from 'react';
+import { useState, useRef, Fragment } from 'react';
 import { TrendingUp, Target, FolderOpen, FileText } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
@@ -37,6 +37,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
   const clientBreakdown = portfolio.clientBreakdown || [];
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedType, setSelectedType] = useState(null); // 'signe' | 'pipe'
+  const [expandedMonth, setExpandedMonth] = useState(null);
   const detailRef = useRef(null);
 
   const now = new Date();
@@ -113,17 +114,21 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
     const obj = objectifsList.find(o => o.client === clientName && Array.isArray(o.canonicalNames) && o.canonicalNames.length);
     return obj ? obj.canonicalNames : [clientName];
   };
-  // Répartition mensuelle du CA (basée sur les dates de facture : émise ou prévue)
+  // Répartition mensuelle du CA (basée sur les dates de facture) + détail par facture/projet
   const getMonthlyCAForClient = (clientName) => {
     const names = canonicalNamesFor(clientName);
     const byMonth = {};
+    const details = [];
     names.forEach(n => {
       const c = clientBreakdown.find(cb => cb.name === n);
       if (!c) return;
       Object.entries(c.monthlyInvoiceCA || {}).forEach(([m, v]) => { byMonth[m] = byMonth[m] || { ca: 0, plan: 0 }; byMonth[m].ca += v; });
       Object.entries(c.monthlyInvoicePlan || {}).forEach(([m, v]) => { byMonth[m] = byMonth[m] || { ca: 0, plan: 0 }; byMonth[m].plan += v; });
+      (c.invoiceDetail || []).forEach(inv => details.push(inv));
     });
-    return Object.entries(byMonth).map(([month, v]) => ({ month, ...v, total: v.ca + v.plan })).sort((a, b) => a.month.localeCompare(b.month));
+    return Object.entries(byMonth)
+      .map(([month, v]) => ({ month, ...v, total: v.ca + v.plan, invoices: details.filter(i => i.month === month).sort((a, b) => b.amount - a.amount) }))
+      .sort((a, b) => a.month.localeCompare(b.month));
   };
   // Get projects/devis for selected client
   const getProjectsForClient = (clientName) => {
@@ -442,7 +447,7 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                   <h3 className="text-sm font-bold text-white">Répartition du CA par mois — {selectedClient}</h3>
                   <span className="text-xs font-bold px-2 py-0.5 bg-[#e63946]/20 text-[#e63946] rounded-full ml-auto">{fmtK(totCA + totPlan)}</span>
                 </div>
-                <p className="text-[10px] text-[#666] mb-3">Basé sur les dates de facture (émise ou prévue) — reconnaissance du CA de l'exercice</p>
+                <p className="text-[10px] text-[#666] mb-3">Basé sur les dates de facture (émise ou prévue) — clique sur un mois pour voir les factures et leur projet</p>
                 {monthly.length === 0 ? (
                   <p className="text-[#666] text-sm text-center py-4">Aucune facture rattachée à l'exercice</p>
                 ) : (
@@ -457,20 +462,39 @@ export default function DCSynthese({ portfolio, color, viewMode = 'signe', fySta
                       </tr>
                     </thead>
                     <tbody>
-                      {monthly.map(m => (
-                        <tr key={m.month} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                          <td className="py-2 px-2 text-white text-xs font-medium">{mLabel(m.month)}</td>
-                          <td className="py-2 px-2 text-right text-xs text-[#2ecc71]">{m.ca > 0 ? fmtK(m.ca) : '—'}</td>
-                          <td className="py-2 px-2 text-right text-xs text-[#3b82f6]">{m.plan > 0 ? fmtK(m.plan) : '—'}</td>
-                          <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(m.total)}</td>
-                          <td className="py-2 px-2">
-                            <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden flex">
-                              <div className="h-2 bg-[#2ecc71]" style={{ width: `${m.ca / maxTot * 100}%` }} />
-                              <div className="h-2 bg-[#3b82f6]" style={{ width: `${m.plan / maxTot * 100}%` }} />
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                      {monthly.map(m => {
+                        const open = expandedMonth === m.month;
+                        return (
+                          <Fragment key={m.month}>
+                            <tr onClick={() => setExpandedMonth(open ? null : m.month)} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a] cursor-pointer">
+                              <td className="py-2 px-2 text-white text-xs font-medium">
+                                <span className="text-[#666] mr-1">{open ? '▾' : '▸'}</span>{mLabel(m.month)}
+                                <span className="text-[9px] text-[#555] ml-1">({m.invoices.length})</span>
+                              </td>
+                              <td className="py-2 px-2 text-right text-xs text-[#2ecc71]">{m.ca > 0 ? fmtK(m.ca) : '—'}</td>
+                              <td className="py-2 px-2 text-right text-xs text-[#3b82f6]">{m.plan > 0 ? fmtK(m.plan) : '—'}</td>
+                              <td className="py-2 px-2 text-right text-xs font-bold text-white">{fmtK(m.total)}</td>
+                              <td className="py-2 px-2">
+                                <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden flex">
+                                  <div className="h-2 bg-[#2ecc71]" style={{ width: `${m.ca / maxTot * 100}%` }} />
+                                  <div className="h-2 bg-[#3b82f6]" style={{ width: `${m.plan / maxTot * 100}%` }} />
+                                </div>
+                              </td>
+                            </tr>
+                            {open && m.invoices.map((inv, ii) => (
+                              <tr key={`${m.month}-${ii}`} className="bg-[#0d0d0d] border-b border-[#151515]">
+                                <td className="py-1.5 pl-8 pr-2 text-[11px] text-[#bbb] truncate max-w-[300px]">{inv.project}</td>
+                                <td className="py-1.5 px-2 text-right text-[11px]" colSpan={2}>
+                                  <span className={inv.issued ? 'text-[#2ecc71]' : 'text-[#3b82f6]'}>{inv.issued ? 'facturé' : 'prévu'}</span>
+                                  <span className="text-[#555] ml-1.5">{formatDate(inv.date)}</span>
+                                </td>
+                                <td className="py-1.5 px-2 text-right text-[11px] font-semibold text-white">{fmtK(inv.amount)}</td>
+                                <td />
+                              </tr>
+                            ))}
+                          </Fragment>
+                        );
+                      })}
                     </tbody>
                     <tfoot>
                       <tr className="border-t border-[#e63946]/20 font-bold">

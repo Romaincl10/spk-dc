@@ -1,0 +1,907 @@
+{
+  "generated_at": "2026-06-16T06:45:59.101Z",
+  "total_purchases_ht": 7222075,
+  "suppliers_count": 646,
+  "top100": [
+    {
+      "name": "CB Pennylane",
+      "siren": "",
+      "siret": "",
+      "total": 497267.0300000003,
+      "lines": 5009,
+      "intra": false,
+      "total_ht": 497267.03
+    },
+    {
+      "name": "SPK STUDIO",
+      "siren": "818974289",
+      "siret": "",
+      "total": 418657.81999999995,
+      "lines": 243,
+      "intra": true,
+      "total_ht": 418657.82
+    },
+    {
+      "name": "SILVER PARTNERS S.P.R.L",
+      "siren": "",
+      "siret": "",
+      "total": 253934.05000000005,
+      "lines": 18,
+      "intra": false,
+      "total_ht": 253934.05
+    },
+    {
+      "name": "GOOGLE",
+      "siren": "490499886",
+      "siret": "",
+      "total": 168275.9900000001,
+      "lines": 85,
+      "intra": false,
+      "total_ht": 168275.99
+    },
+    {
+      "name": "FACEBOOK",
+      "siren": "",
+      "siret": "",
+      "total": 160494.61000000004,
+      "lines": 105,
+      "intra": false,
+      "total_ht": 160494.61
+    },
+    {
+      "name": "TRAJECTOIRE STUDIO",
+      "siren": "800609091",
+      "siret": "80060909100015",
+      "total": 159857.92,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 159857.92
+    },
+    {
+      "name": "SARL MIRIFIC SPLENDEURS EN TOUS GENRES",
+      "siren": "411840457",
+      "siret": "41184045700047",
+      "total": 123895,
+      "lines": 12,
+      "intra": false,
+      "total_ht": 123895
+    },
+    {
+      "name": "IDF EVENEMENT",
+      "siren": "",
+      "siret": "",
+      "total": 122170,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 122170
+    },
+    {
+      "name": "CIDI GROUPE",
+      "siren": "792695389",
+      "siret": "",
+      "total": 118032.92000000001,
+      "lines": 42,
+      "intra": false,
+      "total_ht": 118032.92
+    },
+    {
+      "name": "SPK CENTER",
+      "siren": "953405701",
+      "siret": "",
+      "total": 109009.15,
+      "lines": 2,
+      "intra": true,
+      "total_ht": 109009.15
+    },
+    {
+      "name": "SPK ACTIVATE",
+      "siren": "",
+      "siret": "",
+      "total": 101439.84,
+      "lines": 21,
+      "intra": true,
+      "total_ht": 101439.84
+    },
+    {
+      "name": "3 P-O",
+      "siren": "749899092",
+      "siret": "",
+      "total": 85224.94,
+      "lines": 18,
+      "intra": false,
+      "total_ht": 85224.94
+    },
+    {
+      "name": "MVISION",
+      "siren": "448286617",
+      "siret": "44828661700049",
+      "total": 80894.88,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 80894.88
+    },
+    {
+      "name": "PRODAPART",
+      "siren": "514295054",
+      "siret": "",
+      "total": 77000.25000000001,
+      "lines": 15,
+      "intra": false,
+      "total_ht": 77000.25
+    },
+    {
+      "name": "GRAPHI. K",
+      "siren": "405305186",
+      "siret": "",
+      "total": 75100,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 75100
+    },
+    {
+      "name": "IMPACT SALES ET MARKETING",
+      "siren": "452223753",
+      "siret": "",
+      "total": 60401.44999999999,
+      "lines": 9,
+      "intra": false,
+      "total_ht": 60401.45
+    },
+    {
+      "name": "Francesca Frazza",
+      "siren": "",
+      "siret": "",
+      "total": 50700.780000000006,
+      "lines": 21,
+      "intra": false,
+      "total_ht": 50700.78
+    },
+    {
+      "name": "GL EVENTS LIVE",
+      "siren": "378932354",
+      "siret": "37893235400020",
+      "total": 43224,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 43224
+    },
+    {
+      "name": "LA REUSSETTE",
+      "siren": "903002285",
+      "siret": "90300228500018",
+      "total": 42201.3,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 42201.3
+    },
+    {
+      "name": "AURELIE MOUEIX",
+      "siren": "923793202",
+      "siret": "92379320200048",
+      "total": 40924.42,
+      "lines": 12,
+      "intra": false,
+      "total_ht": 40924.42
+    },
+    {
+      "name": "H3 MEDIA",
+      "siren": "808229215",
+      "siret": "80822921500039",
+      "total": 40387.96,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 40387.96
+    },
+    {
+      "name": "MAKE IT EVENT",
+      "siren": "827468182",
+      "siret": "82746818200031",
+      "total": 37137.6,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 37137.6
+    },
+    {
+      "name": "STRIKER BALL",
+      "siren": "877820993",
+      "siret": "",
+      "total": 36191,
+      "lines": 5,
+      "intra": false,
+      "total_ht": 36191
+    },
+    {
+      "name": "EVENT LOGISTIC",
+      "siren": "534891452",
+      "siret": "",
+      "total": 33877,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 33877
+    },
+    {
+      "name": "SPK MEDIAS",
+      "siren": "",
+      "siret": "",
+      "total": 33185,
+      "lines": 4,
+      "intra": true,
+      "total_ht": 33185
+    },
+    {
+      "name": "ADAM DIAZ DALMAU",
+      "siren": "322851056",
+      "siret": "",
+      "total": 32247.11,
+      "lines": 14,
+      "intra": false,
+      "total_ht": 32247.11
+    },
+    {
+      "name": "TOORNAMENT",
+      "siren": "897469540",
+      "siret": "89746954000016",
+      "total": 30995.99,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 30995.99
+    },
+    {
+      "name": "NOVELTY FRANCE",
+      "siren": "419822408",
+      "siret": "",
+      "total": 30963.04,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 30963.04
+    },
+    {
+      "name": "GREEN AVENUE FRANCE",
+      "siren": "753968866",
+      "siret": "75396886600032",
+      "total": 30296.940000000002,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 30296.94
+    },
+    {
+      "name": "VICTOR BARCUS",
+      "siren": "902789072",
+      "siret": "",
+      "total": 29202,
+      "lines": 11,
+      "intra": false,
+      "total_ht": 29202
+    },
+    {
+      "name": "BAKER BENJAMIN",
+      "siren": "660454836",
+      "siret": "",
+      "total": 28808.600000000002,
+      "lines": 14,
+      "intra": false,
+      "total_ht": 28808.6
+    },
+    {
+      "name": "MA SIGN",
+      "siren": "902217934",
+      "siret": "",
+      "total": 28795,
+      "lines": 19,
+      "intra": false,
+      "total_ht": 28795
+    },
+    {
+      "name": "FRILANS FINANS",
+      "siren": "818974289",
+      "siret": "",
+      "total": 28163.85,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 28163.85
+    },
+    {
+      "name": "EVENTS SECURITY",
+      "siren": "893785964",
+      "siret": "89378596400014",
+      "total": 28029.280000000002,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 28029.28
+    },
+    {
+      "name": "KDRE",
+      "siren": "983769381",
+      "siret": "",
+      "total": 27859.999999999996,
+      "lines": 20,
+      "intra": false,
+      "total_ht": 27860
+    },
+    {
+      "name": "OKKO HOTELS",
+      "siren": "515402188",
+      "siret": "51540218800129",
+      "total": 27402.28,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 27402.28
+    },
+    {
+      "name": "FREE FUN EVENTS",
+      "siren": "933020943",
+      "siret": "93302094300017",
+      "total": 26667,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 26667
+    },
+    {
+      "name": "STUDIO AA",
+      "siren": "911358257",
+      "siret": "",
+      "total": 25000,
+      "lines": 10,
+      "intra": false,
+      "total_ht": 25000
+    },
+    {
+      "name": "EI FLORENT CROUZET",
+      "siren": "",
+      "siret": "87953462600038",
+      "total": 24330.87,
+      "lines": 23,
+      "intra": false,
+      "total_ht": 24330.87
+    },
+    {
+      "name": "GORAY PROD",
+      "siren": "985040963",
+      "siret": "98504096300011",
+      "total": 22606.11,
+      "lines": 19,
+      "intra": false,
+      "total_ht": 22606.11
+    },
+    {
+      "name": "SOCIETE ACOUSTIQUE FRANCAISE SAS",
+      "siren": "",
+      "siret": "338 378 789 00030",
+      "total": 22030,
+      "lines": 5,
+      "intra": false,
+      "total_ht": 22030
+    },
+    {
+      "name": "HOTEL",
+      "siren": "",
+      "siret": "",
+      "total": 21626.48,
+      "lines": 10,
+      "intra": false,
+      "total_ht": 21626.48
+    },
+    {
+      "name": "SUPERNOVA GRAPHIK",
+      "siren": "505308015",
+      "siret": "",
+      "total": 21000,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 21000
+    },
+    {
+      "name": "SAUVAGE THEO",
+      "siren": "537796856",
+      "siret": "",
+      "total": 20308.5,
+      "lines": 24,
+      "intra": false,
+      "total_ht": 20308.5
+    },
+    {
+      "name": "BORDEAUX EVENTS AND MORE SAS",
+      "siren": "453091316",
+      "siret": "45309131600019",
+      "total": 20047.42,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 20047.42
+    },
+    {
+      "name": "REALSPORT FRANCE",
+      "siren": "897452686",
+      "siret": "89745268600032",
+      "total": 19366.98,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 19366.98
+    },
+    {
+      "name": "DLG2",
+      "siren": "",
+      "siret": "",
+      "total": 19250.96,
+      "lines": 26,
+      "intra": false,
+      "total_ht": 19250.96
+    },
+    {
+      "name": "ALEJANDRO LEBRON MOLES",
+      "siren": "893642439",
+      "siret": "",
+      "total": 18306.83,
+      "lines": 5,
+      "intra": false,
+      "total_ht": 18306.83
+    },
+    {
+      "name": "MORIN KILLIAN",
+      "siren": "912078102",
+      "siret": "",
+      "total": 18113.920000000002,
+      "lines": 28,
+      "intra": false,
+      "total_ht": 18113.92
+    },
+    {
+      "name": "LOULOU GLACIER",
+      "siren": "948373535",
+      "siret": "94837353500012",
+      "total": 18020,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 18020
+    },
+    {
+      "name": "ANCRE",
+      "siren": "920999893",
+      "siret": "92099989300018",
+      "total": 18000,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 18000
+    },
+    {
+      "name": "120 PRODUCTION",
+      "siren": "931178891",
+      "siret": "",
+      "total": 17877.78,
+      "lines": 31,
+      "intra": false,
+      "total_ht": 17877.78
+    },
+    {
+      "name": "LA TECHNIQUE",
+      "siren": "490083029",
+      "siret": "",
+      "total": 17075,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 17075
+    },
+    {
+      "name": "ALIVE EVENTS",
+      "siren": "400909032",
+      "siret": "40090903200155",
+      "total": 16505.68,
+      "lines": 25,
+      "intra": false,
+      "total_ht": 16505.68
+    },
+    {
+      "name": "Warner Music France",
+      "siren": "",
+      "siret": "",
+      "total": 16500,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 16500
+    },
+    {
+      "name": "BIG SPACES",
+      "siren": "",
+      "siret": "",
+      "total": 16479.15,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 16479.15
+    },
+    {
+      "name": "Hector BALLNER",
+      "siren": "",
+      "siret": "",
+      "total": 16097.88,
+      "lines": 20,
+      "intra": false,
+      "total_ht": 16097.88
+    },
+    {
+      "name": "KML EVENTS",
+      "siren": "919421701",
+      "siret": "",
+      "total": 16000,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 16000
+    },
+    {
+      "name": "AGENCE ADV - SASU",
+      "siren": "",
+      "siret": "",
+      "total": 15850.34,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 15850.34
+    },
+    {
+      "name": "MAXIME AZEGGAGH",
+      "siren": "887780773",
+      "siret": "",
+      "total": 15725,
+      "lines": 21,
+      "intra": false,
+      "total_ht": 15725
+    },
+    {
+      "name": "SAS Fastory",
+      "siren": "",
+      "siret": "",
+      "total": 15492.25,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 15492.25
+    },
+    {
+      "name": "PARANGO PRODUCTION",
+      "siren": "948736244",
+      "siret": "94873624400013",
+      "total": 15333.33,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 15333.33
+    },
+    {
+      "name": "IBIS",
+      "siren": "343371787",
+      "siret": "34337178700023",
+      "total": 15199.379999999997,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 15199.38
+    },
+    {
+      "name": "CONSALVI THOMAS",
+      "siren": "879765527",
+      "siret": "",
+      "total": 15091.26,
+      "lines": 34,
+      "intra": false,
+      "total_ht": 15091.26
+    },
+    {
+      "name": "RM STUDIO",
+      "siren": "983819624",
+      "siret": "",
+      "total": 15000,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 15000
+    },
+    {
+      "name": "BASKERS",
+      "siren": "100256692",
+      "siret": "10025669200011",
+      "total": 14919.529999999999,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 14919.53
+    },
+    {
+      "name": "REMI CHOPIN",
+      "siren": "933440604",
+      "siret": "",
+      "total": 14907.46,
+      "lines": 19,
+      "intra": false,
+      "total_ht": 14907.46
+    },
+    {
+      "name": "LILI M",
+      "siren": "481840130",
+      "siret": "48184013000027",
+      "total": 14889,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 14889
+    },
+    {
+      "name": "Louis Tricot",
+      "siren": "",
+      "siret": "",
+      "total": 14863.75,
+      "lines": 16,
+      "intra": false,
+      "total_ht": 14863.75
+    },
+    {
+      "name": "PARIS SAINT GERMAIN FOOTBALL",
+      "siren": "382357721",
+      "siret": "38235772100085",
+      "total": 14660.84,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 14660.84
+    },
+    {
+      "name": "ARNAU MONTFORT SORIANO",
+      "siren": "",
+      "siret": "",
+      "total": 14463,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 14463
+    },
+    {
+      "name": "16/9 Simon Bluteau",
+      "siren": "",
+      "siret": "",
+      "total": 13950,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 13950
+    },
+    {
+      "name": "VIEWS MEDIA",
+      "siren": "832315113",
+      "siret": "83231511300015",
+      "total": 13000,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 13000
+    },
+    {
+      "name": "nuggets influence",
+      "siren": "",
+      "siret": "",
+      "total": 13000,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 13000
+    },
+    {
+      "name": "DYLEWSKI THOMAS",
+      "siren": "839155488",
+      "siret": "",
+      "total": 12916.82,
+      "lines": 14,
+      "intra": false,
+      "total_ht": 12916.82
+    },
+    {
+      "name": "QUARTIER LIBRE LILLE",
+      "siren": "951.281.088",
+      "siret": "",
+      "total": 12585.8,
+      "lines": 3,
+      "intra": false,
+      "total_ht": 12585.8
+    },
+    {
+      "name": "TIR PRODUCTION",
+      "siren": "7301005",
+      "siret": "",
+      "total": 12190.17,
+      "lines": 10,
+      "intra": false,
+      "total_ht": 12190.17
+    },
+    {
+      "name": "BLACKLIST",
+      "siren": "532675311",
+      "siret": "53267531100023",
+      "total": 11735.51,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 11735.51
+    },
+    {
+      "name": "OSCAR YESTE BADIA",
+      "siren": "",
+      "siret": "",
+      "total": 11514.04,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 11514.04
+    },
+    {
+      "name": "CONSORTIUM STADE DE FRANCE",
+      "siren": "399452564",
+      "siret": "39945256400038",
+      "total": 11000,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 11000
+    },
+    {
+      "name": "Saison Artisants Fleurs",
+      "siren": "817890296",
+      "siret": "",
+      "total": 10990,
+      "lines": 6,
+      "intra": false,
+      "total_ht": 10990
+    },
+    {
+      "name": "MAKE IT MARSEILLE",
+      "siren": "",
+      "siret": "",
+      "total": 10540,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 10540
+    },
+    {
+      "name": "LES TOQUES CONCEPTS",
+      "siren": "402471775",
+      "siret": "40247177500054",
+      "total": 10499.5,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 10499.5
+    },
+    {
+      "name": "CETE STUDIO",
+      "siren": "920395795",
+      "siret": "",
+      "total": 10450,
+      "lines": 16,
+      "intra": false,
+      "total_ht": 10450
+    },
+    {
+      "name": "SAS Chicandier",
+      "siren": "",
+      "siret": "",
+      "total": 10254,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 10254
+    },
+    {
+      "name": "ICE INSPECTION",
+      "siren": "539546192",
+      "siret": "",
+      "total": 9800,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 9800
+    },
+    {
+      "name": "GROUPE CARAMEL",
+      "siren": "518031562",
+      "siret": "51803156200078",
+      "total": 9744,
+      "lines": 6,
+      "intra": false,
+      "total_ht": 9744
+    },
+    {
+      "name": "SAS 1986",
+      "siren": "",
+      "siret": "",
+      "total": 9390,
+      "lines": 6,
+      "intra": false,
+      "total_ht": 9390
+    },
+    {
+      "name": "ENYGEA SERVICES",
+      "siren": "387867765",
+      "siret": "38786776500282",
+      "total": 9131.88,
+      "lines": 4,
+      "intra": false,
+      "total_ht": 9131.88
+    },
+    {
+      "name": "TOMY LEPINE",
+      "siren": "818810384",
+      "siret": "",
+      "total": 9050,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 9050
+    },
+    {
+      "name": "Julien Dubroca",
+      "siren": "",
+      "siret": "849 184 437 00010",
+      "total": 9041.9,
+      "lines": 6,
+      "intra": false,
+      "total_ht": 9041.9
+    },
+    {
+      "name": "SK MOVIE",
+      "siren": "",
+      "siret": "89106734000010",
+      "total": 9000,
+      "lines": 2,
+      "intra": false,
+      "total_ht": 9000
+    },
+    {
+      "name": "HOTEL DES VICTOIRES",
+      "siren": "324862895",
+      "siret": "32486289500012",
+      "total": 8910.9,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 8910.9
+    },
+    {
+      "name": "HOTEL DE ROUEN",
+      "siren": "582124582",
+      "siret": "58212458200013",
+      "total": 8910.9,
+      "lines": 1,
+      "intra": false,
+      "total_ht": 8910.9
+    },
+    {
+      "name": "SARL ICON SPORT",
+      "siren": "",
+      "siret": "",
+      "total": 8776.97,
+      "lines": 6,
+      "intra": false,
+      "total_ht": 8776.97
+    },
+    {
+      "name": "GST LABS",
+      "siren": "938680238",
+      "siret": "",
+      "total": 8760,
+      "lines": 8,
+      "intra": false,
+      "total_ht": 8760
+    },
+    {
+      "name": "Emma Lopez",
+      "siren": "",
+      "siret": "",
+      "total": 8615.05,
+      "lines": 9,
+      "intra": false,
+      "total_ht": 8615.05
+    },
+    {
+      "name": "AGENCE IMMINENCE",
+      "siren": "803583434",
+      "siret": "",
+      "total": 8455,
+      "lines": 15,
+      "intra": false,
+      "total_ht": 8455
+    },
+    {
+      "name": "LOC ECO",
+      "siren": "871800637",
+      "siret": "",
+      "total": 8402.91,
+      "lines": 21,
+      "intra": false,
+      "total_ht": 8402.91
+    },
+    {
+      "name": "BABBA'SONS",
+      "siren": "",
+      "siret": "",
+      "total": 8360,
+      "lines": 7,
+      "intra": false,
+      "total_ht": 8360
+    }
+  ]
+}
