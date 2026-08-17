@@ -119,7 +119,7 @@ async function fetchAll(endpoint, queryName, fields, filters, maxItems = 50000) 
 async function fetchProjects() {
   return fetchAll(
     'project', 'Project',
-    'id,title,company_name,contact_id,contact_company_id,billing_contact,start_date,end_date,created_at,total_amount,total_cost,progress,actif,legal_entity,currency,proposal_id,project_manager,business_account,project_pipe,project_pipe_name,type,type_label,margin,is_rate_card_project,total_gross_margin_distributed,campaign_name,client_configuration,advancement'
+    'id,title,company_name,contact_id,contact_company_id,billing_contact,start_date,end_date,created_at,total_amount,total_cost,progress,actif,legal_entity,currency,proposal_id,project_manager,business_account,project_pipe,project_pipe_name,type,type_label,margin,is_rate_card_project,total_gross_margin_distributed,campaign_name,client_configuration,advancement,cf_mdia'
   );
 }
 
@@ -133,7 +133,7 @@ async function fetchProjectKPIs() {
 async function fetchProposals() {
   return fetchAll(
     'proposal', 'Proposal',
-    'id,title,amount,discount,discounted_amount,vat,currency,pipe,pipe_name,probability,client_id,company_name,legal_entity,entity,assigned_to,created_at,last_updated_at,signature_date,projet_start,projet_stop,project_id,total_days,total_sold_days,total_cost,tags'
+    'id,title,amount,discount,discounted_amount,vat,currency,pipe,pipe_name,probability,client_id,company_name,legal_entity,entity,assigned_to,created_at,last_updated_at,signature_date,projet_start,projet_stop,project_id,total_days,total_sold_days,total_cost,tags,cf_mdias'
   );
 }
 

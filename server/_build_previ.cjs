@@ -278,8 +278,20 @@ const projectsThisWeek = projects
       ca, mb, mbPct: ca > 0 ? mb / ca * 100 : 0,
       media: isMediaItem(p.cf_mdia, p.title), pack: packOfCf(p.cf_mdia),
     };
-  })
-  .sort((a, b) => b.ca - a.ca);
+  });
+// Ajouts manuels aux "projets créés cette semaine" : avenants signés dont le projet Furious
+// est antérieur (non capté par created_at). Injectés seulement si la date de signature ∈ fenêtre.
+const WEEKLY_MANUAL_PROJECTS = [
+  { signedDate: '2026-08-13', company: 'PUMA FRANCE SAS', referent: 'Clément',
+    project: 'SPK0160_Puma Player Manager (avenant signé)', ca: 59370, mb: 59370, media: false, pack: null },
+];
+WEEKLY_MANUAL_PROJECTS.forEach(m => {
+  if (m.signedDate >= wkStart && m.signedDate <= wkEnd) {
+    projectsThisWeek.push({ company: m.company, referent: m.referent, project: m.project,
+      ca: m.ca, mb: m.mb, mbPct: m.ca > 0 ? m.mb / m.ca * 100 : 0, media: m.media, pack: m.pack });
+  }
+});
+projectsThisWeek.sort((a, b) => b.ca - a.ca);
 
 // Devis créés cette semaine (avec MB% réelle pour CA/MB probable)
 const proposalsThisWeek = allProp
@@ -363,10 +375,18 @@ const MEDIA_SPLIT = {
 // Reclassement manuel d'un projet média vers un pack (code projet -> pack).
 const MEDIA_RECLASS = {
   MED0232: 'runpack', // Pack UTMB 2026 x MERRELL -> runpack (trail/running)
+  MED0243: 'runpack', // PackUTMB2026 x X-Bionic
+  MED0245: 'runpack', // WISE UTMB
+  MED0246: 'runpack', // i-run x On Running
+  MED0248: 'runpack', // Nutripure suivi athlète UTMB
 };
 // Affiliation : revenus (Awin, Kwanko, Effinity, Adsense, Partenize…) — ce ne sont PAS des packs.
 // Retirés du Focus Médias / du "à classer" (restent comptés dans le CA global comme agence).
 const isAffiliation = t => /affiliation/i.test(t || '');
+// Table de secours code->pack : utilisée quand le champ Furious "Média" (cf_mdia/cf_mdias) est vide
+// (le champ a été vidé côté Furious le 14/08/26). Auto-mise à jour à chaque build où le champ est rempli.
+let MEDIA_FALLBACK = {};
+try { MEDIA_FALLBACK = JSON.parse(fs.readFileSync(dir + '_media_pack_map.json', 'utf8')); } catch (e) { MEDIA_FALLBACK = {}; }
 let mediaRows = [...o1.values()].map(r => ({ company: aliasCompany(decodeHtml(r.company)), project: decodeHtml(r.project), ca: r.total, mb: r.totalMB, type: 'Signé' }))
   .concat([...o2.values()].map(r => ({ company: aliasCompany(decodeHtml(r.company)), project: decodeHtml(r.project), ca: r.total, mb: r.totalMB, type: 'Devis' })));
 MEDIA_MANUAL.forEach(m => mediaRows.push({ company: m.company, project: m.project, ca: m.ca, mb: m.ca, type: 'Signé (manuel)', manual: true, pack: m.pack }));
@@ -387,8 +407,12 @@ const codeKey = t => { const m = (t || '').match(/\b((?:SPK|MED|DC|M)\d{3,4})/i)
 const cfByCode = {};
 projects.forEach(p => { const c = codeKey(p.title), pk = normPack(p.cf_mdia); if (c && pk && !cfByCode[c]) cfByCode[c] = pk; });
 allProp.forEach(p => { const c = codeKey(p.title), pk = normPack(p.cf_mdias); if (c && pk && !cfByCode[c]) cfByCode[c] = pk; });
+// auto-persistance : si le champ Furious est de nouveau rempli, on rafraîchit la table de secours.
+if (Object.keys(cfByCode).length) {
+  try { fs.writeFileSync(dir + '_media_pack_map.json', JSON.stringify({ ...MEDIA_FALLBACK, ...cfByCode }, null, 1)); } catch (e) {}
+}
 const medCode = p => { const m = (p || '').match(/MED\d{3,4}/i); return m ? m[0].toUpperCase() : null; };
-const packKey = r => r.pack || MEDIA_RECLASS[codeKey(r.project)] || cfByCode[codeKey(r.project)] || packOf(r.project);
+const packKey = r => r.pack || MEDIA_RECLASS[codeKey(r.project)] || cfByCode[codeKey(r.project)] || MEDIA_FALLBACK[codeKey(r.project)] || packOf(r.project);
 const isMedRow = r => (!!packKey(r) || !!medCode(r.project)) && !isAffiliation(r.project);
 const lineOf = r => ({ project: r.project, company: r.company, type: r.type, ca: r.ca, mb: r.mb });
 const media = {

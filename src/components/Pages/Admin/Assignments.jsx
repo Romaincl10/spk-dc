@@ -3,7 +3,9 @@ import { Search, Users, FolderKanban, FileText, CheckCircle, AlertTriangle } fro
 import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
 
-export default function Assignments({ onAssigned }) {
+const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
+
+export default function Assignments({ onAssigned, fyStartYear, onFyChange, currentFyStartYear }) {
   const [tab, setTab] = useState('clients');
   const [clients, setClients] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -12,10 +14,12 @@ export default function Assignments({ onAssigned }) {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all'); // all, assigned, unassigned
   const [saving, setSaving] = useState(null);
+  const fy = fyStartYear ?? currentFyStartYear;
+  const fyYears = [currentFyStartYear - 1, currentFyStartYear];
 
   const loadClients = async () => {
     try {
-      const data = await apiFetch('/api/admin/all-clients');
+      const data = await apiFetch(`/api/admin/all-clients?fy=${fy}`);
       setClients(data.clients || []);
       setDcs(data.dcs || []);
     } catch (e) { console.error(e); }
@@ -23,7 +27,7 @@ export default function Assignments({ onAssigned }) {
 
   const loadProjects = async () => {
     try {
-      const data = await apiFetch('/api/admin/all-projects');
+      const data = await apiFetch(`/api/admin/all-projects?fy=${fy}`);
       setProjects(data.projects || []);
       if (data.dcs?.length) setDcs(data.dcs);
     } catch (e) { console.error(e); }
@@ -31,21 +35,22 @@ export default function Assignments({ onAssigned }) {
 
   const loadProposals = async () => {
     try {
-      const data = await apiFetch('/api/admin/all-proposals');
+      const data = await apiFetch(`/api/admin/all-proposals?fy=${fy}`);
       setProposals(data.proposals || []);
       if (data.dcs?.length) setDcs(data.dcs);
     } catch (e) { console.error(e); }
   };
 
-  useEffect(() => { loadClients(); loadProjects(); loadProposals(); }, []);
+  useEffect(() => { loadClients(); loadProjects(); loadProposals(); }, [fy]);
 
-  const handleAssignClient = async (clientName, dcName) => {
+  // dcName='' + removeOverride=true → revient à la valeur héritée du défaut pour cet exercice
+  const handleAssignClient = async (clientName, dcName, removeOverride = false) => {
     setSaving(clientName);
     try {
       await apiFetch('/api/admin/assignments/client', {
-        method: 'PUT', body: JSON.stringify({ clientName, dcName }),
+        method: 'PUT', body: JSON.stringify({ clientName, dcName, fyStartYear: fy, removeOverride }),
       });
-      setClients(prev => prev.map(c => c.name === clientName ? { ...c, dc: dcName } : c));
+      await loadClients();
       onAssigned?.();
     } catch (e) { console.error(e); }
     setSaving(null);
@@ -121,7 +126,28 @@ export default function Assignments({ onAssigned }) {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <h2 className="text-xl font-bold text-white">Assignations Client / Projet / Devis</h2>
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <h2 className="text-xl font-bold text-white">Assignations Client / Projet / Devis</h2>
+        {/* Sélecteur d'exercice — l'assignation client est datée par exercice */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-[#888] font-semibold uppercase tracking-wider">Exercice</span>
+          <div className="flex gap-1 bg-[#161616] rounded-lg p-1">
+            {fyYears.map(y => (
+              <button key={y} onClick={() => onFyChange?.(y)}
+                className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors
+                  ${fy === y ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>
+                {fyLabel(y)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      {tab === 'clients' && (
+        <p className="text-[11px] text-[#666] -mt-3">
+          L'affectation client vaut pour l'exercice <span className="text-[#aaa] font-semibold">{fyLabel(fy)}</span>.
+          Une valeur <span className="text-[#3b82f6]">datée</span> prime sur la valeur <span className="text-[#888]">héritée</span> (défaut commun aux exercices) — de quoi gérer une passation sans réécrire l'historique.
+        </p>
+      )}
 
       {/* Tabs */}
       <div className="flex items-center gap-3 flex-wrap">
@@ -180,6 +206,17 @@ export default function Assignments({ onAssigned }) {
                 <div className="flex-1 min-w-0">
                   <span className="text-sm text-white font-medium truncate block">{c.name}</span>
                 </div>
+                {/* Source de la valeur : datée (override exercice) vs héritée (défaut) */}
+                {c.dc && c.dcSource === 'year' && (
+                  <span className="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#3b82f6]/15 text-[#3b82f6] shrink-0">datée {fyLabel(fy)}</span>
+                )}
+                {c.dc && c.dcSource === 'default' && (
+                  <span className="text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded bg-[#2a2a2a] text-[#888] shrink-0">héritée</span>
+                )}
+                {c.dcSource === 'year' && (
+                  <button onClick={() => handleAssignClient(c.name, '', true)} title="Revenir à la valeur héritée"
+                    className="text-[#666] hover:text-[#e63946] text-xs shrink-0">↺</button>
+                )}
                 {!c.dc && <AlertTriangle size={14} className="text-[#f39c12] shrink-0" />}
                 <select
                   value={c.dc || ''}

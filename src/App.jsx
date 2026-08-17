@@ -126,7 +126,7 @@ export default function App() {
       fyStartYear={fyStartYear} onFyChange={setFyStartYear} currentFyStartYear={getCurrentFyStartYear()} loading={loading} />;
     switch (currentPage) {
       case 'admin-dashboard': return dashboard;
-      case 'admin-assignments': return user.role === 'admin' ? <Assignments onAssigned={handleAssigned} /> : dashboard;
+      case 'admin-assignments': return user.role === 'admin' ? <Assignments onAssigned={handleAssigned} fyStartYear={fyStartYear} onFyChange={setFyStartYear} currentFyStartYear={getCurrentFyStartYear()} /> : dashboard;
       case 'admin-users': return user.role === 'admin' ? <UserManagement /> : dashboard;
       case 'admin-objectifs': return user.role === 'admin' ? <ObjectifImport /> : dashboard;
       default: return dashboard;

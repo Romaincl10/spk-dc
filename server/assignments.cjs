@@ -12,13 +12,24 @@ const PROPOSAL_FILE = path.join(DATA_DIR, 'proposal_assignments.json');
 
 // ── Client assignments ───────────────────────────────────
 
+const _norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+// Exercice fiscal courant (démarre le 01/07)
+function currentFyStartYear() {
+  const d = new Date();
+  return d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1;
+}
+
 function loadClientAssignments() {
   try {
     if (fs.existsSync(CLIENT_FILE)) {
-      return JSON.parse(fs.readFileSync(CLIENT_FILE, 'utf8'));
+      const data = JSON.parse(fs.readFileSync(CLIENT_FILE, 'utf8'));
+      if (!data.assignments) data.assignments = {};
+      if (!data.byYear) data.byYear = {};
+      return data;
     }
   } catch (e) { console.error('[Assignments] Error loading clients:', e.message); }
-  return { assignments: {}, updatedAt: null };
+  return { assignments: {}, byYear: {}, updatedAt: null };
 }
 
 function saveClientAssignments(data) {
@@ -26,20 +37,60 @@ function saveClientAssignments(data) {
   fs.writeFileSync(CLIENT_FILE, JSON.stringify(data, null, 2), 'utf8');
 }
 
-function getClientDC(clientName) {
-  const data = loadClientAssignments();
-  const norm = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
-  const key = Object.keys(data.assignments).find(k => norm(k) === norm(clientName));
-  return key ? data.assignments[key] : '';
+// Map effective { client: dc } pour un exercice : défaut hérité + overrides de l'exercice.
+function effectiveClientMap(data, fyStartYear) {
+  const eff = { ...(data.assignments || {}) };
+  const yr = data.byYear && data.byYear[String(fyStartYear ?? currentFyStartYear())];
+  if (yr) {
+    for (const [client, dc] of Object.entries(yr)) {
+      const existing = Object.keys(eff).find(k => _norm(k) === _norm(client));
+      if (existing) delete eff[existing];
+      eff[client] = dc; // '' = à assigner explicite pour cet exercice
+    }
+  }
+  return eff;
 }
 
-function getAllClientAssignments() {
-  return loadClientAssignments().assignments;
+function getClientDC(clientName, fyStartYear) {
+  const eff = effectiveClientMap(loadClientAssignments(), fyStartYear);
+  const key = Object.keys(eff).find(k => _norm(k) === _norm(clientName));
+  return key ? eff[key] : '';
 }
 
-function assignClient(clientName, dcName) {
+// Map effective { client: dc } pour l'exercice (d\u00e9faut \u222a overrides d'exercice).
+function getAllClientAssignments(fyStartYear) {
+  return effectiveClientMap(loadClientAssignments(), fyStartYear);
+}
+
+// D\u00e9tail par client pour un exercice : { client: { dc, source: 'year'|'default'|'' } }
+// Permet \u00e0 l'UI de distinguer override dat\u00e9 et h\u00e9ritage du d\u00e9faut.
+function getClientAssignmentDetail(fyStartYear) {
   const data = loadClientAssignments();
-  data.assignments[clientName] = dcName;
+  const fy = String(fyStartYear ?? currentFyStartYear());
+  const yr = data.byYear[fy] || {};
+  const out = {};
+  for (const [client, dc] of Object.entries(data.assignments || {})) out[client] = { dc, source: dc ? 'default' : '' };
+  for (const [client, dc] of Object.entries(yr)) {
+    const existing = Object.keys(out).find(k => _norm(k) === _norm(client));
+    if (existing) delete out[existing];
+    out[client] = { dc, source: 'year' };
+  }
+  return out;
+}
+
+// Assigne un client. fyStartYear fourni \u2192 override dat\u00e9 (byYear) ; sinon \u2192 d\u00e9faut h\u00e9rit\u00e9.
+// removeOverride: retire l'override de l'exercice pour revenir \u00e0 la valeur h\u00e9rit\u00e9e.
+function assignClient(clientName, dcName, fyStartYear, removeOverride) {
+  const data = loadClientAssignments();
+  if (fyStartYear != null) {
+    const fy = String(fyStartYear);
+    data.byYear[fy] = data.byYear[fy] || {};
+    const existing = Object.keys(data.byYear[fy]).find(k => _norm(k) === _norm(clientName));
+    if (existing) delete data.byYear[fy][existing];
+    if (!removeOverride) data.byYear[fy][clientName] = dcName;
+  } else {
+    data.assignments[clientName] = dcName;
+  }
   saveClientAssignments(data);
 }
 
@@ -174,7 +225,7 @@ function getActiveDCs() {
 }
 
 module.exports = {
-  getAllClientAssignments, getClientDC, assignClient, assignClientsBulk,
+  getAllClientAssignments, getClientDC, assignClient, assignClientsBulk, getClientAssignmentDetail,
   getAllProjectAssignments, getProjectDCs, assignProject, assignProjectsBulk,
   getAllProposalAssignments, getProposalDCs, assignProposal, assignProposalsBulk,
   getActiveDCs, loadClientAssignments, loadProjectAssignments, loadProposalAssignments,

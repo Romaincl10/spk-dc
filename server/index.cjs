@@ -215,7 +215,7 @@ function buildDCPortfolios(fyStartYearParam) {
   // Le CA NET est cappé à ≥ 0 pour éviter les valeurs négatives.
   const achatsMediasByProject = achatsMediasData?.data || {};
 
-  const clientAssignments = assign.getAllClientAssignments();
+  const clientAssignments = assign.getAllClientAssignments(Number.isInteger(fyStartYearParam) ? fyStartYearParam : currentFyStartYear);
   const projectAssignments = assign.getAllProjectAssignments();
   const proposalAssignments = assign.getAllProposalAssignments();
 
@@ -975,12 +975,15 @@ function buildMonthlyRecap(monthParam) {
   const allProjects = loadData('furious_projects')?.data || [];
   const proposals = loadData('furious_proposals')?.data || [];
   const achatsMediasByProject = loadData('furious_achats_medias')?.data || {};
-  const clientAssignments = assign.getAllClientAssignments();
-  const projectAssignments = assign.getAllProjectAssignments();
-  const proposalAssignments = assign.getAllProposalAssignments();
 
   const now = new Date();
   const month = /^\d{4}-\d{2}$/.test(monthParam || '') ? monthParam : now.toISOString().slice(0, 7);
+  // Exercice fiscal du mois (démarre le 01/07) → pour résoudre l'assignation client datée
+  const mY = Number(month.slice(0, 4)), mM = Number(month.slice(5, 7));
+  const recapFy = mM >= 7 ? mY : mY - 1;
+  const clientAssignments = assign.getAllClientAssignments(recapFy);
+  const projectAssignments = assign.getAllProjectAssignments();
+  const proposalAssignments = assign.getAllProposalAssignments();
   const inMonth = (d) => !!d && String(d).slice(0, 7) === month;
 
   const clientDC = (companyName) => {
@@ -1227,13 +1230,16 @@ app.put('/api/data/farming', auth.authMiddleware, auth.adminOnly, (req, res) => 
 // ── Routes: Assignments (admin) ──────────────────────────
 
 app.get('/api/admin/assignments/clients', auth.authMiddleware, auth.adminOnly, (req, res) => {
-  res.json({ assignments: assign.getAllClientAssignments(), dcs: assign.getActiveDCs() });
+  const fy = parseInt(req.query.fy, 10);
+  const fyStartYear = Number.isInteger(fy) ? fy : undefined;
+  res.json({ assignments: assign.getAllClientAssignments(fyStartYear), detail: assign.getClientAssignmentDetail(fyStartYear), dcs: assign.getActiveDCs() });
 });
 
 app.put('/api/admin/assignments/client', auth.authMiddleware, auth.adminOnly, (req, res) => {
-  const { clientName, dcName } = req.body;
+  const { clientName, dcName, fyStartYear, removeOverride } = req.body;
   if (!clientName) return res.status(400).json({ error: 'clientName requis' });
-  assign.assignClient(clientName, dcName || '');
+  // fyStartYear fourni → override daté par exercice ; sinon → défaut hérité (legacy)
+  assign.assignClient(clientName, dcName || '', fyStartYear != null ? Number(fyStartYear) : undefined, !!removeOverride);
   res.json({ success: true });
 });
 
@@ -1283,21 +1289,25 @@ app.put('/api/admin/assignments/proposal', auth.authMiddleware, auth.adminOnly, 
   res.json({ success: true });
 });
 
-// List all unique clients from projects (for assignment UI)
+// List all unique clients from projects (for assignment UI) — exercice-scopé
 app.get('/api/admin/all-clients', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  const fy = parseInt(req.query.fy, 10);
+  const fyStartYear = Number.isInteger(fy) ? fy : undefined;
   const projectsData = loadData('furious_projects');
   const allProjects = projectsData?.data || [];
   const agencyProjects = allProjects.filter(p => !shouldExcludeProject(p));
   const clientNames = [...new Set(agencyProjects.map(p => p.company_name).filter(Boolean))].sort();
-  const assignments = assign.getAllClientAssignments();
+  const detail = assign.getClientAssignmentDetail(fyStartYear);
+  const detailKeys = Object.keys(detail);
 
   const clients = clientNames.map(name => {
     const normName = normalize(name);
-    const matchKey = Object.keys(assignments).find(k => normalize(k) === normName);
-    return { name, dc: matchKey ? assignments[matchKey] : '' };
+    const matchKey = detailKeys.find(k => normalize(k) === normName);
+    const d = matchKey ? detail[matchKey] : null;
+    return { name, dc: d ? d.dc : '', dcSource: d ? d.source : '' };
   });
 
-  res.json({ clients, dcs: assign.getActiveDCs() });
+  res.json({ clients, fyStartYear: fyStartYear ?? null, dcs: assign.getActiveDCs() });
 });
 
 // List all agency projects (for assignment UI)
@@ -1306,11 +1316,12 @@ app.get('/api/admin/all-projects', auth.authMiddleware, auth.adminOnly, (req, re
   const allProjects = projectsData?.data || [];
   const agencyProjects = allProjects.filter(p => !shouldExcludeProject(p));
   const projectAssignments = assign.getAllProjectAssignments();
-  const clientAssignments = assign.getAllClientAssignments();
 
-  // Fiscal year filter
+  // Fiscal year filter — depuis ?fy sinon exercice courant
   const now = new Date();
-  const fyStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const fyParam = parseInt(req.query.fy, 10);
+  const fyStartYear = Number.isInteger(fyParam) ? fyParam : (now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1);
+  const clientAssignments = assign.getAllClientAssignments(fyStartYear);
   const fyStart = new Date(fyStartYear, 6, 1);
   const fyEnd = new Date(fyStartYear + 1, 5, 30);
 
@@ -1345,11 +1356,12 @@ app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, r
   const proposalsData = loadData('furious_proposals');
   const allProposals = proposalsData?.data || [];
   const proposalAssignments = assign.getAllProposalAssignments();
-  const clientAssignments = assign.getAllClientAssignments();
 
-  // Fin d'exercice (30 juin) pour couper le pipeline
+  // Fin d'exercice (30 juin) pour couper le pipeline — depuis ?fy sinon exercice courant
   const now = new Date();
-  const fyStartYear = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
+  const fyParam = parseInt(req.query.fy, 10);
+  const fyStartYear = Number.isInteger(fyParam) ? fyParam : (now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1);
+  const clientAssignments = assign.getAllClientAssignments(fyStartYear);
   const FY_END = new Date(fyStartYear + 1, 5, 30);
 
   // Même filtre que activePipeline : devis en cours, hors médias / perdus / convertis
