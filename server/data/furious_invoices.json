@@ -1,6 +1,32 @@
 {
   "data": [
     {
+      "id": "262872",
+      "id_system": "1585",
+      "proposal_id": "262616",
+      "project_id": "1049",
+      "project_name": "MED0198_Not from this Planet by SCARPA x runpack",
+      "company_name": "NABE",
+      "company_id": "2040",
+      "amount_ht": 7500,
+      "vat": 0,
+      "amount_inc_tax": 7500,
+      "statut": 1,
+      "is_cancelled": 0,
+      "invoice_date": "2026-08-14",
+      "issue_date": "2026-08-14",
+      "due_date": "2026-09-13",
+      "payment_date": "",
+      "entity": "spk",
+      "currency": "EUR",
+      "period_start": "2026-08-01",
+      "period_stop": "2026-08-31",
+      "author": "Yoann",
+      "tags": [
+        "OK compta"
+      ]
+    },
+    {
       "id": "262871",
       "id_system": "1469",
       "proposal_id": "252122",
@@ -297,19 +323,20 @@
       "amount_ht": 694.45,
       "vat": 20,
       "amount_inc_tax": 833.34,
-      "statut": 1,
+      "statut": 2,
       "is_cancelled": 0,
       "invoice_date": "2026-08-03",
       "issue_date": "2026-08-03",
       "due_date": "2026-09-02",
-      "payment_date": "",
+      "payment_date": "2026-08-13",
       "entity": "spk",
       "currency": "EUR",
       "period_start": "0000-00-00",
       "period_stop": "0000-00-00",
       "author": "Yoann",
       "tags": [
-        "OK compta"
+        "OK compta",
+        "OK payé"
       ]
     },
     {
@@ -1558,20 +1585,21 @@
       "company_id": "299",
       "amount_ht": 30729.03,
       "vat": 20,
-      "amount_inc_tax": 36874.836,
-      "statut": 1,
+      "amount_inc_tax": 36874.84,
+      "statut": 2,
       "is_cancelled": 0,
       "invoice_date": "2026-07-24",
       "issue_date": "2026-07-24",
       "due_date": "2026-08-23",
-      "payment_date": "",
+      "payment_date": "2026-08-13",
       "entity": "spk",
       "currency": "EUR",
       "period_start": "2026-07-01",
       "period_stop": "2026-07-31",
       "author": "Yoann",
       "tags": [
-        "OK compta"
+        "OK compta",
+        "OK payé"
       ]
     },
     {
@@ -4555,19 +4583,20 @@
       "amount_ht": 16129.2,
       "vat": 20,
       "amount_inc_tax": 19355.04,
-      "statut": 1,
+      "statut": 2,
       "is_cancelled": 0,
       "invoice_date": "2026-06-18",
       "issue_date": "2026-06-18",
       "due_date": "2026-07-18",
-      "payment_date": "",
+      "payment_date": "2026-08-10",
       "entity": "spk",
       "currency": "EUR",
       "period_start": "2026-05-01",
       "period_stop": "2026-05-31",
       "author": "Yoann",
       "tags": [
-        "OK compta"
+        "OK compta",
+        "OK payé"
       ]
     },
     {
@@ -9119,19 +9148,20 @@
       "amount_ht": 2400,
       "vat": 0,
       "amount_inc_tax": 2400,
-      "statut": 1,
+      "statut": 2,
       "is_cancelled": 0,
       "invoice_date": "2026-03-31",
       "issue_date": "2026-03-31",
       "due_date": "2026-04-30",
-      "payment_date": "",
+      "payment_date": "2026-08-07",
       "entity": "spk",
       "currency": "EUR",
       "period_start": "2026-03-01",
       "period_stop": "2026-03-31",
       "author": "Yoann",
       "tags": [
-        "OK compta"
+        "OK compta",
+        "OK payé"
       ]
     },
     {
@@ -32916,30 +32946,6 @@
     },
     {
       "id": "0",
-      "id_system": "1585",
-      "proposal_id": "262616",
-      "project_id": "1049",
-      "project_name": "MED0198_Not from this Planet by SCARPA x runpack",
-      "company_name": "NABE",
-      "company_id": "2040",
-      "amount_ht": 7500,
-      "vat": 0,
-      "amount_inc_tax": 7500,
-      "statut": 0,
-      "is_cancelled": 0,
-      "invoice_date": "0000-00-00",
-      "issue_date": "2026-08-31",
-      "due_date": null,
-      "payment_date": "",
-      "entity": "spk",
-      "currency": "EUR",
-      "period_start": "0000-00-00",
-      "period_stop": "0000-00-00",
-      "author": null,
-      "tags": null
-    },
-    {
-      "id": "0",
       "id_system": "1587",
       "proposal_id": "262331",
       "project_id": "1051",
@@ -34041,7 +34047,31 @@
       "period_stop": "0000-00-00",
       "author": null,
       "tags": null
+    },
+    {
+      "id": "0",
+      "id_system": "1693",
+      "proposal_id": "262722",
+      "project_id": "1088",
+      "project_name": "MED0245_WISE UTMB",
+      "company_name": "Wise",
+      "company_id": "1163",
+      "amount_ht": 5000,
+      "vat": 20,
+      "amount_inc_tax": 6000,
+      "statut": 0,
+      "is_cancelled": 0,
+      "invoice_date": "0000-00-00",
+      "issue_date": "2026-08-31",
+      "due_date": null,
+      "payment_date": "",
+      "entity": "spk",
+      "currency": "EUR",
+      "period_start": "0000-00-00",
+      "period_stop": "0000-00-00",
+      "author": null,
+      "tags": null
     }
   ],
-  "syncDate": "2026-08-14T12:00:40.600Z"
+  "syncDate": "2026-08-17T07:43:38.908Z"
 }
