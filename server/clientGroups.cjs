@@ -20,10 +20,22 @@ const CLIENT_GROUPS = {
 
   // INTERSPORT group (hors IIC qui a ses propres objectifs)
   'INTERSPORT FRANCE': ['intersport france', 'intersport', 'l\'academie intersport',
-    'l\u0092academie intersport', 'lacademie intersport'],
+    'l\u0092academie intersport', 'lacademie intersport', 'l academie intersport'],
 
   // NIKE group
   'NIKE': ['nike france', 'nike retail bv', 'nike'],
+
+  // ON (On Running) \u2014 entit\u00e9s groupe
+  'ON': ['on ag', 'on europe ag', 'on italy s.r.l'],
+
+  // MIZUNO group
+  'MIZUNO': ['mizuno france', 'mizuno corporation emea', 'mizuno'],
+
+  // NEW BALANCE group (I-RUN rattach\u00e9 \u00e0 New Balance)
+  'NEW BALANCE': ['new balance france sarl', 'new balance', 'i-run'],
+
+  // PUMA SE group (Europe, France, DACH consolid\u00e9s sous PUMA SE)
+  'PUMA SE': ['puma se', 'puma europe gmbh', 'puma france sas', 'puma dach'],
 
   // LACOSTE group
   'LACOSTE': ['lacoste sas', 'lacoste france', 'lacoste'],
@@ -50,7 +62,7 @@ const CLIENT_GROUPS = {
   'TIKTOK': ['titok', 'tiktok sas', 'tiktok'],
 
   // KAPPA
-  'KAPPA': ['kappa', 'kappa france'],
+  'KAPPA': ['kappa', 'kappa france', 'kappa s.r.l'],
 
   // EVENTEAM
   'EVENTEAM': ['eventeam', 'eventeam group'],

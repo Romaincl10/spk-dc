@@ -398,6 +398,24 @@ function buildDCPortfolios(fyStartYearParam) {
   // Montant net d'une facture (paid média déduit au prorata du projet)
   const invNet = (inv) => (Number(inv.amount_ht) || 0) * (netFactorByProject[String(inv.project_id)] ?? 1);
 
+  // Clients "à marge seule" : pur pass-through (paid media / ticketing / défraiement) où
+  // le CA reconnu = la marge brute (le reste n'est qu'une refacturation à 0% de marge).
+  // Ex. LE MANS ENDURANCE MANAGEMENT. Le CA reconnu d'une facture = marge de la facture.
+  const MARGIN_ONLY_CANON = new Set(['le mans endurance management']);
+  const isMarginOnlyCanon = (canon) => MARGIN_ONLY_CANON.has(normalize(canon || ''));
+
+  // Clients récurrents à NE PAS traiter comme Business Development (ni conquête, ni établi
+  // hors objectif). Leur CA reste dans les KPI mais ils ne s'affichent pas dans le bloc BD.
+  const NOT_BIZDEV_CANON = new Set(['mizuno']);
+  const isNotBizDevCanon = (canon) => NOT_BIZDEV_CANON.has(normalize(canon || ''));
+  // CA reconnu d'une facture : net habituel, sauf clients à marge seule → marge de la facture
+  const recogNet = (inv) => {
+    const base = invNet(inv);
+    const canon = projectToCanonical[String(inv.project_id)];
+    if (canon && isMarginOnlyCanon(canon)) return base * (marginRateByProject[String(inv.project_id)] || 0);
+    return base;
+  };
+
   // Appariement annulation ↔ avoir : une facture annulée (is_cancelled) est neutralisée
   // par un avoir (montant négatif, même projet, montant opposé). On exclut les DEUX :
   // sinon l'avoir seul (l'annulée étant déjà filtrée) soustrait un CA fantôme.
@@ -492,9 +510,10 @@ function buildDCPortfolios(fyStartYearParam) {
       return d >= fyStartDate && d <= fyEndDate;
     });
 
-    // CA de l'exercice = somme des factures datées dans l'exercice
+    // CA de l'exercice = somme des factures datées dans l'exercice (CA reconnu : marge
+    // seule pour les clients pass-through comme Le Mans)
     // MB = CA facturé × taux de marge du projet (prorata du contractuel)
-    const caTotal = fyInvoices.reduce((s, inv) => s + invNet(inv), 0);
+    const caTotal = fyInvoices.reduce((s, inv) => s + recogNet(inv), 0);
     const mbTotal = fyInvoices.reduce((s, inv) =>
       s + invNet(inv) * (marginRateByProject[String(inv.project_id)] || 0), 0);
     const margeBrutePct = caTotal > 0 ? Math.round(mbTotal / caTotal * 1000) / 10 : 0;
@@ -531,7 +550,7 @@ function buildDCPortfolios(fyStartYearParam) {
       s + (Number(p.amount) || 0) * (Number(p.probability) || 0) / 100, 0);
 
     const caFacture = fyInvoices.filter(inv => isInvoiceIssued(inv) && new Date(inv.invoice_date) <= now)
-      .reduce((s, inv) => s + invNet(inv), 0);
+      .reduce((s, inv) => s + recogNet(inv), 0);
 
     // Build client breakdown — CA/MB basés sur les factures datées dans l'exercice
     const clientMap = {};
@@ -545,9 +564,8 @@ function buildDCPortfolios(fyStartYearParam) {
       const canonical = projectToCanonical[String(inv.project_id)];
       if (!canonical) return;
       if (!clientMap[canonical]) clientMap[canonical] = { name: canonical, ca: 0, mb: 0, pipe: 0, pipeProbabilise: 0, projects: [] };
-      const amt = invNet(inv);
-      clientMap[canonical].ca += amt;
-      clientMap[canonical].mb += amt * (marginRateByProject[String(inv.project_id)] || 0);
+      clientMap[canonical].ca += recogNet(inv);
+      clientMap[canonical].mb += invNet(inv) * (marginRateByProject[String(inv.project_id)] || 0);
     });
 
     // Add pipeline per canonical client + store devis per client
@@ -591,15 +609,15 @@ function buildDCPortfolios(fyStartYearParam) {
       const issued = isInvoiceIssued(inv);
       if (issued) {
         if (!clientMap[canonical].monthlyInvoiceCA) clientMap[canonical].monthlyInvoiceCA = {};
-        clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + invNet(inv);
+        clientMap[canonical].monthlyInvoiceCA[month] = (clientMap[canonical].monthlyInvoiceCA[month] || 0) + recogNet(inv);
       } else {
         if (!clientMap[canonical].monthlyInvoicePlan) clientMap[canonical].monthlyInvoicePlan = {};
-        clientMap[canonical].monthlyInvoicePlan[month] = (clientMap[canonical].monthlyInvoicePlan[month] || 0) + invNet(inv);
+        clientMap[canonical].monthlyInvoicePlan[month] = (clientMap[canonical].monthlyInvoicePlan[month] || 0) + recogNet(inv);
       }
       // Détail par facture (quel projet, quel montant net, quelle date)
       if (!clientMap[canonical].invoiceDetail) clientMap[canonical].invoiceDetail = [];
       clientMap[canonical].invoiceDetail.push({
-        month, date: ed.substring(0, 10), amount: invNet(inv), issued,
+        month, date: ed.substring(0, 10), amount: recogNet(inv), issued,
         project: projectTitleById[String(inv.project_id)] || inv.project_name || '—',
       });
     });
@@ -645,7 +663,7 @@ function buildDCPortfolios(fyStartYearParam) {
     // Clients hors objectif nominatif, séparés en NOUVEAUX (conquête, 1er mvt dans
     // l'exercice) vs ÉTABLIS (clients existants sans objectif, ex Decathlon/FFF).
     const computeBizDev = (obj) => {
-      const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
+      const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && !isNotBizDevCanon(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
       const toRow = c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 });
       const newClients = hors.filter(c => isNewCanon(c.name)).map(toRow);
       const otherClients = hors.filter(c => !isNewCanon(c.name)).map(toRow);
