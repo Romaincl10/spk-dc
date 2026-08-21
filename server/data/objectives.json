@@ -459,15 +459,7 @@
           ]
         },
         {
-          "client": "Mizuno",
-          "target": 80000,
-          "mbTarget": 59200,
-          "match": [
-            "mizuno"
-          ]
-        },
-        {
-          "client": "Motorsport",
+          "client": "PUMA Motorsport",
           "target": 60000,
           "mbTarget": 24000,
           "match": [
@@ -550,6 +542,14 @@
           "match": [
             "federation francaise de football",
             "fff"
+          ]
+        },
+        {
+          "client": "Mizuno",
+          "target": 80000,
+          "mbTarget": 59200,
+          "match": [
+            "mizuno"
           ]
         }
       ]

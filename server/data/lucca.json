@@ -9,20 +9,8 @@
       "jobTitle": "Directeur de clientèle",
       "dtContractStart": "2026-04-03T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2026-04": {
-          "deplacement": 1.5
-        },
-        "2026-06": {
-          "autre": 2,
-          "rtt": 1
-        }
-      },
-      "totals": {
-        "deplacement": 1.5,
-        "autre": 2,
-        "rtt": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 65,
@@ -33,77 +21,8 @@
       "jobTitle": "Directeur SPK PULSE",
       "dtContractStart": "2024-03-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 14,
-          "autre": 1.5,
-          "teletravail": 2
-        },
-        "2025-07": {
-          "cp": 1,
-          "teletravail": 5,
-          "autre": 4
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 3.5,
-          "autre": 2,
-          "deplacement": 0.5,
-          "cp": 1
-        },
-        "2025-09": {
-          "teletravail": 8,
-          "autre": 5,
-          "rtt": 1,
-          "deplacement": 1
-        },
-        "2025-11": {
-          "cp": 3,
-          "teletravail": 5
-        },
-        "2025-12": {
-          "rtt": 4,
-          "teletravail": 6,
-          "cp": 2
-        },
-        "2026-01": {
-          "cp": 3,
-          "teletravail": 7.5,
-          "deplacement": 1
-        },
-        "2026-03": {
-          "rtt": 0.5,
-          "cp": 1,
-          "teletravail": 8,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2026-05": {
-          "cp": 5,
-          "deplacement": 0.5,
-          "teletravail": 2.5
-        },
-        "2026-06": {
-          "cp": 4,
-          "rtt": 1,
-          "teletravail": 8
-        },
-        "2026-04": {
-          "rtt": 0.5,
-          "teletravail": 9
-        }
-      },
-      "totals": {
-        "cp": 34,
-        "autre": 12.5,
-        "teletravail": 70.5,
-        "seminaire": 2,
-        "deplacement": 5,
-        "rtt": 7
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 46,
@@ -114,66 +33,8 @@
       "jobTitle": "Responsable Ressources Humaines",
       "dtContractStart": "2023-01-03T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 10,
-          "teletravail": 5
-        },
-        "2025-08": {
-          "cp": 8,
-          "teletravail": 5
-        },
-        "2025-09": {
-          "cp": 1,
-          "teletravail": 7
-        },
-        "2025-10": {
-          "rtt": 2,
-          "seminaire": 2,
-          "teletravail": 5,
-          "cp": 2
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 6,
-          "cp": 0.5
-        },
-        "2025-12": {
-          "cp": 3.5,
-          "teletravail": 4.5
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 8
-        },
-        "2026-02": {
-          "teletravail": 8
-        },
-        "2026-05": {
-          "cp": 3,
-          "rtt": 1,
-          "teletravail": 4
-        },
-        "2026-04": {
-          "cp": 6,
-          "teletravail": 5
-        },
-        "2026-03": {
-          "rtt": 1.5,
-          "teletravail": 7,
-          "autre": 1
-        },
-        "2026-06": {
-          "teletravail": 8
-        }
-      },
-      "totals": {
-        "cp": 36,
-        "teletravail": 72.5,
-        "rtt": 5.5,
-        "seminaire": 2,
-        "autre": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 27,
@@ -184,66 +45,8 @@
       "jobTitle": "Graphiste senior",
       "dtContractStart": "2022-03-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 18,
-          "teletravail": 1
-        },
-        "2025-07": {
-          "teletravail": 9.5,
-          "autre": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 8
-        },
-        "2025-09": {
-          "teletravail": 9.5,
-          "rtt": 1,
-          "autre": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 8.5
-        },
-        "2025-12": {
-          "cp": 2,
-          "rtt": 1,
-          "teletravail": 8.5
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 8
-        },
-        "2026-06": {
-          "cp": 4,
-          "teletravail": 8,
-          "rtt": 1
-        },
-        "2026-02": {
-          "teletravail": 8
-        },
-        "2026-03": {
-          "teletravail": 6,
-          "recuperation": 3
-        },
-        "2026-05": {
-          "cp": 3,
-          "recuperation": 0.5,
-          "teletravail": 5
-        },
-        "2026-04": {
-          "teletravail": 7
-        }
-      },
-      "totals": {
-        "cp": 29,
-        "teletravail": 87,
-        "autre": 2,
-        "seminaire": 2,
-        "rtt": 4,
-        "recuperation": 3.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 34,
@@ -254,82 +57,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2024-04-20T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 11,
-          "teletravail": 3,
-          "deplacement": 5
-        },
-        "2025-07": {
-          "cp": 2,
-          "rtt": 2,
-          "deplacement": 3,
-          "teletravail": 5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 6.5,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "cp": 1.5,
-          "rtt": 1,
-          "deplacement": 2,
-          "teletravail": 8
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 6
-        },
-        "2025-12": {
-          "rtt": 1.5,
-          "autre": 1,
-          "recuperation": 2,
-          "deplacement": 2.5,
-          "teletravail": 7
-        },
-        "2026-01": {
-          "teletravail": 6,
-          "deplacement": 5.5,
-          "recuperation": 1
-        },
-        "2026-05": {
-          "cp": 16,
-          "teletravail": 2
-        },
-        "2026-02": {
-          "rtt": 1,
-          "teletravail": 6,
-          "deplacement": 4
-        },
-        "2026-03": {
-          "teletravail": 5,
-          "cp": 0.5,
-          "rtt": 0.5,
-          "maladie": 9,
-          "deplacement": 1.5
-        },
-        "2026-04": {
-          "teletravail": 8.5,
-          "deplacement": 1.5
-        },
-        "2026-06": {
-          "rtt": 1.5,
-          "cp": 2,
-          "teletravail": 6.5,
-          "deplacement": 6.5
-        }
-      },
-      "totals": {
-        "cp": 33,
-        "teletravail": 69.5,
-        "deplacement": 31.5,
-        "rtt": 8.5,
-        "seminaire": 2,
-        "recuperation": 4,
-        "autre": 1,
-        "maladie": 9
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 97,
@@ -340,67 +69,8 @@
       "jobTitle": "Assistante Ressources Humaines",
       "dtContractStart": "2024-09-02T00:00:00",
       "dtContractEnd": "2026-10-02T00:00:00",
-      "monthly": {
-        "2025-09": {
-          "ecole": 7
-        },
-        "2025-10": {
-          "ecole": 9,
-          "seminaire": 2,
-          "teletravail": 1
-        },
-        "2025-11": {
-          "ecole": 9,
-          "cp": 2
-        },
-        "2025-12": {
-          "ecole": 3,
-          "cp": 7,
-          "teletravail": 1
-        },
-        "2026-02": {
-          "ecole": 9,
-          "cp": 5
-        },
-        "2026-03": {
-          "ecole": 6,
-          "cp": 2
-        },
-        "2026-06": {
-          "ecole": 5
-        },
-        "2025-07": {
-          "cp": 4,
-          "autre": 1,
-          "teletravail": 1,
-          "maladie": 2
-        },
-        "2025-08": {
-          "cp": 10,
-          "teletravail": 1
-        },
-        "2026-01": {
-          "ecole": 9,
-          "teletravail": 2.5
-        },
-        "2026-04": {
-          "ecole": 9,
-          "teletravail": 1
-        },
-        "2026-05": {
-          "ecole": 6,
-          "cp": 3,
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "ecole": 72,
-        "seminaire": 2,
-        "teletravail": 8.5,
-        "cp": 33,
-        "autre": 1,
-        "maladie": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 88,
@@ -411,71 +81,8 @@
       "jobTitle": "Responsable RP & Influence",
       "dtContractStart": "2024-07-22T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "deplacement": 2.5,
-          "recuperation": 1
-        },
-        "2025-08": {
-          "recuperation": 2,
-          "deplacement": 2
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "cp": 5,
-          "recuperation": 1,
-          "teletravail": 0.5
-        },
-        "2025-09": {
-          "autre": 3,
-          "deplacement": 7,
-          "recuperation": 2.5
-        },
-        "2025-11": {
-          "rtt": 2,
-          "recuperation": 1.5,
-          "deplacement": 2,
-          "teletravail": 0.5
-        },
-        "2025-12": {
-          "rtt": 5,
-          "autre": 1,
-          "cp": 1,
-          "teletravail": 1
-        },
-        "2026-01": {
-          "cp": 1,
-          "teletravail": 4
-        },
-        "2026-02": {
-          "teletravail": 1
-        },
-        "2026-03": {
-          "teletravail": 2
-        },
-        "2026-04": {
-          "deplacement": 2.5,
-          "recuperation": 2,
-          "teletravail": 3,
-          "maladie": 2
-        },
-        "2026-05": {
-          "maladie": 31
-        },
-        "2026-06": {
-          "maladie": 28
-        }
-      },
-      "totals": {
-        "deplacement": 16,
-        "recuperation": 10,
-        "seminaire": 2,
-        "cp": 7,
-        "teletravail": 12,
-        "autre": 4,
-        "rtt": 7,
-        "maladie": 61
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 30,
@@ -486,84 +93,8 @@
       "jobTitle": "Directrice Clientèle",
       "dtContractStart": "2022-04-19T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "recuperation": 2,
-          "cp": 2.5,
-          "teletravail": 5,
-          "deplacement": 1
-        },
-        "2025-08": {
-          "deplacement": 10,
-          "cp": 3,
-          "teletravail": 2,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "deplacement": 2,
-          "recuperation": 5,
-          "teletravail": 1,
-          "cp": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "recuperation": 2,
-          "deplacement": 2.5,
-          "teletravail": 5.5
-        },
-        "2025-11": {
-          "cp": 6.5,
-          "recuperation": 0.5,
-          "teletravail": 2,
-          "deplacement": 4
-        },
-        "2025-12": {
-          "cp": 8,
-          "recuperation": 1.5,
-          "deplacement": 1.5,
-          "rtt": 1,
-          "teletravail": 3.5
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 3,
-          "deplacement": 1,
-          "recuperation": 0.5
-        },
-        "2026-03": {
-          "cp": 6,
-          "teletravail": 4,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "teletravail": 3.5,
-          "deplacement": 2
-        },
-        "2026-05": {
-          "cp": 12,
-          "teletravail": 4
-        },
-        "2026-04": {
-          "cp": 1.5,
-          "rtt": 1.5,
-          "teletravail": 4.5,
-          "recuperation": 2,
-          "deplacement": 4.5
-        },
-        "2026-06": {
-          "recuperation": 4,
-          "deplacement": 11,
-          "teletravail": 4
-        }
-      },
-      "totals": {
-        "recuperation": 18.5,
-        "cp": 42,
-        "teletravail": 42,
-        "deplacement": 40.5,
-        "seminaire": 2,
-        "rtt": 2.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 62,
@@ -574,76 +105,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2023-08-07T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "teletravail": 5,
-          "cp": 1
-        },
-        "2025-08": {
-          "cp": 17,
-          "deplacement": 4
-        },
-        "2025-09": {
-          "rtt": 1,
-          "autre": 1.5,
-          "recuperation": 1,
-          "teletravail": 5.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 3,
-          "teletravail": 4,
-          "recuperation": 3
-        },
-        "2025-11": {
-          "cp": 4,
-          "deplacement": 1,
-          "teletravail": 3
-        },
-        "2025-12": {
-          "rtt": 4,
-          "teletravail": 2,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "cp": 1,
-          "teletravail": 7
-        },
-        "2026-02": {
-          "rtt": 0.5,
-          "recuperation": 2.5,
-          "deplacement": 4,
-          "teletravail": 4
-        },
-        "2026-04": {
-          "rtt": 1,
-          "recuperation": 3,
-          "teletravail": 2,
-          "deplacement": 5
-        },
-        "2026-05": {
-          "rtt": 1,
-          "teletravail": 4,
-          "cp": 1
-        },
-        "2026-03": {
-          "teletravail": 5,
-          "deplacement": 5.5
-        },
-        "2026-06": {
-          "deplacement": 3,
-          "teletravail": 3
-        }
-      },
-      "totals": {
-        "teletravail": 44.5,
-        "cp": 24,
-        "deplacement": 25.5,
-        "rtt": 7.5,
-        "autre": 1.5,
-        "recuperation": 10.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 20,
@@ -654,78 +117,8 @@
       "jobTitle": "Co-fondateur SPK",
       "dtContractStart": "2020-01-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "autre": 8,
-          "deplacement": 4,
-          "teletravail": 1
-        },
-        "2025-08": {
-          "teletravail": 1.5,
-          "deplacement": 5.5,
-          "autre": 3
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 4,
-          "autre": 1,
-          "teletravail": 1
-        },
-        "2025-09": {
-          "teletravail": 3.5,
-          "deplacement": 4,
-          "autre": 3
-        },
-        "2026-03": {
-          "autre": 5,
-          "teletravail": 2,
-          "deplacement": 5,
-          "recuperation": 0.5
-        },
-        "2025-11": {
-          "autre": 0.5,
-          "deplacement": 3.5
-        },
-        "2025-12": {
-          "teletravail": 2,
-          "deplacement": 5,
-          "autre": 1,
-          "recuperation": 3.5
-        },
-        "2026-01": {
-          "autre": 2,
-          "teletravail": 1.5,
-          "deplacement": 8
-        },
-        "2026-02": {
-          "deplacement": 5,
-          "recuperation": 0.5,
-          "teletravail": 0.5,
-          "autre": 3
-        },
-        "2026-04": {
-          "deplacement": 7,
-          "recuperation": 1.5,
-          "teletravail": 1
-        },
-        "2026-06": {
-          "autre": 7,
-          "recuperation": 0.5,
-          "deplacement": 6
-        },
-        "2026-05": {
-          "teletravail": 2,
-          "autre": 1,
-          "deplacement": 3.5
-        }
-      },
-      "totals": {
-        "autre": 34.5,
-        "deplacement": 60.5,
-        "teletravail": 16,
-        "seminaire": 2,
-        "recuperation": 6.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 1,
@@ -736,78 +129,8 @@
       "jobTitle": "Directrice Relation Client",
       "dtContractStart": "2020-03-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 13,
-          "teletravail": 0.5,
-          "recuperation": 0.5
-        },
-        "2025-07": {
-          "recuperation": 1,
-          "teletravail": 5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 0.5,
-          "recuperation": 3,
-          "autre": 1,
-          "cp": 2,
-          "teletravail": 1
-        },
-        "2025-09": {
-          "recuperation": 4,
-          "teletravail": 2,
-          "cp": 0.5
-        },
-        "2025-11": {
-          "teletravail": 2,
-          "deplacement": 4.5
-        },
-        "2025-12": {
-          "deplacement": 2,
-          "teletravail": 2,
-          "rtt": 4
-        },
-        "2026-01": {
-          "recuperation": 1,
-          "teletravail": 1.5,
-          "deplacement": 1,
-          "cp": 3
-        },
-        "2026-02": {
-          "cp": 2,
-          "teletravail": 3
-        },
-        "2026-04": {
-          "cp": 4,
-          "teletravail": 3
-        },
-        "2026-03": {
-          "deplacement": 3,
-          "teletravail": 1.5,
-          "rtt": 0.5,
-          "cp": 1
-        },
-        "2026-05": {
-          "teletravail": 2,
-          "cp": 1
-        },
-        "2026-06": {
-          "cp": 3,
-          "deplacement": 2,
-          "recuperation": 1,
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "cp": 29.5,
-        "teletravail": 24.5,
-        "recuperation": 10.5,
-        "seminaire": 2,
-        "deplacement": 13,
-        "autre": 1,
-        "rtt": 4.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 61,
@@ -818,82 +141,8 @@
       "jobTitle": "Chef de projet senior",
       "dtContractStart": "2023-07-19T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-09": {
-          "cp": 8,
-          "recuperation": 6,
-          "deplacement": 9,
-          "teletravail": 0.5
-        },
-        "2025-10": {
-          "cp": 11,
-          "seminaire": 2,
-          "deplacement": 0.5,
-          "teletravail": 4
-        },
-        "2025-07": {
-          "rtt": 1,
-          "deplacement": 4,
-          "teletravail": 2,
-          "recuperation": 1
-        },
-        "2025-08": {
-          "recuperation": 3,
-          "teletravail": 3.5,
-          "deplacement": 11
-        },
-        "2025-12": {
-          "rtt": 7,
-          "teletravail": 4,
-          "autre": 1,
-          "cp": 1,
-          "deplacement": 1
-        },
-        "2025-11": {
-          "deplacement": 5,
-          "teletravail": 3,
-          "recuperation": 2
-        },
-        "2026-01": {
-          "cp": 4,
-          "teletravail": 2.5
-        },
-        "2026-02": {
-          "cp": 2,
-          "teletravail": 5,
-          "deplacement": 1
-        },
-        "2026-03": {
-          "cp": 1,
-          "teletravail": 4
-        },
-        "2026-05": {
-          "cp": 2,
-          "deplacement": 9,
-          "recuperation": 1,
-          "teletravail": 2
-        },
-        "2026-04": {
-          "deplacement": 2,
-          "teletravail": 2,
-          "cp": 1
-        },
-        "2026-06": {
-          "deplacement": 14,
-          "recuperation": 4,
-          "maladie": 4
-        }
-      },
-      "totals": {
-        "cp": 30,
-        "recuperation": 17,
-        "deplacement": 56.5,
-        "teletravail": 32.5,
-        "seminaire": 2,
-        "rtt": 8,
-        "autre": 1,
-        "maladie": 4
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 44,
@@ -904,69 +153,8 @@
       "jobTitle": "Chef de projet senior",
       "dtContractStart": "2022-11-21T00:00:00",
       "dtContractEnd": "2026-08-23T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "cp": 5,
-          "teletravail": 3,
-          "deplacement": 1.5,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "cp": 12,
-          "recuperation": 3
-        },
-        "2025-08": {
-          "teletravail": 3,
-          "recuperation": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 4
-        },
-        "2025-11": {
-          "teletravail": 5,
-          "recuperation": 1
-        },
-        "2025-12": {
-          "rtt": 4,
-          "teletravail": 4,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "teletravail": 7.5,
-          "formation": 0.5,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "teletravail": 7,
-          "recuperation": 0.5
-        },
-        "2026-05": {
-          "cp": 6,
-          "teletravail": 3
-        },
-        "2026-04": {
-          "cp": 7,
-          "teletravail": 4,
-          "rtt": 1
-        },
-        "2026-03": {
-          "teletravail": 7
-        },
-        "2026-06": {
-          "teletravail": 6,
-          "recuperation": 1
-        }
-      },
-      "totals": {
-        "cp": 30,
-        "teletravail": 53.5,
-        "deplacement": 2.5,
-        "recuperation": 8,
-        "seminaire": 2,
-        "rtt": 5,
-        "formation": 0.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 87,
@@ -977,63 +165,8 @@
       "jobTitle": "Directeur Administratif & Financier",
       "dtContractStart": "2024-07-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 9,
-          "teletravail": 1,
-          "rtt": 0.5
-        },
-        "2025-09": {
-          "cp": 2,
-          "teletravail": 2
-        },
-        "2025-07": {
-          "teletravail": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 2,
-          "autre": 2
-        },
-        "2026-02": {
-          "cp": 3,
-          "deplacement": 1,
-          "rtt": 0.5
-        },
-        "2026-03": {
-          "cp": 13
-        },
-        "2025-11": {
-          "deplacement": 1,
-          "teletravail": 1.5
-        },
-        "2025-12": {
-          "rtt": 4
-        },
-        "2026-01": {
-          "teletravail": 4.5,
-          "deplacement": 2
-        },
-        "2026-04": {
-          "teletravail": 1,
-          "deplacement": 2
-        },
-        "2026-05": {
-          "teletravail": 1,
-          "rtt": 1
-        },
-        "2026-06": {
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "cp": 27,
-        "teletravail": 15,
-        "rtt": 6,
-        "seminaire": 2,
-        "autre": 2,
-        "deplacement": 6
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 2,
@@ -1044,69 +177,8 @@
       "jobTitle": "Responsable planning stratégique",
       "dtContractStart": "2022-12-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 3,
-          "teletravail": 1.5,
-          "deplacement": 3
-        },
-        "2025-09": {
-          "cp": 18,
-          "teletravail": 1
-        },
-        "2025-08": {
-          "deplacement": 1,
-          "rtt": 1,
-          "teletravail": 1.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 0.5,
-          "teletravail": 1
-        },
-        "2025-11": {
-          "rtt": 1.5,
-          "deplacement": 0.5
-        },
-        "2025-12": {
-          "cp": 5,
-          "teletravail": 3,
-          "rtt": 0.5,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 1
-        },
-        "2026-02": {
-          "teletravail": 2.5
-        },
-        "2026-05": {
-          "cp": 2,
-          "rtt": 1,
-          "deplacement": 1
-        },
-        "2026-03": {
-          "teletravail": 3
-        },
-        "2026-04": {
-          "teletravail": 2.5
-        },
-        "2026-06": {
-          "cp": 1,
-          "teletravail": 5.5,
-          "recuperation": 0.5,
-          "deplacement": 2
-        }
-      },
-      "totals": {
-        "cp": 31,
-        "teletravail": 22.5,
-        "deplacement": 9,
-        "rtt": 4,
-        "seminaire": 2,
-        "recuperation": 0.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 98,
@@ -1117,97 +189,8 @@
       "jobTitle": "Directeur Développement Commercial & Communication",
       "dtContractStart": "2024-08-26T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-09": {
-          "cp": 6,
-          "teletravail": 5.5,
-          "rtt": 0.5,
-          "deplacement": 5,
-          "recuperation": 1
-        },
-        "2025-07": {
-          "deplacement": 6.5,
-          "rtt": 0.5,
-          "teletravail": 2
-        },
-        "2025-08": {
-          "autre": 4,
-          "teletravail": 5,
-          "deplacement": 3.5,
-          "cp": 2,
-          "recuperation": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "rtt": 0.5,
-          "autre": 2,
-          "deplacement": 6,
-          "teletravail": 1.5
-        },
-        "2025-11": {
-          "deplacement": 7,
-          "rtt": 1,
-          "teletravail": 6,
-          "autre": 1
-        },
-        "2025-12": {
-          "autre": 2,
-          "deplacement": 5,
-          "teletravail": 5,
-          "rtt": 2,
-          "recuperation": 1,
-          "cp": 1
-        },
-        "2026-03": {
-          "cp": 10,
-          "rtt": 0.5,
-          "autre": 2,
-          "deplacement": 7.5,
-          "teletravail": 4
-        },
-        "2026-01": {
-          "cp": 2,
-          "autre": 1,
-          "deplacement": 8,
-          "teletravail": 4.5
-        },
-        "2026-02": {
-          "deplacement": 6,
-          "rtt": 1,
-          "autre": 6,
-          "teletravail": 1,
-          "cp": 1
-        },
-        "2026-04": {
-          "rtt": 1,
-          "deplacement": 4,
-          "teletravail": 11.5,
-          "autre": 4,
-          "recuperation": 0.5
-        },
-        "2026-05": {
-          "autre": 5,
-          "recuperation": 1,
-          "teletravail": 4,
-          "deplacement": 6,
-          "cp": 2
-        },
-        "2026-06": {
-          "autre": 6,
-          "deplacement": 8,
-          "rtt": 0.5,
-          "teletravail": 5.5
-        }
-      },
-      "totals": {
-        "cp": 24,
-        "teletravail": 55.5,
-        "rtt": 7.5,
-        "deplacement": 72.5,
-        "recuperation": 4.5,
-        "autre": 33,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 111,
@@ -1218,25 +201,8 @@
       "jobTitle": "Assistant chef de projet Social Media",
       "dtContractStart": "2026-03-02T00:00:00",
       "dtContractEnd": "2026-08-30T00:00:00",
-      "monthly": {
-        "2026-03": {
-          "teletravail": 0.5,
-          "deplacement": 0.5
-        },
-        "2026-04": {
-          "deplacement": 3,
-          "teletravail": 1
-        },
-        "2026-05": {
-          "deplacement": 4.5,
-          "recuperation": 2
-        }
-      },
-      "totals": {
-        "teletravail": 1.5,
-        "deplacement": 8,
-        "recuperation": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 43,
@@ -1247,71 +213,8 @@
       "jobTitle": "Directeur de clientèle",
       "dtContractStart": "2022-10-24T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "recuperation": 1,
-          "rtt": 3,
-          "teletravail": 0.5
-        },
-        "2025-08": {
-          "rtt": 1,
-          "cp": 11
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 1.5,
-          "teletravail": 2,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "teletravail": 3,
-          "recuperation": 1
-        },
-        "2025-12": {
-          "cp": 6,
-          "deplacement": 4,
-          "recuperation": 1,
-          "teletravail": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 3,
-          "deplacement": 1
-        },
-        "2025-11": {
-          "deplacement": 3
-        },
-        "2026-02": {
-          "teletravail": 3,
-          "cp": 3,
-          "deplacement": 1
-        },
-        "2026-03": {
-          "teletravail": 4
-        },
-        "2026-04": {
-          "cp": 5,
-          "teletravail": 1.5
-        },
-        "2026-05": {
-          "teletravail": 3,
-          "deplacement": 5,
-          "cp": 1
-        },
-        "2026-06": {
-          "deplacement": 2.5,
-          "teletravail": 1.5,
-          "recuperation": 2.5
-        }
-      },
-      "totals": {
-        "recuperation": 6.5,
-        "rtt": 4,
-        "teletravail": 22.5,
-        "cp": 28,
-        "seminaire": 2,
-        "deplacement": 18
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 69,
@@ -1322,84 +225,8 @@
       "jobTitle": "Créateur de contenu",
       "dtContractStart": "2024-09-07T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "rtt": 3,
-          "cp": 1,
-          "teletravail": 7.5,
-          "recuperation": 0.5,
-          "deplacement": 1
-        },
-        "2025-08": {
-          "recuperation": 2,
-          "teletravail": 8.5,
-          "deplacement": 1.5
-        },
-        "2025-09": {
-          "cp": 12,
-          "autre": 0.5,
-          "teletravail": 4.5,
-          "deplacement": 1.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 13,
-          "recuperation": 2
-        },
-        "2025-11": {
-          "recuperation": 2,
-          "teletravail": 8,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "rtt": 1,
-          "cp": 6,
-          "recuperation": 2,
-          "teletravail": 6,
-          "deplacement": 2.5
-        },
-        "2026-01": {
-          "recuperation": 1,
-          "teletravail": 13,
-          "deplacement": 2
-        },
-        "2026-02": {
-          "recuperation": 2,
-          "teletravail": 12
-        },
-        "2026-03": {
-          "rtt": 1,
-          "cp": 4,
-          "teletravail": 9.5,
-          "deplacement": 2.5
-        },
-        "2026-04": {
-          "teletravail": 12,
-          "deplacement": 3,
-          "autre": 1
-        },
-        "2026-05": {
-          "rtt": 1,
-          "recuperation": 1,
-          "cp": 4,
-          "deplacement": 6.5,
-          "teletravail": 4.5
-        },
-        "2026-06": {
-          "recuperation": 2,
-          "teletravail": 11,
-          "deplacement": 6
-        }
-      },
-      "totals": {
-        "rtt": 6,
-        "cp": 27,
-        "teletravail": 109.5,
-        "recuperation": 14.5,
-        "deplacement": 27.5,
-        "autre": 1.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 113,
@@ -1410,31 +237,8 @@
       "jobTitle": "Responsable évènementiel & logistique",
       "dtContractStart": "2026-03-09T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2026-03": {
-          "teletravail": 1.5
-        },
-        "2026-04": {
-          "teletravail": 6.5,
-          "deplacement": 3
-        },
-        "2026-05": {
-          "recuperation": 3,
-          "teletravail": 5,
-          "deplacement": 1
-        },
-        "2026-06": {
-          "teletravail": 5.5,
-          "autre": 1,
-          "deplacement": 2.5
-        }
-      },
-      "totals": {
-        "teletravail": 18.5,
-        "deplacement": 6.5,
-        "recuperation": 3,
-        "autre": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 110,
@@ -1445,16 +249,8 @@
       "jobTitle": "Assistant Chef de Projet",
       "dtContractStart": "2026-03-09T00:00:00",
       "dtContractEnd": "2026-09-09T00:00:00",
-      "monthly": {
-        "2026-06": {
-          "deplacement": 11,
-          "recuperation": 1
-        }
-      },
-      "totals": {
-        "deplacement": 11,
-        "recuperation": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 22,
@@ -1465,55 +261,8 @@
       "jobTitle": "Assistant Sport Marketing",
       "dtContractStart": "2022-01-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "deplacement": 2,
-          "teletravail": 1
-        },
-        "2025-08": {
-          "recuperation": 2,
-          "cp": 1
-        },
-        "2025-09": {
-          "teletravail": 2,
-          "deplacement": 1
-        },
-        "2025-10": {
-          "deplacement": 3
-        },
-        "2025-11": {
-          "deplacement": 3
-        },
-        "2025-12": {
-          "recuperation": 2,
-          "rtt": 4
-        },
-        "2026-04": {
-          "cp": 2,
-          "deplacement": 3
-        },
-        "2026-05": {
-          "cp": 11
-        },
-        "2026-02": {
-          "cp": 6,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "deplacement": 2
-        },
-        "2026-06": {
-          "deplacement": 6,
-          "recuperation": 1
-        }
-      },
-      "totals": {
-        "deplacement": 21,
-        "teletravail": 3,
-        "recuperation": 5,
-        "cp": 20,
-        "rtt": 4
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 76,
@@ -1524,70 +273,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2023-10-04T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 12,
-          "rtt": 1.5,
-          "teletravail": 4.5,
-          "deplacement": 1
-        },
-        "2025-10": {
-          "cp": 12,
-          "seminaire": 2,
-          "teletravail": 7
-        },
-        "2025-09": {
-          "rtt": 1,
-          "cp": 1,
-          "teletravail": 6,
-          "deplacement": 2,
-          "recuperation": 2
-        },
-        "2025-08": {
-          "teletravail": 11
-        },
-        "2025-11": {
-          "teletravail": 8
-        },
-        "2025-12": {
-          "rtt": 1,
-          "teletravail": 10,
-          "deplacement": 4
-        },
-        "2026-01": {
-          "teletravail": 11.5,
-          "deplacement": 1.5,
-          "recuperation": 0.5
-        },
-        "2026-02": {
-          "teletravail": 11,
-          "deplacement": 2
-        },
-        "2026-04": {
-          "cp": 5,
-          "teletravail": 11
-        },
-        "2026-03": {
-          "teletravail": 13
-        },
-        "2026-05": {
-          "rtt": 1,
-          "teletravail": 11
-        },
-        "2026-06": {
-          "teletravail": 8,
-          "deplacement": 8,
-          "recuperation": 1.5
-        }
-      },
-      "totals": {
-        "cp": 30,
-        "rtt": 4.5,
-        "teletravail": 112,
-        "deplacement": 18.5,
-        "seminaire": 2,
-        "recuperation": 4
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 100,
@@ -1598,80 +285,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2024-10-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 10,
-          "rtt": 1,
-          "deplacement": 1,
-          "teletravail": 2
-        },
-        "2025-09": {
-          "cp": 12,
-          "rtt": 1,
-          "teletravail": 5
-        },
-        "2025-07": {
-          "deplacement": 5,
-          "teletravail": 6,
-          "autre": 0.5,
-          "recuperation": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 5.5,
-          "deplacement": 2.5,
-          "recuperation": 0.5,
-          "rtt": 0.5
-        },
-        "2025-11": {
-          "teletravail": 8,
-          "deplacement": 2
-        },
-        "2026-04": {
-          "cp": 5,
-          "rtt": 2,
-          "deplacement": 2,
-          "recuperation": 1,
-          "teletravail": 5
-        },
-        "2026-05": {
-          "cp": 6,
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "teletravail": 10
-        },
-        "2026-01": {
-          "rtt": 0.5,
-          "teletravail": 7.5,
-          "recuperation": 0.5,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "cp": 3,
-          "teletravail": 7,
-          "deplacement": 2
-        },
-        "2026-03": {
-          "teletravail": 9.5,
-          "deplacement": 1
-        },
-        "2026-06": {
-          "teletravail": 7,
-          "deplacement": 5,
-          "recuperation": 2
-        }
-      },
-      "totals": {
-        "cp": 36,
-        "rtt": 5,
-        "deplacement": 22.5,
-        "teletravail": 78.5,
-        "autre": 0.5,
-        "recuperation": 4.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 31,
@@ -1682,79 +297,8 @@
       "jobTitle": "Directrice clientèle",
       "dtContractStart": "2022-05-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 12,
-          "teletravail": 4
-        },
-        "2025-07": {
-          "rtt": 1,
-          "teletravail": 6,
-          "cp": 3,
-          "autre": 0.5
-        },
-        "2025-09": {
-          "deplacement": 8,
-          "recuperation": 1,
-          "teletravail": 5
-        },
-        "2025-10": {
-          "deplacement": 5,
-          "seminaire": 2,
-          "recuperation": 1,
-          "teletravail": 4
-        },
-        "2025-11": {
-          "rtt": 1,
-          "cp": 0.5,
-          "deplacement": 2.5,
-          "recuperation": 0.5,
-          "teletravail": 6
-        },
-        "2025-12": {
-          "rtt": 2.5,
-          "recuperation": 2,
-          "teletravail": 5
-        },
-        "2026-02": {
-          "cp": 3,
-          "deplacement": 1,
-          "teletravail": 7
-        },
-        "2026-01": {
-          "teletravail": 8
-        },
-        "2026-05": {
-          "rtt": 1,
-          "deplacement": 5,
-          "recuperation": 1,
-          "teletravail": 4
-        },
-        "2026-06": {
-          "cp": 18,
-          "teletravail": 3
-        },
-        "2026-03": {
-          "teletravail": 5.5,
-          "deplacement": 1.5,
-          "cp": 5.5,
-          "rtt": 0.5
-        },
-        "2026-04": {
-          "teletravail": 5,
-          "deplacement": 4.5,
-          "recuperation": 0.5
-        }
-      },
-      "totals": {
-        "cp": 42,
-        "teletravail": 62.5,
-        "rtt": 6,
-        "autre": 0.5,
-        "deplacement": 27.5,
-        "recuperation": 6,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 82,
@@ -1765,76 +309,8 @@
       "jobTitle": "Directeur de Clientèle",
       "dtContractStart": "2024-03-18T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 16,
-          "teletravail": 1
-        },
-        "2025-07": {
-          "autre": 1,
-          "teletravail": 7,
-          "cp": 2,
-          "deplacement": 1
-        },
-        "2025-09": {
-          "teletravail": 6
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 4,
-          "recuperation": 1,
-          "autre": 1
-        },
-        "2025-11": {
-          "cp": 1,
-          "teletravail": 7.5,
-          "rtt": 0.5
-        },
-        "2025-12": {
-          "rtt": 3,
-          "teletravail": 4.5,
-          "deplacement": 1,
-          "cp": 2
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 4,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "recuperation": 2,
-          "teletravail": 4
-        },
-        "2026-03": {
-          "cp": 2,
-          "rtt": 1,
-          "teletravail": 4
-        },
-        "2026-05": {
-          "rtt": 1,
-          "cp": 4,
-          "recuperation": 1,
-          "teletravail": 1
-        },
-        "2026-04": {
-          "rtt": 0.5,
-          "teletravail": 3.5,
-          "deplacement": 2.5
-        },
-        "2026-06": {
-          "deplacement": 1,
-          "teletravail": 4
-        }
-      },
-      "totals": {
-        "cp": 29,
-        "teletravail": 50.5,
-        "autre": 2,
-        "deplacement": 6.5,
-        "seminaire": 2,
-        "recuperation": 4,
-        "rtt": 6
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 4,
@@ -1845,70 +321,8 @@
       "jobTitle": "Co-fondateur SPK",
       "dtContractStart": "2024-01-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 12,
-          "teletravail": 2
-        },
-        "2025-07": {
-          "deplacement": 2,
-          "recuperation": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 4.5,
-          "rtt": 1
-        },
-        "2025-09": {
-          "deplacement": 3.5,
-          "recuperation": 1,
-          "rtt": 1
-        },
-        "2025-12": {
-          "rtt": 2,
-          "cp": 3,
-          "autre": 0.5,
-          "deplacement": 3.5
-        },
-        "2026-01": {
-          "cp": 2,
-          "deplacement": 2
-        },
-        "2025-11": {
-          "deplacement": 1.5
-        },
-        "2026-02": {
-          "autre": 2,
-          "deplacement": 1,
-          "cp": 1
-        },
-        "2026-03": {
-          "deplacement": 2
-        },
-        "2026-04": {
-          "cp": 3,
-          "deplacement": 3.5,
-          "rtt": 1,
-          "autre": 1
-        },
-        "2026-05": {
-          "deplacement": 2,
-          "recuperation": 1
-        },
-        "2026-06": {
-          "deplacement": 8,
-          "recuperation": 1
-        }
-      },
-      "totals": {
-        "cp": 21,
-        "teletravail": 2,
-        "deplacement": 33.5,
-        "recuperation": 3.5,
-        "seminaire": 2,
-        "rtt": 5,
-        "autre": 3.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 26,
@@ -1919,72 +333,8 @@
       "jobTitle": "Créateur de contenu",
       "dtContractStart": "2023-05-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 11,
-          "rtt": 4,
-          "teletravail": 2
-        },
-        "2025-08": {
-          "teletravail": 8,
-          "autre": 0.5
-        },
-        "2025-09": {
-          "autre": 0.5,
-          "teletravail": 7
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 8,
-          "deplacement": 2,
-          "cp": 2
-        },
-        "2025-11": {
-          "teletravail": 8
-        },
-        "2025-12": {
-          "cp": 2,
-          "rtt": 1,
-          "teletravail": 6.5,
-          "autre": 2
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 8,
-          "recuperation": 1
-        },
-        "2026-02": {
-          "teletravail": 8,
-          "rtt": 1
-        },
-        "2026-03": {
-          "cp": 3,
-          "teletravail": 8.5
-        },
-        "2026-04": {
-          "cp": 7.5,
-          "teletravail": 7.5
-        },
-        "2026-06": {
-          "cp": 7,
-          "rtt": 1,
-          "teletravail": 6
-        },
-        "2026-05": {
-          "cp": 2,
-          "rtt": 1,
-          "teletravail": 5
-        }
-      },
-      "totals": {
-        "cp": 36.5,
-        "rtt": 8,
-        "teletravail": 82.5,
-        "autre": 3,
-        "seminaire": 2,
-        "deplacement": 2,
-        "recuperation": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 86,
@@ -1995,81 +345,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2024-06-19T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 6,
-          "teletravail": 2,
-          "deplacement": 1
-        },
-        "2025-07": {
-          "cp": 1,
-          "recuperation": 3,
-          "deplacement": 4,
-          "teletravail": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "cp": 8,
-          "rtt": 3.5,
-          "recuperation": 0.5,
-          "deplacement": 0.5,
-          "teletravail": 2.5
-        },
-        "2025-09": {
-          "recuperation": 1,
-          "teletravail": 4
-        },
-        "2025-11": {
-          "deplacement": 4,
-          "teletravail": 1
-        },
-        "2025-12": {
-          "deplacement": 2,
-          "teletravail": 7.5,
-          "rtt": 1,
-          "cp": 4.5,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 7.5,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "teletravail": 7,
-          "deplacement": 1,
-          "rtt": 1
-        },
-        "2026-03": {
-          "teletravail": 6,
-          "recuperation": 2
-        },
-        "2026-04": {
-          "rtt": 1,
-          "teletravail": 4.5,
-          "recuperation": 0.5,
-          "deplacement": 3
-        },
-        "2026-05": {
-          "recuperation": 1,
-          "teletravail": 5,
-          "deplacement": 2
-        },
-        "2026-06": {
-          "teletravail": 6,
-          "deplacement": 5,
-          "recuperation": 2,
-          "cp": 3
-        }
-      },
-      "totals": {
-        "cp": 24.5,
-        "teletravail": 54,
-        "deplacement": 23.5,
-        "recuperation": 11,
-        "seminaire": 2,
-        "rtt": 6.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 15,
@@ -2080,65 +357,8 @@
       "jobTitle": "Responsable contenus",
       "dtContractStart": "2019-01-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 17,
-          "teletravail": 1
-        },
-        "2025-08": {
-          "autre": 2.5,
-          "teletravail": 1
-        },
-        "2025-09": {
-          "teletravail": 3,
-          "rtt": 1,
-          "autre": 2
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 2,
-          "autre": 3
-        },
-        "2025-12": {
-          "rtt": 2,
-          "teletravail": 6
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 3
-        },
-        "2026-01": {
-          "cp": 3,
-          "teletravail": 5
-        },
-        "2026-03": {
-          "recuperation": 1,
-          "teletravail": 3,
-          "cp": 2
-        },
-        "2026-04": {
-          "cp": 6,
-          "teletravail": 2
-        },
-        "2026-06": {
-          "cp": 8,
-          "teletravail": 3
-        },
-        "2026-02": {
-          "teletravail": 4
-        },
-        "2026-05": {
-          "cp": 2
-        }
-      },
-      "totals": {
-        "cp": 38,
-        "teletravail": 33,
-        "autre": 7.5,
-        "rtt": 4,
-        "seminaire": 2,
-        "recuperation": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 120,
@@ -2161,19 +381,8 @@
       "jobTitle": "Assistante Communication & Business",
       "dtContractStart": "2026-04-13T00:00:00",
       "dtContractEnd": "2026-08-28T00:00:00",
-      "monthly": {
-        "2026-04": {
-          "teletravail": 1
-        },
-        "2026-06": {
-          "teletravail": 0.5,
-          "recuperation": 1
-        }
-      },
-      "totals": {
-        "teletravail": 1.5,
-        "recuperation": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 48,
@@ -2184,79 +393,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2023-03-06T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 16,
-          "teletravail": 3
-        },
-        "2025-07": {
-          "teletravail": 10
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 3.5,
-          "recuperation": 2,
-          "cp": 2,
-          "teletravail": 7
-        },
-        "2026-02": {
-          "cp": 2.5,
-          "teletravail": 8.5,
-          "deplacement": 1
-        },
-        "2025-09": {
-          "teletravail": 7,
-          "deplacement": 6,
-          "recuperation": 2
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 6,
-          "deplacement": 5
-        },
-        "2025-12": {
-          "rtt": 3,
-          "cp": 1,
-          "deplacement": 4,
-          "recuperation": 2.5,
-          "teletravail": 6.5
-        },
-        "2026-01": {
-          "cp": 1.5,
-          "recuperation": 0.5,
-          "teletravail": 9,
-          "deplacement": 1
-        },
-        "2026-03": {
-          "recuperation": 1,
-          "teletravail": 11,
-          "deplacement": 2,
-          "cp": 1
-        },
-        "2026-04": {
-          "cp": 3,
-          "teletravail": 10,
-          "deplacement": 5
-        },
-        "2026-05": {
-          "deplacement": 4,
-          "teletravail": 5,
-          "cp": 2
-        },
-        "2026-06": {
-          "deplacement": 5,
-          "recuperation": 2,
-          "teletravail": 10
-        }
-      },
-      "totals": {
-        "cp": 29,
-        "teletravail": 93,
-        "seminaire": 2,
-        "deplacement": 36.5,
-        "recuperation": 10,
-        "rtt": 4
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 91,
@@ -2267,73 +405,8 @@
       "jobTitle": "Créateur de contenu",
       "dtContractStart": "2026-04-28T00:00:00",
       "dtContractEnd": "2026-10-26T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "cp": 7,
-          "teletravail": 3.5,
-          "deplacement": 1.5
-        },
-        "2025-08": {
-          "cp": 1.5,
-          "recuperation": 1,
-          "deplacement": 2.5,
-          "teletravail": 1
-        },
-        "2025-09": {
-          "deplacement": 2.5,
-          "teletravail": 1.5
-        },
-        "2025-10": {
-          "teletravail": 2
-        },
-        "2025-11": {
-          "teletravail": 5,
-          "recuperation": 1,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "deplacement": 1.5,
-          "teletravail": 6,
-          "rtt": 1,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "teletravail": 6,
-          "recuperation": 2,
-          "deplacement": 0.5
-        },
-        "2026-02": {
-          "teletravail": 7
-        },
-        "2026-03": {
-          "cp": 3,
-          "teletravail": 7
-        },
-        "2026-04": {
-          "recuperation": 3,
-          "deplacement": 5,
-          "autre": 1,
-          "teletravail": 4
-        },
-        "2026-05": {
-          "cp": 2,
-          "teletravail": 5,
-          "deplacement": 2
-        },
-        "2026-06": {
-          "recuperation": 1,
-          "teletravail": 4,
-          "deplacement": 4
-        }
-      },
-      "totals": {
-        "cp": 13.5,
-        "teletravail": 52,
-        "deplacement": 20.5,
-        "recuperation": 9,
-        "rtt": 1,
-        "autre": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 108,
@@ -2344,79 +417,8 @@
       "jobTitle": "Créatrice de contenu (en alternance)",
       "dtContractStart": "2025-07-07T00:00:00",
       "dtContractEnd": "2026-09-04T00:00:00",
-      "monthly": {
-        "2025-09": {
-          "ecole": 10,
-          "recuperation": 3,
-          "autre": 0.5
-        },
-        "2025-10": {
-          "ecole": 5,
-          "seminaire": 2,
-          "recuperation": 1,
-          "teletravail": 2.5
-        },
-        "2025-11": {
-          "ecole": 8,
-          "teletravail": 2.5,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "ecole": 5,
-          "teletravail": 2,
-          "recuperation": 4,
-          "cp": 4
-        },
-        "2026-01": {
-          "ecole": 10,
-          "recuperation": 1.5,
-          "teletravail": 2,
-          "deplacement": 1.5
-        },
-        "2026-02": {
-          "ecole": 5,
-          "cp": 1,
-          "teletravail": 4
-        },
-        "2026-03": {
-          "ecole": 10,
-          "deplacement": 3,
-          "teletravail": 1
-        },
-        "2026-04": {
-          "ecole": 4,
-          "cp": 4,
-          "teletravail": 2,
-          "deplacement": 7.5,
-          "recuperation": 3
-        },
-        "2026-05": {
-          "ecole": 8,
-          "cp": 2,
-          "teletravail": 2
-        },
-        "2026-06": {
-          "ecole": 5,
-          "teletravail": 5,
-          "cp": 2
-        },
-        "2025-07": {
-          "teletravail": 1
-        },
-        "2025-08": {
-          "teletravail": 1,
-          "deplacement": 5
-        }
-      },
-      "totals": {
-        "ecole": 70,
-        "recuperation": 12.5,
-        "autre": 0.5,
-        "seminaire": 2,
-        "teletravail": 25,
-        "deplacement": 18,
-        "cp": 13
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 64,
@@ -2427,48 +429,8 @@
       "jobTitle": "Comptable projets",
       "dtContractStart": "2023-09-04T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-09": {
-          "cp": 12,
-          "rtt": 3
-        },
-        "2025-07": {
-          "teletravail": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 1
-        },
-        "2025-12": {
-          "teletravail": 1
-        },
-        "2026-04": {
-          "cp": 1,
-          "teletravail": 2
-        },
-        "2026-05": {
-          "cp": 7
-        },
-        "2026-01": {
-          "teletravail": 1.5
-        },
-        "2026-02": {
-          "teletravail": 1
-        },
-        "2026-03": {
-          "rtt": 0.5
-        },
-        "2026-06": {
-          "rtt": 1,
-          "teletravail": 2
-        }
-      },
-      "totals": {
-        "cp": 20,
-        "rtt": 4.5,
-        "teletravail": 9.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 47,
@@ -2479,66 +441,8 @@
       "jobTitle": "Graphiste",
       "dtContractStart": "2023-01-16T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 10,
-          "teletravail": 8
-        },
-        "2025-08": {
-          "cp": 5,
-          "teletravail": 10
-        },
-        "2025-09": {
-          "rtt": 1,
-          "teletravail": 11.5,
-          "deplacement": 1.5,
-          "autre": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 13
-        },
-        "2025-11": {
-          "teletravail": 12
-        },
-        "2025-12": {
-          "rtt": 1,
-          "cp": 3,
-          "teletravail": 11,
-          "autre": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 11
-        },
-        "2026-04": {
-          "cp": 9,
-          "teletravail": 10
-        },
-        "2026-05": {
-          "rtt": 1,
-          "teletravail": 10,
-          "cp": 1
-        },
-        "2026-02": {
-          "teletravail": 12
-        },
-        "2026-03": {
-          "teletravail": 13
-        },
-        "2026-06": {
-          "rtt": 2.5,
-          "teletravail": 12
-        }
-      },
-      "totals": {
-        "cp": 30,
-        "teletravail": 133.5,
-        "rtt": 5.5,
-        "deplacement": 1.5,
-        "autre": 1.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 32,
@@ -2549,85 +453,8 @@
       "jobTitle": "Créateur de contenu",
       "dtContractStart": "2022-05-09T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 6,
-          "teletravail": 7,
-          "recuperation": 3
-        },
-        "2025-09": {
-          "cp": 6,
-          "autre": 0.5,
-          "teletravail": 8,
-          "deplacement": 3,
-          "recuperation": 1
-        },
-        "2025-07": {
-          "deplacement": 10,
-          "teletravail": 6,
-          "recuperation": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 7,
-          "deplacement": 5,
-          "recuperation": 2,
-          "rtt": 1
-        },
-        "2026-01": {
-          "cp": 4,
-          "recuperation": 2,
-          "teletravail": 5.5,
-          "deplacement": 5.5
-        },
-        "2025-11": {
-          "teletravail": 11,
-          "recuperation": 1,
-          "rtt": 1
-        },
-        "2025-12": {
-          "recuperation": 2,
-          "deplacement": 3,
-          "teletravail": 7,
-          "rtt": 1
-        },
-        "2026-02": {
-          "deplacement": 4,
-          "recuperation": 1,
-          "teletravail": 12
-        },
-        "2026-03": {
-          "recuperation": 1,
-          "teletravail": 11,
-          "deplacement": 3
-        },
-        "2026-04": {
-          "recuperation": 2,
-          "teletravail": 8,
-          "deplacement": 7,
-          "cp": 2
-        },
-        "2026-05": {
-          "recuperation": 3,
-          "deplacement": 9,
-          "teletravail": 6,
-          "cp": 2
-        },
-        "2026-06": {
-          "deplacement": 9,
-          "recuperation": 7,
-          "teletravail": 3
-        }
-      },
-      "totals": {
-        "cp": 20,
-        "teletravail": 91.5,
-        "recuperation": 26,
-        "autre": 0.5,
-        "deplacement": 58.5,
-        "seminaire": 2,
-        "rtt": 3
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 78,
@@ -2638,85 +465,8 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2023-12-11T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "cp": 15,
-          "recuperation": 1,
-          "deplacement": 1,
-          "teletravail": 2
-        },
-        "2025-08": {
-          "cp": 2,
-          "teletravail": 3.5,
-          "deplacement": 4,
-          "rtt": 0.5,
-          "recuperation": 0.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "autre": 1,
-          "recuperation": 4,
-          "deplacement": 0.5,
-          "teletravail": 5
-        },
-        "2025-09": {
-          "teletravail": 8,
-          "recuperation": 2.5,
-          "deplacement": 2
-        },
-        "2025-11": {
-          "teletravail": 6,
-          "rtt": 1
-        },
-        "2025-12": {
-          "recuperation": 3,
-          "rtt": 1,
-          "cp": 3,
-          "deplacement": 1,
-          "teletravail": 3.5
-        },
-        "2026-01": {
-          "cp": 4,
-          "teletravail": 5.5,
-          "rtt": 0.5
-        },
-        "2026-02": {
-          "teletravail": 7,
-          "cp": 1,
-          "deplacement": 0.5
-        },
-        "2026-03": {
-          "deplacement": 2,
-          "recuperation": 2,
-          "teletravail": 8,
-          "autre": 1
-        },
-        "2026-04": {
-          "recuperation": 2,
-          "teletravail": 8,
-          "rtt": 1
-        },
-        "2026-05": {
-          "recuperation": 5,
-          "teletravail": 4
-        },
-        "2026-06": {
-          "recuperation": 1,
-          "teletravail": 7,
-          "cp": 0.5,
-          "maladie": 1
-        }
-      },
-      "totals": {
-        "cp": 25.5,
-        "recuperation": 21,
-        "deplacement": 11,
-        "teletravail": 67.5,
-        "rtt": 4,
-        "seminaire": 2,
-        "autre": 2,
-        "maladie": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 7,
@@ -2727,74 +477,8 @@
       "jobTitle": "Directeur des opérations",
       "dtContractStart": "2021-01-04T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 16.5,
-          "teletravail": 1,
-          "recuperation": 0.5
-        },
-        "2025-09": {
-          "rtt": 3,
-          "teletravail": 3
-        },
-        "2025-10": {
-          "rtt": 1,
-          "seminaire": 2,
-          "cp": 0.5,
-          "teletravail": 5.5
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 3.5,
-          "autre": 4.5
-        },
-        "2025-07": {
-          "teletravail": 4.5,
-          "autre": 1
-        },
-        "2026-04": {
-          "cp": 8,
-          "teletravail": 3
-        },
-        "2025-12": {
-          "rtt": 1,
-          "teletravail": 5,
-          "cp": 3
-        },
-        "2026-01": {
-          "rtt": 0.5,
-          "cp": 1,
-          "teletravail": 5.5
-        },
-        "2026-03": {
-          "rtt": 1,
-          "teletravail": 6,
-          "deplacement": 1.5
-        },
-        "2026-02": {
-          "teletravail": 7
-        },
-        "2026-05": {
-          "cp": 1,
-          "deplacement": 3,
-          "recuperation": 2,
-          "teletravail": 6
-        },
-        "2026-06": {
-          "rtt": 0.5,
-          "teletravail": 6.5,
-          "deplacement": 2
-        }
-      },
-      "totals": {
-        "cp": 30,
-        "teletravail": 56.5,
-        "recuperation": 2.5,
-        "rtt": 8,
-        "seminaire": 2,
-        "autre": 5.5,
-        "deplacement": 6.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 116,
@@ -2817,72 +501,8 @@
       "jobTitle": "Assistante Chef de projet",
       "dtContractStart": "2024-09-02T00:00:00",
       "dtContractEnd": "2026-08-26T00:00:00",
-      "monthly": {
-        "2025-09": {
-          "ecole": 10,
-          "recuperation": 2,
-          "teletravail": 1
-        },
-        "2025-10": {
-          "ecole": 10,
-          "seminaire": 2,
-          "recuperation": 1,
-          "autre": 1
-        },
-        "2025-11": {
-          "ecole": 5,
-          "teletravail": 2
-        },
-        "2025-12": {
-          "ecole": 5,
-          "teletravail": 2,
-          "cp": 5,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "ecole": 10,
-          "cp": 2,
-          "teletravail": 2.5,
-          "recuperation": 1
-        },
-        "2026-02": {
-          "ecole": 5,
-          "teletravail": 2
-        },
-        "2026-03": {
-          "ecole": 7,
-          "teletravail": 3
-        },
-        "2026-04": {
-          "ecole": 13,
-          "teletravail": 1
-        },
-        "2026-05": {
-          "ecole": 7,
-          "cp": 2,
-          "teletravail": 2
-        },
-        "2025-08": {
-          "cp": 11.5
-        },
-        "2025-07": {
-          "recuperation": 0.5,
-          "teletravail": 2.5
-        },
-        "2026-06": {
-          "cp": 5,
-          "teletravail": 4.5
-        }
-      },
-      "totals": {
-        "ecole": 72,
-        "recuperation": 4.5,
-        "teletravail": 22.5,
-        "seminaire": 2,
-        "autre": 1,
-        "cp": 25.5,
-        "deplacement": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 8,
@@ -2893,71 +513,8 @@
       "jobTitle": "Coordinateur Logistique",
       "dtContractStart": "2022-03-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 13,
-          "autre": 1,
-          "deplacement": 6.5
-        },
-        "2025-07": {
-          "teletravail": 6,
-          "deplacement": 0.5,
-          "autre": 6.5,
-          "recuperation": 1.5
-        },
-        "2025-09": {
-          "rtt": 1,
-          "autre": 10.5,
-          "recuperation": 1.5,
-          "teletravail": 2,
-          "maladie": 8
-        },
-        "2025-10": {
-          "maladie": 31
-        },
-        "2025-11": {
-          "maladie": 30
-        },
-        "2025-12": {
-          "maladie": 26,
-          "rtt": 3
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 6.5
-        },
-        "2026-02": {
-          "teletravail": 10,
-          "rtt": 1
-        },
-        "2026-03": {
-          "cp": 2,
-          "teletravail": 7.5
-        },
-        "2026-04": {
-          "cp": 9.5,
-          "teletravail": 5,
-          "deplacement": 1
-        },
-        "2026-05": {
-          "cp": 3,
-          "teletravail": 4.5
-        },
-        "2026-06": {
-          "rtt": 2,
-          "teletravail": 7.5,
-          "deplacement": 1
-        }
-      },
-      "totals": {
-        "cp": 29.5,
-        "autre": 18,
-        "deplacement": 9,
-        "teletravail": 49,
-        "recuperation": 3,
-        "rtt": 7,
-        "maladie": 95
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 80,
@@ -2968,60 +525,8 @@
       "jobTitle": "Chef de projet senior",
       "dtContractStart": "2024-01-02T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "teletravail": 3,
-          "autre": 1
-        },
-        "2025-08": {
-          "teletravail": 4,
-          "autre": 13
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "deplacement": 0.5,
-          "teletravail": 4
-        },
-        "2025-09": {
-          "teletravail": 7
-        },
-        "2025-11": {
-          "deplacement": 6,
-          "teletravail": 3
-        },
-        "2025-12": {
-          "teletravail": 6,
-          "autre": 2
-        },
-        "2026-01": {
-          "recuperation": 1,
-          "autre": 3,
-          "teletravail": 5
-        },
-        "2026-03": {
-          "autre": 2,
-          "recuperation": 1
-        },
-        "2026-02": {
-          "teletravail": 4
-        },
-        "2026-04": {
-          "teletravail": 3,
-          "recuperation": 1
-        },
-        "2026-06": {
-          "autre": 1,
-          "recuperation": 2.5,
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "teletravail": 40,
-        "autre": 22,
-        "seminaire": 2,
-        "deplacement": 6.5,
-        "recuperation": 5.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 18,
@@ -3032,84 +537,8 @@
       "jobTitle": "Responsable Editorial",
       "dtContractStart": "2022-09-24T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "rtt": 1,
-          "cp": 10,
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2025-07": {
-          "cp": 4,
-          "teletravail": 8,
-          "deplacement": 3,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "autre": 0.5,
-          "teletravail": 11.5,
-          "deplacement": 2.5,
-          "recuperation": 1
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 12,
-          "autre": 1,
-          "deplacement": 3
-        },
-        "2025-11": {
-          "teletravail": 10,
-          "deplacement": 3,
-          "recuperation": 2
-        },
-        "2026-03": {
-          "teletravail": 9.5,
-          "cp": 3.5,
-          "rtt": 1,
-          "deplacement": 2,
-          "autre": 1
-        },
-        "2025-12": {
-          "teletravail": 7.5,
-          "cp": 4,
-          "rtt": 2,
-          "deplacement": 2.5,
-          "recuperation": 0.5
-        },
-        "2026-01": {
-          "teletravail": 11.5,
-          "cp": 3,
-          "deplacement": 1.5,
-          "recuperation": 1
-        },
-        "2026-02": {
-          "teletravail": 12,
-          "deplacement": 1
-        },
-        "2026-05": {
-          "cp": 8,
-          "rtt": 1,
-          "teletravail": 5.5,
-          "deplacement": 1.5,
-          "recuperation": 1
-        },
-        "2026-04": {
-          "teletravail": 14
-        },
-        "2026-06": {
-          "teletravail": 11,
-          "deplacement": 7
-        }
-      },
-      "totals": {
-        "rtt": 5,
-        "cp": 32.5,
-        "teletravail": 118.5,
-        "deplacement": 28,
-        "recuperation": 6.5,
-        "autre": 2.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 102,
@@ -3120,78 +549,8 @@
       "jobTitle": "Coordinateur événementiel",
       "dtContractStart": "2025-01-06T00:00:00",
       "dtContractEnd": "2026-09-30T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "cp": 5,
-          "deplacement": 0.5,
-          "teletravail": 3.5,
-          "recuperation": 1.5
-        },
-        "2025-08": {
-          "teletravail": 1,
-          "deplacement": 4,
-          "autre": 15
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "autre": 9,
-          "teletravail": 5.5
-        },
-        "2025-09": {
-          "recuperation": 6,
-          "autre": 9.5,
-          "teletravail": 3,
-          "deplacement": 6
-        },
-        "2025-11": {
-          "cp": 1,
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "rtt": 5,
-          "teletravail": 6,
-          "cp": 2,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "cp": 1,
-          "teletravail": 8
-        },
-        "2026-02": {
-          "teletravail": 6.5,
-          "deplacement": 2.5
-        },
-        "2026-03": {
-          "teletravail": 6,
-          "rtt": 1,
-          "cp": 1
-        },
-        "2026-05": {
-          "cp": 15,
-          "recuperation": 1,
-          "teletravail": 2
-        },
-        "2026-06": {
-          "cp": 4,
-          "deplacement": 9,
-          "teletravail": 6
-        },
-        "2026-04": {
-          "teletravail": 6,
-          "deplacement": 2,
-          "autre": 2
-        }
-      },
-      "totals": {
-        "cp": 29,
-        "deplacement": 26,
-        "teletravail": 59.5,
-        "recuperation": 8.5,
-        "autre": 35.5,
-        "seminaire": 2,
-        "rtt": 6
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 85,
@@ -3202,77 +561,8 @@
       "jobTitle": "Creative Maker",
       "dtContractStart": "2026-03-27T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 11,
-          "teletravail": 1,
-          "deplacement": 5
-        },
-        "2025-07": {
-          "teletravail": 1,
-          "deplacement": 4,
-          "rtt": 0.5
-        },
-        "2025-09": {
-          "recuperation": 4,
-          "deplacement": 5.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "recuperation": 3,
-          "deplacement": 4,
-          "teletravail": 1
-        },
-        "2025-11": {
-          "recuperation": 2,
-          "teletravail": 1.5
-        },
-        "2025-12": {
-          "recuperation": 3,
-          "rtt": 4,
-          "deplacement": 7,
-          "teletravail": 0.5
-        },
-        "2026-01": {
-          "cp": 2,
-          "recuperation": 2,
-          "teletravail": 2,
-          "deplacement": 4
-        },
-        "2026-02": {
-          "deplacement": 3,
-          "recuperation": 4
-        },
-        "2026-03": {
-          "deplacement": 6.5,
-          "recuperation": 2.5,
-          "teletravail": 1.5
-        },
-        "2026-05": {
-          "cp": 5,
-          "rtt": 1,
-          "recuperation": 1,
-          "teletravail": 0.5,
-          "deplacement": 1
-        },
-        "2026-04": {
-          "deplacement": 16,
-          "teletravail": 0.5,
-          "recuperation": 6.5
-        },
-        "2026-06": {
-          "teletravail": 0.5,
-          "deplacement": 4
-        }
-      },
-      "totals": {
-        "cp": 18,
-        "teletravail": 10,
-        "deplacement": 60,
-        "rtt": 5.5,
-        "recuperation": 28,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 33,
@@ -3283,81 +573,8 @@
       "jobTitle": "Créateur de contenu",
       "dtContractStart": "2024-10-19T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 12.5,
-          "rtt": 0.5,
-          "deplacement": 5
-        },
-        "2025-07": {
-          "deplacement": 1,
-          "teletravail": 2
-        },
-        "2025-09": {
-          "autre": 0.5,
-          "recuperation": 4,
-          "deplacement": 5.5
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 3.5,
-          "recuperation": 0.5,
-          "deplacement": 2
-        },
-        "2025-12": {
-          "cp": 5,
-          "deplacement": 5,
-          "rtt": 2.5,
-          "recuperation": 0.5,
-          "teletravail": 1.5
-        },
-        "2026-01": {
-          "cp": 2,
-          "recuperation": 2,
-          "teletravail": 5.5,
-          "deplacement": 4
-        },
-        "2025-11": {
-          "cp": 6,
-          "recuperation": 0.5,
-          "teletravail": 2
-        },
-        "2026-02": {
-          "deplacement": 3,
-          "recuperation": 2.5,
-          "teletravail": 1.5
-        },
-        "2026-03": {
-          "recuperation": 1.5,
-          "deplacement": 10,
-          "teletravail": 4
-        },
-        "2026-05": {
-          "cp": 5,
-          "rtt": 1,
-          "recuperation": 1,
-          "teletravail": 1.5,
-          "deplacement": 1.5
-        },
-        "2026-04": {
-          "deplacement": 16.5,
-          "teletravail": 1.5,
-          "recuperation": 6
-        },
-        "2026-06": {
-          "deplacement": 4,
-          "teletravail": 4
-        }
-      },
-      "totals": {
-        "cp": 30.5,
-        "rtt": 4,
-        "deplacement": 57.5,
-        "teletravail": 27,
-        "autre": 0.5,
-        "recuperation": 18.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 19,
@@ -3368,70 +585,8 @@
       "jobTitle": "Coordinateur Editorial",
       "dtContractStart": "2021-07-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "cp": 15,
-          "teletravail": 2
-        },
-        "2025-07": {
-          "teletravail": 7
-        },
-        "2025-09": {
-          "autre": 0.5,
-          "teletravail": 8
-        },
-        "2025-10": {
-          "seminaire": 2,
-          "teletravail": 6,
-          "autre": 0.5
-        },
-        "2025-11": {
-          "teletravail": 7,
-          "rtt": 1
-        },
-        "2025-12": {
-          "cp": 8,
-          "teletravail": 4,
-          "rtt": 1
-        },
-        "2026-01": {
-          "cp": 2,
-          "teletravail": 9
-        },
-        "2026-05": {
-          "autre": 4,
-          "cp": 4,
-          "rtt": 1,
-          "teletravail": 2
-        },
-        "2026-02": {
-          "teletravail": 4.5,
-          "rtt": 1,
-          "cp": 0.5
-        },
-        "2026-04": {
-          "cp": 5,
-          "teletravail": 7
-        },
-        "2026-03": {
-          "teletravail": 8,
-          "rtt": 1,
-          "cp": 0.5
-        },
-        "2026-06": {
-          "rtt": 1,
-          "teletravail": 6,
-          "deplacement": 2
-        }
-      },
-      "totals": {
-        "cp": 35,
-        "teletravail": 70.5,
-        "autre": 5,
-        "seminaire": 2,
-        "rtt": 6,
-        "deplacement": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 21,
@@ -3442,41 +597,8 @@
       "jobTitle": "Externe",
       "dtContractStart": "2020-01-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "autre": 14
-        },
-        "2025-09": {
-          "autre": 0.5
-        },
-        "2025-11": {
-          "autre": 10.5
-        },
-        "2025-12": {
-          "autre": 11
-        },
-        "2026-01": {
-          "autre": 9
-        },
-        "2026-02": {
-          "autre": 8
-        },
-        "2026-03": {
-          "autre": 13
-        },
-        "2026-04": {
-          "autre": 10.5
-        },
-        "2026-05": {
-          "autre": 9
-        },
-        "2026-06": {
-          "autre": 9
-        }
-      },
-      "totals": {
-        "autre": 94.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 90,
@@ -3487,90 +609,8 @@
       "jobTitle": "Créateur de contenu (en alternance)",
       "dtContractStart": "2024-09-02T00:00:00",
       "dtContractEnd": "2026-09-05T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "cp": 10,
-          "deplacement": 0.5,
-          "teletravail": 3
-        },
-        "2025-08": {
-          "cp": 2,
-          "teletravail": 4,
-          "deplacement": 5,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "ecole": 7,
-          "recuperation": 3.5,
-          "autre": 0.5,
-          "teletravail": 2.5,
-          "deplacement": 1
-        },
-        "2025-10": {
-          "ecole": 5,
-          "seminaire": 2,
-          "deplacement": 5,
-          "teletravail": 2,
-          "recuperation": 3,
-          "autre": 3
-        },
-        "2025-11": {
-          "ecole": 7,
-          "cp": 1,
-          "teletravail": 3,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "ecole": 7,
-          "cp": 6,
-          "deplacement": 0.5,
-          "teletravail": 3.5,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "ecole": 7,
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2026-02": {
-          "ecole": 7,
-          "cp": 6,
-          "teletravail": 2,
-          "recuperation": 1
-        },
-        "2026-03": {
-          "ecole": 6,
-          "autre": 4,
-          "teletravail": 5,
-          "deplacement": 4,
-          "recuperation": 1
-        },
-        "2026-04": {
-          "ecole": 12,
-          "deplacement": 1.5,
-          "teletravail": 3.5
-        },
-        "2026-05": {
-          "ecole": 6,
-          "teletravail": 5,
-          "cp": 2,
-          "deplacement": 2
-        },
-        "2026-06": {
-          "ecole": 16,
-          "deplacement": 2.5,
-          "teletravail": 1.5
-        }
-      },
-      "totals": {
-        "cp": 27,
-        "deplacement": 24,
-        "teletravail": 41,
-        "recuperation": 10.5,
-        "ecole": 80,
-        "autre": 7.5,
-        "seminaire": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 16,
@@ -3581,79 +621,8 @@
       "jobTitle": "Photographe",
       "dtContractStart": "2021-03-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-09": {
-          "cp": 15,
-          "deplacement": 1.5
-        },
-        "2025-10": {
-          "cp": 6,
-          "seminaire": 2,
-          "autre": 2
-        },
-        "2025-07": {
-          "deplacement": 8,
-          "recuperation": 2,
-          "autre": 0.5
-        },
-        "2025-08": {
-          "deplacement": 1.5,
-          "teletravail": 0.5,
-          "recuperation": 0.5,
-          "autre": 2
-        },
-        "2025-11": {
-          "rtt": 1,
-          "teletravail": 2,
-          "deplacement": 2
-        },
-        "2025-12": {
-          "rtt": 2,
-          "cp": 3,
-          "deplacement": 2,
-          "recuperation": 1.5,
-          "teletravail": 1.5
-        },
-        "2026-01": {
-          "teletravail": 4,
-          "deplacement": 2.5,
-          "recuperation": 1.5
-        },
-        "2026-02": {
-          "teletravail": 1.5,
-          "recuperation": 0.5
-        },
-        "2026-03": {
-          "teletravail": 2,
-          "cp": 3,
-          "deplacement": 0.5
-        },
-        "2026-04": {
-          "cp": 3,
-          "teletravail": 2.5,
-          "recuperation": 0.5,
-          "deplacement": 1,
-          "rtt": 1
-        },
-        "2026-05": {
-          "rtt": 1,
-          "teletravail": 2
-        },
-        "2026-06": {
-          "cp": 1,
-          "teletravail": 3,
-          "deplacement": 2
-        }
-      },
-      "totals": {
-        "cp": 31,
-        "deplacement": 21,
-        "seminaire": 2,
-        "autre": 4.5,
-        "recuperation": 6.5,
-        "teletravail": 19,
-        "rtt": 5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 68,
@@ -3664,87 +633,8 @@
       "jobTitle": "Créateur de contenu (en alternance)",
       "dtContractStart": "2024-09-07T00:00:00",
       "dtContractEnd": "2026-08-28T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "ecole": 1,
-          "teletravail": 3,
-          "cp": 2,
-          "deplacement": 2
-        },
-        "2025-09": {
-          "ecole": 8,
-          "autre": 0.5,
-          "teletravail": 4,
-          "deplacement": 4.5
-        },
-        "2025-10": {
-          "ecole": 5,
-          "seminaire": 2,
-          "cp": 1,
-          "recuperation": 0.5,
-          "teletravail": 5.5,
-          "deplacement": 2
-        },
-        "2025-11": {
-          "ecole": 8,
-          "cp": 2,
-          "teletravail": 5
-        },
-        "2025-12": {
-          "ecole": 7,
-          "cp": 3.5,
-          "teletravail": 3,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "ecole": 4,
-          "recuperation": 1,
-          "teletravail": 6
-        },
-        "2026-02": {
-          "ecole": 8,
-          "cp": 2,
-          "teletravail": 2.5,
-          "recuperation": 0.5
-        },
-        "2026-03": {
-          "ecole": 8,
-          "teletravail": 3,
-          "deplacement": 1,
-          "cp": 1
-        },
-        "2026-04": {
-          "ecole": 3,
-          "teletravail": 5,
-          "deplacement": 1,
-          "recuperation": 1
-        },
-        "2026-05": {
-          "ecole": 8,
-          "cp": 3.5,
-          "teletravail": 1
-        },
-        "2026-06": {
-          "ecole": 6.5,
-          "deplacement": 2.5,
-          "teletravail": 2,
-          "cp": 1,
-          "recuperation": 1
-        },
-        "2025-08": {
-          "cp": 17,
-          "recuperation": 3
-        }
-      },
-      "totals": {
-        "ecole": 66.5,
-        "teletravail": 40,
-        "cp": 33,
-        "deplacement": 14,
-        "autre": 0.5,
-        "seminaire": 2,
-        "recuperation": 7
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 83,
@@ -3755,73 +645,8 @@
       "jobTitle": "Responsable Social Media",
       "dtContractStart": "2024-05-15T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-07": {
-          "rtt": 2,
-          "cp": 12,
-          "deplacement": 3,
-          "teletravail": 2
-        },
-        "2025-08": {
-          "teletravail": 8.5,
-          "formation": 0.5,
-          "recuperation": 1
-        },
-        "2025-09": {
-          "rtt": 1,
-          "teletravail": 6,
-          "autre": 6,
-          "recuperation": 0.5
-        },
-        "2025-10": {
-          "autre": 23,
-          "teletravail": 3
-        },
-        "2025-12": {
-          "rtt": 3,
-          "cp": 3,
-          "teletravail": 6,
-          "deplacement": 1
-        },
-        "2026-01": {
-          "cp": 3,
-          "teletravail": 9,
-          "maladie": 2
-        },
-        "2025-11": {
-          "teletravail": 8
-        },
-        "2026-05": {
-          "rtt": 2,
-          "teletravail": 3
-        },
-        "2026-02": {
-          "rtt": 1,
-          "teletravail": 7
-        },
-        "2026-03": {
-          "teletravail": 6
-        },
-        "2026-04": {
-          "teletravail": 5,
-          "deplacement": 6,
-          "recuperation": 2
-        },
-        "2026-06": {
-          "teletravail": 8,
-          "deplacement": 0.5
-        }
-      },
-      "totals": {
-        "rtt": 9,
-        "cp": 18,
-        "deplacement": 10.5,
-        "teletravail": 71.5,
-        "formation": 0.5,
-        "recuperation": 3.5,
-        "autre": 29,
-        "maladie": 2
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 96,
@@ -3832,77 +657,8 @@
       "jobTitle": "Assistant Chef de projet",
       "dtContractStart": "2024-09-16T00:00:00",
       "dtContractEnd": "2026-08-28T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "ecole": 1,
-          "cp": 1,
-          "teletravail": 4.5,
-          "recuperation": 0.5
-        },
-        "2025-09": {
-          "ecole": 8,
-          "teletravail": 4,
-          "recuperation": 1
-        },
-        "2025-10": {
-          "ecole": 4,
-          "seminaire": 2,
-          "recuperation": 1,
-          "teletravail": 4
-        },
-        "2025-11": {
-          "ecole": 8,
-          "recuperation": 1,
-          "teletravail": 2
-        },
-        "2025-12": {
-          "ecole": 7,
-          "recuperation": 1,
-          "teletravail": 6
-        },
-        "2026-01": {
-          "ecole": 4,
-          "cp": 2,
-          "teletravail": 5
-        },
-        "2026-03": {
-          "ecole": 8,
-          "teletravail": 3
-        },
-        "2026-02": {
-          "ecole": 8,
-          "deplacement": 1,
-          "teletravail": 4
-        },
-        "2026-04": {
-          "ecole": 3,
-          "teletravail": 5,
-          "deplacement": 1
-        },
-        "2026-05": {
-          "ecole": 7,
-          "cp": 5.5,
-          "teletravail": 1.5
-        },
-        "2026-06": {
-          "ecole": 8,
-          "deplacement": 2,
-          "teletravail": 3
-        },
-        "2025-08": {
-          "cp": 17,
-          "deplacement": 0.5,
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "ecole": 66,
-        "cp": 25.5,
-        "teletravail": 43,
-        "recuperation": 4.5,
-        "seminaire": 2,
-        "deplacement": 4.5
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 114,
@@ -3913,19 +669,8 @@
       "jobTitle": "Responsable Stratégie Médias & Talents",
       "dtContractStart": "2026-05-05T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2026-05": {
-          "deplacement": 1.5
-        },
-        "2026-06": {
-          "cp": 1,
-          "deplacement": 8
-        }
-      },
-      "totals": {
-        "deplacement": 9.5,
-        "cp": 1
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 58,
@@ -3936,50 +681,8 @@
       "jobTitle": "Players Manager",
       "dtContractStart": "2024-06-01T00:00:00",
       "dtContractEnd": null,
-      "monthly": {
-        "2025-08": {
-          "recuperation": 2
-        },
-        "2025-09": {
-          "recuperation": 0.5
-        },
-        "2025-11": {
-          "cp": 1
-        },
-        "2025-10": {
-          "recuperation": 1.5
-        },
-        "2025-12": {
-          "rtt": 4,
-          "deplacement": 3,
-          "recuperation": 1
-        },
-        "2026-01": {
-          "cp": 4,
-          "recuperation": 0.5
-        },
-        "2026-03": {
-          "cp": 4,
-          "recuperation": 1
-        },
-        "2026-05": {
-          "cp": 3,
-          "recuperation": 1,
-          "rtt": 1
-        },
-        "2026-04": {
-          "cp": 5
-        },
-        "2026-06": {
-          "cp": 2
-        }
-      },
-      "totals": {
-        "recuperation": 7.5,
-        "cp": 19,
-        "rtt": 5,
-        "deplacement": 3
-      }
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 118,
@@ -4002,72 +705,9 @@
       "jobTitle": "Vidéaste (en alternance)",
       "dtContractStart": "2024-09-02T00:00:00",
       "dtContractEnd": "2026-09-04T00:00:00",
-      "monthly": {
-        "2025-07": {
-          "cp": 2.5,
-          "teletravail": 0.5,
-          "recuperation": 1,
-          "autre": 2,
-          "deplacement": 1
-        },
-        "2025-08": {
-          "cp": 15,
-          "teletravail": 1,
-          "recuperation": 0.5
-        },
-        "2025-09": {
-          "deplacement": 2,
-          "ecole": 2,
-          "teletravail": 2
-        },
-        "2025-10": {
-          "ecole": 8,
-          "cp": 1
-        },
-        "2025-11": {
-          "ecole": 8,
-          "deplacement": 1
-        },
-        "2025-12": {
-          "ecole": 7,
-          "cp": 5,
-          "teletravail": 1
-        },
-        "2026-01": {
-          "ecole": 8,
-          "cp": 2,
-          "teletravail": 2
-        },
-        "2026-02": {
-          "ecole": 4
-        },
-        "2026-03": {
-          "ecole": 8,
-          "deplacement": 3
-        },
-        "2026-04": {
-          "ecole": 6,
-          "teletravail": 3,
-          "deplacement": 1.5
-        },
-        "2026-05": {
-          "ecole": 7,
-          "cp": 2
-        },
-        "2026-06": {
-          "ecole": 10,
-          "teletravail": 1
-        }
-      },
-      "totals": {
-        "cp": 27.5,
-        "teletravail": 10.5,
-        "recuperation": 1.5,
-        "autre": 2,
-        "deplacement": 8.5,
-        "ecole": 68
-      }
+      "monthly": {},
+      "totals": {}
     }
   ],
-  "syncDate": "2026-08-17T07:43:51.310Z"
+  "syncDate": "2026-08-17T18:00:14.072Z"
 }
