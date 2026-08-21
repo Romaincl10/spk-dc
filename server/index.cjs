@@ -1233,8 +1233,10 @@ app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
       const objNames = (port.objectives || [])
         .filter(o => o.client !== '_BIZ_DEV' && ((o.target || 0) > 0 || (o.actual || 0) > 0))
         .map(o => o.client);
-      clientOptions = [...new Set(objNames)].filter(Boolean).sort((a, b) => a.localeCompare(b));
-      clientOptions.push('Biz Dev');
+      // Lignes Biz Dev réelles (conquête + établis hors objectif), ex. NUTRIPURE, TECNIFIBRE
+      const bizDev = (port.objectives || []).find(o => o.client === '_BIZ_DEV');
+      const bizDevNames = bizDev ? [...(bizDev.clients || []), ...(bizDev.otherClients || [])].map(c => c.client) : [];
+      clientOptions = [...new Set([...objNames, ...bizDevNames])].filter(Boolean).sort((a, b) => a.localeCompare(b));
     }
   } catch (e) { console.error('[Farming] clientOptions', e.message); }
   res.json({ dc, clients: farming.getDC(dc), clientOptions });
