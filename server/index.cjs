@@ -1523,8 +1523,10 @@ if (fs.existsSync(distPath)) {
 
 // ── Cron ─────────────────────────────────────────────────
 
+// Sync matinale : données fraîches dès le début de journée (jours ouvrés et week-end)
+cron.schedule('0 7 * * *', () => { console.log('[Cron] 07:00 — Furious sync (matin)'); syncFurious(); }, { timezone: 'Europe/Paris' });
 cron.schedule('0 20 * * *', () => { console.log('[Cron] 20:00 — Lucca sync'); syncLucca(); }, { timezone: 'Europe/Paris' });
-cron.schedule('0 21 * * *', () => { console.log('[Cron] 21:00 — Furious sync'); syncFurious(); }, { timezone: 'Europe/Paris' });
+cron.schedule('0 21 * * *', () => { console.log('[Cron] 21:00 — Furious sync (soir)'); syncFurious(); }, { timezone: 'Europe/Paris' });
 
 // ── Startup ──────────────────────────────────────────────
 
