@@ -441,6 +441,10 @@ function buildDCPortfolios(fyStartYearParam) {
   allProjects.forEach(p => { if (shouldExcludeProject(p)) return; const c = getCanonicalClientNameForProject(p.company_name, p.title); noteFM(c, p.created_at); noteFM(c, p.start_date); });
   invoices.forEach(inv => { if (inv.is_cancelled) return; noteFM(getCanonicalClientName(inv.company_name), invoiceEffectiveDate(inv)); });
   const isNewCanon = (canon) => !!firstMoveByCanon[canon] && firstMoveByCanon[canon] >= fyStart && firstMoveByCanon[canon] <= fyEndInclusive;
+  // Clients FORCÉS en Biz Dev (conquête) même si leur 1er mouvement précède l'exercice —
+  // comptes de développement récents rattachés au Biz Dev par décision commerciale.
+  const FORCE_BIZDEV_CANON = new Set(['nutripure', 'tecnifibre']);
+  const isBizDevNew = (canon) => isNewCanon(canon) || FORCE_BIZDEV_CANON.has(normalize(canon || ''));
 
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
@@ -649,8 +653,8 @@ function buildDCPortfolios(fyStartYearParam) {
     const computeBizDev = (obj) => {
       const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
       const toRow = c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 });
-      const newClients = hors.filter(c => isNewCanon(c.name)).map(toRow);
-      const otherClients = hors.filter(c => !isNewCanon(c.name)).map(toRow);
+      const newClients = hors.filter(c => isBizDevNew(c.name)).map(toRow);
+      const otherClients = hors.filter(c => !isBizDevNew(c.name)).map(toRow);
       // "Biz Dev" (conquête) = uniquement les nouveaux clients
       const bizDevCA = newClients.reduce((s, c) => s + c.actual, 0);
       const bizDevPipe = newClients.reduce((s, c) => s + c.pipe, 0);
