@@ -512,7 +512,7 @@ function buildDCPortfolios(fyStartYearParam) {
 
     const activePipeline = dcProposals.filter(p => {
       const pipe = Number(p.pipe);
-      if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
+      if (!(pipe >= 0 && pipe <= 6 && !p.signature_date)) return false;
       // Exclure devis déjà convertis en projet (project_id défini et != 0)
       if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
       // Exclure devis perdus
@@ -798,7 +798,7 @@ function fyBounds(fyStartYearParam) {
 /** Devis actif (pipe ouvert, non signé, non perdu, entité SPK). */
 function isActiveProposal(p) {
   const pipe = Number(p.pipe);
-  if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
+  if (!(pipe >= 0 && pipe <= 6 && !p.signature_date)) return false;
   if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
   if (p.pipe_name === 'Perdu') return false;
   if (p.entity && p.entity !== 'spk') return false;
@@ -918,7 +918,7 @@ function buildMedias(fyStartYearParam) {
 
   const devis = proposals.filter(p => isMed(p.title)).map(p => {
     const pipe = Number(p.pipe);
-    const active = pipe >= 0 && pipe < 6 && !p.signature_date
+    const active = pipe >= 0 && pipe <= 6 && !p.signature_date
       && !(p.project_id && p.project_id !== '0' && p.project_id !== 0) && p.pipe_name !== 'Perdu';
     const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
     const ref = p.projet_stop ? new Date(p.projet_stop) : (p.projet_start ? new Date(p.projet_start) : null);
@@ -1220,7 +1220,20 @@ app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
 // Farming — board éditable (concepts + événements) d'un DC, persistant sur le volume.
 app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
   const dc = req.query.dc || 'Hadrien';
-  res.json({ dc, clients: farming.getDC(dc) });
+  // Options de clients : toutes les lignes clients à objectif du DC (saison 26/27) + Biz Dev,
+  // pour que le board farming couvre l'ensemble du portefeuille, pas seulement les seedés.
+  let clientOptions = [];
+  try {
+    const port = buildDCPortfolios(2026)[dc];
+    if (port) {
+      const objNames = (port.objectives || [])
+        .filter(o => o.client !== '_BIZ_DEV' && ((o.target || 0) > 0 || (o.actual || 0) > 0))
+        .map(o => o.client);
+      clientOptions = [...new Set(objNames)].filter(Boolean).sort((a, b) => a.localeCompare(b));
+      clientOptions.push('Biz Dev');
+    }
+  } catch (e) { console.error('[Farming] clientOptions', e.message); }
+  res.json({ dc, clients: farming.getDC(dc), clientOptions });
 });
 
 app.put('/api/data/farming', auth.authMiddleware, auth.adminOnly, (req, res) => {
@@ -1370,7 +1383,7 @@ app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, r
   const list = allProposals
     .filter(p => {
       const pipe = Number(p.pipe);
-      if (!(pipe >= 0 && pipe < 6 && !p.signature_date)) return false;
+      if (!(pipe >= 0 && pipe <= 6 && !p.signature_date)) return false;
       if (p.project_id && p.project_id !== '0' && p.project_id !== 0) return false;
       if (p.pipe_name === 'Perdu') return false;
       if (p.entity && p.entity !== 'spk') return false;

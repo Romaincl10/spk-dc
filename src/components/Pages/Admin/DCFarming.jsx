@@ -155,7 +155,21 @@ export default function DCFarming({ dc = 'Hadrien' }) {
     setLoading(true);
     setClient(null);
     apiFetch(`/api/data/farming?dc=${encodeURIComponent(dc)}`)
-      .then(d => { if (!alive) return; const cl = d.clients || {}; setClientsData(cl); const names = Object.keys(cl); setClientList(names); setClient(names[0] || null); setLoading(false); })
+      .then(d => {
+        if (!alive) return;
+        const cl = d.clients || {};
+        setClientsData(cl);
+        // Union : clients déjà travaillés (avec concepts/événements) + toutes les lignes clients + Biz Dev
+        const withData = Object.keys(cl);
+        const hasContent = (n) => { const x = cl[n]; return x && ((x.concepts || []).length || (x.events || []).length); };
+        const options = d.clientOptions || [];
+        const names = [...new Set([...withData, ...options])];
+        // Ordre : clients déjà renseignés d'abord, puis le reste alphabétique
+        names.sort((a, b) => (hasContent(b) ? 1 : 0) - (hasContent(a) ? 1 : 0) || a.localeCompare(b));
+        setClientList(names);
+        setClient(names[0] || null);
+        setLoading(false);
+      })
       .catch(e => { console.error('[Farming]', e); if (alive) setLoading(false); });
     return () => { alive = false; };
   }, [dc]);
