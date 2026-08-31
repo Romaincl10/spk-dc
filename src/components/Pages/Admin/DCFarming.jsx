@@ -149,6 +149,7 @@ export default function DCFarming({ dc = 'Hadrien' }) {
   const [editEvent, setEditEvent] = useState(null);
   const [trashConcepts, setTrashConcepts] = useState(false);
   const [trashEvents, setTrashEvents] = useState(false);
+  const [saveState, setSaveState] = useState('idle'); // idle | saving | saved | error
 
   useEffect(() => {
     let alive = true;
@@ -176,8 +177,10 @@ export default function DCFarming({ dc = 'Hadrien' }) {
 
   const persist = useCallback((clientName, data) => {
     setClientsData(prev => ({ ...prev, [clientName]: data }));
+    setSaveState('saving');
     apiFetch('/api/data/farming', { method: 'PUT', body: JSON.stringify({ dc, client: clientName, data }) })
-      .catch(e => console.error('[Farming] save', e));
+      .then(() => setSaveState('saved'))
+      .catch(e => { console.error('[Farming] save', e); setSaveState('error'); });
   }, [dc]);
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>;
@@ -208,8 +211,21 @@ export default function DCFarming({ dc = 'Hadrien' }) {
 
   return (
     <div className="space-y-6">
+      {/* Bandeau d'échec de sauvegarde — évite toute perte silencieuse */}
+      {saveState === 'error' && (
+        <div className="flex items-center gap-2 bg-[#EA5E7B]/10 border border-[#EA5E7B]/40 rounded-lg px-4 py-2.5 text-[#EA5E7B] text-sm font-semibold">
+          <X size={16} />
+          Échec de la sauvegarde — reconnecte-toi puis réessaie. Tes dernières modifications ne sont pas encore enregistrées côté serveur.
+        </div>
+      )}
+
       {/* Sélecteur de client — tous visibles (wrap, sans scroll) */}
       <div className="flex flex-wrap items-center gap-2">
+        {saveState !== 'idle' && saveState !== 'error' && (
+          <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full ${saveState === 'saving' ? 'text-[#888]' : 'text-[#5FC97A]'}`}>
+            {saveState === 'saving' ? '… enregistrement' : '✓ enregistré'}
+          </span>
+        )}
         {clientList.map(name => {
           const on = name === client;
           const c = clientsData[name]?.col || '#666';

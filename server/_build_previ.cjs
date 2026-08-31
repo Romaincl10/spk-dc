@@ -52,6 +52,7 @@ function isInternal(proj) {
 const EXCLUDE_PROJECTS = [
   'SPK0388',
   'SPK0425', // PUMA Hyrox WC 26 - Creators : saisie Furious incohérente (CA 1 € / MB -76 k€)
+  'MED0052', // Affiliation B4B 2526 : retiré du reporting (demande Romain)
 ];
 // Paid media pass-through : CA net retraité = marge brute (achats médias = pass-through).
 // S'applique aux SIGNÉS (onglet1), DEVIS (onglet2) et à la section semaine.
