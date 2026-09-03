@@ -138,7 +138,15 @@ function EventForm({ initial, onSave, onCancel }) {
   );
 }
 
-export default function DCFarming({ dc = 'Hadrien' }) {
+const PALETTE = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#06b6d4', '#ec4899', '#0ea5e9', '#f97316', '#14b8a6'];
+// Index du mois courant dans la saison 26/27 (Juin 26 = 0 … Août 27 = 14)
+const currentMonthIdx = () => { const d = new Date(); return Math.max(0, Math.min(14, (d.getFullYear() - 2026) * 12 + d.getMonth() - 5)); };
+
+export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
+  const isPlan = mode === 'planjeu';
+  const T = isPlan
+    ? { entity: 'prospect', add: 'Prospect', concepts: 'Idées', events: 'Moments clés', empty: 'Aucun prospect — ajoute-en un avec « + Prospect ».' }
+    : { entity: 'client', add: 'Client', concepts: 'Concept', events: 'Événements marque', empty: 'Aucun client — ajoute-en un avec « + Client ».' };
   const [clientsData, setClientsData] = useState({});
   const [clientList, setClientList] = useState([]);
   const [client, setClient] = useState(null);
@@ -150,6 +158,9 @@ export default function DCFarming({ dc = 'Hadrien' }) {
   const [trashConcepts, setTrashConcepts] = useState(false);
   const [trashEvents, setTrashEvents] = useState(false);
   const [saveState, setSaveState] = useState('idle'); // idle | saving | saved | error
+  const [view, setView] = useState('client'); // 'client' | 'global'
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState('');
 
   useEffect(() => {
     let alive = true;
@@ -183,10 +194,32 @@ export default function DCFarming({ dc = 'Hadrien' }) {
       .catch(e => { console.error('[Farming] save', e); setSaveState('error'); });
   }, [dc]);
 
-  if (loading) return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>;
-  if (!client) return <p className="text-[#888] text-sm py-8 text-center">Aucune donnée farming pour ce DC.</p>;
+  // Ajout d'un client / prospect : crée un board vierge, le sauvegarde et le sélectionne
+  const addClient = (name) => {
+    const nm = (name || '').trim();
+    if (!nm) return;
+    const existing = clientList.find(c => c.toLowerCase() === nm.toLowerCase());
+    if (existing) { setClient(existing); setView('client'); setAdding(false); setNewName(''); return; }
+    const col = PALETTE[clientList.length % PALETTE.length];
+    const fresh = { col, concepts: [], conceptsArchived: [], events: [], eventsArchived: [] };
+    setClientList(prev => [nm, ...prev]);
+    persist(nm, fresh);
+    setClient(nm); setView('client'); setAdding(false); setNewName('');
+  };
 
-  const d = clientsData[client] || { concepts: [], conceptsArchived: [], events: [], eventsArchived: [] };
+  // Vue globale : timeline consolidée de tous les clients — éléments à venir uniquement
+  const nowIdx = currentMonthIdx();
+  const globalClients = Object.entries(clientsData).map(([name, cd]) => {
+    const items = [
+      ...(cd.events || []).map(e => ({ kind: 'event', label: e.title, span: e.span })),
+      ...(cd.concepts || []).map(c => ({ kind: 'concept', label: c.name, span: c.span, status: c.status })),
+    ].filter(it => Array.isArray(it.span) && it.span[1] >= nowIdx).sort((a, b) => a.span[0] - b.span[0]);
+    return { name, col: cd.col || '#666', items };
+  }).filter(g => g.items.length).sort((a, b) => a.name.localeCompare(b.name));
+
+  if (loading) return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>;
+
+  const d = (client && clientsData[client]) || { concepts: [], conceptsArchived: [], events: [], eventsArchived: [] };
   const accent = d.col || '#e63946';
   const concepts = d.concepts || [];
   const conceptsArchived = d.conceptsArchived || [];
@@ -219,27 +252,56 @@ export default function DCFarming({ dc = 'Hadrien' }) {
         </div>
       )}
 
-      {/* Sélecteur de client — tous visibles (wrap, sans scroll) */}
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Bascule Vue par client / Vue globale + indicateur de sauvegarde */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex gap-1 bg-[#111] rounded-lg p-0.5">
+          <button onClick={() => setView('client')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === 'client' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Vue par {T.entity}</button>
+          <button onClick={() => setView('global')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === 'global' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Vue globale</button>
+        </div>
         {saveState !== 'idle' && saveState !== 'error' && (
           <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full ${saveState === 'saving' ? 'text-[#888]' : 'text-[#5FC97A]'}`}>
             {saveState === 'saving' ? '… enregistrement' : '✓ enregistré'}
           </span>
         )}
-        {clientList.map(name => {
-          const on = name === client;
-          const c = clientsData[name]?.col || '#666';
-          return (
-            <button key={name} onClick={() => { setClient(name); setEditConcept(null); setEditEvent(null); }}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors border ${on ? 'text-white' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
-              style={on ? { backgroundColor: c, borderColor: c } : { backgroundColor: '#161616' }}>
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: c }} />{name}
-            </button>
-          );
-        })}
       </div>
 
+      {/* Sélecteur de client + ajout — vue par client uniquement */}
+      {view === 'client' && (
+        <div className="flex flex-wrap items-center gap-2">
+          {clientList.map(name => {
+            const on = name === client;
+            const c = clientsData[name]?.col || '#666';
+            return (
+              <button key={name} onClick={() => { setClient(name); setEditConcept(null); setEditEvent(null); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-colors border ${on ? 'text-white' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
+                style={on ? { backgroundColor: c, borderColor: c } : { backgroundColor: '#161616' }}>
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: c }} />{name}
+              </button>
+            );
+          })}
+          {adding ? (
+            <span className="flex items-center gap-1">
+              <input autoFocus value={newName} onChange={e => setNewName(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') addClient(newName); if (e.key === 'Escape') { setAdding(false); setNewName(''); } }}
+                placeholder={`Nom du ${T.entity}`} className="bg-[#0a0a0a] border border-[#2a2a2a] rounded-full px-3 py-1.5 text-xs text-white outline-none focus:border-[#8b5cf6] w-40" />
+              <button onClick={() => addClient(newName)} className="text-[#5FC97A] p-1"><Check size={14} /></button>
+              <button onClick={() => { setAdding(false); setNewName(''); }} className="text-[#888] p-1"><X size={14} /></button>
+            </span>
+          ) : (
+            <button onClick={() => setAdding(true)} className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border border-dashed border-[#3a3a3a] text-[#888] hover:text-white hover:border-[#666] transition-colors"><Plus size={13} /> {T.add}</button>
+          )}
+        </div>
+      )}
+
+      {/* Vue globale : timeline consolidée de tous les clients (à venir) */}
+      {view === 'global' && <GlobalTimeline clients={globalClients} nowIdx={nowIdx} entity={T.entity} />}
+
+      {view === 'client' && !client && (
+        <p className="text-[#888] text-sm py-10 text-center">{T.empty}</p>
+      )}
+
       {/* En-tête client */}
+      {view === 'client' && client && (<>
       <div className="flex items-end justify-between gap-4 border-b border-[#2a2a2a] pb-3">
         <h2 className="text-2xl font-black italic uppercase leading-none" style={{ color: accent }}>{client}</h2>
         <div className="text-right">
@@ -370,9 +432,58 @@ export default function DCFarming({ dc = 'Hadrien' }) {
             </div>
             <div className="text-[10px] font-black uppercase tracking-wider py-2" style={{ color: accent }}>◇ Événements marque ({events.length})</div>
             {events.map(ev => <GanttRow key={ev.id} label={ev.title} sub marker="◇" span={ev.span} color={accent} filled={false} />)}
-            <div className="text-[10px] font-black uppercase tracking-wider py-2 mt-1" style={{ color: accent }}>● Concepts SPK ({concepts.length})</div>
+            <div className="text-[10px] font-black uppercase tracking-wider py-2 mt-1" style={{ color: accent }}>● {isPlan ? 'Idées' : 'Concepts SPK'} ({concepts.length})</div>
             {concepts.map(c => <GanttRow key={c.id} label={c.name} sub marker="●" span={c.span} color={accent} filled={true} />)}
           </div>
+        </div>
+      </div>
+      </>)}
+    </div>
+  );
+}
+
+// ─── Vue globale : timeline consolidée de tous les clients (éléments à venir) ───
+function GlobalTimeline({ clients, nowIdx, entity }) {
+  if (!clients.length) return <p className="text-[#888] text-sm py-10 text-center">Aucun élément à venir. Ajoute des concepts/événements datés dans les fiches {entity}.</p>;
+  return (
+    <div className="bg-[#161616] border border-[#2a2a2a] rounded-lg p-4 overflow-x-auto">
+      <div style={{ minWidth: 920 }}>
+        {/* En-tête mois */}
+        <div className="grid border-b border-[#2a2a2a] mb-2 sticky top-0" style={{ gridTemplateColumns: GRID }}>
+          <div className="text-[10px] font-black uppercase tracking-wider text-[#666] pr-3 flex items-end">À venir · {clients.length} {entity}s</div>
+          {MONTHS.map((m, i) => <div key={i} className={`text-[8px] font-bold uppercase text-center py-1 border-l border-[#222] ${i === nowIdx ? 'text-white bg-[#8b5cf6]/15' : (i === 0 || i === 12 ? 'text-[#aaa]' : 'text-[#666]')}`}>{m}</div>)}
+        </div>
+        {/* Un groupe par client */}
+        {clients.map(g => (
+          <div key={g.name} className="border-t border-[rgba(250,250,247,.06)] py-1.5">
+            <div className="grid items-center" style={{ gridTemplateColumns: GRID }}>
+              <div className="pr-3 flex items-center gap-1.5 min-w-0">
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: g.col }} />
+                <span className="text-[12px] font-black italic uppercase truncate" style={{ color: g.col }}>{g.name}</span>
+                <span className="text-[9px] text-[#666] shrink-0">· {g.items.length}</span>
+              </div>
+              <div className="col-start-2 -col-end-1" style={{ gridColumn: '2 / -1', height: 1 }} />
+            </div>
+            {g.items.map((it, idx) => {
+              const [s, e] = it.span;
+              return (
+                <div key={idx} className="grid items-center min-h-[26px]" style={{ gridTemplateColumns: GRID }}>
+                  <div className="pr-3 pl-4 flex items-center gap-1.5 leading-tight">
+                    <span className="shrink-0 text-[10px]" style={{ color: g.col }}>{it.kind === 'event' ? '◇' : '●'}</span>
+                    <span className="text-[10px] text-[#ccc] truncate">{it.label}</span>
+                  </div>
+                  <div className="h-[16px] flex items-center" style={{ gridColumn: `${s + 2} / ${e + 3}` }}>
+                    <div className="h-[11px] w-full rounded-full" style={it.kind === 'event' ? { border: `1.5px solid ${g.col}` } : { backgroundColor: g.col }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+        <div className="flex items-center gap-4 mt-3 pt-2 border-t border-[#2a2a2a] text-[10px] text-[#888]">
+          <span className="flex items-center gap-1.5"><i className="w-4 h-[9px] rounded-full inline-block" style={{ background: '#8b5cf6' }} /> Concept / idée (plein)</span>
+          <span className="flex items-center gap-1.5"><i className="w-4 h-[9px] rounded-full inline-block border" style={{ borderColor: '#8b5cf6' }} /> Événement (contour)</span>
+          <span className="ml-auto text-[#666]">Colonne surlignée = mois en cours</span>
         </div>
       </div>
     </div>

@@ -1212,6 +1212,23 @@ app.get('/api/data/heatmap', auth.authMiddleware, (req, res) => {
   res.json(buildHeatmap(Number.isInteger(fyParam) ? fyParam : undefined));
 });
 
+// Heatmap Médias : objectifs CA par client média (tuiles taille=objectif, couleur=avancement),
+// filtrable par tier. Réutilise la matrice objectifs médias de buildMedias.
+app.get('/api/data/medias-heatmap', auth.authMiddleware, (req, res) => {
+  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  const fyParam = parseInt(req.query.fy, 10);
+  const m = buildMedias(Number.isInteger(fyParam) ? fyParam : undefined);
+  const clients = (m.clientObjectives || [])
+    .filter(o => (o.target || 0) > 0 || (o.ca || 0) > 0)
+    .map(o => ({
+      client: o.client, tiering: o.tiering || 0,
+      objectif: o.target || 0, ca: o.ca || 0,
+      pctRealise: (o.target || 0) > 0 ? Math.round((o.ca || 0) / o.target * 100) : ((o.ca || 0) > 0 ? 100 : 0),
+    }));
+  const tiers = [...new Set(clients.map(c => c.tiering))].filter(t => t).sort((a, b) => a - b);
+  res.json({ fyStartYear: m.fyStartYear, pctTemps: m.pctTemps || 0, clients, tiers });
+});
+
 // Médias — projets & devis MED0 (transverse). Admin + directeur uniquement.
 app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
   if (!(req.user.role === 'admin' || isDirector(req.user))) {

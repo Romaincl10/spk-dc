@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Crosshair, TrendingUp, Briefcase, FileText, ChevronRight, Sparkles } from 'lucide-react';
+import { Crosshair, TrendingUp, Briefcase, FileText, ChevronRight, Sparkles, Swords } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ObjectiveGauge from '../../Common/ObjectiveGauge';
+import DCFarming from './DCFarming';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
@@ -11,6 +12,7 @@ const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
 export default function DirecteurCommercial({ fyStartYear }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState('portefeuille'); // 'portefeuille' | 'planjeu'
   const [selected, setSelected] = useState(null); // client name pour le détail
 
   useEffect(() => {
@@ -22,14 +24,6 @@ export default function DirecteurCommercial({ fyStartYear }) {
       .catch(e => { console.error('[BizDev]', e); if (alive) setLoading(false); });
     return () => { alive = false; };
   }, [fyStartYear]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   const clients = data?.clients || [];
   const totals = data?.totals || { count: 0, caSigne: 0, mbEur: 0, pipe: 0, projects: 0, devis: 0, margePct: 0 };
@@ -49,6 +43,18 @@ export default function DirecteurCommercial({ fyStartYear }) {
           </p>
         </div>
       </div>
+
+      {/* Bascule Portefeuille / Plan de jeu */}
+      <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 w-fit">
+        <button onClick={() => setTab('portefeuille')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${tab === 'portefeuille' ? 'bg-[#8b5cf6] text-white' : 'text-[#888] hover:text-white'}`}>Portefeuille</button>
+        <button onClick={() => setTab('planjeu')} className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${tab === 'planjeu' ? 'bg-[#8b5cf6] text-white' : 'text-[#888] hover:text-white'}`}><Swords size={13} /> Plan de jeu</button>
+      </div>
+
+      {tab === 'planjeu' && <DCFarming dc="BizDev" mode="planjeu" />}
+      {tab === 'portefeuille' && loading && (
+        <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>
+      )}
+      {tab === 'portefeuille' && !loading && (<>
 
       {/* KPIs Biz Dev */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -205,6 +211,7 @@ export default function DirecteurCommercial({ fyStartYear }) {
           )}
         </>
       )}
+      </>)}
     </div>
   );
 }
