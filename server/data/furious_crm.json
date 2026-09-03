@@ -5246,14 +5246,14 @@
       "firstname": "Lucas",
       "email": "",
       "phone": "06 86 16 23 82",
-      "category": "Prospects",
+      "category": "Clients",
       "type": "client",
       "status": "0",
       "sector": "",
       "tags": null,
       "assigned_people": "francois ",
       "date_creation": "2024-09-17",
-      "city": "",
+      "city": "NICE",
       "country": "FR"
     },
     {
@@ -21721,7 +21721,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Fabio ",
+      "assigned_people": "",
       "date_creation": "2025-05-21",
       "city": "",
       "country": "FR"
@@ -21775,7 +21775,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Fabio ",
+      "assigned_people": "",
       "date_creation": "2025-05-21",
       "city": "",
       "country": "FR"
@@ -22099,7 +22099,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-05-27",
       "city": "",
       "country": "FR"
@@ -22693,7 +22693,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-06-06",
       "city": "",
       "country": "FR"
@@ -22783,7 +22783,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-06-09",
       "city": "",
       "country": "FR"
@@ -23143,7 +23143,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Fabio ",
+      "assigned_people": "",
       "date_creation": "2025-06-17",
       "city": "",
       "country": "FR"
@@ -23539,7 +23539,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-06-23",
       "city": "Marseille",
       "country": "FR"
@@ -23989,7 +23989,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Yoann ",
+      "assigned_people": "",
       "date_creation": "2025-07-01",
       "city": "",
       "country": "FR"
@@ -24943,7 +24943,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Fabio ",
+      "assigned_people": "",
       "date_creation": "2025-07-10",
       "city": "",
       "country": "FR"
@@ -26275,7 +26275,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-07-29",
       "city": "",
       "country": "FR"
@@ -26293,7 +26293,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Pauline ",
+      "assigned_people": "",
       "date_creation": "2025-07-29",
       "city": "",
       "country": "FR"
@@ -27121,7 +27121,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2025-08-21",
       "city": "",
       "country": "FR"
@@ -27247,7 +27247,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": "Freelance,RP",
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2025-08-28",
       "city": "",
       "country": "FR"
@@ -27625,7 +27625,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2025-09-02",
       "city": "",
       "country": "FR"
@@ -28435,7 +28435,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2025-09-12",
       "city": "BOULIAC",
       "country": "FR"
@@ -28525,7 +28525,7 @@
       "status": null,
       "sector": "",
       "tags": "Freelance",
-      "assigned_people": "Marianne ",
+      "assigned_people": "",
       "date_creation": "2025-09-16",
       "city": "Saint-Laurent-sur-Sèvre",
       "country": "FR"
@@ -28741,7 +28741,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2025-09-22",
       "city": "",
       "country": "FR"
@@ -29461,7 +29461,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2025-09-29",
       "city": "",
       "country": "FR"
@@ -29659,7 +29659,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Theo ",
+      "assigned_people": "",
       "date_creation": "2025-10-02",
       "city": "EZANVILLE",
       "country": "FR"
@@ -29749,7 +29749,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Theo Julien Ninon Mathieu ",
+      "assigned_people": "",
       "date_creation": "2025-10-06",
       "city": "BLAIN",
       "country": "FR"
@@ -29911,7 +29911,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2025-10-08",
       "city": "Saint-Aubin-des-Ormeaux",
       "country": "FR"
@@ -29947,7 +29947,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2025-10-08",
       "city": "",
       "country": "FR"
@@ -29965,7 +29965,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2025-10-09",
       "city": "",
       "country": "FR"
@@ -30163,7 +30163,7 @@
       "status": null,
       "sector": "",
       "tags": "Freelance",
-      "assigned_people": "Vincent ",
+      "assigned_people": "",
       "date_creation": "2025-10-10",
       "city": "",
       "country": "FR"
@@ -31513,7 +31513,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Marianne ",
+      "assigned_people": "",
       "date_creation": "2025-10-29",
       "city": "Angers",
       "country": "FR"
@@ -33205,7 +33205,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romeo ",
+      "assigned_people": "",
       "date_creation": "2025-12-03",
       "city": "",
       "country": "FR"
@@ -34033,7 +34033,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas ",
+      "assigned_people": "",
       "date_creation": "2025-12-19",
       "city": "",
       "country": "FR"
@@ -34465,7 +34465,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2026-01-08",
       "city": "",
       "country": "FR"
@@ -34519,7 +34519,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Baptiste ",
+      "assigned_people": "",
       "date_creation": "2026-01-09",
       "city": "LIMOGES",
       "country": "FR"
@@ -34771,7 +34771,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-01-20",
       "city": "ROGNONAS",
       "country": "FR"
@@ -34789,7 +34789,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-01-20",
       "city": "",
       "country": "FR"
@@ -34915,10 +34915,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-01-22",
       "city": "",
-      "country": "FR"
+      "country": "DE"
     },
     {
       "id": "1970",
@@ -34951,7 +34951,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2026-01-22",
       "city": "Paris",
       "country": "FR"
@@ -35041,7 +35041,7 @@
       "status": null,
       "sector": "f02_influence",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-01-26",
       "city": "",
       "country": "FR"
@@ -35059,10 +35059,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-01-26",
       "city": "",
-      "country": "FR"
+      "country": "MC"
     },
     {
       "id": "1978",
@@ -35275,7 +35275,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Baptiste ",
+      "assigned_people": "",
       "date_creation": "2026-02-03",
       "city": "LE BIGNON",
       "country": "FR"
@@ -35293,7 +35293,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-02-03",
       "city": "",
       "country": "FR"
@@ -35365,7 +35365,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2026-02-04",
       "city": "",
       "country": "FR"
@@ -35383,7 +35383,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Manar ",
+      "assigned_people": "",
       "date_creation": "2026-02-05",
       "city": "",
       "country": "FR"
@@ -35707,7 +35707,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Baptiste ",
+      "assigned_people": "",
       "date_creation": "2026-02-17",
       "city": "MALGUÉNAC",
       "country": "FR"
@@ -35995,7 +35995,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-02-24",
       "city": "",
       "country": "FR"
@@ -36535,7 +36535,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-02-26",
       "city": "",
       "country": "FR"
@@ -36877,7 +36877,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Mathieu ",
+      "assigned_people": "",
       "date_creation": "2026-03-10",
       "city": "",
       "country": "FR"
@@ -36985,7 +36985,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-03-13",
       "city": "VILLENNES-SUR- SEINE",
       "country": "FR"
@@ -37039,7 +37039,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-03-16",
       "city": "",
       "country": "FR"
@@ -37147,7 +37147,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-03-19",
       "city": "",
       "country": "FR"
@@ -37219,7 +37219,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-03-20",
       "city": "Neuville-en-Ferrain",
       "country": "FR"
@@ -37237,7 +37237,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-03-20",
       "city": "",
       "country": "FR"
@@ -37417,7 +37417,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-03-25",
       "city": "CLARENS",
       "country": "FR"
@@ -37723,7 +37723,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-04-01",
       "city": "Paris",
       "country": "FR"
@@ -37759,7 +37759,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Theo francois ",
+      "assigned_people": "",
       "date_creation": "2026-04-01",
       "city": "Le Mans",
       "country": "FR"
@@ -37957,10 +37957,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2026-04-07",
       "city": "",
-      "country": "FR"
+      "country": "BE"
     },
     {
       "id": "2139",
@@ -38029,7 +38029,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2026-04-09",
       "city": "",
       "country": "FR"
@@ -38119,7 +38119,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-04-13",
       "city": "Annecy",
       "country": "FR"
@@ -38191,7 +38191,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2026-04-14",
       "city": "",
       "country": "FR"
@@ -38227,7 +38227,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Gael ",
+      "assigned_people": "",
       "date_creation": "2026-04-14",
       "city": "",
       "country": "FR"
@@ -38317,7 +38317,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-04-16",
       "city": "",
       "country": "FR"
@@ -38353,7 +38353,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-04-16",
       "city": "",
       "country": "FR"
@@ -38425,7 +38425,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-04-16",
       "city": "",
       "country": "FR"
@@ -38515,7 +38515,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-04-20",
       "city": "",
       "country": "FR"
@@ -38536,7 +38536,7 @@
       "assigned_people": "",
       "date_creation": "2026-04-20",
       "city": "",
-      "country": "FR"
+      "country": "IT"
     },
     {
       "id": "2171",
@@ -38554,7 +38554,7 @@
       "assigned_people": "",
       "date_creation": "2026-04-20",
       "city": "",
-      "country": "FR"
+      "country": "DE"
     },
     {
       "id": "2172",
@@ -38572,7 +38572,7 @@
       "assigned_people": "",
       "date_creation": "2026-04-20",
       "city": "",
-      "country": "FR"
+      "country": "DE"
     },
     {
       "id": "2173",
@@ -38641,7 +38641,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-04-20",
       "city": "Marseille",
       "country": "FR"
@@ -38677,7 +38677,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-04-21",
       "city": "Lyon",
       "country": "FR"
@@ -38713,7 +38713,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Ninon ",
+      "assigned_people": "",
       "date_creation": "2026-04-22",
       "city": "",
       "country": "FR"
@@ -38803,7 +38803,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-04-23",
       "city": "",
       "country": "FR"
@@ -38821,7 +38821,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-04-23",
       "city": "Rennes",
       "country": "FR"
@@ -38875,7 +38875,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-04-23",
       "city": "",
       "country": "FR"
@@ -38947,7 +38947,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-04-27",
       "city": "",
       "country": "FR"
@@ -38983,7 +38983,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Anais ",
+      "assigned_people": "",
       "date_creation": "2026-04-29",
       "city": "",
       "country": "FR"
@@ -39145,7 +39145,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Paul_R ",
+      "assigned_people": "",
       "date_creation": "2026-05-06",
       "city": "",
       "country": "FR"
@@ -39163,7 +39163,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Audrey ",
+      "assigned_people": "",
       "date_creation": "2026-05-07",
       "city": "MARCOUSSIS CEDEX",
       "country": "FR"
@@ -39289,7 +39289,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Alizee ",
+      "assigned_people": "",
       "date_creation": "2026-05-11",
       "city": "",
       "country": "FR"
@@ -39343,7 +39343,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-05-12",
       "city": "",
       "country": "FR"
@@ -39523,7 +39523,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-05-14",
       "city": "",
       "country": "FR"
@@ -39595,7 +39595,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-05-15",
       "city": "",
       "country": "FR"
@@ -39631,7 +39631,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-05-17",
       "city": "",
       "country": "FR"
@@ -39667,7 +39667,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Adeline ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "MONNIÈRES",
       "country": "FR"
@@ -39739,7 +39739,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
       "country": "FR"
@@ -39757,7 +39757,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
       "country": "FR"
@@ -39775,7 +39775,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
       "country": "FR"
@@ -39811,7 +39811,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Adeline ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
       "country": "FR"
@@ -39829,10 +39829,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
-      "country": "FR"
+      "country": "CH"
     },
     {
       "id": "2244",
@@ -39847,7 +39847,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-05-18",
       "city": "",
       "country": "FR"
@@ -40135,7 +40135,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Adeline ",
+      "assigned_people": "",
       "date_creation": "2026-05-27",
       "city": "",
       "country": "FR"
@@ -40153,7 +40153,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-05-27",
       "city": "",
       "country": "FR"
@@ -40279,7 +40279,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-05-28",
       "city": "",
       "country": "FR"
@@ -40423,7 +40423,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas_F ",
+      "assigned_people": "",
       "date_creation": "2026-06-01",
       "city": "",
       "country": "FR"
@@ -40441,7 +40441,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-06-01",
       "city": "",
       "country": "FR"
@@ -40603,7 +40603,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-04",
       "city": "",
       "country": "FR"
@@ -40675,7 +40675,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-05",
       "city": "",
       "country": "FR"
@@ -40729,7 +40729,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Fabio ",
+      "assigned_people": "",
       "date_creation": "2026-06-08",
       "city": "",
       "country": "FR"
@@ -40747,7 +40747,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-06-09",
       "city": "",
       "country": "FR"
@@ -41017,7 +41017,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-12",
       "city": "",
       "country": "FR"
@@ -41125,7 +41125,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "Colas ",
+      "assigned_people": "",
       "date_creation": "2026-06-15",
       "city": "Montpellier",
       "country": "FR"
@@ -41179,7 +41179,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Arthur ",
+      "assigned_people": "",
       "date_creation": "2026-06-15",
       "city": "",
       "country": "FR"
@@ -41377,7 +41377,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Yoann ",
+      "assigned_people": "",
       "date_creation": "2026-06-17",
       "city": "",
       "country": "FR"
@@ -41611,7 +41611,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2026-06-19",
       "city": "",
       "country": "FR"
@@ -41701,7 +41701,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2026-06-19",
       "city": "",
       "country": "FR"
@@ -41719,10 +41719,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-06-19",
       "city": "",
-      "country": "FR"
+      "country": "AE"
     },
     {
       "id": "2349",
@@ -41737,7 +41737,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-06-20",
       "city": "",
       "country": "FR"
@@ -41755,7 +41755,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nao ",
+      "assigned_people": "",
       "date_creation": "2026-06-22",
       "city": "",
       "country": "FR"
@@ -41791,7 +41791,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Edouard ",
+      "assigned_people": "",
       "date_creation": "2026-06-22",
       "city": "",
       "country": "FR"
@@ -41827,7 +41827,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Theo ",
+      "assigned_people": "",
       "date_creation": "2026-06-22",
       "city": "Isles-les-Meldeuses",
       "country": "FR"
@@ -41845,7 +41845,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nael ",
+      "assigned_people": "",
       "date_creation": "2026-06-22",
       "city": "",
       "country": "FR"
@@ -41863,9 +41863,9 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nael ",
+      "assigned_people": "",
       "date_creation": "2026-06-22",
-      "city": "ANCENIS",
+      "city": "",
       "country": "FR"
     },
     {
@@ -41917,7 +41917,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Yoann ",
+      "assigned_people": "",
       "date_creation": "2026-06-24",
       "city": "",
       "country": "FR"
@@ -41989,7 +41989,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-25",
       "city": "",
       "country": "FR"
@@ -42007,7 +42007,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Yoann ",
+      "assigned_people": "",
       "date_creation": "2026-06-25",
       "city": "",
       "country": "FR"
@@ -42097,7 +42097,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-26",
       "city": "",
       "country": "FR"
@@ -42115,7 +42115,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-06-29",
       "city": "",
       "country": "FR"
@@ -42169,7 +42169,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-30",
       "city": "",
       "country": "FR"
@@ -42223,10 +42223,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-30",
       "city": "",
-      "country": "FR"
+      "country": "DZ"
     },
     {
       "id": "2377",
@@ -42277,7 +42277,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-06-30",
       "city": "Valence",
       "country": "FR"
@@ -42331,7 +42331,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-07-01",
       "city": "",
       "country": "FR"
@@ -42511,7 +42511,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-07-02",
       "city": "",
       "country": "FR"
@@ -42655,10 +42655,10 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-07-03",
       "city": "",
-      "country": "FR"
+      "country": "GB"
     },
     {
       "id": "2401",
@@ -42691,7 +42691,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Thomas ",
+      "assigned_people": "",
       "date_creation": "2026-07-06",
       "city": "",
       "country": "FR"
@@ -42727,7 +42727,7 @@
       "status": null,
       "sector": "c10_freelance",
       "tags": null,
-      "assigned_people": "Ninon ",
+      "assigned_people": "",
       "date_creation": "2026-07-07",
       "city": "",
       "country": "FR"
@@ -42943,7 +42943,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nael ",
+      "assigned_people": "",
       "date_creation": "2026-07-13",
       "city": "",
       "country": "FR"
@@ -42961,7 +42961,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Baptiste ",
+      "assigned_people": "",
       "date_creation": "2026-07-15",
       "city": "GUIDICELLI",
       "country": "FR"
@@ -43123,7 +43123,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Paul_R ",
+      "assigned_people": "",
       "date_creation": "2026-07-17",
       "city": "",
       "country": "FR"
@@ -43231,7 +43231,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "Claudio ",
+      "assigned_people": "",
       "date_creation": "2026-07-17",
       "city": "Marseille",
       "country": "FR"
@@ -43537,7 +43537,7 @@
       "status": "0",
       "sector": "",
       "tags": null,
-      "assigned_people": "francois ",
+      "assigned_people": "",
       "date_creation": "2026-07-21",
       "city": "",
       "country": "FR"
@@ -44059,7 +44059,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Nael ",
+      "assigned_people": "",
       "date_creation": "2026-08-03",
       "city": "CAIXON",
       "country": "FR"
@@ -44293,7 +44293,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-08-11",
       "city": "",
       "country": "FR"
@@ -44419,7 +44419,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Clement ",
+      "assigned_people": "",
       "date_creation": "2026-08-17",
       "city": "",
       "country": "FR"
@@ -44581,7 +44581,7 @@
       "status": null,
       "sector": "",
       "tags": null,
-      "assigned_people": "Romain_G ",
+      "assigned_people": "",
       "date_creation": "2026-08-25",
       "city": "",
       "country": "FR"
@@ -44675,7 +44675,133 @@
       "date_creation": "2026-08-28",
       "city": "CHAMONIX-MONT-BLANC",
       "country": "FR"
+    },
+    {
+      "id": "2513",
+      "company": "AGENTLY",
+      "company_id": "2063",
+      "lastname": "Carboneill",
+      "firstname": "Louis",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Audrey ",
+      "date_creation": "2026-08-31",
+      "city": "PERPIGNAN",
+      "country": "FR"
+    },
+    {
+      "id": "2514",
+      "company": "PAUL montparnasse",
+      "company_id": "2064",
+      "lastname": "",
+      "firstname": "",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Eddy ",
+      "date_creation": "2026-08-31",
+      "city": "",
+      "country": "FR"
+    },
+    {
+      "id": "2515",
+      "company": "MERCURE PARIS BERCY",
+      "company_id": "2065",
+      "lastname": "",
+      "firstname": "",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Eddy ",
+      "date_creation": "2026-08-31",
+      "city": "",
+      "country": "FR"
+    },
+    {
+      "id": "2516",
+      "company": "PRINCE STM - SHARIF TAHIRU MELGAR",
+      "company_id": "2066",
+      "lastname": "",
+      "firstname": "",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Romain_G ",
+      "date_creation": "2026-08-31",
+      "city": "",
+      "country": "FR"
+    },
+    {
+      "id": "2517",
+      "company": "MIDDLE SRLS",
+      "company_id": "2067",
+      "lastname": "Cesana",
+      "firstname": "Nicolò",
+      "email": "info@nowheremiddle.it",
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "c10_freelance",
+      "tags": null,
+      "assigned_people": "Claudio ",
+      "date_creation": "2026-09-01",
+      "city": "Lecco",
+      "country": "IT"
+    },
+    {
+      "id": "2518",
+      "company": "Tonsser",
+      "company_id": "2068",
+      "lastname": "Bellis",
+      "firstname": "Aurélien",
+      "email": "",
+      "phone": null,
+      "category": "Prospects",
+      "type": "client",
+      "status": "2",
+      "sector": "c04_distributeur",
+      "tags": null,
+      "assigned_people": "Aurelien",
+      "date_creation": "2026-09-03",
+      "city": "",
+      "country": "FR"
+    },
+    {
+      "id": "2519",
+      "company": "MONT BLANC PREVENTION ET SECURITE",
+      "company_id": "2069",
+      "lastname": "",
+      "firstname": "",
+      "email": null,
+      "phone": null,
+      "category": "Fournisseurs",
+      "type": "fournisseur",
+      "status": null,
+      "sector": "",
+      "tags": null,
+      "assigned_people": "Adeline ",
+      "date_creation": "2026-09-03",
+      "city": "THYEZ",
+      "country": "FR"
     }
   ],
-  "syncDate": "2026-08-31T07:22:10.873Z"
+  "syncDate": "2026-09-03T10:16:24.032Z"
 }

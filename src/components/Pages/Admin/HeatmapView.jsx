@@ -4,7 +4,6 @@ import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
 
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'Naël': '#0ea5e9', 'Alizée': '#ec4899' };
-const TIER_COLORS = { 1: '#2ecc71', 2: '#3b82f6', 3: '#f39c12', 4: '#888', 5: '#e74c3c' };
 
 // Couleur selon l'avancement du CA vs le temps écoulé dans l'exercice
 function heatColor(pctR, pctT) {
@@ -22,7 +21,6 @@ export default function HeatmapView({ fyStartYear }) {
   const [loading, setLoading] = useState(true);
   const [dcFilter, setDcFilter] = useState('all');
   const [typoFilter, setTypoFilter] = useState('all');
-  const [tierFilter, setTierFilter] = useState('all');
 
   useEffect(() => {
     let alive = true;
@@ -39,10 +37,11 @@ export default function HeatmapView({ fyStartYear }) {
   const rows = useMemo(() => {
     return (data?.clients || [])
       .filter(c => mode === 'medias'
-        ? (tierFilter === 'all' || c.tiering === Number(tierFilter))
+        ? true
         : ((dcFilter === 'all' || c.dc === dcFilter) && (typoFilter === 'all' || c.typologie === typoFilter)))
-      .map(c => ({ ...c, name: c.client, fill: heatColor(c.pctRealise, pctTemps) }));
-  }, [data, mode, dcFilter, typoFilter, tierFilter, pctTemps]);
+      .map(c => ({ ...c, name: c.client, fill: heatColor(c.pctRealise, pctTemps) }))
+      .sort((a, b) => b.objectif - a.objectif);
+  }, [data, mode, dcFilter, typoFilter, pctTemps]);
 
   if (loading) return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#e63946] border-t-transparent rounded-full animate-spin" /></div>;
 
@@ -66,34 +65,24 @@ export default function HeatmapView({ fyStartYear }) {
         </div>
       </div>
 
-      {/* Filtres */}
-      <div className="flex items-center gap-3 flex-wrap">
-        {mode === 'agence' ? (
-          <>
-            <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 flex-wrap">
-              <button onClick={() => setDcFilter('all')} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${dcFilter === 'all' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Tous DC</button>
-              {(data?.dcs || []).map(n => (
-                <button key={n} onClick={() => setDcFilter(n)} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${dcFilter === n ? 'text-white' : 'text-[#888] hover:text-white'}`}
-                  style={dcFilter === n ? { backgroundColor: DC_COLORS[n] || '#666' } : undefined}>{n}</button>
-              ))}
-            </div>
-            <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 flex-wrap">
-              <button onClick={() => setTypoFilter('all')} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${typoFilter === 'all' ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>Toutes typologies</button>
-              {(data?.typologies || []).map(t => (
-                <button key={t} onClick={() => setTypoFilter(t)} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${typoFilter === t ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>{t}</button>
-              ))}
-            </div>
-          </>
-        ) : (
+      {/* Filtres — uniquement en mode Agences (DC + typologie) */}
+      {mode === 'agence' && (
+        <div className="flex items-center gap-3 flex-wrap">
           <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 flex-wrap">
-            <button onClick={() => setTierFilter('all')} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${tierFilter === 'all' ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Tous tiers</button>
-            {(data?.tiers || []).map(t => (
-              <button key={t} onClick={() => setTierFilter(String(t))} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${tierFilter === String(t) ? 'text-white' : 'text-[#888] hover:text-white'}`}
-                style={tierFilter === String(t) ? { backgroundColor: TIER_COLORS[t] || '#666' } : undefined}>Tier {t}</button>
+            <button onClick={() => setDcFilter('all')} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${dcFilter === 'all' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Tous DC</button>
+            {(data?.dcs || []).map(n => (
+              <button key={n} onClick={() => setDcFilter(n)} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${dcFilter === n ? 'text-white' : 'text-[#888] hover:text-white'}`}
+                style={dcFilter === n ? { backgroundColor: DC_COLORS[n] || '#666' } : undefined}>{n}</button>
             ))}
           </div>
-        )}
-      </div>
+          <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 flex-wrap">
+            <button onClick={() => setTypoFilter('all')} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${typoFilter === 'all' ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>Toutes typologies</button>
+            {(data?.typologies || []).map(t => (
+              <button key={t} onClick={() => setTypoFilter(t)} className={`px-2.5 py-1 text-[11px] font-bold rounded-md ${typoFilter === t ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>{t}</button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Légende couleur */}
       <div className="flex items-center gap-3 text-[11px] text-[#888] flex-wrap">
@@ -113,14 +102,14 @@ export default function HeatmapView({ fyStartYear }) {
         <div className="flex flex-wrap gap-1.5 content-start">
           {rows.map((r, i) => {
             const grow = Math.max(1, Math.round(r.objectif / 5000));
-            const badge = mode === 'medias' ? `Tier ${r.tiering}` : `${r.typologie} · ${r.dc}`;
+            const badge = mode === 'medias' ? '' : `${r.typologie} · ${r.dc}`;
             return (
-              <div key={i} title={`${r.name} · ${badge}`}
+              <div key={i} title={badge ? `${r.name} · ${badge}` : r.name}
                 className="rounded-md p-2.5 flex flex-col justify-between overflow-hidden transition-transform hover:scale-[1.02] hover:z-10 cursor-default"
                 style={{ backgroundColor: r.fill, flexGrow: grow, flexBasis: `${Math.max(130, Math.min(320, Math.sqrt(r.objectif) * 6))}px`, minHeight: 92 }}>
                 <div className="min-w-0">
                   <div className="text-[13px] font-black italic uppercase leading-tight text-white truncate" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.name}</div>
-                  <div className="text-[9px] font-bold uppercase tracking-wide text-white/70">{badge}</div>
+                  {badge && <div className="text-[9px] font-bold uppercase tracking-wide text-white/70">{badge}</div>}
                 </div>
                 <div className="flex items-end justify-between gap-1 mt-1">
                   <span className="text-lg font-black italic text-white leading-none" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.pctRealise}%</span>
