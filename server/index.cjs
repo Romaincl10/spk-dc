@@ -445,6 +445,13 @@ function buildDCPortfolios(fyStartYearParam) {
   // comptes de développement récents rattachés au Biz Dev par décision commerciale.
   const FORCE_BIZDEV_CANON = new Set(['nutripure', 'tecnifibre']);
   const isBizDevNew = (canon) => isNewCanon(canon) || FORCE_BIZDEV_CANON.has(normalize(canon || ''));
+  // Clients EXCLUS du portefeuille de nouveaux clients (Biz Dev) : interne SPK, ou clients
+  // qui n'ont pas vocation à y figurer (décision commerciale).
+  const BIZDEV_EXCLUDE_CANON = new Set(['spk group', 'fc nantes']);
+  const isBizDevExcluded = (canon) => {
+    const n = normalize(canon || '');
+    return [...BIZDEV_EXCLUDE_CANON].some(x => n === x || n.includes(x));
+  };
 
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
@@ -651,7 +658,7 @@ function buildDCPortfolios(fyStartYearParam) {
     // Clients hors objectif nominatif, séparés en NOUVEAUX (conquête, 1er mvt dans
     // l'exercice) vs ÉTABLIS (clients existants sans objectif, ex Decathlon/FFF).
     const computeBizDev = (obj) => {
-      const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
+      const hors = clientBreakdown.filter(c => !claimedClientNames.has(c.name) && !isBizDevExcluded(c.name) && (c.ca > 0 || (c.pipeProbabilise || 0) > 0));
       const toRow = c => ({ client: c.name, actual: c.ca, pipe: c.pipeProbabilise || 0 });
       const newClients = hors.filter(c => isBizDevNew(c.name)).map(toRow);
       const otherClients = hors.filter(c => !isBizDevNew(c.name)).map(toRow);
