@@ -34,8 +34,8 @@ const CLIENT_GROUPS = {
   // NEW BALANCE group (I-RUN rattach\u00e9 \u00e0 New Balance)
   'NEW BALANCE': ['new balance france sarl', 'new balance', 'i-run'],
 
-  // PUMA SE group (Europe, France, DACH consolid\u00e9s sous PUMA SE)
-  'PUMA SE': ['puma se', 'puma europe gmbh', 'puma france sas', 'puma dach'],
+  // PUMA group (SE, Europe, France, DACH consolid\u00e9s \u2014 affich\u00e9 \u00ab PUMA \u00bb)
+  'PUMA': ['puma se', 'puma europe gmbh', 'puma france sas', 'puma dach'],
 
   // LACOSTE group
   'LACOSTE': ['lacoste sas', 'lacoste france', 'lacoste'],
