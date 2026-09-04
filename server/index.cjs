@@ -98,6 +98,13 @@ function isInvoiceIssued(inv) {
 
 /** Clients internes / reciprocites a exclure */
 const EXCLUDED_CLIENTS = ['sportpack', 'spk medias', 'spk activate', 'spk studio', 'spk group'];
+// Clients EXCLUS du portefeuille de nouveaux clients (Biz Dev) : interne SPK ou décision
+// commerciale. Appliqué à la fois au bloc Synthèse DC et à l'onglet Biz Dev.
+const BIZDEV_EXCLUDE = ['spk group', 'fc nantes'];
+function isBizDevExcludedCanon(canon) {
+  const n = normalize(canon || '');
+  return BIZDEV_EXCLUDE.some(x => n === x || n.includes(x));
+}
 
 /** Returns true if project should be EXCLUDED */
 function shouldExcludeProject(project) {
@@ -445,13 +452,8 @@ function buildDCPortfolios(fyStartYearParam) {
   // comptes de développement récents rattachés au Biz Dev par décision commerciale.
   const FORCE_BIZDEV_CANON = new Set(['nutripure', 'tecnifibre']);
   const isBizDevNew = (canon) => isNewCanon(canon) || FORCE_BIZDEV_CANON.has(normalize(canon || ''));
-  // Clients EXCLUS du portefeuille de nouveaux clients (Biz Dev) : interne SPK, ou clients
-  // qui n'ont pas vocation à y figurer (décision commerciale).
-  const BIZDEV_EXCLUDE_CANON = new Set(['spk group', 'fc nantes']);
-  const isBizDevExcluded = (canon) => {
-    const n = normalize(canon || '');
-    return [...BIZDEV_EXCLUDE_CANON].some(x => n === x || n.includes(x));
-  };
+  // Exclusion Biz Dev centralisée (module) : interne SPK / décision commerciale
+  const isBizDevExcluded = isBizDevExcludedCanon;
 
   // Group projects by DC
   const dcGroups = {}; // dcName → { projects, clientNames }
@@ -846,7 +848,7 @@ function buildBizDev(fyStartYearParam) {
     if (inv.is_cancelled) return;
     note(getCanonicalClientName(inv.company_name), invoiceEffectiveDate(inv));
   });
-  const isNew = canon => !!firstMove[canon] && firstMove[canon] >= fyStart && firstMove[canon] <= fyEnd;
+  const isNew = canon => !isBizDevExcludedCanon(canon) && !!firstMove[canon] && firstMove[canon] >= fyStart && firstMove[canon] <= fyEnd;
 
   const clientsMap = {};
   const ensure = (canon) => {
