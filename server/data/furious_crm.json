@@ -44776,7 +44776,7 @@
       "phone": null,
       "category": "Prospects",
       "type": "client",
-      "status": "2",
+      "status": "0",
       "sector": "c04_distributeur",
       "tags": null,
       "assigned_people": "Aurelien",
@@ -44803,5 +44803,5 @@
       "country": "FR"
     }
   ],
-  "syncDate": "2026-09-03T10:16:24.032Z"
+  "syncDate": "2026-09-03T19:02:32.993Z"
 }

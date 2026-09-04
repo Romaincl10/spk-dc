@@ -73,6 +73,19 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
   });
   const [subTab, setSubTab] = useState('synthese');
   const [viewMode, setViewMode] = useState('signe'); // 'signe' | 'projection'
+  const [pendingClient, setPendingClient] = useState(null); // {name, key} — client à ouvrir depuis la Heatmap
+
+  // Navigation depuis la Heatmap vers la fiche client (Focus Client DC ou fiche Médias)
+  const handleOpenClient = ({ mode, dc, client, canonicalNames }) => {
+    if (mode === 'medias') {
+      setPendingClient({ name: client, key: Date.now() });
+      setSelectedDC('Médias'); setSubTab('synthese');
+    } else {
+      const target = (canonicalNames && canonicalNames[0]) || client;
+      setPendingClient({ name: target, key: Date.now() });
+      setSelectedDC(dc); setSubTab('focus');
+    }
+  };
 
   const dcNames = useMemo(() => {
     if (!portfolios) return [];
@@ -406,10 +419,10 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       )}
 
       {/* ═══ MÉDIAS ═══ projets & devis MED0 (transverse) */}
-      {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} />}
+      {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} openClient={pendingClient} />}
 
       {/* ═══ HEATMAP ═══ objectifs clients (transverse) */}
-      {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} />}
+      {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} onOpenClient={handleOpenClient} />}
 
       {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) — Biz Dev nouveaux clients */}
       {selectedIsDirector && <DirecteurCommercial fyStartYear={fyStartYear} />}
@@ -418,7 +431,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {selectedDC !== 'Globale' && !selectedIsDirector && currentPortfolio && (
         <>
           {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
-          {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} />}
+          {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} openClient={pendingClient} />}
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}

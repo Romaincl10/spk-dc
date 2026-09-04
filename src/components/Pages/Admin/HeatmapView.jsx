@@ -15,7 +15,7 @@ function heatColor(pctR, pctT) {
   return '#c0392b';
 }
 
-export default function HeatmapView({ fyStartYear }) {
+export default function HeatmapView({ fyStartYear, onOpenClient }) {
   const [mode, setMode] = useState('agence'); // 'agence' | 'medias'
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -104,8 +104,9 @@ export default function HeatmapView({ fyStartYear }) {
             const grow = Math.max(1, Math.round(r.objectif / 5000));
             const badge = mode === 'medias' ? '' : `${r.typologie} · ${r.dc}`;
             return (
-              <div key={i} title={badge ? `${r.name} · ${badge}` : r.name}
-                className="rounded-md p-2.5 flex flex-col justify-between overflow-hidden transition-transform hover:scale-[1.02] hover:z-10 cursor-default"
+              <button key={i} title={`${badge ? `${r.name} · ${badge}` : r.name} — ouvrir la fiche`}
+                onClick={() => onOpenClient?.({ mode, dc: r.dc, client: r.name, canonicalNames: r.canonicalNames || [] })}
+                className="text-left rounded-md p-2.5 flex flex-col justify-between overflow-hidden transition-transform hover:scale-[1.03] hover:z-10 cursor-pointer"
                 style={{ backgroundColor: r.fill, flexGrow: grow, flexBasis: `${Math.max(130, Math.min(320, Math.sqrt(r.objectif) * 6))}px`, minHeight: 92 }}>
                 <div className="min-w-0">
                   <div className="text-[13px] font-black italic uppercase leading-tight text-white truncate" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.name}</div>
@@ -115,7 +116,7 @@ export default function HeatmapView({ fyStartYear }) {
                   <span className="text-lg font-black italic text-white leading-none" style={{ textShadow: '0 1px 2px rgba(0,0,0,.4)' }}>{r.pctRealise}%</span>
                   <span className="text-[9px] font-bold text-white/80 text-right leading-tight">{fmtK(r.ca)}<br /><span className="text-white/55">/ {fmtK(r.objectif)}</span></span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

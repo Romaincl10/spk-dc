@@ -18146,8 +18146,8 @@
       "end_date": "2026-07-31",
       "created_at": "2026-03-06",
       "total_amount": 1685512.74,
-      "total_cost": 1290535.48,
-      "progress": 33.539639,
+      "total_cost": 1072600.52,
+      "progress": 21.6138531,
       "actif": "1",
       "legal_entity": "spk",
       "currency": "EUR",
@@ -18158,9 +18158,9 @@
       "project_pipe_name": null,
       "type": "event",
       "type_label": "SPK_Event",
-      "margin": 394977.26,
+      "margin": 612912.22,
       "is_rate_card_project": "1",
-      "total_gross_margin_distributed": 193203.606,
+      "total_gross_margin_distributed": 609112.4560000001,
       "campaign_name": null,
       "client_configuration": "2",
       "advancement": "load",
@@ -23974,7 +23974,7 @@
       "end_date": "2026-08-30",
       "created_at": "2026-07-30",
       "total_amount": 51651.57,
-      "total_cost": 28266.83,
+      "total_cost": 28373.58,
       "progress": 84.5473907,
       "actif": "1",
       "legal_entity": "spk",
@@ -23986,9 +23986,9 @@
       "project_pipe_name": null,
       "type": "brand",
       "type_label": "SPK_Brand Content",
-      "margin": 23384.74,
+      "margin": 23277.99,
       "is_rate_card_project": "1",
-      "total_gross_margin_distributed": 24198.35,
+      "total_gross_margin_distributed": 24091.6,
       "campaign_name": null,
       "client_configuration": "2",
       "advancement": "load",
@@ -24863,5 +24863,5 @@
       "cf_mdia": ""
     }
   ],
-  "syncDate": "2026-09-03T10:16:23.981Z"
+  "syncDate": "2026-09-03T19:02:32.942Z"
 }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Search, ArrowLeft } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import ChartWrapper from '../../Common/ChartWrapper';
@@ -6,12 +6,24 @@ import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct, fmtNum } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
 
-export default function DCFocusClient({ portfolio, color }) {
+const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+export default function DCFocusClient({ portfolio, color, openClient }) {
   const [search, setSearch] = useState('');
   const [selectedClient, setSelectedClient] = useState(null);
 
   const fyProjects = (portfolio.projects || []).filter(p => p.inFY);
   const clientBreakdown = portfolio.clientBreakdown || [];
+
+  // Ouverture d'un client depuis l'extérieur (Heatmap) : match exact puis approché
+  useEffect(() => {
+    if (!openClient?.name) return;
+    const t = norm(openClient.name);
+    const exact = clientBreakdown.find(c => norm(c.name) === t);
+    const approx = exact || clientBreakdown.find(c => { const n = norm(c.name); return n.includes(t) || t.includes(n); });
+    if (approx) { setSelectedClient(approx.name); setSearch(''); }
+    else setSearch(openClient.name);
+  }, [openClient?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Objectif par client (via les noms canoniques rattachés à chaque objectif)
   const objByClient = useMemo(() => {

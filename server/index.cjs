@@ -1109,7 +1109,7 @@ function buildHeatmap(fyStartYearParam) {
     if (dc === 'A assigner') return;
     (p.objectives || []).filter(o => o.client !== '_BIZ_DEV' && (o.target || 0) > 0).forEach(o => {
       const ca = o.actual || 0, obj = o.target;
-      clients.push({ client: o.client, dc, objectif: obj, ca, pctRealise: Math.round(ca / obj * 100), typologie: typoOf(o.client, o.canonicalNames) });
+      clients.push({ client: o.client, dc, objectif: obj, ca, pctRealise: Math.round(ca / obj * 100), typologie: typoOf(o.client, o.canonicalNames), canonicalNames: o.canonicalNames || [] });
     });
   });
   clients.sort((a, b) => b.objectif - a.objectif);

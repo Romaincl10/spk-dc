@@ -1,6 +1,32 @@
 {
   "data": [
     {
+      "id": "262896",
+      "id_system": "1500",
+      "proposal_id": "262534",
+      "project_id": "1005",
+      "project_name": "SPK0375_Soirée des champions Lot 2",
+      "company_name": "CNOSF",
+      "company_id": "1016",
+      "amount_ht": 4806.56,
+      "vat": 20,
+      "amount_inc_tax": 5767.873,
+      "statut": 1,
+      "is_cancelled": 0,
+      "invoice_date": "2026-09-03",
+      "issue_date": "2026-09-03",
+      "due_date": "2026-10-03",
+      "payment_date": "",
+      "entity": "spk",
+      "currency": "EUR",
+      "period_start": "2026-06-01",
+      "period_stop": "2026-06-30",
+      "author": "Yoann",
+      "tags": [
+        "OK compta"
+      ]
+    },
+    {
       "id": "262895",
       "id_system": "1715",
       "proposal_id": "251926",
@@ -32827,30 +32853,6 @@
     },
     {
       "id": "0",
-      "id_system": "1500",
-      "proposal_id": "262534",
-      "project_id": "1005",
-      "project_name": "SPK0375_Soirée des champions Lot 2",
-      "company_name": "CNOSF",
-      "company_id": "1016",
-      "amount_ht": 4806.56,
-      "vat": 20,
-      "amount_inc_tax": 5767.870000000001,
-      "statut": 0,
-      "is_cancelled": 0,
-      "invoice_date": "0000-00-00",
-      "issue_date": "2026-06-30",
-      "due_date": null,
-      "payment_date": "",
-      "entity": "spk",
-      "currency": "EUR",
-      "period_start": "0000-00-00",
-      "period_stop": "0000-00-00",
-      "author": null,
-      "tags": null
-    },
-    {
-      "id": "0",
       "id_system": "1512",
       "proposal_id": "262587",
       "project_id": "1009",
@@ -34375,13 +34377,13 @@
       "statut": 0,
       "is_cancelled": 0,
       "invoice_date": "0000-00-00",
-      "issue_date": "2026-08-31",
+      "issue_date": "2026-09-03",
       "due_date": null,
       "payment_date": "",
       "entity": "spk",
       "currency": "EUR",
-      "period_start": "0000-00-00",
-      "period_stop": "0000-00-00",
+      "period_start": "2026-08-01",
+      "period_stop": "2026-08-31",
       "author": null,
       "tags": null
     },
@@ -34674,5 +34676,5 @@
       "tags": null
     }
   ],
-  "syncDate": "2026-09-03T10:16:24.053Z"
+  "syncDate": "2026-09-03T19:02:33.014Z"
 }
