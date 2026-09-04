@@ -10,11 +10,10 @@ const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
 const MEDIA = '#06b6d4';
 const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 
-export default function MediasView({ fyStartYear, openClient }) {
+export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [tierFilter, setTierFilter] = useState('all');
-  const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct' | 'ranking'
+  const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct'
   const [selectedClient, setSelectedClient] = useState(null);
 
   useEffect(() => {
@@ -26,8 +25,8 @@ export default function MediasView({ fyStartYear, openClient }) {
     return () => { alive = false; };
   }, [fyStartYear]);
 
-  // Ouverture d'un client depuis l'extérieur (Heatmap)
-  useEffect(() => { if (openClient?.name) setSelectedClient(openClient.name); }, [openClient?.key]);
+  // Ouverture d'un client depuis l'extérieur (Heatmap) — one-shot : on consomme puis on vide
+  useEffect(() => { if (openClient?.name) { setSelectedClient(openClient.name); onOpened?.(); } }, [openClient?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) {
     return (
@@ -43,14 +42,11 @@ export default function MediasView({ fyStartYear, openClient }) {
   const objTargetTotal = data?.objTargetTotal || 0;
   const objCaTotal = data?.objCaTotal || 0;
   const objPct = objTargetTotal > 0 ? Math.round(objCaTotal / objTargetTotal * 100) : 0;
-  const TIER = { 1: '#2ecc71', 2: '#3b82f6', 3: '#f39c12', 4: '#888', 5: '#e74c3c' };
   const allObjectives = (data?.clientObjectives || []).filter(o => o.target > 0 || o.ca > 0);
-  const availTiers = [...new Set(allObjectives.map(o => o.tiering))].sort();
   const clientObjectives = (() => {
-    let list = allObjectives.filter(o => tierFilter === 'all' || o.tiering === Number(tierFilter));
-    if (objSort === 'ca') list = [...list].sort((a, b) => b.ca - a.ca);
-    else if (objSort === 'pct') list = [...list].sort((a, b) => (a.pct ?? 9999) - (b.pct ?? 9999));
-    else list = [...list].sort((a, b) => a.ranking - b.ranking);
+    let list = [...allObjectives];
+    if (objSort === 'pct') list.sort((a, b) => (a.pct ?? 9999) - (b.pct ?? 9999));
+    else list.sort((a, b) => b.ca - a.ca);
     return list;
   })();
 
@@ -110,19 +106,10 @@ export default function MediasView({ fyStartYear, openClient }) {
             {fmtK(objCaTotal)} / {fmtK(objTargetTotal)} · <span className="font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : objPct >= 50 ? '#f39c12' : '#e74c3c' }}>{objPct}%</span>
           </span>
           <div className="flex items-center gap-2 ml-auto flex-wrap">
-            {/* Filtre tiering */}
-            <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5">
-              <button onClick={() => setTierFilter('all')} className={`px-2 py-1 text-[10px] font-bold rounded ${tierFilter === 'all' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Tous</button>
-              {availTiers.map(t => (
-                <button key={t} onClick={() => setTierFilter(String(t))} className={`px-2 py-1 text-[10px] font-bold rounded ${tierFilter === String(t) ? 'text-white' : 'text-[#888] hover:text-white'}`}
-                  style={tierFilter === String(t) ? { backgroundColor: TIER[t] } : undefined}>T{t}</button>
-              ))}
-            </div>
             {/* Tri */}
             <select value={objSort} onChange={e => setObjSort(e.target.value)} className="bg-[#111] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[10px] font-bold text-[#ccc] outline-none">
               <option value="ca">Tri : CA réalisé</option>
               <option value="pct">Tri : % réalisé (retards)</option>
-              <option value="ranking">Tri : ranking</option>
             </select>
           </div>
         </div>
@@ -134,7 +121,6 @@ export default function MediasView({ fyStartYear, openClient }) {
               <thead>
                 <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
                   <th className="text-left py-2 px-2 font-bold w-8">#</th>
-                  <th className="text-center py-2 px-2 font-bold w-10">Tier</th>
                   <th className="text-left py-2 px-2 font-bold">Client</th>
                   <th className="text-right py-2 px-2 font-bold">CA réalisé</th>
                   <th className="text-right py-2 px-2 font-bold">Objectif CA</th>
@@ -150,9 +136,6 @@ export default function MediasView({ fyStartYear, openClient }) {
                     <tr key={o.ranking} onClick={() => setSelectedClient(o.client)}
                       className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
                       <td className="py-2 px-2 text-[#666] text-xs">{o.ranking}</td>
-                      <td className="py-2 px-2 text-center">
-                        <span className="text-[9px] font-black px-1.5 py-0.5 rounded" style={{ backgroundColor: `${TIER[o.tiering]}22`, color: TIER[o.tiering] }}>T{o.tiering}</span>
-                      </td>
                       <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{o.client}</td>
                       <td className="py-2 px-2 text-right font-bold text-white">{o.ca > 0 ? fmtK(o.ca) : '—'}</td>
                       <td className="py-2 px-2 text-right text-[#aaa]">{o.target > 0 ? fmtK(o.target) : '—'}</td>
@@ -170,7 +153,7 @@ export default function MediasView({ fyStartYear, openClient }) {
                   );
                 })}
                 <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={3}>TOTAL ({clientObjectives.length})</td>
+                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({clientObjectives.length})</td>
                   <td className="py-2 px-2 text-right text-white">{fmtK(objCaTotal)}</td>
                   <td className="py-2 px-2 text-right text-[#aaa]">{fmtK(objTargetTotal)}</td>
                   <td className="py-2 px-2 text-[10px] font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : '#f39c12' }}>{objPct}%</td>

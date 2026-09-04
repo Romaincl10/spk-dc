@@ -8,7 +8,7 @@ import { formatDate } from '../../../utils/dateRange';
 
 const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 
-export default function DCFocusClient({ portfolio, color, openClient }) {
+export default function DCFocusClient({ portfolio, color, openClient, onOpened }) {
   const [search, setSearch] = useState('');
   const [selectedClient, setSelectedClient] = useState(null);
 
@@ -23,6 +23,7 @@ export default function DCFocusClient({ portfolio, color, openClient }) {
     const approx = exact || clientBreakdown.find(c => { const n = norm(c.name); return n.includes(t) || t.includes(n); });
     if (approx) { setSelectedClient(approx.name); setSearch(''); }
     else setSearch(openClient.name);
+    onOpened?.();
   }, [openClient?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Objectif par client (via les noms canoniques rattachés à chaque objectif)

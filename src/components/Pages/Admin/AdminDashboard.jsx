@@ -419,7 +419,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       )}
 
       {/* ═══ MÉDIAS ═══ projets & devis MED0 (transverse) */}
-      {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} openClient={pendingClient} />}
+      {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} openClient={pendingClient} onOpened={() => setPendingClient(null)} />}
 
       {/* ═══ HEATMAP ═══ objectifs clients (transverse) */}
       {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} onOpenClient={handleOpenClient} />}
@@ -431,7 +431,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {selectedDC !== 'Globale' && !selectedIsDirector && currentPortfolio && (
         <>
           {subTab === 'synthese' && <DCSynthese portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
-          {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} openClient={pendingClient} />}
+          {subTab === 'focus' && <DCFocusClient portfolio={currentPortfolio} color={currentColor} openClient={pendingClient} onOpened={() => setPendingClient(null)} />}
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}

@@ -911,23 +911,44 @@ function buildBizDev(fyStartYearParam) {
 function buildMedias(fyStartYearParam) {
   const allProjects = loadData('furious_projects')?.data || [];
   const proposals = loadData('furious_proposals')?.data || [];
+  const invoices = loadData('furious_invoices')?.data || [];
   const { y: fyStartYear, fyStart, fyEnd } = fyBounds(fyStartYearParam);
+  const fyEndInclusive = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
   const isMed = t => /^MED0/i.test((t || '').trim());
 
-  const projects = allProjects.filter(p => isMed(p.title)).map(p => {
+  // CA reconnu par projet MED0 = factures datées (date effective : émise ou prévue) DANS l'exercice.
+  // On ne compte plus le montant total du projet mais uniquement ce qui est facturé sur la période.
+  const medProjects = allProjects.filter(p => isMed(p.title));
+  const medIds = new Set(medProjects.map(p => String(p.id)));
+  const caByProject = {};
+  invoices.forEach(inv => {
+    if (inv.is_cancelled) return;
+    const pid = String(inv.project_id);
+    if (!medIds.has(pid)) return;
+    const ed = invoiceEffectiveDate(inv);
+    if (!ed) return;
+    const d = new Date(ed);
+    if (d < fyStart || d > fyEndInclusive) return;
+    caByProject[pid] = (caByProject[pid] || 0) + (Number(inv.amount_ht) || 0);
+  });
+
+  const projects = medProjects.map(p => {
+    const pid = String(p.id);
     const startDate = p.start_date ? new Date(p.start_date) : null;
     const endDate = p.end_date ? new Date(p.end_date) : null;
     const inFY = startDate && endDate ? !(endDate < fyStart || startDate > fyEnd) : true;
-    const amt = Number(p.total_amount) || 0;
-    const mEur = Number(p.margin) || 0;
+    const totalRaw = Number(p.total_amount) || 0;
+    const marginRate = totalRaw > 0 ? (Number(p.margin) || 0) / totalRaw : 0;
+    const caFY = caByProject[pid] || 0;        // CA facturé sur l'exercice
+    const mEur = caFY * marginRate;             // marge proratisée au CA facturé
     return {
       id: p.id, title: p.title, company_name: p.company_name,
       canonical_client: getCanonicalClientName(p.company_name),
       start_date: p.start_date, end_date: p.end_date, created_at: p.created_at,
-      total_amount: amt, marginEur: mEur, margin: amt > 0 ? Math.round(mEur / amt * 1000) / 10 : 0,
+      total_amount: caFY, marginEur: mEur, margin: caFY > 0 ? Math.round(mEur / caFY * 1000) / 10 : 0,
       actif: p.actif, advancement: Number(p.advancement) || 0, inFY,
     };
-  }).filter(p => p.inFY).sort((a, b) => b.total_amount - a.total_amount);
+  }).filter(p => p.total_amount > 0 || p.inFY).sort((a, b) => b.total_amount - a.total_amount);
 
   const devis = proposals.filter(p => isMed(p.title)).map(p => {
     const pipe = Number(p.pipe);
