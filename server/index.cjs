@@ -920,9 +920,23 @@ function buildMedias(fyStartYearParam) {
   // On ne compte plus le montant total du projet mais uniquement ce qui est facturé sur la période.
   const medProjects = allProjects.filter(p => isMed(p.title));
   const medIds = new Set(medProjects.map(p => String(p.id)));
+  // Appariement annulation ↔ avoir (même logique que les portefeuilles agence) : une facture
+  // annulée est neutralisée par un avoir (montant opposé, même projet). On exclut les DEUX,
+  // sinon l'avoir seul soustrait un CA fantôme (ex. MED0196 qui ressortait à −7 k€).
+  const pairedAvoirs = new Set();
+  {
+    const negByProject = {};
+    invoices.forEach(inv => { if (Number(inv.amount_ht) < 0) (negByProject[String(inv.project_id)] ||= []).push(inv); });
+    invoices.forEach(inv => {
+      if (inv.is_cancelled != 1) return;
+      const list = negByProject[String(inv.project_id)] || [];
+      const idx = list.findIndex(n => Math.abs(Math.abs(Number(n.amount_ht)) - Math.abs(Number(inv.amount_ht))) < 0.01);
+      if (idx >= 0) { pairedAvoirs.add(list[idx]); list.splice(idx, 1); }
+    });
+  }
   const caByProject = {};
   invoices.forEach(inv => {
-    if (inv.is_cancelled) return;
+    if (inv.is_cancelled || pairedAvoirs.has(inv)) return;
     const pid = String(inv.project_id);
     if (!medIds.has(pid)) return;
     const ed = invoiceEffectiveDate(inv);
