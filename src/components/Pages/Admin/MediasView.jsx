@@ -63,10 +63,13 @@ export default function MediasView({ fyStartYear, openClient }) {
     const ca = projs.reduce((s, p) => s + (p.total_amount || 0), 0);
     const mb = projs.reduce((s, p) => s + (p.marginEur || 0), 0);
     const pipe = dvs.reduce((s, p) => s + (p.probabilise || 0), 0);
-    return { name: selectedClient, projects: projs, devis: dvs, ca, mb, pipe, mbPct: ca > 0 ? Math.round(mb / ca * 1000) / 10 : 0 };
+    // Objectif CA du client (matrice objectifs médias)
+    const objRow = allObjectives.find(o => m(o.client));
+    const target = objRow?.target || 0;
+    return { name: selectedClient, projects: projs, devis: dvs, ca, mb, pipe, target, mbPct: ca > 0 ? Math.round(mb / ca * 1000) / 10 : 0 };
   })() : null;
 
-  if (detail) return <MediaClientFiche detail={detail} fyStartYear={fyStartYear} onBack={() => setSelectedClient(null)} />;
+  if (detail) return <MediaClientFiche detail={detail} pctTemps={data?.pctTemps || 0} fyStartYear={fyStartYear} onBack={() => setSelectedClient(null)} />;
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -276,9 +279,10 @@ export default function MediasView({ fyStartYear, openClient }) {
 }
 
 // ─── Fiche client média : détail des projets en cours + devis ───
-function MediaClientFiche({ detail, fyStartYear, onBack }) {
-  const { name, projects, devis, ca, mb, pipe, mbPct } = detail;
+function MediaClientFiche({ detail, pctTemps, fyStartYear, onBack }) {
+  const { name, projects, devis, ca, mb, pipe, mbPct, target } = detail;
   const actifs = projects.filter(p => p.actif === '1' || p.actif === 1);
+  const objPct = target > 0 ? Math.round(ca / target * 100) : null;
   return (
     <div className="space-y-5 animate-fade-in">
       <div className="flex items-center gap-3">
@@ -289,13 +293,21 @@ function MediaClientFiche({ detail, fyStartYear, onBack }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <KPICard label="CA signé médias" value={ca} suffix="€" subtitle={`${projects.length} projets`} color="text-[#06b6d4]" />
+        <KPICard label="Objectif CA" value={target} suffix="€"
+          subtitle={objPct != null ? `${objPct}% réalisé` : 'hors objectif'}
+          color={objPct == null ? 'text-[#888]' : objPct >= 80 ? 'text-[#2ecc71]' : objPct >= 50 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
         <KPICard label="Marge brute" value={mb} suffix="€" subtitle={`MB ${fmtPct(mbPct)}`}
           color={mbPct >= 54 ? 'text-[#2ecc71]' : mbPct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
         <KPICard label="Pipe pondéré" value={pipe} suffix="€" subtitle={`${devis.length} devis`} color="text-[#3b82f6]" />
         <KPICard label="Projets en cours" value={actifs.length} suffix={` / ${projects.length}`} />
       </div>
+
+      {/* Jauge objectif CA du client */}
+      {target > 0 && (
+        <ObjectiveGauge label={`Objectif CA médias · ${name}`} realized={ca} target={target} pipe={pipe} pace={pctTemps} color="#06b6d4" />
+      )}
 
       {/* Projets en cours */}
       <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
