@@ -1018,6 +1018,47 @@ function buildMedias(fyStartYearParam) {
 }
 
 /**
+ * Récap mensuel des mouvements MÉDIAS (transverse, pas de découpage DC) :
+ * projets signés (créés dans le mois), devis créés et devis perdus dans le mois.
+ */
+function buildMediasMonthlyRecap(monthParam) {
+  const allProjects = loadData('furious_projects')?.data || [];
+  const proposals = loadData('furious_proposals')?.data || [];
+  const now = new Date();
+  const month = /^\d{4}-\d{2}$/.test(monthParam || '') ? monthParam : now.toISOString().slice(0, 7);
+  const inMonth = (d) => !!d && String(d).slice(0, 7) === month;
+  const isMed = t => /^M0|^MED0/i.test((t || '').trim());
+
+  const signes = [];
+  allProjects.forEach(p => {
+    if (!isMed(p.title) || !inMonth(p.created_at)) return;
+    signes.push({ id: p.id, title: p.title, client: getCanonicalClientName(p.company_name), amount: Number(p.total_amount) || 0, margin: Number(p.margin) || 0, created_at: p.created_at });
+  });
+
+  const devisCrees = [], devisPerdus = [];
+  proposals.forEach(p => {
+    if (!isMed(p.title)) return;
+    const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
+    const base = { id: p.id, title: p.title, client: getCanonicalClientName(p.company_name), amount, probability: proba, probabilise: amount * proba / 100, pipe_name: p.pipe_name };
+    if (inMonth(p.created_at)) devisCrees.push({ ...base, date: String(p.created_at).slice(0, 10) });
+    if (p.pipe_name === 'Perdu' && inMonth(p.last_updated_at || p.created_at)) devisPerdus.push({ ...base, date: String(p.last_updated_at || p.created_at).slice(0, 10) });
+  });
+
+  signes.sort((a, z) => z.amount - a.amount);
+  devisCrees.sort((a, z) => z.amount - a.amount);
+  devisPerdus.sort((a, z) => z.amount - a.amount);
+  const sum = (arr) => arr.reduce((s, x) => s + x.amount, 0);
+  return {
+    month, signes, devisCrees, devisPerdus,
+    totals: {
+      signesCount: signes.length, signesCA: sum(signes),
+      devisCreesCount: devisCrees.length, devisCreesMontant: sum(devisCrees),
+      devisPerdusCount: devisPerdus.length, devisPerdusMontant: sum(devisPerdus),
+    },
+  };
+}
+
+/**
  * Récap mensuel des mouvements par DC : projets signés (créés dans le mois),
  * devis créés et devis perdus dans le mois. Pour les points mensuels avec les DC.
  */
@@ -1280,6 +1321,12 @@ app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
   }
   const fyParam = parseInt(req.query.fy, 10);
   res.json(buildMedias(Number.isInteger(fyParam) ? fyParam : undefined));
+});
+
+// Récap mensuel des mouvements médias (transverse). Admin + directeur.
+app.get('/api/data/medias-monthly-recap', auth.authMiddleware, (req, res) => {
+  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  res.json(buildMediasMonthlyRecap(req.query.month));
 });
 
 // Farming — board éditable (concepts + événements) d'un DC, persistant sur le volume.
