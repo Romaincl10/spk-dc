@@ -31,11 +31,56 @@ function Tile({ icon: Icon, title, accent, count, montant, montantLabel }) {
   );
 }
 
+function DcBadges({ dcs }) {
+  return (
+    <span className="flex gap-1 shrink-0">
+      {(dcs || []).map(dc => (
+        <span key={dc} className="text-[8px] font-bold uppercase tracking-wide px-1 py-0.5 rounded bg-[#2a2a2a] text-[#999]">
+          {dc === 'A assigner' ? 'À assigner' : dc}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+// Colonne de détail : liste des mouvements (projet/devis) derrière un chiffre
+function DetailColumn({ icon: Icon, title, accent, items, empty, kind }) {
+  return (
+    <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-lg overflow-hidden flex flex-col">
+      <div className="px-3 py-2 flex items-center gap-2" style={{ borderBottom: `1px solid ${accent}33` }}>
+        <Icon size={14} style={{ color: accent }} />
+        <span className="text-[11px] font-black uppercase tracking-wider" style={{ color: accent }}>{title}</span>
+        <span className="ml-auto text-[11px] font-bold text-[#888]">{items.length}</span>
+      </div>
+      <div className="p-2 space-y-1.5 max-h-[420px] overflow-y-auto">
+        {items.length === 0
+          ? <p className="text-[#555] text-xs text-center py-6">{empty}</p>
+          : items.map(p => (
+            <div key={p.id} className={`bg-[#161616] border border-[#1e1e1e] rounded-md px-3 py-2 ${kind === 'perdu' ? 'opacity-80' : ''}`}>
+              <div className="flex justify-between items-baseline gap-2">
+                <span className={`text-xs font-semibold text-white truncate ${kind === 'perdu' ? 'line-through decoration-[#e74c3c]/40' : ''} ${kind === 'devis' ? 'italic' : ''}`}>{p.title}</span>
+                <span className="text-xs font-bold shrink-0" style={{ color: accent }}>{fmtK(p.amount)}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2 mt-1">
+                <span className="text-[10px] text-[#888] truncate">{p.client}</span>
+                <DcBadges dcs={p.dcs} />
+              </div>
+              {kind === 'devis' && p.probability != null && (
+                <div className="text-[9px] text-[#666] mt-0.5">{p.probability}% · {p.pipe_name || '—'}</div>
+              )}
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
 export default function RecapMoisGlobal() {
   const months = useMemo(() => recentMonths(), []);
   const [month, setMonth] = useState(months[0]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showDetail, setShowDetail] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -47,16 +92,21 @@ export default function RecapMoisGlobal() {
   }, [month]);
 
   const byDC = data?.byDC || {};
-  // Agrégat agence : dédoublonnage par id (un projet/devis peut être co-géré par plusieurs DC)
+  // Agrégat agence : dédoublonnage par id (un projet/devis peut être co-géré par plusieurs DC),
+  // en conservant le(s) DC concerné(s) sur chaque ligne pour le détail.
   const agg = useMemo(() => {
     const dedupe = (key) => {
       const seen = new Map();
-      Object.values(byDC).forEach(b => (b[key] || []).forEach(x => { if (!seen.has(x.id)) seen.set(x.id, x); }));
-      return [...seen.values()];
+      Object.entries(byDC).forEach(([dc, b]) => (b[key] || []).forEach(x => {
+        if (!seen.has(x.id)) seen.set(x.id, { ...x, dcs: [dc] });
+        else if (!seen.get(x.id).dcs.includes(dc)) seen.get(x.id).dcs.push(dc);
+      }));
+      return [...seen.values()].sort((a, b) => (b.amount || 0) - (a.amount || 0));
     };
     const signes = dedupe('signes'), devisCrees = dedupe('devisCrees'), devisPerdus = dedupe('devisPerdus');
     const sum = (arr) => arr.reduce((s, x) => s + (x.amount || 0), 0);
     return {
+      signes, devisCrees, devisPerdus,
       signesCount: signes.length, signesCA: sum(signes),
       devisCreesCount: devisCrees.length, devisCreesMontant: sum(devisCrees),
       devisPerdusCount: devisPerdus.length, devisPerdusMontant: sum(devisPerdus),
@@ -143,6 +193,24 @@ export default function RecapMoisGlobal() {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* Détail des mouvements — à quel projet/devis correspond chaque chiffre */}
+          {(agg.signesCount + agg.devisCreesCount + agg.devisPerdusCount) > 0 && (
+            <div>
+              <button onClick={() => setShowDetail(v => !v)}
+                className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#888] hover:text-white transition-colors">
+                <span className="text-[#555]">{showDetail ? '▾' : '▸'}</span>
+                {showDetail ? 'Masquer le détail des mouvements' : 'Voir le détail des mouvements (par projet / devis)'}
+              </button>
+              {showDetail && (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3 items-start">
+                  <DetailColumn icon={CheckCircle2} title="Projets signés" accent="#2ecc71" items={agg.signes} empty="Aucun projet signé" kind="projet" />
+                  <DetailColumn icon={FileText} title="Devis créés" accent="#3b82f6" items={agg.devisCrees} empty="Aucun devis créé" kind="devis" />
+                  <DetailColumn icon={XCircle} title="Devis perdus" accent="#e74c3c" items={agg.devisPerdus} empty="Aucun devis perdu" kind="perdu" />
+                </div>
+              )}
             </div>
           )}
         </>
