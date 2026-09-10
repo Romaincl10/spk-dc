@@ -62,6 +62,12 @@ const PAID_MEDIA_CA_EQ_MB = [
   'SPK0372', // CNOSF / Accompagnement OP France Olympique (paid)
 ];
 const isPaidMedia = title => PAID_MEDIA_CA_EQ_MB.some(c => (title || '').toUpperCase().includes(c));
+// Correction manuelle de la MB% (bug de marge côté Furious). code projet -> taux de MB.
+const MB_OVERRIDE = { 'SPK0156': 0.35 }; // ITS UTMB 26 : marge Furious erronée (~9%), forcée à 35%
+const mbOverrideOf = title => {
+  for (const [code, rate] of Object.entries(MB_OVERRIDE)) if ((title || '').toUpperCase().includes(code)) return rate;
+  return null;
+};
 const isExcl = t => EXCLUDE_PROJECTS.some(c => (t || '').toUpperCase().includes(c));
 // facteur retraitement Achats Médias : caNet / caBrut par projet
 function amFactor(projectId) {
@@ -137,8 +143,9 @@ invoices.forEach(inv => {
   // marge brute facture = montant facturé × (margin projet / CA brut projet) — l'Achats Médias s'annule
   const brutP = Number(proj?.total_amount) || 0;
   const mbRate = brutP > 0 ? (Number(proj?.margin) || 0) / brutP : 0;
-  // paid media : CA net = MB (le CA reconnu par SPK = sa marge, hors achats médias pass-through)
-  const amtMB = isPaidMedia(title) ? amt : (Number(inv.amount_ht) || 0) * mbRate;
+  // paid media : CA net = MB ; sinon MB = montant × taux ; override manuel si bug Furious
+  const ovr = mbOverrideOf(title);
+  const amtMB = isPaidMedia(title) ? amt : (ovr != null ? amt * ovr : (Number(inv.amount_ht) || 0) * mbRate);
   if (amt === 0 && amtMB === 0) return;
   const key = title + '||' + company;
   if (!o1.has(key)) o1.set(key, { company, project: title, nbInv: 0, months: Array(12).fill(0), total: 0, monthsMB: Array(12).fill(0), totalMB: 0 });
@@ -199,6 +206,17 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   r.ca = r.proba > 0 ? r.caPondMB / (r.proba / 100) : r.caPondMB;
   r.mbPct = 100;
   r.mbSource = 'paid-media (CA=MB)';
+});
+
+// Override MB manuel (bug marge Furious) — devis
+[...o2.values()].forEach(r => {
+  const ovr = mbOverrideOf(r.project);
+  if (ovr == null) return;
+  r.mbPct = ovr * 100;
+  r.caPondMB = r.caPond * ovr;
+  r.monthsMB = r.months.map(v => v * ovr);
+  r.totalMB = r.total * ovr;
+  r.mbSource = 'override (bug Furious)';
 });
 
 // Dédoublonnage automatique : quand un même code projet a plusieurs devis en cours,
@@ -272,6 +290,9 @@ const projectsThisWeek = projects
       ca = ca * amFactor(p.id);
       mb = ca;
     }
+    // override MB manuel (bug marge Furious, ex. ITS UTMB)
+    const ovrW = mbOverrideOf(p.title);
+    if (ovrW != null) mb = ca * ovrW;
     return {
       company: aliasCompany(decodeHtml(p.company_name || '—')),
       referent: decodeHtml(p.business_account || p.project_manager || '—'),
@@ -380,6 +401,7 @@ const MEDIA_RECLASS = {
   MED0245: 'runpack', // WISE UTMB
   MED0246: 'runpack', // i-run x On Running
   MED0248: 'runpack', // Nutripure suivi athlète UTMB
+  MED0257: 'footpack', // Amplification Maillot OGC Nice (champ Furious = "LANGUE DE BUT", média foot)
 };
 // Affiliation : revenus (Awin, Kwanko, Effinity, Adsense, Partenize…) — ce ne sont PAS des packs.
 // Retirés du Focus Médias / du "à classer" (restent comptés dans le CA global comme agence).

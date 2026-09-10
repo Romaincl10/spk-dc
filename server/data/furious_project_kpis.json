@@ -1,23 +1,143 @@
 {
   "data": [
     {
+      "project_id": "1106",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 1,
+      "cost": 0,
+      "budget": 1,
+      "gross_margin": 1
+    },
+    {
+      "project_id": "1105",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 10347.74,
+      "cost": 4987.5,
+      "budget": 10347.74,
+      "gross_margin": 5360.24
+    },
+    {
+      "project_id": "1104",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 4993,
+      "cost": 3800,
+      "budget": 4993,
+      "gross_margin": 1193
+    },
+    {
+      "project_id": "1103",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 1685.4,
+      "cost": 1245,
+      "budget": 1685.4,
+      "gross_margin": 440.4
+    },
+    {
+      "project_id": "1102",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 2333.6,
+      "cost": 1125,
+      "budget": 2333.6,
+      "gross_margin": 1208.6
+    },
+    {
+      "project_id": "1101",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 9118.9,
+      "cost": 7684,
+      "budget": 9118.9,
+      "gross_margin": 1434.9
+    },
+    {
+      "project_id": "1100",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 36539.5,
+      "cost": 22250,
+      "budget": 36539.5,
+      "gross_margin": 14289.5
+    },
+    {
+      "project_id": "1099",
+      "time_sold_budget_days": 0,
+      "time_spent_days": 0,
+      "time_spent_amount": 0,
+      "time_planified_days": 0,
+      "time_planified_amount": 0,
+      "production": 0,
+      "net_profitability": 0,
+      "time_sold_proposal_days": 0,
+      "turnover": 20133.9,
+      "cost": 15300,
+      "budget": 20133.9,
+      "gross_margin": 4833.9
+    },
+    {
       "project_id": "1098",
-      "time_sold_budget_days": 25.1,
-      "time_spent_days": 41.81,
-      "time_spent_amount": 31323.28,
+      "time_sold_budget_days": 65.5,
+      "time_spent_days": 41.91,
+      "time_spent_amount": 31400.78,
       "time_planified_days": 41.91,
       "time_planified_amount": 31400.78,
-      "production": 14078.96,
-      "net_profitability": 2034.96,
+      "production": 14078.97,
+      "net_profitability": 2034.97,
       "time_sold_proposal_days": 65.5,
-      "turnover": 165329.45,
+      "turnover": 165329.46,
       "cost": 151250.49,
       "budget": 20143.47,
-      "gross_margin": 14078.96
+      "gross_margin": 14078.97
     },
     {
       "project_id": "1097",
-      "time_sold_budget_days": 17.77,
+      "time_sold_budget_days": 20,
       "time_spent_days": 12.97,
       "time_spent_amount": 9720.31,
       "time_planified_days": 12.97,
@@ -32,7 +152,7 @@
     },
     {
       "project_id": "1096",
-      "time_sold_budget_days": 0.15,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -40,20 +160,20 @@
       "production": 0,
       "net_profitability": 0,
       "time_sold_proposal_days": 0,
-      "turnover": 300,
+      "turnover": 400,
       "cost": 150,
-      "budget": 150,
-      "gross_margin": 150
+      "budget": 250,
+      "gross_margin": 250
     },
     {
       "project_id": "1095",
-      "time_sold_budget_days": 11.6,
-      "time_spent_days": 4.5,
+      "time_sold_budget_days": 4,
+      "time_spent_days": 5.13,
       "time_spent_amount": 0,
-      "time_planified_days": 4.5,
-      "time_planified_amount": 2865,
+      "time_planified_days": 5.13,
+      "time_planified_amount": 3190,
       "production": 0,
-      "net_profitability": -1242,
+      "net_profitability": -1411.38,
       "time_sold_proposal_days": 4,
       "turnover": 6000,
       "cost": 242.63,
@@ -62,7 +182,7 @@
     },
     {
       "project_id": "1094",
-      "time_sold_budget_days": 0.97,
+      "time_sold_budget_days": 0,
       "time_spent_days": 3.25,
       "time_spent_amount": 2393.75,
       "time_planified_days": 3.25,
@@ -77,7 +197,7 @@
     },
     {
       "project_id": "1093",
-      "time_sold_budget_days": 3.71,
+      "time_sold_budget_days": 3.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -92,7 +212,7 @@
     },
     {
       "project_id": "1092",
-      "time_sold_budget_days": 4.17,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -107,13 +227,13 @@
     },
     {
       "project_id": "1091",
-      "time_sold_budget_days": 5.05,
-      "time_spent_days": 0.53,
-      "time_spent_amount": 499.38,
-      "time_planified_days": 0.53,
-      "time_planified_amount": 499.38,
-      "production": 499.38,
-      "net_profitability": 289,
+      "time_sold_budget_days": 4.75,
+      "time_spent_days": 0.59,
+      "time_spent_amount": 558.13,
+      "time_planified_days": 0.59,
+      "time_planified_amount": 558.13,
+      "production": 558.13,
+      "net_profitability": 323,
       "time_sold_proposal_days": 4.75,
       "turnover": 4047,
       "cost": 1800,
@@ -122,7 +242,7 @@
     },
     {
       "project_id": "1090",
-      "time_sold_budget_days": 13.98,
+      "time_sold_budget_days": 11,
       "time_spent_days": 0.13,
       "time_spent_amount": 116.25,
       "time_planified_days": 0.13,
@@ -137,7 +257,7 @@
     },
     {
       "project_id": "1089",
-      "time_sold_budget_days": 5.56,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -152,13 +272,13 @@
     },
     {
       "project_id": "1088",
-      "time_sold_budget_days": 6.94,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
       "time_planified_amount": 0,
-      "production": 0,
-      "net_profitability": 0,
+      "production": 5000,
+      "net_profitability": 5000,
       "time_sold_proposal_days": 0,
       "turnover": 5000,
       "cost": 0,
@@ -182,7 +302,7 @@
     },
     {
       "project_id": "1086",
-      "time_sold_budget_days": 3.47,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -197,7 +317,7 @@
     },
     {
       "project_id": "1085",
-      "time_sold_budget_days": 5.77,
+      "time_sold_budget_days": 5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -212,7 +332,7 @@
     },
     {
       "project_id": "1084",
-      "time_sold_budget_days": 3.47,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -227,7 +347,7 @@
     },
     {
       "project_id": "1083",
-      "time_sold_budget_days": 30.4,
+      "time_sold_budget_days": 16,
       "time_spent_days": 9.5,
       "time_spent_amount": 0,
       "time_planified_days": 9.5,
@@ -236,13 +356,13 @@
       "net_profitability": -2085.5,
       "time_sold_proposal_days": 16,
       "turnover": 13050,
-      "cost": 2446.54,
+      "cost": 2505.76,
       "budget": 11962.2,
-      "gross_margin": 10603.46
+      "gross_margin": 10544.24
     },
     {
       "project_id": "1082",
-      "time_sold_budget_days": 15.7,
+      "time_sold_budget_days": 8,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -257,7 +377,7 @@
     },
     {
       "project_id": "1081",
-      "time_sold_budget_days": -17.65,
+      "time_sold_budget_days": 8,
       "time_spent_days": 2.94,
       "time_spent_amount": 2615.63,
       "time_planified_days": 2.94,
@@ -272,7 +392,7 @@
     },
     {
       "project_id": "1080",
-      "time_sold_budget_days": 3.76,
+      "time_sold_budget_days": 3.63,
       "time_spent_days": 1,
       "time_spent_amount": 968.44,
       "time_planified_days": 1,
@@ -287,7 +407,7 @@
     },
     {
       "project_id": "1079",
-      "time_sold_budget_days": 0.31,
+      "time_sold_budget_days": 0,
       "time_spent_days": 1.69,
       "time_spent_amount": 1645.31,
       "time_planified_days": 1.69,
@@ -317,7 +437,7 @@
     },
     {
       "project_id": "1077",
-      "time_sold_budget_days": 9.93,
+      "time_sold_budget_days": 9.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -332,7 +452,7 @@
     },
     {
       "project_id": "1076",
-      "time_sold_budget_days": 2.49,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -347,7 +467,7 @@
     },
     {
       "project_id": "1075",
-      "time_sold_budget_days": 11.75,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -362,7 +482,7 @@
     },
     {
       "project_id": "1074",
-      "time_sold_budget_days": 11.65,
+      "time_sold_budget_days": 3.63,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -377,7 +497,7 @@
     },
     {
       "project_id": "1073",
-      "time_sold_budget_days": 5.98,
+      "time_sold_budget_days": 5,
       "time_spent_days": 0.75,
       "time_spent_amount": 787.5,
       "time_planified_days": 0.75,
@@ -392,7 +512,7 @@
     },
     {
       "project_id": "1072",
-      "time_sold_budget_days": 2.86,
+      "time_sold_budget_days": 2.75,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -407,7 +527,7 @@
     },
     {
       "project_id": "1071",
-      "time_sold_budget_days": 4.86,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -422,37 +542,37 @@
     },
     {
       "project_id": "1070",
-      "time_sold_budget_days": 37.15,
+      "time_sold_budget_days": 44.5,
       "time_spent_days": 29.23,
       "time_spent_amount": 19771.19,
       "time_planified_days": 29.23,
       "time_planified_amount": 19771.19,
       "production": 19771.19,
-      "net_profitability": 9313.87,
+      "net_profitability": 9313.88,
       "time_sold_proposal_days": 44.5,
       "turnover": 51651.57,
-      "cost": 28373.58,
-      "budget": 24198.35,
-      "gross_margin": 23277.99
+      "cost": 28404.91,
+      "budget": 24091.6,
+      "gross_margin": 23246.66
     },
     {
       "project_id": "1069",
-      "time_sold_budget_days": 34.14,
-      "time_spent_days": 20.03,
-      "time_spent_amount": 14800.75,
+      "time_sold_budget_days": 41.5,
+      "time_spent_days": 20.13,
+      "time_spent_amount": 14873.75,
       "time_planified_days": 20.13,
       "time_planified_amount": 14686.25,
-      "production": 14800.75,
-      "net_profitability": 9760.13,
+      "production": 14873.75,
+      "net_profitability": 9833.12,
       "time_sold_proposal_days": 39.5,
       "turnover": 56990,
-      "cost": 34749.94,
-      "budget": 25146.18,
-      "gross_margin": 22240.06
+      "cost": 34891.09,
+      "budget": 25290.28,
+      "gross_margin": 22098.91
     },
     {
       "project_id": "1067",
-      "time_sold_budget_days": 4.82,
+      "time_sold_budget_days": 3.5,
       "time_spent_days": 4,
       "time_spent_amount": 2993.13,
       "time_planified_days": 4,
@@ -467,13 +587,13 @@
     },
     {
       "project_id": "1066",
-      "time_sold_budget_days": 26.18,
+      "time_sold_budget_days": 22,
       "time_spent_days": 5,
       "time_spent_amount": 3620,
       "time_planified_days": 7,
       "time_planified_amount": 5080,
-      "production": 11681.74,
-      "net_profitability": 10347.74,
+      "production": 12173.6,
+      "net_profitability": 10839.6,
       "time_sold_proposal_days": 22,
       "turnover": 39920.9,
       "cost": 21225,
@@ -482,7 +602,7 @@
     },
     {
       "project_id": "1065",
-      "time_sold_budget_days": 1.32,
+      "time_sold_budget_days": 1.25,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -497,13 +617,13 @@
     },
     {
       "project_id": "1064",
-      "time_sold_budget_days": 79.45,
-      "time_spent_days": 15.03,
+      "time_sold_budget_days": 38,
+      "time_spent_days": 15.24,
       "time_spent_amount": 7775,
-      "time_planified_days": 34.56,
-      "time_planified_amount": 27010,
+      "time_planified_days": 34.69,
+      "time_planified_amount": 27127.5,
       "production": 7775,
-      "net_profitability": 2705.25,
+      "net_profitability": 2543.25,
       "time_sold_proposal_days": 38,
       "turnover": 106806,
       "cost": 55224,
@@ -512,7 +632,7 @@
     },
     {
       "project_id": "1063",
-      "time_sold_budget_days": 2.88,
+      "time_sold_budget_days": 2.5,
       "time_spent_days": 1.75,
       "time_spent_amount": 1327.5,
       "time_planified_days": 1.75,
@@ -527,7 +647,7 @@
     },
     {
       "project_id": "1062",
-      "time_sold_budget_days": 4.13,
+      "time_sold_budget_days": 4,
       "time_spent_days": 1.59,
       "time_spent_amount": 1313.44,
       "time_planified_days": 1.59,
@@ -542,7 +662,7 @@
     },
     {
       "project_id": "1061",
-      "time_sold_budget_days": 1.77,
+      "time_sold_budget_days": 0.5,
       "time_spent_days": 1.13,
       "time_spent_amount": 1181.25,
       "time_planified_days": 1.13,
@@ -557,7 +677,7 @@
     },
     {
       "project_id": "1060",
-      "time_sold_budget_days": 11.02,
+      "time_sold_budget_days": 6.5,
       "time_spent_days": 7.41,
       "time_spent_amount": 6175.31,
       "time_planified_days": 7.41,
@@ -572,7 +692,7 @@
     },
     {
       "project_id": "1059",
-      "time_sold_budget_days": 6.94,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -632,7 +752,7 @@
     },
     {
       "project_id": "1055",
-      "time_sold_budget_days": 0.05,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -647,7 +767,7 @@
     },
     {
       "project_id": "1054",
-      "time_sold_budget_days": 11.92,
+      "time_sold_budget_days": 14.25,
       "time_spent_days": 8.31,
       "time_spent_amount": 6313.13,
       "time_planified_days": 8.31,
@@ -655,14 +775,14 @@
       "production": 5610.51,
       "net_profitability": 3551.2,
       "time_sold_proposal_days": 14.25,
-      "turnover": 11946.2,
+      "turnover": 12315.6,
       "cost": 6335.69,
       "budget": 6144.53,
-      "gross_margin": 5610.51
+      "gross_margin": 5979.91
     },
     {
       "project_id": "1053",
-      "time_sold_budget_days": 22.03,
+      "time_sold_budget_days": 11,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 1,
@@ -677,7 +797,7 @@
     },
     {
       "project_id": "1052",
-      "time_sold_budget_days": 8.75,
+      "time_sold_budget_days": 4.25,
       "time_spent_days": 1,
       "time_spent_amount": 0,
       "time_planified_days": 1,
@@ -692,13 +812,13 @@
     },
     {
       "project_id": "1051",
-      "time_sold_budget_days": 27.49,
-      "time_spent_days": 4.75,
-      "time_spent_amount": 3695.63,
+      "time_sold_budget_days": 45,
+      "time_spent_days": 4.91,
+      "time_spent_amount": 3812.63,
       "time_planified_days": 15.44,
       "time_planified_amount": 11836.88,
-      "production": 3695.63,
-      "net_profitability": 2265.88,
+      "production": 3812.62,
+      "net_profitability": 2252.87,
       "time_sold_proposal_days": 45,
       "turnover": 46510,
       "cost": 19950,
@@ -707,7 +827,7 @@
     },
     {
       "project_id": "1050",
-      "time_sold_budget_days": 8.54,
+      "time_sold_budget_days": 4.5,
       "time_spent_days": 2,
       "time_spent_amount": 0,
       "time_planified_days": 2,
@@ -722,7 +842,7 @@
     },
     {
       "project_id": "1049",
-      "time_sold_budget_days": 10.42,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -737,7 +857,7 @@
     },
     {
       "project_id": "1048",
-      "time_sold_budget_days": 16.2,
+      "time_sold_budget_days": 10,
       "time_spent_days": 9,
       "time_spent_amount": 7125.63,
       "time_planified_days": 9,
@@ -752,7 +872,7 @@
     },
     {
       "project_id": "1047",
-      "time_sold_budget_days": -155.85,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0.06,
       "time_spent_amount": 48.44,
       "time_planified_days": 0.06,
@@ -767,7 +887,7 @@
     },
     {
       "project_id": "1046",
-      "time_sold_budget_days": 8.3,
+      "time_sold_budget_days": 8,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -782,13 +902,13 @@
     },
     {
       "project_id": "1045",
-      "time_sold_budget_days": 10.46,
-      "time_spent_days": 3.5,
-      "time_spent_amount": 2845.31,
-      "time_planified_days": 3.5,
-      "time_planified_amount": 2845.31,
-      "production": 2845.31,
-      "net_profitability": 1666.31,
+      "time_sold_budget_days": 12,
+      "time_spent_days": 3.56,
+      "time_spent_amount": 2904.06,
+      "time_planified_days": 3.56,
+      "time_planified_amount": 2904.06,
+      "production": 2904.06,
+      "net_profitability": 1700.31,
       "time_sold_proposal_days": 12,
       "turnover": 15430,
       "cost": 6300,
@@ -812,22 +932,22 @@
     },
     {
       "project_id": "1043",
-      "time_sold_budget_days": 18.27,
-      "time_spent_days": 9.5,
-      "time_spent_amount": 7007.5,
+      "time_sold_budget_days": 17,
+      "time_spent_days": 9.7,
+      "time_spent_amount": 7153.5,
       "time_planified_days": 11.5,
       "time_planified_amount": 8467.5,
-      "production": 7007.5,
-      "net_profitability": 4685.5,
+      "production": 7153.5,
+      "net_profitability": 4598.5,
       "time_sold_proposal_days": 18.5,
       "turnover": 24970.5,
-      "cost": 16830,
+      "cost": 16831.81,
       "budget": 8140.51,
-      "gross_margin": 8140.5
+      "gross_margin": 8138.69
     },
     {
       "project_id": "1042",
-      "time_sold_budget_days": 5.99,
+      "time_sold_budget_days": 5.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -842,7 +962,7 @@
     },
     {
       "project_id": "1041",
-      "time_sold_budget_days": 0.67,
+      "time_sold_budget_days": 1.5,
       "time_spent_days": 0.5,
       "time_spent_amount": 387.5,
       "time_planified_days": 0.5,
@@ -857,7 +977,7 @@
     },
     {
       "project_id": "1040",
-      "time_sold_budget_days": 16.92,
+      "time_sold_budget_days": 7.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -917,7 +1037,7 @@
     },
     {
       "project_id": "1036",
-      "time_sold_budget_days": 12.9,
+      "time_sold_budget_days": 6,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -932,7 +1052,7 @@
     },
     {
       "project_id": "1035",
-      "time_sold_budget_days": 4.78,
+      "time_sold_budget_days": 2,
       "time_spent_days": 1.63,
       "time_spent_amount": 1183.75,
       "time_planified_days": 1.63,
@@ -962,7 +1082,7 @@
     },
     {
       "project_id": "1033",
-      "time_sold_budget_days": -8.31,
+      "time_sold_budget_days": 4,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -977,7 +1097,7 @@
     },
     {
       "project_id": "1032",
-      "time_sold_budget_days": 1.54,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -992,7 +1112,7 @@
     },
     {
       "project_id": "1031",
-      "time_sold_budget_days": 24.23,
+      "time_sold_budget_days": 16.5,
       "time_spent_days": 0.38,
       "time_spent_amount": 243.75,
       "time_planified_days": 0.38,
@@ -1007,7 +1127,7 @@
     },
     {
       "project_id": "1030",
-      "time_sold_budget_days": -3.54,
+      "time_sold_budget_days": 16.5,
       "time_spent_days": 9.06,
       "time_spent_amount": 6960.94,
       "time_planified_days": 9.06,
@@ -1022,7 +1142,7 @@
     },
     {
       "project_id": "1029",
-      "time_sold_budget_days": 3.16,
+      "time_sold_budget_days": 3,
       "time_spent_days": 2,
       "time_spent_amount": 1550,
       "time_planified_days": 2,
@@ -1037,7 +1157,7 @@
     },
     {
       "project_id": "1028",
-      "time_sold_budget_days": 0.58,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1052,7 +1172,7 @@
     },
     {
       "project_id": "1027",
-      "time_sold_budget_days": 10.75,
+      "time_sold_budget_days": 4.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1082,7 +1202,7 @@
     },
     {
       "project_id": "1025",
-      "time_sold_budget_days": 18.82,
+      "time_sold_budget_days": 13,
       "time_spent_days": 6.69,
       "time_spent_amount": 5761.25,
       "time_planified_days": 6.69,
@@ -1097,7 +1217,7 @@
     },
     {
       "project_id": "1024",
-      "time_sold_budget_days": 25.25,
+      "time_sold_budget_days": 10,
       "time_spent_days": 3.5,
       "time_spent_amount": 2520,
       "time_planified_days": 3.5,
@@ -1127,7 +1247,7 @@
     },
     {
       "project_id": "1022",
-      "time_sold_budget_days": 11.05,
+      "time_sold_budget_days": 5,
       "time_spent_days": 0.25,
       "time_spent_amount": 207.5,
       "time_planified_days": 0.25,
@@ -1157,7 +1277,7 @@
     },
     {
       "project_id": "1020",
-      "time_sold_budget_days": 16.14,
+      "time_sold_budget_days": 11.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1172,7 +1292,7 @@
     },
     {
       "project_id": "1019",
-      "time_sold_budget_days": 14.67,
+      "time_sold_budget_days": 14,
       "time_spent_days": 3.19,
       "time_spent_amount": 2499.38,
       "time_planified_days": 3.19,
@@ -1187,7 +1307,7 @@
     },
     {
       "project_id": "1018",
-      "time_sold_budget_days": 2.4,
+      "time_sold_budget_days": 2,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1202,7 +1322,7 @@
     },
     {
       "project_id": "1017",
-      "time_sold_budget_days": -0.22,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0.19,
       "time_spent_amount": 121.88,
       "time_planified_days": 0.19,
@@ -1232,7 +1352,7 @@
     },
     {
       "project_id": "1015",
-      "time_sold_budget_days": 10.25,
+      "time_sold_budget_days": 5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1247,7 +1367,7 @@
     },
     {
       "project_id": "1014",
-      "time_sold_budget_days": 9.83,
+      "time_sold_budget_days": 4,
       "time_spent_days": 2.5,
       "time_spent_amount": 0,
       "time_planified_days": 2.5,
@@ -1262,7 +1382,7 @@
     },
     {
       "project_id": "1013",
-      "time_sold_budget_days": 4.79,
+      "time_sold_budget_days": 1.38,
       "time_spent_days": 0.5,
       "time_spent_amount": 360,
       "time_planified_days": 0.5,
@@ -1292,7 +1412,7 @@
     },
     {
       "project_id": "1011",
-      "time_sold_budget_days": 29.75,
+      "time_sold_budget_days": 13,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1322,7 +1442,7 @@
     },
     {
       "project_id": "1009",
-      "time_sold_budget_days": 7.92,
+      "time_sold_budget_days": 9,
       "time_spent_days": 2.38,
       "time_spent_amount": 1733.75,
       "time_planified_days": 2.38,
@@ -1397,7 +1517,7 @@
     },
     {
       "project_id": "1004",
-      "time_sold_budget_days": 17.93,
+      "time_sold_budget_days": 17.5,
       "time_spent_days": 9.19,
       "time_spent_amount": 6772.5,
       "time_planified_days": 9.19,
@@ -1442,7 +1562,7 @@
     },
     {
       "project_id": "1001",
-      "time_sold_budget_days": 17.95,
+      "time_sold_budget_days": 14,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1457,7 +1577,7 @@
     },
     {
       "project_id": "1000",
-      "time_sold_budget_days": 0.69,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1472,7 +1592,7 @@
     },
     {
       "project_id": "999",
-      "time_sold_budget_days": 2.63,
+      "time_sold_budget_days": 0.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1487,13 +1607,13 @@
     },
     {
       "project_id": "998",
-      "time_sold_budget_days": 46.84,
-      "time_spent_days": 4,
+      "time_sold_budget_days": 22,
+      "time_spent_days": 5,
       "time_spent_amount": 0,
       "time_planified_days": 13,
       "time_planified_amount": 0,
       "production": 0,
-      "net_profitability": -1033,
+      "net_profitability": -1283,
       "time_sold_proposal_days": 22,
       "turnover": 15000,
       "cost": 0,
@@ -1547,7 +1667,7 @@
     },
     {
       "project_id": "994",
-      "time_sold_budget_days": 2.78,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1592,13 +1712,13 @@
     },
     {
       "project_id": "991",
-      "time_sold_budget_days": 25.69,
-      "time_spent_days": 11.69,
-      "time_spent_amount": 6191.88,
-      "time_planified_days": 11.69,
-      "time_planified_amount": 9746.25,
-      "production": 6191.88,
-      "net_profitability": 2521.25,
+      "time_sold_budget_days": 21,
+      "time_spent_days": 11.75,
+      "time_spent_amount": 6250.63,
+      "time_planified_days": 11.75,
+      "time_planified_amount": 9805,
+      "production": 6250.63,
+      "net_profitability": 2555.25,
       "time_sold_proposal_days": 21,
       "turnover": 50307.8,
       "cost": 34083.57,
@@ -1607,7 +1727,7 @@
     },
     {
       "project_id": "990",
-      "time_sold_budget_days": 11.36,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1637,7 +1757,7 @@
     },
     {
       "project_id": "988",
-      "time_sold_budget_days": 3.78,
+      "time_sold_budget_days": 0.5,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1652,7 +1772,7 @@
     },
     {
       "project_id": "987",
-      "time_sold_budget_days": 8.82,
+      "time_sold_budget_days": 3.88,
       "time_spent_days": 3.13,
       "time_spent_amount": 0,
       "time_planified_days": 3.13,
@@ -1667,7 +1787,7 @@
     },
     {
       "project_id": "986",
-      "time_sold_budget_days": 79.96,
+      "time_sold_budget_days": 48.75,
       "time_spent_days": 13.72,
       "time_spent_amount": 920.31,
       "time_planified_days": 17.72,
@@ -1676,28 +1796,28 @@
       "net_profitability": -2250.91,
       "time_sold_proposal_days": 48.75,
       "turnover": 40000,
-      "cost": 15752.37,
+      "cost": 16042.92,
       "budget": 25193.37,
-      "gross_margin": 24247.63
+      "gross_margin": 23957.08
     },
     {
       "project_id": "985",
-      "time_sold_budget_days": 8.84,
-      "time_spent_days": 0,
+      "time_sold_budget_days": 6.5,
+      "time_spent_days": 4,
       "time_spent_amount": 0,
-      "time_planified_days": 2,
-      "time_planified_amount": 2130,
+      "time_planified_days": 4,
+      "time_planified_amount": 4260,
       "production": 0,
-      "net_profitability": 0,
+      "net_profitability": -1120,
       "time_sold_proposal_days": 6.5,
       "turnover": 2000,
-      "cost": 318,
+      "cost": 372.47,
       "budget": 1682,
-      "gross_margin": 1682
+      "gross_margin": 1627.53
     },
     {
       "project_id": "984",
-      "time_sold_budget_days": 31.55,
+      "time_sold_budget_days": 26,
       "time_spent_days": 10.78,
       "time_spent_amount": 7919.06,
       "time_planified_days": 10.78,
@@ -1712,7 +1832,7 @@
     },
     {
       "project_id": "983",
-      "time_sold_budget_days": 14.04,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1727,7 +1847,7 @@
     },
     {
       "project_id": "982",
-      "time_sold_budget_days": 3.14,
+      "time_sold_budget_days": 1.75,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -1742,7 +1862,7 @@
     },
     {
       "project_id": "981",
-      "time_sold_budget_days": -3.55,
+      "time_sold_budget_days": 5.13,
       "time_spent_days": 1,
       "time_spent_amount": 0,
       "time_planified_days": 1,
@@ -1803,12 +1923,12 @@
     {
       "project_id": "977",
       "time_sold_budget_days": 47.5,
-      "time_spent_days": 41.28,
-      "time_spent_amount": 32615.63,
+      "time_spent_days": 40.78,
+      "time_spent_amount": 32150.63,
       "time_planified_days": 41.28,
       "time_planified_amount": 36202.5,
       "production": 24012.43,
-      "net_profitability": 11129.12,
+      "net_profitability": 11276.12,
       "time_sold_proposal_days": 47.5,
       "turnover": 53670.88,
       "cost": 29658.45,
@@ -1817,7 +1937,7 @@
     },
     {
       "project_id": "976",
-      "time_sold_budget_days": 38.08,
+      "time_sold_budget_days": 29,
       "time_spent_days": 21.56,
       "time_spent_amount": 18104.38,
       "time_planified_days": 21.56,
@@ -1832,13 +1952,13 @@
     },
     {
       "project_id": "975",
-      "time_sold_budget_days": 32.04,
-      "time_spent_days": 11,
-      "time_spent_amount": 8147.5,
-      "time_planified_days": 11,
-      "time_planified_amount": 8147.5,
-      "production": 8147.5,
-      "net_profitability": 4817.38,
+      "time_sold_budget_days": 9,
+      "time_spent_days": 11.06,
+      "time_spent_amount": 8206.25,
+      "time_planified_days": 11.31,
+      "time_planified_amount": 8381.25,
+      "production": 8206.25,
+      "net_profitability": 4851.38,
       "time_sold_proposal_days": 9,
       "turnover": 22209.3,
       "cost": 0,
@@ -1862,7 +1982,7 @@
     },
     {
       "project_id": "973",
-      "time_sold_budget_days": 5.59,
+      "time_sold_budget_days": 7,
       "time_spent_days": 1,
       "time_spent_amount": 775,
       "time_planified_days": 1,
@@ -1922,7 +2042,7 @@
     },
     {
       "project_id": "969",
-      "time_sold_budget_days": 21.94,
+      "time_sold_budget_days": 19.5,
       "time_spent_days": 30.03,
       "time_spent_amount": 23318.75,
       "time_planified_days": 30.03,
@@ -1967,7 +2087,7 @@
     },
     {
       "project_id": "966",
-      "time_sold_budget_days": 20.01,
+      "time_sold_budget_days": 0,
       "time_spent_days": 3.5,
       "time_spent_amount": 2520,
       "time_planified_days": 3.5,
@@ -2027,7 +2147,7 @@
     },
     {
       "project_id": "960",
-      "time_sold_budget_days": 14.82,
+      "time_sold_budget_days": 14.75,
       "time_spent_days": 25.75,
       "time_spent_amount": 19201.72,
       "time_planified_days": 25.75,
@@ -2072,7 +2192,7 @@
     },
     {
       "project_id": "957",
-      "time_sold_budget_days": 4.53,
+      "time_sold_budget_days": 4.25,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -2087,7 +2207,7 @@
     },
     {
       "project_id": "956",
-      "time_sold_budget_days": 1.88,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0.44,
       "time_spent_amount": 339.06,
       "time_planified_days": 0.44,
@@ -2177,7 +2297,7 @@
     },
     {
       "project_id": "950",
-      "time_sold_budget_days": 2.38,
+      "time_sold_budget_days": 2.25,
       "time_spent_days": 1,
       "time_spent_amount": 700,
       "time_planified_days": 1,
@@ -2192,7 +2312,7 @@
     },
     {
       "project_id": "949",
-      "time_sold_budget_days": 45.06,
+      "time_sold_budget_days": 36,
       "time_spent_days": 3.72,
       "time_spent_amount": 2349.69,
       "time_planified_days": 3.72,
@@ -2222,18 +2342,18 @@
     },
     {
       "project_id": "947",
-      "time_sold_budget_days": 91.48,
-      "time_spent_days": 36.31,
-      "time_spent_amount": 25979.38,
+      "time_sold_budget_days": 97.5,
+      "time_spent_days": 36.8,
+      "time_spent_amount": 26330.38,
       "time_planified_days": 46,
       "time_planified_amount": 32954.38,
-      "production": 25979.38,
-      "net_profitability": 15864.5,
+      "production": 26330.38,
+      "net_profitability": 15803.5,
       "time_sold_proposal_days": 97.5,
-      "turnover": 148826.16,
-      "cost": 81850,
-      "budget": 74247.92,
-      "gross_margin": 66976.16
+      "turnover": 148826.15,
+      "cost": 78361.6,
+      "budget": 77736.32,
+      "gross_margin": 70464.55
     },
     {
       "project_id": "946",
@@ -2267,7 +2387,7 @@
     },
     {
       "project_id": "944",
-      "time_sold_budget_days": -20.06,
+      "time_sold_budget_days": 28,
       "time_spent_days": 2.91,
       "time_spent_amount": 2249.06,
       "time_planified_days": 2.91,
@@ -2342,7 +2462,7 @@
     },
     {
       "project_id": "939",
-      "time_sold_budget_days": 10.48,
+      "time_sold_budget_days": 5.5,
       "time_spent_days": 2.75,
       "time_spent_amount": 0,
       "time_planified_days": 2.75,
@@ -2357,7 +2477,7 @@
     },
     {
       "project_id": "938",
-      "time_sold_budget_days": 147.92,
+      "time_sold_budget_days": 121.75,
       "time_spent_days": 56.16,
       "time_spent_amount": 40882.81,
       "time_planified_days": 56.16,
@@ -2366,9 +2486,9 @@
       "net_profitability": 22490.88,
       "time_sold_proposal_days": 121.75,
       "turnover": 286094.46,
-      "cost": 208609.02,
+      "cost": 208946.02,
       "budget": 88669.62,
-      "gross_margin": 77485.44
+      "gross_margin": 77148.44
     },
     {
       "project_id": "937",
@@ -2507,7 +2627,7 @@
     },
     {
       "project_id": "927",
-      "time_sold_budget_days": 24.74,
+      "time_sold_budget_days": 16,
       "time_spent_days": 2.13,
       "time_spent_amount": 1839.06,
       "time_planified_days": 2.13,
@@ -2552,7 +2672,7 @@
     },
     {
       "project_id": "924",
-      "time_sold_budget_days": 3.32,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -2567,7 +2687,7 @@
     },
     {
       "project_id": "923",
-      "time_sold_budget_days": 10.18,
+      "time_sold_budget_days": 11,
       "time_spent_days": 6.88,
       "time_spent_amount": 0,
       "time_planified_days": 6.88,
@@ -2582,7 +2702,7 @@
     },
     {
       "project_id": "922",
-      "time_sold_budget_days": 26.07,
+      "time_sold_budget_days": 16.5,
       "time_spent_days": 13.27,
       "time_spent_amount": 9767.5,
       "time_planified_days": 18.77,
@@ -2732,7 +2852,7 @@
     },
     {
       "project_id": "911",
-      "time_sold_budget_days": 4.17,
+      "time_sold_budget_days": 3.75,
       "time_spent_days": 6.75,
       "time_spent_amount": 5177.5,
       "time_planified_days": 6.75,
@@ -2747,13 +2867,13 @@
     },
     {
       "project_id": "910",
-      "time_sold_budget_days": 42.98,
-      "time_spent_days": 44.94,
-      "time_spent_amount": 33579.56,
+      "time_sold_budget_days": 29.5,
+      "time_spent_days": 45.07,
+      "time_spent_amount": 33670.81,
       "time_planified_days": 51.07,
       "time_planified_amount": 38050.81,
-      "production": 33579.56,
-      "net_profitability": 17654.41,
+      "production": 33670.81,
+      "net_profitability": 17745.66,
       "time_sold_proposal_days": 29.5,
       "turnover": 105498,
       "cost": 71703.05,
@@ -2882,7 +3002,7 @@
     },
     {
       "project_id": "900",
-      "time_sold_budget_days": 45.64,
+      "time_sold_budget_days": 43,
       "time_spent_days": 6.5,
       "time_spent_amount": 5670,
       "time_planified_days": 7.5,
@@ -2957,7 +3077,7 @@
     },
     {
       "project_id": "895",
-      "time_sold_budget_days": 26.87,
+      "time_sold_budget_days": 18.5,
       "time_spent_days": 18.16,
       "time_spent_amount": 13704.38,
       "time_planified_days": 18.16,
@@ -3032,7 +3152,7 @@
     },
     {
       "project_id": "890",
-      "time_sold_budget_days": 10.69,
+      "time_sold_budget_days": 45,
       "time_spent_days": 21.84,
       "time_spent_amount": 13226.88,
       "time_planified_days": 21.84,
@@ -3092,7 +3212,7 @@
     },
     {
       "project_id": "886",
-      "time_sold_budget_days": 13.75,
+      "time_sold_budget_days": 22.5,
       "time_spent_days": 8,
       "time_spent_amount": 6110,
       "time_planified_days": 8,
@@ -3107,7 +3227,7 @@
     },
     {
       "project_id": "885",
-      "time_sold_budget_days": 9.2,
+      "time_sold_budget_days": 8,
       "time_spent_days": 2.06,
       "time_spent_amount": 2148.44,
       "time_planified_days": 2.06,
@@ -3122,7 +3242,7 @@
     },
     {
       "project_id": "883",
-      "time_sold_budget_days": 9.5,
+      "time_sold_budget_days": 4.5,
       "time_spent_days": 2.88,
       "time_spent_amount": 0,
       "time_planified_days": 2.88,
@@ -3161,13 +3281,13 @@
       "net_profitability": 80699.84,
       "time_sold_proposal_days": 567,
       "turnover": 1685512.74,
-      "cost": 1072600.52,
-      "budget": 609112.46,
-      "gross_margin": 612912.22
+      "cost": 1207694.18,
+      "budget": 434934.3,
+      "gross_margin": 477818.56
     },
     {
       "project_id": "880",
-      "time_sold_budget_days": 6.51,
+      "time_sold_budget_days": 3.5,
       "time_spent_days": 1.88,
       "time_spent_amount": 1368.75,
       "time_planified_days": 1.88,
@@ -3182,7 +3302,7 @@
     },
     {
       "project_id": "879",
-      "time_sold_budget_days": 72.21,
+      "time_sold_budget_days": 50,
       "time_spent_days": 33.39,
       "time_spent_amount": 29163.13,
       "time_planified_days": 33.39,
@@ -3197,7 +3317,7 @@
     },
     {
       "project_id": "878",
-      "time_sold_budget_days": 14.44,
+      "time_sold_budget_days": 8,
       "time_spent_days": 2.63,
       "time_spent_amount": 678.13,
       "time_planified_days": 2.63,
@@ -3212,7 +3332,7 @@
     },
     {
       "project_id": "877",
-      "time_sold_budget_days": 9.45,
+      "time_sold_budget_days": 9,
       "time_spent_days": 7.09,
       "time_spent_amount": 4937.5,
       "time_planified_days": 6.78,
@@ -3407,7 +3527,7 @@
     },
     {
       "project_id": "863",
-      "time_sold_budget_days": 0.1,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3437,7 +3557,7 @@
     },
     {
       "project_id": "861",
-      "time_sold_budget_days": 0.15,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3452,7 +3572,7 @@
     },
     {
       "project_id": "860",
-      "time_sold_budget_days": 1.04,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3467,7 +3587,7 @@
     },
     {
       "project_id": "859",
-      "time_sold_budget_days": 4.23,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3482,7 +3602,7 @@
     },
     {
       "project_id": "858",
-      "time_sold_budget_days": 0.46,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3497,7 +3617,7 @@
     },
     {
       "project_id": "857",
-      "time_sold_budget_days": 0.14,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -3512,7 +3632,7 @@
     },
     {
       "project_id": "856",
-      "time_sold_budget_days": 28.16,
+      "time_sold_budget_days": 0,
       "time_spent_days": 1.06,
       "time_spent_amount": 690.63,
       "time_planified_days": 1.06,
@@ -3557,7 +3677,7 @@
     },
     {
       "project_id": "853",
-      "time_sold_budget_days": 44.44,
+      "time_sold_budget_days": 43,
       "time_spent_days": 18.47,
       "time_spent_amount": 17419.38,
       "time_planified_days": 19.47,
@@ -3572,7 +3692,7 @@
     },
     {
       "project_id": "852",
-      "time_sold_budget_days": 1.85,
+      "time_sold_budget_days": 1.25,
       "time_spent_days": 1.75,
       "time_spent_amount": 1590,
       "time_planified_days": 1.75,
@@ -3602,7 +3722,7 @@
     },
     {
       "project_id": "850",
-      "time_sold_budget_days": 18.72,
+      "time_sold_budget_days": 9,
       "time_spent_days": 3.97,
       "time_spent_amount": 0,
       "time_planified_days": 3.97,
@@ -3722,7 +3842,7 @@
     },
     {
       "project_id": "840",
-      "time_sold_budget_days": 10.22,
+      "time_sold_budget_days": 12,
       "time_spent_days": 5.38,
       "time_spent_amount": 3890.63,
       "time_planified_days": 5.38,
@@ -3797,18 +3917,18 @@
     },
     {
       "project_id": "835",
-      "time_sold_budget_days": 117.78,
-      "time_spent_days": 160.56,
-      "time_spent_amount": 49625.31,
-      "time_planified_days": 69.31,
-      "time_planified_amount": 51755,
-      "production": 49625.31,
-      "net_profitability": 30494.44,
+      "time_sold_budget_days": 144,
+      "time_spent_days": 162.63,
+      "time_spent_amount": 50061.25,
+      "time_planified_days": 69.63,
+      "time_planified_amount": 51958.13,
+      "production": 50061.25,
+      "net_profitability": 30761.62,
       "time_sold_proposal_days": 144,
       "turnover": 180000,
-      "cost": 103038.82,
-      "budget": 72279.18,
-      "gross_margin": 76961.18
+      "cost": 103538.82,
+      "budget": 71779.18,
+      "gross_margin": 76461.18
     },
     {
       "project_id": "834",
@@ -3917,7 +4037,7 @@
     },
     {
       "project_id": "827",
-      "time_sold_budget_days": 9.35,
+      "time_sold_budget_days": 9,
       "time_spent_days": 8.01,
       "time_spent_amount": 5986.63,
       "time_planified_days": 8.01,
@@ -3932,13 +4052,13 @@
     },
     {
       "project_id": "826",
-      "time_sold_budget_days": 321.39,
-      "time_spent_days": 54.53,
+      "time_sold_budget_days": 196,
+      "time_spent_days": 55.03,
       "time_spent_amount": 27033.17,
       "time_planified_days": 70.03,
       "time_planified_amount": 52908.13,
       "production": 27033.17,
-      "net_profitability": 13990.23,
+      "net_profitability": 13843.23,
       "time_sold_proposal_days": 244,
       "turnover": 226629.2,
       "cost": 29187.61,
@@ -4067,7 +4187,7 @@
     },
     {
       "project_id": "817",
-      "time_sold_budget_days": 46.19,
+      "time_sold_budget_days": 45,
       "time_spent_days": 26.38,
       "time_spent_amount": 16518.58,
       "time_planified_days": 26.38,
@@ -4157,13 +4277,13 @@
     },
     {
       "project_id": "811",
-      "time_sold_budget_days": 26.16,
-      "time_spent_days": 19.55,
-      "time_spent_amount": 14301.06,
+      "time_sold_budget_days": 26,
+      "time_spent_days": 19.79,
+      "time_spent_amount": 14482.94,
       "time_planified_days": 23.88,
       "time_planified_amount": 17465.31,
-      "production": 14301.06,
-      "net_profitability": 9490.47,
+      "production": 14482.94,
+      "net_profitability": 9437.22,
       "time_sold_proposal_days": 26,
       "turnover": 19195,
       "cost": 0,
@@ -4637,7 +4757,7 @@
     },
     {
       "project_id": "775",
-      "time_sold_budget_days": 92.32,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -4727,7 +4847,7 @@
     },
     {
       "project_id": "769",
-      "time_sold_budget_days": 23.27,
+      "time_sold_budget_days": 22.5,
       "time_spent_days": 13.75,
       "time_spent_amount": 10120,
       "time_planified_days": 13.75,
@@ -4997,7 +5117,7 @@
     },
     {
       "project_id": "750",
-      "time_sold_budget_days": 5.89,
+      "time_sold_budget_days": 0.75,
       "time_spent_days": 0.44,
       "time_spent_amount": 459.38,
       "time_planified_days": 0.44,
@@ -5012,7 +5132,7 @@
     },
     {
       "project_id": "749",
-      "time_sold_budget_days": 18.38,
+      "time_sold_budget_days": 22.5,
       "time_spent_days": 20.44,
       "time_spent_amount": 6868.13,
       "time_planified_days": 8.94,
@@ -5687,7 +5807,7 @@
     },
     {
       "project_id": "691",
-      "time_sold_budget_days": 3.86,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0,
       "time_spent_amount": 0,
       "time_planified_days": 0,
@@ -5756,9 +5876,9 @@
       "net_profitability": 13215.53,
       "time_sold_proposal_days": 0,
       "turnover": 36662.07,
-      "cost": 27409.59,
+      "cost": 27268.96,
       "budget": 10820.51,
-      "gross_margin": 9252.48
+      "gross_margin": 9393.11
     },
     {
       "project_id": "685",
@@ -6371,9 +6491,9 @@
       "net_profitability": 31657.58,
       "time_sold_proposal_days": 16,
       "turnover": 60355.26,
-      "cost": 24968.57,
+      "cost": 24968.64,
       "budget": 35974.62,
-      "gross_margin": 35386.69
+      "gross_margin": 35386.62
     },
     {
       "project_id": "635",
@@ -6437,7 +6557,7 @@
     },
     {
       "project_id": "631",
-      "time_sold_budget_days": 5.36,
+      "time_sold_budget_days": 2.75,
       "time_spent_days": 0.31,
       "time_spent_amount": 298.13,
       "time_planified_days": 0.31,
@@ -6956,9 +7076,9 @@
       "net_profitability": 16209.39,
       "time_sold_proposal_days": 0,
       "turnover": 38943.08,
-      "cost": 26580.3,
+      "cost": 26443.92,
       "budget": 9083.01,
-      "gross_margin": 12362.78
+      "gross_margin": 12499.16
     },
     {
       "project_id": "580",
@@ -8957,7 +9077,7 @@
     },
     {
       "project_id": "429",
-      "time_sold_budget_days": 3.58,
+      "time_sold_budget_days": 0,
       "time_spent_days": 0.13,
       "time_spent_amount": 116.25,
       "time_planified_days": 0.13,
@@ -9632,7 +9752,7 @@
     },
     {
       "project_id": "381",
-      "time_sold_budget_days": 5.3,
+      "time_sold_budget_days": 5.55,
       "time_spent_days": 7.43,
       "time_spent_amount": 3855.31,
       "time_planified_days": 5.93,
@@ -10466,9 +10586,9 @@
       "net_profitability": 65803.58,
       "time_sold_proposal_days": 0,
       "turnover": 81822.2,
-      "cost": 18729.07,
+      "cost": 18632.97,
       "budget": 53821.34,
-      "gross_margin": 63093.13
+      "gross_margin": 63189.23
     },
     {
       "project_id": "313",
@@ -10966,5 +11086,5 @@
       "gross_margin": 3000
     }
   ],
-  "syncDate": "2026-09-03T19:02:32.962Z"
+  "syncDate": "2026-09-07T19:02:33.393Z"
 }

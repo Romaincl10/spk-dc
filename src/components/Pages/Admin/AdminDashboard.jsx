@@ -12,6 +12,7 @@ import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
 import DCFarming from './DCFarming';
 import RecapMois from './RecapMois';
+import RecapMoisGlobal from './RecapMoisGlobal';
 import GlobalTracking from './GlobalTracking';
 import HeatmapView from './HeatmapView';
 
@@ -412,6 +413,9 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               </table>
             </div>
           </div>
+
+          {/* Récap du mois — température de toute l'agence */}
+          <RecapMoisGlobal />
 
           {/* Suivi clients agrégé (tous portefeuilles) */}
           <GlobalTracking portfolios={portfolios} />

@@ -248,7 +248,7 @@
       "mail": "augustin@spk-group.fr",
       "jobTitle": "Assistant Chef de Projet",
       "dtContractStart": "2026-03-09T00:00:00",
-      "dtContractEnd": "2026-09-09T00:00:00",
+      "dtContractEnd": "2026-09-25T00:00:00",
       "monthly": {},
       "totals": {}
     },
@@ -415,8 +415,8 @@
       "fullName": "Laura LELOUP",
       "mail": "laura@spk-medias.fr",
       "jobTitle": "Créatrice de contenu (en alternance)",
-      "dtContractStart": "2025-07-07T00:00:00",
-      "dtContractEnd": "2026-09-04T00:00:00",
+      "dtContractStart": "2026-09-05T00:00:00",
+      "dtContractEnd": "2027-03-04T00:00:00",
       "monthly": {},
       "totals": {}
     },
@@ -606,7 +606,7 @@
       "lastName": "TAHE",
       "fullName": "Edvin TAHE",
       "mail": "edvin@spk-group.fr",
-      "jobTitle": "Assistant Chef de projet",
+      "jobTitle": "Digital Manager",
       "dtContractStart": "2024-09-16T00:00:00",
       "dtContractEnd": "2026-12-06T00:00:00",
       "monthly": {},
@@ -647,19 +647,7 @@
       "dtContractEnd": "2027-09-10T00:00:00",
       "monthly": {},
       "totals": {}
-    },
-    {
-      "id": 89,
-      "firstName": "Zelia",
-      "lastName": "VERGEREAU",
-      "fullName": "Zelia VERGEREAU",
-      "mail": "zelia@spk-group.fr",
-      "jobTitle": "Vidéaste (en alternance)",
-      "dtContractStart": "2024-09-02T00:00:00",
-      "dtContractEnd": "2026-09-04T00:00:00",
-      "monthly": {},
-      "totals": {}
     }
   ],
-  "syncDate": "2026-09-03T18:00:19.701Z"
+  "syncDate": "2026-09-07T18:00:20.428Z"
 }
