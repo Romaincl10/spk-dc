@@ -241,6 +241,46 @@ function ClientDetailView({ client, color, onBack }) {
         </div>
       </div>
 
+      {/* Détail du CA reconnu — factures émises + prévues (base de la heatmap / du % objectif) */}
+      {(client.invoiceDetail || []).length > 0 && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+          <h4 className="text-sm font-bold text-[#ccc] uppercase tracking-wider mb-1">Détail du CA reconnu ({client.invoiceDetail.length} factures)</h4>
+          <p className="text-[11px] text-[#666] mb-3">
+            CA basé sur les <span className="text-white">dates de facture</span> :
+            <span className="text-[#2ecc71] font-semibold"> émise</span> (déjà facturé) ou
+            <span className="text-[#3b82f6] font-semibold"> prévue</span> (date de facturation planifiée). Total {fmtK(client.ca)}.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                  <th className="text-left py-2 px-2 font-bold">Date facture</th>
+                  <th className="text-left py-2 px-2 font-bold">Statut</th>
+                  <th className="text-left py-2 px-2 font-bold">Projet</th>
+                  <th className="text-right py-2 px-2 font-bold">Montant net</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...client.invoiceDetail].sort((a, b) => a.date.localeCompare(b.date)).map((inv, i) => (
+                  <tr key={i} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
+                    <td className="py-1.5 px-2 text-xs text-[#ccc] whitespace-nowrap">{formatDate(inv.date)}</td>
+                    <td className="py-1.5 px-2 text-xs"><span className={inv.issued ? 'text-[#2ecc71]' : 'text-[#3b82f6]'}>{inv.issued ? 'émise' : 'prévue'}</span></td>
+                    <td className="py-1.5 px-2 text-xs text-[#bbb] truncate max-w-[300px]">{inv.project}</td>
+                    <td className="py-1.5 px-2 text-right text-xs font-semibold text-white">{fmtK(inv.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr className="border-t-2 border-[#e63946]/20 font-bold">
+                  <td className="py-2 px-2 text-white text-xs" colSpan={3}>TOTAL CA reconnu</td>
+                  <td className="py-2 px-2 text-right text-white">{fmtK(client.ca)}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      )}
+
       {/* Devis en cours */}
       {client.devis.length > 0 && (
         <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
