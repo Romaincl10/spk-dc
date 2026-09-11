@@ -106,7 +106,10 @@ function getCanonicalClientName(clientName) {
  * Special rule: PUMA SE + title contains "Motor" → "PUMA Motorsport"
  */
 function getCanonicalClientNameForProject(companyName, projectTitle) {
-  if ((norm(companyName) === 'puma se' || norm(companyName) === 'puma motorsport') && /motor/i.test(projectTitle || '')) {
+  const cn = norm(companyName);
+  const isPuma = cn === 'puma se' || cn === 'puma motorsport';
+  // Motorsport reconnu par le mot "motor" OU le code "MS26"/"MS27"… (ex. SPK0459_MS26)
+  if (isPuma && (/motor/i.test(projectTitle || '') || /ms\s?\d{2}/i.test(projectTitle || ''))) {
     return 'PUMA Motorsport';
   }
   return getCanonicalClientName(companyName);
