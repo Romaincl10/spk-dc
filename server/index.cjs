@@ -98,6 +98,9 @@ function isInvoiceIssued(inv) {
 
 /** Clients internes / reciprocites a exclure */
 const EXCLUDED_CLIENTS = ['sportpack', 'spk medias', 'spk activate', 'spk studio', 'spk group'];
+// Projets MED0 traités EXCEPTIONNELLEMENT comme des projets DC (par id) : inclus dans le
+// portefeuille du DC assigné et retirés de l'onglet Médias (pas de double comptage).
+const MED0_TO_DC = new Set(['986']); // 986 = MED0160_MONDOVELO x SPK 2026 → Naël
 // Clients EXCLUS du portefeuille de nouveaux clients (Biz Dev) : interne SPK ou décision
 // commerciale. Appliqué à la fois au bloc Synthèse DC et à l'onglet Biz Dev.
 const BIZDEV_EXCLUDE = ['spk group', 'fc nantes'];
@@ -114,7 +117,8 @@ function shouldExcludeProject(project) {
   const legalEntity = (project.legal_entity || '').trim();
 
   // Exclure projets medias (M0*, MED0*) — Achats Médias BU
-  if (/^M0/i.test(title) || /^MED0/i.test(title)) return true;
+  // Exception : certains MED0 sont rattachés à un DC (MED0_TO_DC) et ne sont pas exclus.
+  if ((/^M0/i.test(title) || /^MED0/i.test(title)) && !MED0_TO_DC.has(String(project.id))) return true;
   // Exclure projets commencant par S0
   if (/^S0/i.test(title)) return true;
   // Exclure projets internes
@@ -918,7 +922,8 @@ function buildMedias(fyStartYearParam) {
 
   // CA reconnu par projet MED0 = factures datées (date effective : émise ou prévue) DANS l'exercice.
   // On ne compte plus le montant total du projet mais uniquement ce qui est facturé sur la période.
-  const medProjects = allProjects.filter(p => isMed(p.title));
+  // Exclut les MED0 rattachés exceptionnellement à un DC (comptés dans son portefeuille)
+  const medProjects = allProjects.filter(p => isMed(p.title) && !MED0_TO_DC.has(String(p.id)));
   const medIds = new Set(medProjects.map(p => String(p.id)));
   // Appariement annulation ↔ avoir (même logique que les portefeuilles agence) : une facture
   // annulée est neutralisée par un avoir (montant opposé, même projet). On exclut les DEUX,

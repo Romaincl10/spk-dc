@@ -68,6 +68,15 @@ const mbOverrideOf = title => {
   for (const [code, rate] of Object.entries(MB_OVERRIDE)) if ((title || '').toUpperCase().includes(code)) return rate;
   return null;
 };
+// Correction manuelle de la MB en montant fixe (€). code projet -> MB € forcée (signés + semaine).
+const MB_OVERRIDE_EUR = { 'SPK0430': 19000 }; // ITS x HOKA Clifton Tour 2026 : MB forcée à 19 k€
+const mbEurOf = title => {
+  for (const [code, v] of Object.entries(MB_OVERRIDE_EUR)) if ((title || '').toUpperCase().includes(code)) return v;
+  return null;
+};
+// Devis à retirer du pipe (projet déjà validé -> ne doit plus compter en devis). code projet.
+const DEVIS_EXCLUDE_FROM_PIPE = ['SPK0430', 'SPK0434'];
+const isDevisExcluded = title => { const c = (title || '').toUpperCase(); return DEVIS_EXCLUDE_FROM_PIPE.some(x => c.includes(x)); };
 const isExcl = t => EXCLUDE_PROJECTS.some(c => (t || '').toUpperCase().includes(c));
 // facteur retraitement Achats Médias : caNet / caBrut par projet
 function amFactor(projectId) {
@@ -166,6 +175,7 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   const company = p.company_name || '—';
   if (isRecip(company)) { perim.recip++; return; }
   if (isExcl(p.title)) return;
+  if (isDevisExcluded(p.title)) return; // projet validé -> devis retiré du pipe
   const probaPct = Number(p.probability) || 0;
   if (probaPct <= 0) return;
   const factor = p.project_id ? amFactor(p.project_id) : 1;
@@ -217,6 +227,15 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   r.monthsMB = r.months.map(v => v * ovr);
   r.totalMB = r.total * ovr;
   r.mbSource = 'override (bug Furious)';
+});
+
+// Override MB en montant fixe (€) — signés (répartition mensuelle rescalée au prorata)
+[...o1.values()].forEach(r => {
+  const v = mbEurOf(r.project);
+  if (v == null) return;
+  const k = r.totalMB ? v / r.totalMB : 0;
+  r.monthsMB = r.totalMB ? r.monthsMB.map(x => x * k) : r.months.map(() => v / 12);
+  r.totalMB = v;
 });
 
 // Dédoublonnage automatique : quand un même code projet a plusieurs devis en cours,
@@ -293,6 +312,9 @@ const projectsThisWeek = projects
     // override MB manuel (bug marge Furious, ex. ITS UTMB)
     const ovrW = mbOverrideOf(p.title);
     if (ovrW != null) mb = ca * ovrW;
+    // override MB en montant fixe (€) (ex. ITS x HOKA)
+    const eurW = mbEurOf(p.title);
+    if (eurW != null) mb = eurW;
     return {
       company: aliasCompany(decodeHtml(p.company_name || '—')),
       referent: decodeHtml(p.business_account || p.project_manager || '—'),
@@ -317,7 +339,7 @@ projectsThisWeek.sort((a, b) => b.ca - a.ca);
 
 // Devis créés cette semaine (avec MB% réelle pour CA/MB probable)
 const proposalsThisWeek = allProp
-  .filter(q => createdThisWeek(q.created_at) && !isRecip(q.company_name) && !isExcl(q.title))
+  .filter(q => createdThisWeek(q.created_at) && !isRecip(q.company_name) && !isExcl(q.title) && !isDevisExcluded(q.title))
   .map(q => {
     const ca = Number(q.discounted_amount) || Number(q.amount) || 0;
     const proba = Number(q.probability) || 0;
@@ -402,6 +424,7 @@ const MEDIA_RECLASS = {
   MED0246: 'runpack', // i-run x On Running
   MED0248: 'runpack', // Nutripure suivi athlète UTMB
   MED0257: 'footpack', // Amplification Maillot OGC Nice (champ Furious = "LANGUE DE BUT", média foot)
+  MED0160: 'velopack', // VIDÉO ON TOP MONDOVELO x SPK 2026
 };
 // Affiliation : revenus (Awin, Kwanko, Effinity, Adsense, Partenize…) — ce ne sont PAS des packs.
 // Retirés du Focus Médias / du "à classer" (restent comptés dans le CA global comme agence).
@@ -435,7 +458,11 @@ if (Object.keys(cfByCode).length) {
   try { fs.writeFileSync(dir + '_media_pack_map.json', JSON.stringify({ ...MEDIA_FALLBACK, ...cfByCode }, null, 1)); } catch (e) {}
 }
 const medCode = p => { const m = (p || '').match(/MED\d{3,4}/i); return m ? m[0].toUpperCase() : null; };
-const packKey = r => r.pack || MEDIA_RECLASS[codeKey(r.project)] || cfByCode[codeKey(r.project)] || MEDIA_FALLBACK[codeKey(r.project)] || packOf(r.project);
+// La table de secours ne sert QUE si le champ Furious est globalement en panne (incident 14/08).
+// Quand il fonctionne, on fait confiance à Furious : un projet détagué ne doit pas être ressuscité.
+const cfWorking = Object.keys(cfByCode).length >= 20;
+const packKey = r => r.pack || MEDIA_RECLASS[codeKey(r.project)] || cfByCode[codeKey(r.project)]
+  || (cfWorking ? null : MEDIA_FALLBACK[codeKey(r.project)]) || packOf(r.project);
 const isMedRow = r => (!!packKey(r) || !!medCode(r.project)) && !isAffiliation(r.project);
 const lineOf = r => ({ project: r.project, company: r.company, type: r.type, ca: r.ca, mb: r.mb });
 const media = {

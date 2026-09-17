@@ -258,5 +258,9 @@
  "SPK0465": "basketpack",
  "MED0251": "basketpack",
  "MED0252": "runpack",
- "MED0256": "padelpack"
+ "MED0256": "padelpack",
+ "MED0258": "velopack",
+ "MED0260": "runpack",
+ "MED0255": "footpack",
+ "MED0261": "velopack"
 }

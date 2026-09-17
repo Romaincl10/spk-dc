@@ -37,6 +37,9 @@ const CLIENT_GROUPS = {
   // PUMA group (SE, Europe, France, DACH consolid\u00e9s \u2014 affich\u00e9 \u00ab PUMA \u00bb)
   'PUMA': ['puma se', 'puma europe gmbh', 'puma france sas', 'puma dach'],
 
+  // MONDOVELO (soci\u00e9t\u00e9 C\u00e9racl\u00e8s) \u2014 affich\u00e9 \u00ab MONDOVELO \u00bb
+  'MONDOVELO': ['ceracles cooperative entrepreneurs commercants'],
+
   // LACOSTE group
   'LACOSTE': ['lacoste sas', 'lacoste france', 'lacoste'],
 
