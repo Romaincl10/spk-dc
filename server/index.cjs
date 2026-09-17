@@ -1357,8 +1357,10 @@ app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
 
 // Board farming collaboratif : tout utilisateur authentifié (DC comme admin) peut sauvegarder.
 app.put('/api/data/farming', auth.authMiddleware, (req, res) => {
-  const { dc, client, data } = req.body;
-  if (!dc || !client || !data) return res.status(400).json({ error: 'dc, client, data requis' });
+  const { dc, client, data, delete: del } = req.body;
+  if (!dc || !client) return res.status(400).json({ error: 'dc, client requis' });
+  if (del) return res.json({ success: true, deleted: farming.deleteClient(dc, client) });
+  if (!data) return res.status(400).json({ error: 'data requis' });
   res.json({ success: true, client: farming.saveClient(dc, client, data) });
 });
 

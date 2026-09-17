@@ -194,6 +194,20 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
       .catch(e => { console.error('[Farming] save', e); setSaveState('error'); });
   }, [dc]);
 
+  // Suppression d'un board client (tombstone serveur : reste masqué même s'il est seedé)
+  const deleteClientBoard = (name) => {
+    if (!window.confirm(`Supprimer « ${name} » du plan ?\nSes cartes et événements seront retirés.`)) return;
+    setSaveState('saving');
+    apiFetch('/api/data/farming', { method: 'PUT', body: JSON.stringify({ dc, client: name, delete: true }) })
+      .then(() => {
+        setClientsData(prev => { const n = { ...prev }; delete n[name]; return n; });
+        setClientList(prev => prev.filter(c => c !== name));
+        setClient(prev => (prev === name ? null : prev));
+        setSaveState('saved');
+      })
+      .catch(e => { console.error('[Farming] delete', e); setSaveState('error'); });
+  };
+
   // Ajout d'un client / prospect : crée un board vierge, le sauvegarde et le sélectionne
   const addClient = (name) => {
     const nm = (name || '').trim();
@@ -304,9 +318,13 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
       {view === 'client' && client && (<>
       <div className="flex items-end justify-between gap-4 border-b border-[#2a2a2a] pb-3">
         <h2 className="text-2xl font-black italic uppercase leading-none" style={{ color: accent }}>{client}</h2>
-        <div className="text-right">
-          <div className="text-xl font-black italic text-white leading-none">{d.obj ? `${d.obj} K€` : '—'}</div>
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#666] mt-1">Objectif BP · MB {d.mb || '—'}</div>
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            <div className="text-xl font-black italic text-white leading-none">{d.obj ? `${d.obj} K€` : '—'}</div>
+            <div className="text-[10px] font-bold uppercase tracking-wider text-[#666] mt-1">Objectif BP · MB {d.mb || '—'}</div>
+          </div>
+          <button onClick={() => deleteClientBoard(client)} title={`Supprimer « ${client} » du plan`}
+            className="text-[#666] hover:text-[#EA5E7B] p-1.5 rounded-lg hover:bg-[#EA5E7B]/10 transition-colors"><Trash2 size={16} /></button>
         </div>
       </div>
 

@@ -37,19 +37,34 @@ function seedClient(s) {
 function getDC(dc) {
   const seed = loadSeed()[dc] || {};
   const dcLive = loadLive()[dc] || {};
+  const deleted = new Set(dcLive._deleted || []); // clients supprimés (tombstone), masqués même s'ils sont dans le seed
   const result = {};
   const clients = new Set([...Object.keys(seed), ...Object.keys(dcLive)]);
   for (const client of clients) {
+    if (client === '_deleted' || deleted.has(client)) continue;
     result[client] = dcLive[client] || (seed[client] ? seedClient(seed[client]) : null);
     if (!result[client]) delete result[client];
   }
   return result;
 }
 
+/** Supprime un client du board d'un DC (tombstone : reste masqué même s'il est dans le seed). */
+function deleteClient(dc, client) {
+  const live = loadLive();
+  live[dc] = live[dc] || {};
+  if (live[dc][client]) delete live[dc][client];
+  const del = live[dc]._deleted = live[dc]._deleted || [];
+  if (!del.includes(client)) del.push(client);
+  saveLive(live);
+  return true;
+}
+
 /** Sauvegarde l'état complet d'un client (concepts, conceptsArchived, events, eventsArchived, méta). */
 function saveClient(dc, client, data) {
   const live = loadLive();
   if (!live[dc]) live[dc] = {};
+  // Réactive un client précédemment supprimé (retire le tombstone)
+  if (Array.isArray(live[dc]._deleted)) live[dc]._deleted = live[dc]._deleted.filter(c => c !== client);
   // Conserve les métadonnées (col/obj/mb) du seed si non fournies
   const seed = (loadSeed()[dc] || {})[client] || {};
   live[dc][client] = {
@@ -63,4 +78,4 @@ function saveClient(dc, client, data) {
   return live[dc][client];
 }
 
-module.exports = { getDC, saveClient };
+module.exports = { getDC, saveClient, deleteClient };

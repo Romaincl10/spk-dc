@@ -1996,124 +1996,6 @@
     }
    ]
   },
-  "Mizuno": {
-   "col": "#C9D94A",
-   "obj": 80,
-   "mb": "—",
-   "concepts": [
-    {
-     "id": "c-audrey-mizuno-ex1",
-     "name": "Activation signature — Mizuno",
-     "offer": "Event · Brand Content",
-     "timing": "Temps fort saison 26/27",
-     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
-     "budget": "60–120 k€",
-     "span": [
-      2,
-      4
-     ],
-     "moment": "Août 26 → Oct 26",
-     "status": "",
-     "proven": false
-    },
-    {
-     "id": "c-audrey-mizuno-ex2",
-     "name": "Contenus & influence — Mizuno",
-     "offer": "Brand Content · Influence · Digital",
-     "timing": "Fil rouge saison",
-     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
-     "budget": "30–60 k€",
-     "span": [
-      0,
-      11
-     ],
-     "moment": "Juin 26 → Mai 27",
-     "status": "",
-     "proven": false
-    }
-   ],
-   "events": [
-    {
-     "id": "e-audrey-mizuno-ex1",
-     "date": "Sept. 2026",
-     "title": "Lancement saison 26/27 — Mizuno",
-     "sub": "Exemple : rentrée = fenêtre d’activation",
-     "span": [
-      3,
-      3
-     ]
-    },
-    {
-     "id": "e-audrey-mizuno-ex2",
-     "date": "Avril 2027",
-     "title": "Temps fort printemps 2027 — Mizuno",
-     "sub": "Exemple : pic de visibilité",
-     "span": [
-      10,
-      10
-     ]
-    }
-   ]
-  },
-  "Motorsport": {
-   "col": "#EA8A4F",
-   "obj": 60,
-   "mb": "—",
-   "concepts": [
-    {
-     "id": "c-audrey-motorsport-ex1",
-     "name": "Activation signature — Motorsport",
-     "offer": "Event · Brand Content",
-     "timing": "Temps fort saison 26/27",
-     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
-     "budget": "60–120 k€",
-     "span": [
-      2,
-      4
-     ],
-     "moment": "Août 26 → Oct 26",
-     "status": "",
-     "proven": false
-    },
-    {
-     "id": "c-audrey-motorsport-ex2",
-     "name": "Contenus & influence — Motorsport",
-     "offer": "Brand Content · Influence · Digital",
-     "timing": "Fil rouge saison",
-     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
-     "budget": "30–60 k€",
-     "span": [
-      0,
-      11
-     ],
-     "moment": "Juin 26 → Mai 27",
-     "status": "",
-     "proven": false
-    }
-   ],
-   "events": [
-    {
-     "id": "e-audrey-motorsport-ex1",
-     "date": "Sept. 2026",
-     "title": "Lancement saison 26/27 — Motorsport",
-     "sub": "Exemple : rentrée = fenêtre d’activation",
-     "span": [
-      3,
-      3
-     ]
-    },
-    {
-     "id": "e-audrey-motorsport-ex2",
-     "date": "Avril 2027",
-     "title": "Temps fort printemps 2027 — Motorsport",
-     "sub": "Exemple : pic de visibilité",
-     "span": [
-      10,
-      10
-     ]
-    }
-   ]
-  },
   "Hummel": {
    "col": "#3b82f6",
    "obj": 60,
@@ -2401,6 +2283,65 @@
      "id": "e-audrey-as-monaco-ex2",
      "date": "Avril 2027",
      "title": "Temps fort printemps 2027 — AS Monaco",
+     "sub": "Exemple : pic de visibilité",
+     "span": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  "PUMA Motorsport": {
+   "col": "#EA8A4F",
+   "obj": 60,
+   "mb": "—",
+   "concepts": [
+    {
+     "id": "c-audrey-motorsport-ex1",
+     "name": "Activation signature — Motorsport",
+     "offer": "Event · Brand Content",
+     "timing": "Temps fort saison 26/27",
+     "desc": "Exemple à personnaliser : dispositif terrain + captation sur le moment phare du client.",
+     "budget": "60–120 k€",
+     "span": [
+      2,
+      4
+     ],
+     "moment": "Août 26 → Oct 26",
+     "status": "",
+     "proven": false
+    },
+    {
+     "id": "c-audrey-motorsport-ex2",
+     "name": "Contenus & influence — Motorsport",
+     "offer": "Brand Content · Influence · Digital",
+     "timing": "Fil rouge saison",
+     "desc": "Exemple à personnaliser : série sociale + créateurs pour installer la marque en continu.",
+     "budget": "30–60 k€",
+     "span": [
+      0,
+      11
+     ],
+     "moment": "Juin 26 → Mai 27",
+     "status": "",
+     "proven": false
+    }
+   ],
+   "events": [
+    {
+     "id": "e-audrey-motorsport-ex1",
+     "date": "Sept. 2026",
+     "title": "Lancement saison 26/27 — Motorsport",
+     "sub": "Exemple : rentrée = fenêtre d’activation",
+     "span": [
+      3,
+      3
+     ]
+    },
+    {
+     "id": "e-audrey-motorsport-ex2",
+     "date": "Avril 2027",
+     "title": "Temps fort printemps 2027 — Motorsport",
      "sub": "Exemple : pic de visibilité",
      "span": [
       10,

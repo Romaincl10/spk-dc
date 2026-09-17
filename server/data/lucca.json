@@ -2007,9 +2007,9 @@
     },
     {
       "id": 15,
-      "firstName": "R��mi",
+      "firstName": "Rémi",
       "lastName": "HERVE",
-      "fullName": "R��mi HERVE",
+      "fullName": "Rémi HERVE",
       "mail": "remi@spk-group.fr",
       "jobTitle": "Responsable contenus",
       "dtContractStart": "2019-01-02T00:00:00",
@@ -2252,7 +2252,7 @@
       "lastName": "LELOUP",
       "fullName": "Laura LELOUP",
       "mail": "laura@spk-medias.fr",
-      "jobTitle": "Créatrice de contenu (en alternance)",
+      "jobTitle": "Créatrice de contenu",
       "dtContractStart": "2026-09-05T00:00:00",
       "dtContractEnd": "2027-03-04T00:00:00",
       "monthly": {
@@ -3569,5 +3569,5 @@
       "totals": {}
     }
   ],
-  "syncDate": "2026-09-10T12:51:17.892Z"
+  "syncDate": "2026-09-17T12:22:10.542Z"
 }
