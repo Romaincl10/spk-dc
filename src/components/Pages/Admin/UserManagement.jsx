@@ -110,6 +110,7 @@ export default function UserManagement() {
               <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
                 className="w-full bg-[#0a0a0a] border border-[#2a2a2a] rounded-lg px-3 py-2 text-sm text-white focus:border-[#e63946] focus:outline-none">
                 <option value="dc">Directeur de Clientele</option>
+                <option value="codir">CODIR (lecture globale)</option>
                 <option value="admin">Administrateur</option>
               </select>
             </div>
@@ -148,7 +149,7 @@ export default function UserManagement() {
                   <td className="px-3 py-3 text-[#ccc]">{u.login}</td>
                   <td className="px-3 py-3">
                     <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase
-                      ${u.role === 'admin' ? 'bg-[#e63946]/20 text-[#e63946]' : 'bg-[#3b82f6]/20 text-[#3b82f6]'}`}>
+                      ${u.role === 'admin' ? 'bg-[#e63946]/20 text-[#e63946]' : u.role === 'codir' ? 'bg-[#f39c12]/20 text-[#f39c12]' : 'bg-[#3b82f6]/20 text-[#3b82f6]'}`}>
                       {u.role}
                     </span>
                   </td>

@@ -64,6 +64,8 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
   const exercises = [cur, cur - 1];
   // DC opérationnel : vue verrouillée sur son portfolio. Le directeur commercial navigue comme un admin.
   const isDC = userRole === 'dc' && !isDirectorViewer;
+  // CODIR : lecture globale, sans Biz Dev / Médias / assignations
+  const restricted = userRole === 'codir';
   const [selectedDC, setSelectedDC] = useState(() => {
     if (isDirectorViewer) return viewerName; // Paul atterrit sur son cockpit directeur
     if (userRole === 'dc' && portfolios) {
@@ -177,20 +179,24 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
             ))}
           </div>
 
-          {/* Groupe transverse : Biz Dev + Médias — sujets distincts, chacun sa couleur */}
+          {/* Groupe transverse : Biz Dev + Médias (masqués pour le CODIR) + Heatmap */}
           <div className="flex items-center gap-1.5 shrink-0">
-            <button onClick={() => { setSelectedDC('Paul'); setSubTab('synthese'); }}
-              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
-                ${selectedDC === 'Paul' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
-              style={{ backgroundColor: selectedDC === 'Paul' ? BIZDEV_COLOR : '#161616' }}>
-              Biz Dev
-            </button>
-            <button onClick={() => { setSelectedDC('Médias'); setSubTab('synthese'); }}
-              className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
-                ${selectedDC === 'Médias' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
-              style={{ backgroundColor: selectedDC === 'Médias' ? MEDIAS_COLOR : '#161616' }}>
-              Médias
-            </button>
+            {!restricted && (
+              <button onClick={() => { setSelectedDC('Paul'); setSubTab('synthese'); }}
+                className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                  ${selectedDC === 'Paul' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
+                style={{ backgroundColor: selectedDC === 'Paul' ? BIZDEV_COLOR : '#161616' }}>
+                Biz Dev
+              </button>
+            )}
+            {!restricted && (
+              <button onClick={() => { setSelectedDC('Médias'); setSubTab('synthese'); }}
+                className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                  ${selectedDC === 'Médias' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white'}`}
+                style={{ backgroundColor: selectedDC === 'Médias' ? MEDIAS_COLOR : '#161616' }}>
+                Médias
+              </button>
+            )}
             <button onClick={() => { setSelectedDC('Heatmap'); setSubTab('synthese'); }}
               className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
                 ${selectedDC === 'Heatmap' ? 'bg-[#e63946] text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white bg-[#161616]'}`}>
@@ -198,8 +204,8 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
             </button>
           </div>
 
-          {/* À assigner — toujours sur le côté */}
-          {unassigned && (
+          {/* À assigner — masqué pour le CODIR */}
+          {!restricted && unassigned && (
             <button onClick={() => { setSelectedDC('A assigner'); setSubTab('synthese'); }}
               className={`ml-auto shrink-0 px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors
                 ${selectedDC === 'A assigner' ? 'bg-[#666] text-white' : 'bg-[#161616] text-[#666] hover:text-white border border-[#333] border-dashed'}`}>
@@ -426,7 +432,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {selectedDC === 'Médias' && <MediasView fyStartYear={fyStartYear} openClient={pendingClient} onOpened={() => setPendingClient(null)} />}
 
       {/* ═══ HEATMAP ═══ objectifs clients (transverse) */}
-      {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} onOpenClient={handleOpenClient} />}
+      {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} onOpenClient={handleOpenClient} hideMedias={restricted} />}
 
       {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) — Biz Dev nouveaux clients */}
       {selectedIsDirector && <DirecteurCommercial fyStartYear={fyStartYear} />}

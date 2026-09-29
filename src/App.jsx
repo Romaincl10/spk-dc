@@ -68,7 +68,7 @@ export default function App() {
       }
 
       const objData = await apiFetch(`/api/data/objectives?fy=${fyStartYear}`);
-      if (user.role === 'admin') {
+      if (user.role === 'admin' || user.role === 'codir') {
         setAllObjectives(objData.objectives || {});
       } else {
         setObjectives(objData.objectives || []);

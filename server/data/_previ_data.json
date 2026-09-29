@@ -14,17 +14,17 @@
   "mai 27",
   "juin 27"
  ],
- "generatedAt": "2026-09-11T16:09:10.210Z",
- "mbGlobalPct": 48.51536904226595,
+ "generatedAt": "2026-09-18T16:59:26.667Z",
+ "mbGlobalPct": 47.59466610330554,
  "onglet1": [
   {
    "company": "INTERSPORT FRANCE",
    "project": "SPK0085_ITS WESTFIELD WC26",
    "nbInv": 1,
    "months": [
-    438865.40578653663,
     0,
     0,
+    407074.7200195154,
     0,
     0,
     0,
@@ -35,11 +35,11 @@
     0,
     0
    ],
-   "total": 438865.40578653663,
+   "total": 407074.7200195154,
    "monthsMB": [
-    131459.63519921305,
     0,
     0,
+    105317.19927498628,
     0,
     0,
     0,
@@ -50,7 +50,43 @@
     0,
     0
    ],
-   "totalMB": 131459.63519921305,
+   "totalMB": 105317.19927498628,
+   "pack": null
+  },
+  {
+   "company": "LACOSTE",
+   "project": "SPK0147_Plan d'actions Lacoste x Roland Garros 2026",
+   "nbInv": 1,
+   "months": [
+    0,
+    0,
+    260062.32,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 260062.32,
+   "monthsMB": [
+    0,
+    0,
+    25466.033652404938,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 25466.033652404938,
    "pack": null
   },
   {
@@ -87,6 +123,42 @@
     0
    ],
    "totalMB": 56815.31099999999,
+   "pack": null
+  },
+  {
+   "company": "INTERSPORT FRANCE",
+   "project": "SPK0292_Running Experience x Nike SS26",
+   "nbInv": 1,
+   "months": [
+    143180.2496144672,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 143180.2496144672,
+   "monthsMB": [
+    37520.940247398365,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 37520.940247398365,
    "pack": null
   },
   {
@@ -147,10 +219,10 @@
    "monthsMB": [
     0,
     0,
-    33501.96125539765,
+    33340.58120118004,
     0,
     0,
-    16750.976125539764,
+    16670.286120118006,
     0,
     0,
     0,
@@ -158,7 +230,7 @@
     0,
     0
    ],
-   "totalMB": 50252.93738093741,
+   "totalMB": 50010.86732129804,
    "pack": null
   },
   {
@@ -183,10 +255,10 @@
    "monthsMB": [
     0,
     0,
-    49360.3975,
+    49336.2275,
     0,
     0,
-    49360.3975,
+    49336.2275,
     0,
     0,
     0,
@@ -194,7 +266,7 @@
     0,
     0
    ],
-   "totalMB": 98720.795,
+   "totalMB": 98672.455,
    "pack": null
   },
   {
@@ -218,9 +290,9 @@
    "total": 106806,
    "monthsMB": [
     0,
-    15442.608,
+    15445.845,
     0,
-    36032.752,
+    36040.305,
     0,
     0,
     0,
@@ -230,7 +302,43 @@
     0,
     0
    ],
-   "totalMB": 51475.36,
+   "totalMB": 51486.15,
+   "pack": null
+  },
+  {
+   "company": "DECATHLON SE",
+   "project": "SPK0254_Plan d'action PUMA Football x DKT - 2026",
+   "nbInv": 1,
+   "months": [
+    105498,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 105498,
+   "monthsMB": [
+    33737.89,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 33737.89,
    "pack": null
   },
   {
@@ -270,13 +378,13 @@
    "pack": null
   },
   {
-   "company": "DECATHLON SE",
-   "project": "SPK0254_Plan d'action PUMA Football x DKT - 2026",
+   "company": "PUMA SE",
+   "project": "SPK0461_AH27 - SELL IN SUMMIT MARSEILLE",
    "nbInv": 2,
    "months": [
-    73848.6,
     0,
     0,
+    75919,
     0,
     0,
     0,
@@ -287,11 +395,11 @@
     0,
     0
    ],
-   "total": 73848.6,
+   "total": 75919,
    "monthsMB": [
-    23656.464999999997,
     0,
     0,
+    20851,
     0,
     0,
     0,
@@ -302,7 +410,7 @@
     0,
     0
    ],
-   "totalMB": 23656.464999999997,
+   "totalMB": 20851,
    "pack": null
   },
   {
@@ -326,8 +434,8 @@
    "total": 54990,
    "monthsMB": [
     0,
-    9305.43,
-    9305.43,
+    12509.605,
+    12509.605,
     0,
     0,
     0,
@@ -338,7 +446,7 @@
     0,
     0
    ],
-   "totalMB": 18610.86,
+   "totalMB": 25019.21,
    "pack": null
   },
   {
@@ -363,7 +471,7 @@
    "monthsMB": [
     0,
     0,
-    23316,
+    20462.44,
     0,
     0,
     0,
@@ -374,7 +482,7 @@
     0,
     0
    ],
-   "totalMB": 23316,
+   "totalMB": 20462.44,
    "pack": null
   },
   {
@@ -397,8 +505,8 @@
    ],
    "total": 50307.8,
    "monthsMB": [
-    8112.115,
-    8112.115,
+    8103.370000000001,
+    8103.370000000001,
     0,
     0,
     0,
@@ -410,7 +518,43 @@
     0,
     0
    ],
-   "totalMB": 16224.23,
+   "totalMB": 16206.740000000002,
+   "pack": null
+  },
+  {
+   "company": "Spond AS",
+   "project": "SPK0409_SPOND_SocialMedia_Influence_2627",
+   "nbInv": 6,
+   "months": [
+    0,
+    10050,
+    8040,
+    8040,
+    8040,
+    8040,
+    8040,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 50250,
+   "monthsMB": [
+    0,
+    2254.4080000000004,
+    1803.5264000000002,
+    1803.5264000000002,
+    1803.5264000000002,
+    1803.5264000000002,
+    1803.5264000000002,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 11272.040000000003,
    "pack": null
   },
   {
@@ -433,9 +577,9 @@
    ],
    "total": 46510,
    "monthsMB": [
-    13280.000000000002,
+    11905,
     0,
-    13280.000000000002,
+    11905,
     0,
     0,
     0,
@@ -446,7 +590,7 @@
     0,
     0
    ],
-   "totalMB": 26560.000000000004,
+   "totalMB": 23810,
    "pack": null
   },
   {
@@ -471,7 +615,7 @@
    "monthsMB": [
     0,
     0,
-    14703.28,
+    12313.43,
     0,
     0,
     0,
@@ -482,18 +626,18 @@
     0,
     0
    ],
-   "totalMB": 14703.28,
+   "totalMB": 12313.43,
    "pack": null
   },
   {
    "company": "INTERSPORT FRANCE",
-   "project": "SPK0430_ITS x HOKA _ Clifton Tour 2026",
-   "nbInv": 1,
+   "project": "SPK0412_RunningExperience_NewBalance_2026",
+   "nbInv": 2,
    "months": [
     0,
     0,
-    0,
-    38174,
+    20234.22095059983,
+    20234.22904940017,
     0,
     0,
     0,
@@ -503,12 +647,12 @@
     0,
     0
    ],
-   "total": 38174,
+   "total": 40468.45,
    "monthsMB": [
     0,
     0,
-    0,
-    19000,
+    7456.823507693354,
+    7456.826492306645,
     0,
     0,
     0,
@@ -518,7 +662,79 @@
     0,
     0
    ],
-   "totalMB": 19000,
+   "totalMB": 14913.65,
+   "pack": null
+  },
+  {
+   "company": "WPP MEDIA FRANCE",
+   "project": "SPK0250_Le Quartier adidas (projet)",
+   "nbInv": 1,
+   "months": [
+    40000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 40000,
+   "monthsMB": [
+    13984.7,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 13984.7,
+   "pack": null
+  },
+  {
+   "company": "VETIR SAS",
+   "project": "SPK0342_GEMO - OP Trade Skechers",
+   "nbInv": 2,
+   "months": [
+    11376.27,
+    0,
+    0,
+    26544.63,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 37920.9,
+   "monthsMB": [
+    5074.197,
+    0,
+    0,
+    11839.793000000001,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 16913.99,
    "pack": null
   },
   {
@@ -543,7 +759,7 @@
    "monthsMB": [
     0,
     0,
-    14196.34,
+    13037.07,
     0,
     0,
     0,
@@ -554,7 +770,7 @@
     0,
     0
    ],
-   "totalMB": 14196.34,
+   "totalMB": 13037.07,
    "pack": null
   },
   {
@@ -594,6 +810,78 @@
    "pack": null
   },
   {
+   "company": "ADIDAS FRANCE",
+   "project": "SPK0368_OP CO adidas x Decathlon",
+   "nbInv": 1,
+   "months": [
+    36058.8,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 36058.8,
+   "monthsMB": [
+    16223.95,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 16223.95,
+   "pack": null
+  },
+  {
+   "company": "INTERSPORT FRANCE",
+   "project": "SPK0430_ITS x HOKA _ Clifton Tour 2026",
+   "nbInv": 2,
+   "months": [
+    0,
+    0,
+    17937,
+    17937,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 35874,
+   "monthsMB": [
+    0,
+    0,
+    9500,
+    9500,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 19000,
+   "pack": null
+  },
+  {
    "company": "MATMUT",
    "project": "SPK0341_Aménagement Espace Matmut Stadium LOU Rugby",
    "nbInv": 2,
@@ -614,8 +902,8 @@
    "total": 35817.8,
    "monthsMB": [
     0,
-    5527.4,
-    5527.4,
+    4514.899999999999,
+    4514.899999999999,
     0,
     0,
     0,
@@ -626,7 +914,7 @@
     0,
     0
    ],
-   "totalMB": 11054.8,
+   "totalMB": 9029.799999999997,
    "pack": null
   },
   {
@@ -774,13 +1062,13 @@
    "pack": null
   },
   {
-   "company": "Haute-Savoie Mont-Blanc 2027 | Championnats du Monde de Cyclisme UCI",
-   "project": "SPK0431_J-1an_UCI",
-   "nbInv": 1,
+   "company": "GMF ASSURANCES",
+   "project": "SPK0370_Films Phases finales 25-26",
+   "nbInv": 2,
    "months": [
+    29554,
     0,
     0,
-    29560.6,
     0,
     0,
     0,
@@ -791,11 +1079,11 @@
     0,
     0
    ],
-   "total": 29560.6,
+   "total": 29554,
    "monthsMB": [
+    9034.02,
     0,
     0,
-    10370.6,
     0,
     0,
     0,
@@ -806,7 +1094,7 @@
     0,
     0
    ],
-   "totalMB": 10370.6,
+   "totalMB": 9034.02,
    "pack": null
   },
   {
@@ -829,7 +1117,7 @@
    ],
    "total": 28292.4,
    "monthsMB": [
-    7763.254999999999,
+    7762.53,
     0,
     0,
     0,
@@ -842,7 +1130,7 @@
     0,
     0
    ],
-   "totalMB": 7763.254999999999,
+   "totalMB": 7762.53,
    "pack": null
   },
   {
@@ -882,14 +1170,14 @@
    "pack": "velopack"
   },
   {
-   "company": "VETIR SAS",
-   "project": "SPK0342_GEMO - OP Trade Skechers",
-   "nbInv": 3,
+   "company": "Haute-Savoie Mont-Blanc 2027 | Championnats du Monde de Cyclisme UCI",
+   "project": "SPK0431_J-1an_UCI",
+   "nbInv": 1,
    "months": [
     0,
     0,
+    27260.6,
     0,
-    26544.63,
     0,
     0,
     0,
@@ -899,12 +1187,12 @@
     0,
     0
    ],
-   "total": 26544.63,
+   "total": 27260.6,
    "monthsMB": [
     0,
     0,
+    3619.1999999999994,
     0,
-    12807.130000000001,
     0,
     0,
     0,
@@ -914,7 +1202,7 @@
     0,
     0
    ],
-   "totalMB": 12807.130000000001,
+   "totalMB": 3619.1999999999994,
    "pack": null
   },
   {
@@ -975,7 +1263,7 @@
    "monthsMB": [
     0,
     0,
-    7964.16,
+    6964.16,
     0,
     0,
     0,
@@ -986,7 +1274,7 @@
     0,
     0
    ],
-   "totalMB": 7964.16,
+   "totalMB": 6964.16,
    "pack": null
   },
   {
@@ -1045,7 +1333,7 @@
    ],
    "total": 23255,
    "monthsMB": [
-    11905,
+    11754.800000000001,
     0,
     0,
     0,
@@ -1058,7 +1346,7 @@
     0,
     0
    ],
-   "totalMB": 11905,
+   "totalMB": 11754.800000000001,
    "pack": null
   },
   {
@@ -1134,42 +1422,6 @@
    "pack": null
   },
   {
-   "company": "GMF ASSURANCES",
-   "project": "SPK0370_Films Phases finales 25-26",
-   "nbInv": 3,
-   "months": [
-    20687.8,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 20687.8,
-   "monthsMB": [
-    6218.673999999999,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 6218.673999999999,
-   "pack": null
-  },
-  {
    "company": "INTERSPORT FRANCE",
    "project": "SPK0285_Outdoor experience x Columbia 26",
    "nbInv": 1,
@@ -1189,7 +1441,7 @@
    ],
    "total": 20610.39620885796,
    "monthsMB": [
-    10679.999523491648,
+    10118.488201589724,
     0,
     0,
     0,
@@ -1202,7 +1454,7 @@
     0,
     0
    ],
-   "totalMB": 10679.999523491648,
+   "totalMB": 10118.488201589724,
    "pack": null
   },
   {
@@ -1299,7 +1551,7 @@
    "monthsMB": [
     0,
     0,
-    12099.625,
+    9284.045,
     0,
     0,
     0,
@@ -1310,7 +1562,7 @@
     0,
     0
    ],
-   "totalMB": 12099.625,
+   "totalMB": 9284.045,
    "pack": null
   },
   {
@@ -1386,11 +1638,11 @@
    "pack": "footpack"
   },
   {
-   "company": "INTERSPORT FRANCE",
-   "project": "SPK0292_Running Experience x Nike SS26",
-   "nbInv": 2,
+   "company": "CNOSF",
+   "project": "SPK0372_Accompagnement OP France Olympique 2026_V2",
+   "nbInv": 1,
    "months": [
-    13877.543000102844,
+    14081,
     0,
     0,
     0,
@@ -1403,9 +1655,9 @@
     0,
     0
    ],
-   "total": 13877.543000102844,
+   "total": 14081,
    "monthsMB": [
-    3818.4726114032455,
+    14081,
     0,
     0,
     0,
@@ -1418,7 +1670,7 @@
     0,
     0
    ],
-   "totalMB": 3818.4726114032455,
+   "totalMB": 14081,
    "pack": null
   },
   {
@@ -1715,8 +1967,8 @@
    "nbInv": 1,
    "months": [
     0,
-    11332.33,
     0,
+    11332.33,
     0,
     0,
     0,
@@ -1730,8 +1982,8 @@
    "total": 11332.33,
    "monthsMB": [
     0,
-    -12858.31,
     0,
+    5424.66,
     0,
     0,
     0,
@@ -1742,7 +1994,7 @@
     0,
     0
    ],
-   "totalMB": -12858.31,
+   "totalMB": 5424.66,
    "pack": null
   },
   {
@@ -1766,7 +2018,7 @@
    "total": 11240.3,
    "monthsMB": [
     0,
-    5038.255,
+    4975.755,
     0,
     0,
     0,
@@ -1778,43 +2030,7 @@
     0,
     0
    ],
-   "totalMB": 5038.255,
-   "pack": null
-  },
-  {
-   "company": "PUMA SE",
-   "project": "SPK0459_MS26 - Activation Madrid",
-   "nbInv": 2,
-   "months": [
-    0,
-    3104.32,
-    7243.42,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 10347.74,
-   "monthsMB": [
-    0,
-    1608.070963978608,
-    3752.169036021392,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 5360.24,
+   "totalMB": 4975.755,
    "pack": null
   },
   {
@@ -1854,49 +2070,13 @@
    "pack": null
   },
   {
-   "company": "CMA CGM",
-   "project": "SPK0404_CMA CGM Maillot Away OM 26/27",
-   "nbInv": 1,
-   "months": [
-    0,
-    10297.6,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 10297.6,
-   "monthsMB": [
-    0,
-    4877.2,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 4877.2,
-   "pack": null
-  },
-  {
    "company": "SHARK",
    "project": "SPK0075_2 Ride Social Media 2026 - SHARK (juin-oct 26-support)",
    "nbInv": 2,
    "months": [
     0,
-    10162.5,
-    0,
+    5081.25,
+    5081.25,
     0,
     0,
     0,
@@ -1910,8 +2090,8 @@
    "total": 10162.5,
    "monthsMB": [
     0,
-    10162.5,
-    0,
+    5081.25,
+    5081.25,
     0,
     0,
     0,
@@ -1923,6 +2103,42 @@
     0
    ],
    "totalMB": 10162.5,
+   "pack": null
+  },
+  {
+   "company": "Kappa S.R.L",
+   "project": "SPK0266_Kappa activation Tunisie WC26",
+   "nbInv": 1,
+   "months": [
+    0,
+    0,
+    10000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 10000,
+   "monthsMB": [
+    0,
+    0,
+    1120,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1120,
    "pack": null
   },
   {
@@ -2004,8 +2220,8 @@
    "months": [
     4798.75,
     0,
-    0,
     4798.75,
+    0,
     0,
     0,
     0,
@@ -2019,8 +2235,8 @@
    "monthsMB": [
     4798.75,
     0,
-    0,
     4798.75,
+    0,
     0,
     0,
     0,
@@ -2106,6 +2322,42 @@
    "pack": null
   },
   {
+   "company": "CMA CGM",
+   "project": "SPK0404_CMA CGM Maillot Away OM 26/27",
+   "nbInv": 1,
+   "months": [
+    0,
+    0,
+    9237.6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 9237.6,
+   "monthsMB": [
+    0,
+    0,
+    5067.2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 5067.2,
+   "pack": null
+  },
+  {
    "company": "GMF ASSURANCES",
    "project": "SPK0440_GMF-MediaDay-Top14-2627",
    "nbInv": 1,
@@ -2139,6 +2391,78 @@
     0
    ],
    "totalMB": 1434.9,
+   "pack": null
+  },
+  {
+   "company": "FEDERATION FRANCAISE DE FOOTBALL",
+   "project": "SPK0374_Contenu finale CDF",
+   "nbInv": 1,
+   "months": [
+    8760,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 8760,
+   "monthsMB": [
+    3851.49,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 3851.49,
+   "pack": null
+  },
+  {
+   "company": "PUMA SE",
+   "project": "SPK0459_MS26 - Activation Madrid",
+   "nbInv": 1,
+   "months": [
+    0,
+    8666.49,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 8666.49,
+   "monthsMB": [
+    0,
+    4666.49,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 4666.49,
    "pack": null
   },
   {
@@ -2178,6 +2502,42 @@
    "pack": "runpack"
   },
   {
+   "company": "KING JOUET",
+   "project": "MED0120_Lego CDM x King Jouet",
+   "nbInv": 1,
+   "months": [
+    8000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 8000,
+   "monthsMB": [
+    7796.13,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 7796.13,
+   "pack": "footpack"
+  },
+  {
    "company": "GMF ASSURANCES",
    "project": "SPK0358_MediaDay_Super7",
    "nbInv": 1,
@@ -2197,7 +2557,7 @@
    ],
    "total": 7993.39,
    "monthsMB": [
-    3288.8,
+    4064.8,
     0,
     0,
     0,
@@ -2210,7 +2570,7 @@
     0,
     0
    ],
-   "totalMB": 3288.8,
+   "totalMB": 4064.8,
    "pack": null
   },
   {
@@ -2233,7 +2593,7 @@
    ],
    "total": 7770,
    "monthsMB": [
-    7613.7390000000005,
+    7541.786,
     0,
     0,
     0,
@@ -2246,7 +2606,7 @@
     0,
     0
    ],
-   "totalMB": 7613.7390000000005,
+   "totalMB": 7541.786,
    "pack": "velopack"
   },
   {
@@ -2356,6 +2716,42 @@
    ],
    "totalMB": 6699,
    "pack": null
+  },
+  {
+   "company": "SCOTT SPORTS SA - FRANCE",
+   "project": "MED0196_SCOTT RUN EXPERIENCE TOUR MARSEILLE x runpack",
+   "nbInv": 1,
+   "months": [
+    6875,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 6875,
+   "monthsMB": [
+    5210,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 5210,
+   "pack": "runpack"
   },
   {
    "company": "LNH • Ligue Nationale de Handball",
@@ -2703,7 +3099,7 @@
    "monthsMB": [
     0,
     0,
-    4630,
+    4604.78,
     0,
     0,
     0,
@@ -2714,7 +3110,7 @@
     0,
     0
    ],
-   "totalMB": 4630,
+   "totalMB": 4604.78,
    "pack": "runpack"
   },
   {
@@ -2970,6 +3366,42 @@
    "pack": "runpack"
   },
   {
+   "company": "KAPPA FRANCE",
+   "project": "MED0255_Lancement_Kappa_Gyra",
+   "nbInv": 1,
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    5000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 5000,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    0,
+    5000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 5000,
+   "pack": "footpack"
+  },
+  {
    "company": "OM developpement sas",
    "project": "SPK0470_Olympien of the month - 2026/2027 - AUGUST TO NOVEMBER - MENS",
    "nbInv": 1,
@@ -3184,6 +3616,42 @@
    ],
    "totalMB": 640,
    "pack": null
+  },
+  {
+   "company": "PARIS SAINT GERMAIN FOOTBALL",
+   "project": "MED0091_WE RUN PARIS 2026_Activation RUN PARC",
+   "nbInv": 1,
+   "months": [
+    4197.3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 4197.3,
+   "monthsMB": [
+    3533.45,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 3533.45,
+   "pack": "footpack"
   },
   {
    "company": "LE MANS ENDURANCE MANAGEMENT",
@@ -3618,6 +4086,42 @@
    "pack": null
   },
   {
+   "company": "AVANIS",
+   "project": "MED0166_Press Trip Nimbl w. ALL TRICKS",
+   "nbInv": 1,
+   "months": [
+    3248.59,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 3248.59,
+   "monthsMB": [
+    1413.14,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1413.14,
+   "pack": "velopack"
+  },
+  {
    "company": "CNOSF",
    "project": "SPK0372_2_Accompagnement OP France Olympique 2026_Fete du Sport",
    "nbInv": 1,
@@ -3855,7 +4359,7 @@
    "monthsMB": [
     0,
     0,
-    2900,
+    2881,
     0,
     0,
     0,
@@ -3866,8 +4370,44 @@
     0,
     0
    ],
-   "totalMB": 2900,
+   "totalMB": 2881,
    "pack": "padelpack"
+  },
+  {
+   "company": "INTERSPORT FRANCE",
+   "project": "SPK0466_Video Recap Intersport World Cup 26 V2",
+   "nbInv": 1,
+   "months": [
+    0,
+    2841,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 2841,
+   "monthsMB": [
+    0,
+    1341,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1341,
+   "pack": null
   },
   {
    "company": "HUMMEL FRANCE",
@@ -4122,7 +4662,7 @@
    "pack": null
   },
   {
-   "company": "GEMO, groupe Eram",
+   "company": "VETIR SAS",
    "project": "SPK0472_Prod vidéo Gémo x Camps",
    "nbInv": 1,
    "months": [
@@ -4143,7 +4683,7 @@
    "monthsMB": [
     0,
     0,
-    1208.6,
+    1381.8,
     0,
     0,
     0,
@@ -4154,7 +4694,7 @@
     0,
     0
    ],
-   "totalMB": 1208.6,
+   "totalMB": 1381.8,
    "pack": null
   },
   {
@@ -4214,7 +4754,7 @@
    "total": 2246.6,
    "monthsMB": [
     0,
-    1496.6000000000001,
+    1091.6,
     0,
     0,
     0,
@@ -4226,7 +4766,7 @@
     0,
     0
    ],
-   "totalMB": 1496.6000000000001,
+   "totalMB": 1091.6,
    "pack": null
   },
   {
@@ -4338,7 +4878,7 @@
    "pack": null
   },
   {
-   "company": "VEJA FDD",
+   "company": "VEJA FAIR TRADE S.A.R.L.",
    "project": "MED0164_The Endless Night race by runpack",
    "nbInv": 1,
    "months": [
@@ -4410,6 +4950,42 @@
    "pack": "runpack"
   },
   {
+   "company": "STELLANTIS AUTO SAS",
+   "project": "SPK0393_PeugeotMS_Paid_24hMans",
+   "nbInv": 1,
+   "months": [
+    0,
+    1960,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 1960,
+   "monthsMB": [
+    0,
+    2659.35,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 2659.35,
+   "pack": null
+  },
+  {
    "company": "CNOSF",
    "project": "SPK0151_2/2_Accompagnement digital 2026 - Sport en France",
    "nbInv": 1,
@@ -4429,7 +5005,7 @@
    ],
    "total": 1700,
    "monthsMB": [
-    2350.8,
+    1681.04,
     0,
     0,
     0,
@@ -4442,7 +5018,7 @@
     0,
     0
    ],
-   "totalMB": 2350.8,
+   "totalMB": 1681.04,
    "pack": null
   },
   {
@@ -4662,6 +5238,42 @@
    "pack": null
   },
   {
+   "company": "Wolverine Europe B.V",
+   "project": "MED0105_launchpack(s) MERRELL 2026",
+   "nbInv": 1,
+   "months": [
+    1500,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 1500,
+   "monthsMB": [
+    1252.5266666666666,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1252.5266666666666,
+   "pack": "runpack"
+  },
+  {
    "company": "Tentbox Limited",
    "project": "MED0235_PACK UTMB 2026 x TentBox",
    "nbInv": 1,
@@ -4696,6 +5308,42 @@
    ],
    "totalMB": 1500,
    "pack": "runpack"
+  },
+  {
+   "company": "STELLANTIS AUTO SAS",
+   "project": "SPK0393_PeugeotMS_Paid_SaoPaulo",
+   "nbInv": 1,
+   "months": [
+    0,
+    1395,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 1395,
+   "monthsMB": [
+    0,
+    709.93,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 709.93,
+   "pack": null
   },
   {
    "company": "AVANIS",
@@ -4878,7 +5526,79 @@
    "pack": "velopack"
   },
   {
-   "company": "FC NANTES",
+   "company": "MAVIC GROUP",
+   "project": "MED0261_MAVIC_RB cycling survivor",
+   "nbInv": 1,
+   "months": [
+    0,
+    0,
+    1000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 1000,
+   "monthsMB": [
+    0,
+    0,
+    1000,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1000,
+   "pack": "velopack"
+  },
+  {
+   "company": "RACE COMPANY",
+   "project": "MED0127_Giveaway 6D Sports Nutrition ",
+   "nbInv": 1,
+   "months": [
+    500,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 500,
+   "monthsMB": [
+    500,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 500,
+   "pack": "velopack"
+  },
+  {
+   "company": "Association FC NANTES",
    "project": "SPK0460_ShootPhoto_FCNFem",
    "nbInv": 1,
    "months": [
@@ -5166,474 +5886,6 @@
    "pack": null
   },
   {
-   "company": "Kappa S.R.L",
-   "project": "SPK0266_Kappa activation Tunisie WC26",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "LACOSTE",
-   "project": "SPK0147_Plan d'actions Lacoste x Roland Garros 2026",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "INTERSPORT FRANCE",
-   "project": "SPK0466_Video Recap Intersport World Cup 26 V2",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "STELLANTIS AUTO SAS",
-   "project": "SPK0393_PeugeotMS_Paid_SaoPaulo",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "STELLANTIS AUTO SAS",
-   "project": "SPK0393_PeugeotMS_Paid_24hMans",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "RACE COMPANY",
-   "project": "MED0127_Giveaway 6D Sports Nutrition ",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": "velopack"
-  },
-  {
-   "company": "CNOSF",
-   "project": "SPK0372_Accompagnement OP France Olympique 2026_V2",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "FEDERATION FRANCAISE DE FOOTBALL",
-   "project": "SPK0374_Contenu finale CDF",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "PARIS SAINT GERMAIN FOOTBALL",
-   "project": "MED0091_WE RUN PARIS 2026_Activation RUN PARC",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": "footpack"
-  },
-  {
-   "company": "KING JOUET",
-   "project": "MED0120_Lego CDM x King Jouet",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": "footpack"
-  },
-  {
-   "company": "WPP MEDIA FRANCE",
-   "project": "SPK0250_Le Quartier adidas (projet)",
-   "nbInv": 2,
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 0,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 0,
-   "pack": null
-  },
-  {
-   "company": "FC Nantes",
-   "project": "SPK0460_ShootPhoto_FCNFem",
-   "nbInv": 1,
-   "months": [
-    0,
-    0,
-    -400,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -400,
-   "monthsMB": [
-    0,
-    0,
-    -250,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -250,
-   "pack": null
-  },
-  {
-   "company": "AVANIS",
-   "project": "MED0166_Press Trip Nimbl w. ALL TRICKS",
-   "nbInv": 2,
-   "months": [
-    -511.5899999999997,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -511.5899999999997,
-   "monthsMB": [
-    -222.54217756011053,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -222.54217756011053,
-   "pack": "velopack"
-  },
-  {
    "company": "Crédit Industriel et Commercial",
    "project": "SPK0387_Trophée de France - LA TRICOLORE",
    "nbInv": 3,
@@ -5670,150 +5922,6 @@
    "pack": null
   },
   {
-   "company": "Wolverine Europe B.V",
-   "project": "MED0105_launchpack(s) MERRELL 2026",
-   "nbInv": 3,
-   "months": [
-    -1000,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -1000,
-   "monthsMB": [
-    -835.0177777777777,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -835.0177777777777,
-   "pack": "runpack"
-  },
-  {
-   "company": "ADIDAS FRANCE",
-   "project": "SPK0368_OP CO adidas x Decathlon",
-   "nbInv": 2,
-   "months": [
-    -1000,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -1000,
-   "monthsMB": [
-    -449.9303914717093,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -449.9303914717093,
-   "pack": null
-  },
-  {
-   "company": "LES EXTRAORDINAIRES",
-   "project": "SPK0084_Mécénat Marathon Extraordinaire 2026",
-   "nbInv": 1,
-   "months": [
-    0,
-    0,
-    -1829.87,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -1829.87,
-   "monthsMB": [
-    0,
-    0,
-    -1740,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -1740,
-   "pack": null
-  },
-  {
-   "company": "SCOTT SPORTS SA - FRANCE",
-   "project": "MED0196_SCOTT RUN EXPERIENCE TOUR MARSEILLE x runpack",
-   "nbInv": 3,
-   "months": [
-    -6826.413427561838,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -6826.413427561838,
-   "monthsMB": [
-    -5173.180212014135,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -5173.180212014135,
-   "pack": "runpack"
-  },
-  {
    "company": "Crédit Industriel et Commercial",
    "project": "SPK0132_CIC_Billboard_2026",
    "nbInv": 3,
@@ -5848,197 +5956,9 @@
    ],
    "totalMB": -7633.5,
    "pack": null
-  },
-  {
-   "company": "ON Europe AG",
-   "project": "SPK0232_On Monster Missions",
-   "nbInv": 1,
-   "months": [
-    0,
-    0,
-    -13765.12,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -13765.12,
-   "monthsMB": [
-    0,
-    0,
-    -4510.383668139217,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -4510.383668139217,
-   "pack": null
-  },
-  {
-   "company": "ON Europe AG",
-   "project": "MED0111_On x runpack_SS26",
-   "nbInv": 1,
-   "months": [
-    -13861.89020885227,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -13861.89020885227,
-   "monthsMB": [
-    -12602.152464073577,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -12602.152464073577,
-   "pack": "runpack"
-  },
-  {
-   "company": "INTERSPORT FRANCE",
-   "project": "SPK0210_TEAM RUNNING INTERSPORT",
-   "nbInv": 1,
-   "months": [
-    0,
-    0,
-    -37206.54,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -37206.54,
-   "monthsMB": [
-    0,
-    0,
-    -16750.976125539764,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -16750.976125539764,
-   "pack": null
-  },
-  {
-   "company": "L ACADEMIE INTERSPORT",
-   "project": "SPK0227_Nike Formations vendeurs ITS",
-   "nbInv": 1,
-   "months": [
-    -140261.93,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": -140261.93,
-   "monthsMB": [
-    -59505.36,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": -59505.36,
-   "pack": null
   }
  ],
  "onglet2": [
-  {
-   "company": "PUMA SE",
-   "project": "SPK0461_AH27 - SELL IN SUMMIT MARSEILLE",
-   "statut": "Reco En cours",
-   "ca": 76647.75,
-   "proba": 100,
-   "caPond": 76647.75,
-   "start": "11/08/2026",
-   "stop": "22/09/2026",
-   "months": [
-    0,
-    0,
-    76647.75,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 76647.75,
-   "mbPct": 65.88126853038739,
-   "mbSource": "devis",
-   "caPondMB": 50496.51,
-   "monthsMB": [
-    0,
-    0,
-    50496.51,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 50496.51,
-   "pack": null
-  },
   {
    "company": "LACOSTE",
    "project": "SPK0427_Activation Lacoste x Rolex Paris Master 2026",
@@ -6063,15 +5983,15 @@
     0
    ],
    "total": 75470,
-   "mbPct": 71.51185901682788,
+   "mbPct": 30.435934808533194,
    "mbSource": "devis",
-   "caPondMB": 53970,
+   "caPondMB": 22970,
    "monthsMB": [
     0,
     0,
     0,
     0,
-    53970,
+    22970,
     0,
     0,
     0,
@@ -6080,60 +6000,16 @@
     0,
     0
    ],
-   "totalMB": 53970,
-   "pack": null
-  },
-  {
-   "company": "Spond AS",
-   "project": "SPK0409_SPOND_SocialMedia_Influence_2627",
-   "statut": "Brief en attente",
-   "ca": 49250,
-   "proba": 100,
-   "caPond": 49250,
-   "start": "16/06/2026",
-   "stop": "28/01/2027",
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    49250,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 49250,
-   "mbPct": 92.28426395939087,
-   "mbSource": "devis",
-   "caPondMB": 45450,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    45450,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 45450,
+   "totalMB": 22970,
    "pack": null
   },
   {
    "company": "INTERSPORT FRANCE",
    "project": "SPK0418_Outdoor experience x Millet - Mont Buet",
-   "statut": "Reco En cours",
-   "ca": 51685.93,
+   "statut": "En attente Réponse client",
+   "ca": 47845.73,
    "proba": 90,
-   "caPond": 46517.337,
+   "caPond": 43061.157,
    "start": "15/07/2026",
    "stop": "15/11/2026",
    "months": [
@@ -6141,7 +6017,7 @@
     0,
     0,
     0,
-    46517.337,
+    43061.157,
     0,
     0,
     0,
@@ -6150,16 +6026,16 @@
     0,
     0
    ],
-   "total": 46517.337,
-   "mbPct": 61.576235544180015,
+   "total": 43061.157,
+   "mbPct": 56.88334152284854,
    "mbSource": "devis",
-   "caPondMB": 28643.625,
+   "caPondMB": 24494.625,
    "monthsMB": [
     0,
     0,
     0,
     0,
-    28643.625,
+    24494.625,
     0,
     0,
     0,
@@ -6168,51 +6044,7 @@
     0,
     0
    ],
-   "totalMB": 28643.625,
-   "pack": null
-  },
-  {
-   "company": "INTERSPORT FRANCE",
-   "project": "SPK0412_RunningExperience_NewBalance_2026",
-   "statut": "Reco En cours",
-   "ca": 49968.45,
-   "proba": 90,
-   "caPond": 44971.605,
-   "start": "01/07/2026",
-   "stop": "01/11/2026",
-   "months": [
-    0,
-    0,
-    0,
-    0,
-    44971.605,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 44971.605,
-   "mbPct": 67.79267717930013,
-   "mbSource": "devis",
-   "caPondMB": 30487.454999999998,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    0,
-    30487.454999999998,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 30487.454999999998,
+   "totalMB": 24494.625,
    "pack": null
   },
   {
@@ -6301,6 +6133,50 @@
     0
    ],
    "totalMB": 29519.6,
+   "pack": null
+  },
+  {
+   "company": "CEPAC",
+   "project": "SPK0458_Campagne Carte CEPAC x OM",
+   "statut": "Proactif",
+   "ca": 30814,
+   "proba": 90,
+   "caPond": 27732.6,
+   "start": "08/09/2026",
+   "stop": "31/12/2026",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    27732.6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 27732.6,
+   "mbPct": 100,
+   "mbSource": "devis",
+   "caPondMB": 27732.6,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    27732.6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 27732.6,
    "pack": null
   },
   {
@@ -6527,15 +6403,15 @@
    "company": "MATMUT",
    "project": "SPK0462_Inauguration espace pérenne Matmut Stadium",
    "statut": "Proactif",
-   "ca": 27477,
+   "ca": 27492,
    "proba": 70,
-   "caPond": 19233.9,
+   "caPond": 19244.4,
    "start": "17/08/2026",
    "stop": "30/09/2026",
    "months": [
     0,
     0,
-    19233.9,
+    19244.4,
     0,
     0,
     0,
@@ -6546,14 +6422,14 @@
     0,
     0
    ],
-   "total": 19233.9,
-   "mbPct": 46.54438257451687,
+   "total": 19244.4,
+   "mbPct": 45.42048595955187,
    "mbSource": "devis",
-   "caPondMB": 8952.300000000001,
+   "caPondMB": 8740.900000000001,
    "monthsMB": [
     0,
     0,
-    8952.300000000001,
+    8740.900000000001,
     0,
     0,
     0,
@@ -6564,7 +6440,7 @@
     0,
     0
    ],
-   "totalMB": 8952.300000000001,
+   "totalMB": 8740.900000000001,
    "pack": null
   },
   {
@@ -6653,50 +6529,6 @@
     0
    ],
    "totalMB": 12843,
-   "pack": null
-  },
-  {
-   "company": "CEPAC",
-   "project": "SPK0458_Campagne Carte CEPAC x OM",
-   "statut": "Proactif",
-   "ca": 25000,
-   "proba": 50,
-   "caPond": 12500,
-   "start": "10/08/2026",
-   "stop": "01/10/2026",
-   "months": [
-    0,
-    0,
-    0,
-    12500,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 12500,
-   "mbPct": 100,
-   "mbSource": "devis",
-   "caPondMB": 12500,
-   "monthsMB": [
-    0,
-    0,
-    0,
-    12500,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 12500,
    "pack": null
   },
   {
@@ -7052,6 +6884,50 @@
    "pack": null
   },
   {
+   "company": "PUMA SE",
+   "project": "SPK0459_MS26 - Activation Madrid",
+   "statut": "Reco En cours",
+   "ca": 8666.49,
+   "proba": 75,
+   "caPond": 6499.8675,
+   "start": "01/07/2026",
+   "stop": "01/07/2026",
+   "months": [
+    6499.8675,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 6499.8675,
+   "mbPct": 44.614255598287194,
+   "mbSource": "devis",
+   "caPondMB": 2899.8675,
+   "monthsMB": [
+    2899.8675,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 2899.8675,
+   "pack": null
+  },
+  {
    "company": "UNDER ARMOUR FRANCE SARL",
    "project": "UA BUS TOUR",
    "statut": "Proactif",
@@ -7093,6 +6969,94 @@
     0
    ],
    "totalMB": 6000,
+   "pack": null
+  },
+  {
+   "company": "PUMA SE",
+   "project": "SPK0489_Activation HYROX Cruise x Marseille",
+   "statut": "Reco En cours",
+   "ca": 5992,
+   "proba": 100,
+   "caPond": 5992,
+   "start": "18/09/2026",
+   "stop": "30/10/2026",
+   "months": [
+    0,
+    0,
+    0,
+    5992,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 5992,
+   "mbPct": 76.63551401869158,
+   "mbSource": "devis",
+   "caPondMB": 4592,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    4592,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 4592,
+   "pack": null
+  },
+  {
+   "company": "MATMUT",
+   "project": "SPK0479_Ecole Jaune & Noir - Dragons de Rouen x Matmut",
+   "statut": "Proactif",
+   "ca": 18904,
+   "proba": 30,
+   "caPond": 5671.2,
+   "start": "30/09/2026",
+   "stop": "28/10/2026",
+   "months": [
+    0,
+    0,
+    0,
+    5671.2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 5671.2,
+   "mbPct": 76.19551417689378,
+   "mbSource": "devis",
+   "caPondMB": 4321.2,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    4321.2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 4321.2,
    "pack": null
   },
   {
@@ -7182,50 +7146,6 @@
    ],
    "totalMB": 5000,
    "pack": null
-  },
-  {
-   "company": "KAPPA FRANCE",
-   "project": "MED0255_Lancement_Kappa_Gyra",
-   "statut": "Proactif",
-   "ca": 5000,
-   "proba": 100,
-   "caPond": 5000,
-   "start": "10/09/2026",
-   "stop": "30/09/2026",
-   "months": [
-    0,
-    0,
-    5000,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "total": 5000,
-   "mbPct": 59.73110314488112,
-   "mbSource": "client",
-   "caPondMB": 2986.555157244056,
-   "monthsMB": [
-    0,
-    0,
-    2986.555157244056,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "totalMB": 2986.555157244056,
-   "pack": "footpack"
   },
   {
    "company": "ACT FOR SPORT",
@@ -7339,15 +7259,15 @@
     0
    ],
    "total": 4500,
-   "mbPct": 43.919960251765524,
+   "mbPct": 43.41624957298382,
    "mbSource": "client",
-   "caPondMB": 1976.3982113294485,
+   "caPondMB": 1953.731230784272,
    "monthsMB": [
     0,
     0,
     0,
     0,
-    1976.3982113294485,
+    1953.731230784272,
     0,
     0,
     0,
@@ -7356,7 +7276,7 @@
     0,
     0
    ],
-   "totalMB": 1976.3982113294485,
+   "totalMB": 1953.731230784272,
    "pack": "runpack"
   },
   {
@@ -7536,48 +7456,48 @@
    "pack": null
   },
   {
-   "company": "ABEILLE ASSURANCES HOLDING",
-   "project": "SPK0452_Abeille Assurances - Media Day (Idée + Post prod)",
-   "statut": "Reco En cours",
-   "ca": 10920.5,
-   "proba": 30,
-   "caPond": 3276.15,
-   "start": "05/08/2026",
-   "stop": "06/01/2027",
+   "company": "THE LEDE COMPANY PARIS",
+   "project": "MED0262_NB x runpack - MRS CAS",
+   "statut": "En attente Réponse client",
+   "ca": 5000,
+   "proba": 70,
+   "caPond": 3500,
+   "start": "23/10/2026",
+   "stop": "25/10/2026",
    "months": [
     0,
     0,
     0,
+    3500,
     0,
     0,
     0,
-    3276.15,
     0,
     0,
     0,
     0,
     0
    ],
-   "total": 3276.15,
-   "mbPct": 100,
-   "mbSource": "devis",
-   "caPondMB": 3276.15,
+   "total": 3500,
+   "mbPct": 47.59466610330554,
+   "mbSource": "global",
+   "caPondMB": 1665.8133136156941,
    "monthsMB": [
     0,
     0,
     0,
+    1665.8133136156941,
     0,
     0,
     0,
-    3276.15,
     0,
     0,
     0,
     0,
     0
    ],
-   "totalMB": 3276.15,
-   "pack": null
+   "totalMB": 1665.8133136156941,
+   "pack": "runpack"
   },
   {
    "company": "PR ESENCE AGENCY",
@@ -7800,6 +7720,94 @@
    "pack": null
   },
   {
+   "company": "ABEILLE ASSURANCES HOLDING",
+   "project": "SPK0452_Abeille Assurances - Media Day (Idée)",
+   "statut": "Reco En cours",
+   "ca": 4505,
+   "proba": 50,
+   "caPond": 2252.5,
+   "start": "07/08/2026",
+   "stop": "08/01/2027",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2252.5,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 2252.5,
+   "mbPct": 100,
+   "mbSource": "devis",
+   "caPondMB": 2252.5,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2252.5,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 2252.5,
+   "pack": null
+  },
+  {
+   "company": "MIZUNO FRANCE",
+   "project": "MED0263_Diagonale_des_fous_Mizuno",
+   "statut": "Proactif",
+   "ca": 2500,
+   "proba": 90,
+   "caPond": 2250,
+   "start": "14/09/2026",
+   "stop": "31/10/2026",
+   "months": [
+    0,
+    0,
+    0,
+    2250,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 2250,
+   "mbPct": 50.88479284846213,
+   "mbSource": "client",
+   "caPondMB": 1144.907839090398,
+   "monthsMB": [
+    0,
+    0,
+    0,
+    1144.907839090398,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1144.907839090398,
+   "pack": "runpack"
+  },
+  {
    "company": "GWS Sport marketing",
    "project": "SPK0468_RetainerIA_QuartorzeRunning",
    "statut": "En attente Réponse client",
@@ -7976,6 +7984,50 @@
    "pack": "footpack"
   },
   {
+   "company": "PUMA Europe GmbH",
+   "project": "SPK0486_Activation influence PUMA _OM PSG",
+   "statut": "Proactif",
+   "ca": 1470,
+   "proba": 90,
+   "caPond": 1323,
+   "start": "17/09/2026",
+   "stop": "22/09/2026",
+   "months": [
+    0,
+    0,
+    1323,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "total": 1323,
+   "mbPct": 100,
+   "mbSource": "devis",
+   "caPondMB": 1323,
+   "monthsMB": [
+    0,
+    0,
+    1323,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "totalMB": 1323,
+   "pack": null
+  },
+  {
    "company": "LNT NUTRITION",
    "project": "MED0258_myRavito_velopack",
    "statut": "En attente Réponse client",
@@ -8020,19 +8072,19 @@
    "pack": "velopack"
   },
   {
-   "company": "MAVIC GROUP",
-   "project": "MED0261_MAVIC_RB cycling survivor",
-   "statut": "En attente Réponse client",
-   "ca": 1000,
-   "proba": 80,
-   "caPond": 800,
-   "start": "25/09/2026",
-   "stop": "25/09/2026",
+   "company": "Saucony France",
+   "project": "SPK0490_Support logistique 10k Saucony",
+   "statut": "Reco En cours",
+   "ca": 4138,
+   "proba": 20,
+   "caPond": 827.6,
+   "start": "18/09/2026",
+   "stop": "03/10/2026",
    "months": [
     0,
     0,
-    800,
     0,
+    827.6,
     0,
     0,
     0,
@@ -8042,15 +8094,15 @@
     0,
     0
    ],
-   "total": 800,
-   "mbPct": 48.51536904226595,
-   "mbSource": "global",
-   "caPondMB": 388.1229523381276,
+   "total": 827.6,
+   "mbPct": 84.29192846785887,
+   "mbSource": "devis",
+   "caPondMB": 697.6,
    "monthsMB": [
     0,
     0,
-    388.1229523381276,
     0,
+    697.6,
     0,
     0,
     0,
@@ -8060,8 +8112,8 @@
     0,
     0
    ],
-   "totalMB": 388.1229523381276,
-   "pack": "velopack"
+   "totalMB": 697.6,
+   "pack": null
   },
   {
    "company": "ADIDAS FRANCE",
@@ -8109,53 +8161,78 @@
   }
  ],
  "perimetre": {
-  "recip": 40,
+  "recip": 41,
   "spk0101": 2,
-  "internal": 13,
-  "nbFactures": 230,
+  "internal": 12,
+  "nbFactures": 215,
   "amRetr": 28
  },
  "weekly": {
-  "weekStart": "2026-09-05",
-  "weekEnd": "2026-09-11",
+  "weekStart": "2026-09-12",
+  "weekEnd": "2026-09-18",
   "projectsThisWeek": [
+   {
+    "company": "PUMA SE",
+    "referent": "Alizee Clement",
+    "project": "SPK0461_AH27 - SELL IN SUMMIT MARSEILLE",
+    "ca": 75919,
+    "mb": 20851,
+    "mbPct": 27.464798008403697,
+    "media": false,
+    "pack": null
+   },
+   {
+    "company": "Spond AS",
+    "referent": "Clement",
+    "project": "SPK0409_SPOND_SocialMedia_Influence_2627",
+    "ca": 50250,
+    "mb": 11272.04,
+    "mbPct": 22.431920398009954,
+    "media": false,
+    "pack": null
+   },
    {
     "company": "INTERSPORT FRANCE",
     "referent": "Ninon",
-    "project": "SPK0430_ITS x HOKA _ Clifton Tour 2026",
-    "ca": 46174,
-    "mb": 19000,
-    "mbPct": 41.14869840169793,
+    "project": "SPK0412_RunningExperience_NewBalance_2026",
+    "ca": 49968.45,
+    "mb": 14913.65,
+    "mbPct": 29.846132909866125,
     "media": false,
     "pack": null
    },
    {
-    "company": "NEW BALANCE FRANCE SARL",
+    "company": "KAPPA FRANCE",
+    "referent": "Arthur Aurelien",
+    "project": "MED0255_Lancement_Kappa_Gyra",
+    "ca": 5000,
+    "mb": 5000,
+    "mbPct": 100,
+    "media": true,
+    "pack": "footpack"
+   },
+   {
+    "company": "MAVIC GROUP",
+    "referent": "Arthur Aurelien Paul_dba germain",
+    "project": "MED0261_MAVIC_RB cycling survivor",
+    "ca": 1000,
+    "mb": 1000,
+    "mbPct": 100,
+    "media": true,
+    "pack": "velopack"
+   }
+  ],
+  "proposalsThisWeek": [
+   {
+    "company": "PUMA SE",
     "referent": "Audrey",
-    "project": "SPK0434_NBxLOSC-fourth_NEW",
-    "ca": 45403.28,
-    "mb": 14703.28,
-    "mbPct": 32.38373967695726,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "PENNYLANE",
-    "referent": "Clement",
-    "project": "SPK0419_Pennylane x Media Day #1 TOP14_2627",
-    "ca": 36539.5,
-    "mb": 14196.34,
-    "mbPct": 38.852036836847795,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "GEMO, groupe Eram",
-    "referent": "Hadrien",
-    "project": "SPK0373_Gemo_adidas_Backtoschool_influence",
-    "ca": 20133.9,
-    "mb": 4833.9,
-    "mbPct": 24.008761342809883,
+    "project": "SPK0459_MS26 - Activation Madrid",
+    "statut": "Reco En cours",
+    "ca": 10347.74,
+    "proba": 75,
+    "mbPct": 53.613059469990546,
+    "caProb": 7760.805,
+    "mbProb": 4160.804999999999,
     "media": false,
     "pack": null
    },
@@ -8163,223 +8240,182 @@
     "company": "PUMA SE",
     "referent": "Audrey",
     "project": "SPK0459_MS26 - Activation Madrid",
-    "ca": 10347.74,
-    "mb": 5360.24,
-    "mbPct": 51.80106960553705,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "GMF ASSURANCES",
-    "referent": "Audrey",
-    "project": "SPK0440_GMF-MediaDay-Top14-2627",
-    "ca": 9118.9,
-    "mb": 1434.9,
-    "mbPct": 15.735450547763438,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "I-RUN",
-    "referent": "germain Paul_dba Arthur",
-    "project": "MED0246_i-run x On Running",
-    "ca": 6000,
-    "mb": 4630,
-    "mbPct": 77.16666666666666,
-    "media": true,
-    "pack": "runpack"
-   },
-   {
-    "company": "RED BULL FRANCE",
-    "referent": "Arthur",
-    "project": "MED0171_RED BULL CYCLING SURVIVOR 2026 x velopack_SAFETY CAR",
-    "ca": 5240,
-    "mb": 1150,
-    "mbPct": 21.946564885496183,
-    "media": true,
-    "pack": "velopack"
-   },
-   {
-    "company": "CNOSF",
-    "referent": "Hadrien",
-    "project": "SPK0469_Amplification fondation sport et insertion",
-    "ca": 4993,
-    "mb": 1193,
-    "mbPct": 23.89345083116363,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "OM developpement sas",
-    "referent": "Clement",
-    "project": "SPK0470_Olympien of the month - 2026/2027 - AUGUST TO NOVEMBER - MENS",
-    "ca": 4828.3,
-    "mb": -2571.7,
-    "mbPct": -53.26305324855538,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "COM'OVER",
-    "referent": "Arthur Paul_dba Aurelien",
-    "project": "MED0256_padelpack x asics",
-    "ca": 2900,
-    "mb": 2900,
-    "mbPct": 100,
-    "media": true,
-    "pack": "padelpack"
-   },
-   {
-    "company": "GEMO, groupe Eram",
-    "referent": "Hadrien",
-    "project": "SPK0472_Prod vidéo Gémo x Camps",
-    "ca": 2333.6,
-    "mb": 1208.6,
-    "mbPct": 51.791223860130266,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "Céraclès Coopérative Entrepreneurs Commerçants",
-    "referent": "Nael",
-    "project": "MED0160_VIDÉO ON TOP_MONDOVELO x SPK 2026",
-    "ca": 2050.4,
-    "mb": 1750.4,
-    "mbPct": 85.3687085446742,
-    "media": true,
-    "pack": null
-   },
-   {
-    "company": "OM developpement sas",
-    "referent": "Clement",
-    "project": "SPK0470_Olympien of the month - 2026/2027 - AUGUST TO NOVEMBER - WOMENS",
-    "ca": 1685.4,
-    "mb": 440.4,
-    "mbPct": 26.130295478818084,
-    "media": false,
-    "pack": null
-   }
-  ],
-  "proposalsThisWeek": [
-   {
-    "company": "CEPAC",
-    "referent": "Nael",
-    "project": "SPK0458_Campagne Carte CEPAC x OM",
-    "statut": "Proactif",
-    "ca": 30814,
-    "proba": 90,
-    "mbPct": 100,
-    "caProb": 27732.6,
-    "mbProb": 27732.6,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "PENNYLANE",
-    "referent": "Clement",
-    "project": "SPK0482_Accompagnement Pennylane x TOP14_Q4 2026",
     "statut": "Reco En cours",
-    "ca": 7770,
-    "proba": 100,
-    "mbPct": 100,
-    "caProb": 7770,
-    "mbProb": 7770,
+    "ca": 8666.49,
+    "proba": 75,
+    "mbPct": 44.614255598287194,
+    "caProb": 6499.8675,
+    "mbProb": 2899.8675,
     "media": false,
     "pack": null
    },
    {
-    "company": "KAPPA FRANCE",
-    "referent": "Aurelien",
-    "project": "MED0255_Lancement_Kappa_Gyra",
+    "company": "PUMA SE",
+    "referent": "Clement",
+    "project": "SPK0489_Activation HYROX Cruise x Marseille",
+    "statut": "Reco En cours",
+    "ca": 5992,
+    "proba": 100,
+    "mbPct": 76.63551401869158,
+    "caProb": 5992,
+    "mbProb": 4592,
+    "media": false,
+    "pack": null
+   },
+   {
+    "company": "MATMUT",
+    "referent": "Kevin",
+    "project": "SPK0479_Ecole Jaune & Noir - Dragons de Rouen x Matmut",
     "statut": "Proactif",
+    "ca": 18904,
+    "proba": 30,
+    "mbPct": 76.19551417689378,
+    "caProb": 5671.2,
+    "mbProb": 4321.2,
+    "media": false,
+    "pack": null
+   },
+   {
+    "company": "THE LEDE COMPANY PARIS",
+    "referent": "Arthur",
+    "project": "MED0262_NB x runpack - MRS CAS",
+    "statut": "En attente Réponse client",
     "ca": 5000,
-    "proba": 100,
-    "mbPct": 59.73110314488112,
-    "caProb": 5000,
-    "mbProb": 2986.555157244056,
-    "media": true,
-    "pack": "footpack"
-   },
-   {
-    "company": "ADIDAS FRANCE",
-    "referent": "Arthur",
-    "project": "MED0260_Choose your runner",
-    "statut": "Reco En cours",
-    "ca": 9000,
-    "proba": 50,
-    "mbPct": 43.919960251765524,
-    "caProb": 4500,
-    "mbProb": 1976.3982113294485,
+    "proba": 70,
+    "mbPct": 47.59466610330554,
+    "caProb": 3500,
+    "mbProb": 1665.8133136156941,
     "media": true,
     "pack": "runpack"
-   },
-   {
-    "company": "LNT NUTRITION",
-    "referent": "Aurelien",
-    "project": "MED0258_myRavito_velopack",
-    "statut": "En attente Réponse client",
-    "ca": 1000,
-    "proba": 100,
-    "mbPct": 100,
-    "caProb": 1000,
-    "mbProb": 1000,
-    "media": true,
-    "pack": "velopack"
-   },
-   {
-    "company": "MAVIC GROUP",
-    "referent": "Arthur",
-    "project": "MED0261_MAVIC_RB cycling survivor",
-    "statut": "En attente Réponse client",
-    "ca": 1000,
-    "proba": 80,
-    "mbPct": 48.51536904226595,
-    "caProb": 800,
-    "mbProb": 388.1229523381276,
-    "media": true,
-    "pack": "velopack"
-   },
-   {
-    "company": "CNOSF",
-    "referent": "Hadrien",
-    "project": "SPK0481_Media Day FFJudo",
-    "statut": "Proactif",
-    "ca": 2610.63,
-    "proba": 0,
-    "mbPct": 77.01704186345825,
-    "caProb": 0,
-    "mbProb": 0,
-    "media": false,
-    "pack": null
-   },
-   {
-    "company": "CEPAC",
-    "referent": "Nael",
-    "project": "SPK0458_Campagne Carte CEPAC x OM_activations",
-    "statut": "Proactif",
-    "ca": 79539,
-    "proba": 0,
-    "mbPct": 62.65857000968078,
-    "caProb": 0,
-    "mbProb": 0,
-    "media": false,
-    "pack": null
    },
    {
     "company": "MIZUNO FRANCE",
-    "referent": "Nael",
-    "project": "MIZUNO x BLED FC x MONACO",
+    "referent": "Aurelien",
+    "project": "MED0263_Diagonale_des_fous_Mizuno",
     "statut": "Proactif",
-    "ca": 27157.85,
-    "proba": 0,
-    "mbPct": 88.40114368405452,
-    "caProb": 0,
-    "mbProb": 0,
+    "ca": 2500,
+    "proba": 90,
+    "mbPct": 50.88479284846213,
+    "caProb": 2250,
+    "mbProb": 1144.907839090398,
+    "media": true,
+    "pack": "runpack"
+   },
+   {
+    "company": "PUMA Europe GmbH",
+    "referent": "Clement",
+    "project": "SPK0486_Activation influence PUMA _OM PSG",
+    "statut": "Proactif",
+    "ca": 1470,
+    "proba": 90,
+    "mbPct": 100,
+    "caProb": 1323,
+    "mbProb": 1323,
     "media": false,
     "pack": null
+   },
+   {
+    "company": "Saucony France",
+    "referent": "Ninon",
+    "project": "SPK0490_Support logistique 10k Saucony",
+    "statut": "Reco En cours",
+    "ca": 4138,
+    "proba": 20,
+    "mbPct": 84.29192846785887,
+    "caProb": 827.6,
+    "mbProb": 697.6,
+    "media": false,
+    "pack": null
+   },
+   {
+    "company": "MYPOS",
+    "referent": "Aurelien",
+    "project": "MED0265_myPOS x footpack_Equipe_de_France_des_Commerçants",
+    "statut": "Proactif",
+    "ca": 23449.5,
+    "proba": 0,
+    "mbPct": 96.31975095417813,
+    "caProb": 0,
+    "mbProb": 0,
+    "media": true,
+    "pack": "footpack"
    }
   ],
   "pipe": {
+   "byStatus": [
+    {
+     "statut": "Proactif",
+     "n": 55,
+     "ca": 6399335.0819999995,
+     "caPond": 97775.46,
+     "med": {
+      "n": 4,
+      "caPond": 6750
+     },
+     "ag": {
+      "n": 51,
+      "caPond": 91025.46
+     }
+    },
+    {
+     "statut": "Reco En cours",
+     "n": 56,
+     "ca": 1818800.23,
+     "caPond": 545217.0740000001,
+     "med": {
+      "n": 3,
+      "caPond": 7850
+     },
+     "ag": {
+      "n": 53,
+      "caPond": 537367.074
+     }
+    },
+    {
+     "statut": "Brief en attente",
+     "n": 22,
+     "ca": 688785.5700000001,
+     "caPond": 354171.744,
+     "med": {
+      "n": 0,
+      "caPond": 0
+     },
+     "ag": {
+      "n": 22,
+      "caPond": 354171.744
+     }
+    },
+    {
+     "statut": "En attente Réponse client",
+     "n": 31,
+     "ca": 560813.79,
+     "caPond": 278458.15150000004,
+     "med": {
+      "n": 9,
+      "caPond": 29740.55
+     },
+     "ag": {
+      "n": 22,
+      "caPond": 248717.60150000002
+     }
+    }
+   ],
+   "total": {
+    "n": 164,
+    "ca": 9467734.671999998,
+    "caPond": 1275622.4295,
+    "med": {
+     "n": 16,
+     "caPond": 44340.55
+    },
+    "ag": {
+     "n": 148,
+     "caPond": 1231281.8795
+    }
+   }
+  },
+  "pipePrev": {
+   "date": "2026-09-11",
    "byStatus": [
     {
      "statut": "Proactif",
@@ -8450,80 +8486,6 @@
      "n": 146,
      "caPond": 1392640.122
     }
-   }
-  },
-  "pipePrev": {
-   "date": "2026-09-04",
-   "byStatus": [
-    {
-     "statut": "Proactif",
-     "n": 51,
-     "ca": 6290884.702,
-     "caPond": 84263.08,
-     "med": {
-      "n": 3,
-      "caPond": 4500
-     },
-     "ag": {
-      "n": 48,
-      "caPond": 79763.08
-     }
-    },
-    {
-     "statut": "Reco En cours",
-     "n": 60,
-     "ca": 2046035.82,
-     "caPond": 751727.6045,
-     "med": {
-      "n": 2,
-      "caPond": 3350
-     },
-     "ag": {
-      "n": 58,
-      "caPond": 748377.6045
-     }
-    },
-    {
-     "statut": "Brief en attente",
-     "n": 25,
-     "ca": 811068.5700000001,
-     "caPond": 403421.744,
-     "med": {
-      "n": 0,
-      "caPond": 0
-     },
-     "ag": {
-      "n": 25,
-      "caPond": 403421.744
-     }
-    },
-    {
-     "statut": "En attente Réponse client",
-     "n": 31,
-     "ca": 509928.63,
-     "caPond": 213618.20950000003,
-     "med": {
-      "n": 10,
-      "caPond": 35324.55
-     },
-     "ag": {
-      "n": 21,
-      "caPond": 178293.6595
-     }
-    }
-   ],
-   "total": {
-    "n": 167,
-    "ca": 9657917.722000001,
-    "caPond": 1453030.638,
-    "med": {
-     "n": 15,
-     "caPond": 43174.55
-    },
-    "ag": {
-     "n": 152,
-     "caPond": 1409856.088
-    }
    },
    "ageDays": 7,
    "weekly": true
@@ -8536,13 +8498,13 @@
    {
     "pack": "footpack",
     "objectif": 400000,
-    "caSig": 82357.94,
-    "caDev": 13250,
-    "mbSig": 73271.81,
-    "mbDev": 11111.555157244056,
+    "caSig": 99555.24,
+    "caDev": 8250,
+    "mbSig": 89601.38999999998,
+    "mbDev": 8125,
     "clients": 12,
-    "nSig": 11,
-    "nDev": 4,
+    "nSig": 12,
+    "nDev": 3,
     "lines": [
      {
       "project": "SPK0172_Accompagnement contrat Intersport 2026_Accompagnement Media_footpack (2/4)",
@@ -8566,6 +8528,13 @@
       "mb": 10544.24
      },
      {
+      "project": "MED0120_Lego CDM x King Jouet",
+      "company": "KING JOUET",
+      "type": "Signé",
+      "ca": 8000,
+      "mb": 7796.13
+     },
+     {
       "project": "MED0115_RevealHome_ElderaFCSM_2627_V2",
       "company": "FOOTBALL CLUB SOCHAUX-MONTBELIARD SA",
       "type": "Signé",
@@ -8582,9 +8551,9 @@
      {
       "project": "MED0255_Lancement_Kappa_Gyra",
       "company": "KAPPA FRANCE",
-      "type": "Devis",
+      "type": "Signé",
       "ca": 5000,
-      "mb": 2986.555157244056
+      "mb": 5000
      },
      {
       "project": "MED0209_ACT_FOR_SPORT_AMPLIFICATION",
@@ -8592,6 +8561,13 @@
       "type": "Devis",
       "ca": 4500,
       "mb": 4500
+     },
+     {
+      "project": "MED0091_WE RUN PARIS 2026_Activation RUN PARC",
+      "company": "PARIS SAINT GERMAIN FOOTBALL",
+      "type": "Signé",
+      "ca": 4197.3,
+      "mb": 3533.45
      },
      {
       "project": "MED0224_Jour de 1/2 by INTERSPORT",
@@ -8634,33 +8610,19 @@
       "type": "Signé",
       "ca": 1552.34,
       "mb": 1752.34
-     },
-     {
-      "project": "MED0091_WE RUN PARIS 2026_Activation RUN PARC",
-      "company": "PARIS SAINT GERMAIN FOOTBALL",
-      "type": "Signé",
-      "ca": 0,
-      "mb": 0
-     },
-     {
-      "project": "MED0120_Lego CDM x King Jouet",
-      "company": "KING JOUET",
-      "type": "Signé",
-      "ca": 0,
-      "mb": 0
      }
     ]
    },
    {
     "pack": "runpack",
     "objectif": 500000,
-    "caSig": 115957.32657243815,
-    "caDev": 24171,
-    "mbSig": 109731.41007863238,
-    "mbDev": 19672.398211329448,
-    "clients": 29,
-    "nSig": 34,
-    "nDev": 5,
+    "caSig": 146020.63020885226,
+    "caDev": 29921,
+    "mbSig": 134779.06719916456,
+    "mbDev": 22460.452383490367,
+    "clients": 30,
+    "nSig": 33,
+    "nDev": 7,
     "lines": [
      {
       "project": "MED0111_On x runpack_SS26",
@@ -8705,6 +8667,13 @@
       "mb": 7500
      },
      {
+      "project": "MED0196_SCOTT RUN EXPERIENCE TOUR MARSEILLE x runpack",
+      "company": "SCOTT SPORTS SA - FRANCE",
+      "type": "Signé",
+      "ca": 6875,
+      "mb": 5210
+     },
+     {
       "project": "MED0187_annualpack 2026 x ALLTRICKS",
       "company": "AVANIS",
       "type": "Signé",
@@ -8716,7 +8685,7 @@
       "company": "I-RUN",
       "type": "Signé",
       "ca": 5500,
-      "mb": 4630
+      "mb": 4604.78
      },
      {
       "project": "MED0223_ASICS x runpack à l'UTMB 2026",
@@ -8765,7 +8734,7 @@
       "company": "ADIDAS FRANCE",
       "type": "Devis",
       "ca": 4500,
-      "mb": 1976.3982113294485
+      "mb": 1953.731230784272
      },
      {
       "project": "SPK0172_Accompagnement contrat Intersport 2026_Accompagnement footlab_runpack (2/4)",
@@ -8801,6 +8770,13 @@
       "type": "Signé",
       "ca": 3500,
       "mb": 3500
+     },
+     {
+      "project": "MED0262_NB x runpack - MRS CAS",
+      "company": "THE LEDE COMPANY PARIS",
+      "type": "Devis",
+      "ca": 3500,
+      "mb": 1665.8133136156941
      },
      {
       "project": "MED0252_Shake out run Under Armour",
@@ -8866,6 +8842,13 @@
       "mb": 375
      },
      {
+      "project": "MED0263_Diagonale_des_fous_Mizuno",
+      "company": "MIZUNO FRANCE",
+      "type": "Devis",
+      "ca": 2250,
+      "mb": 1144.907839090398
+     },
+     {
       "project": "MED0222_Couverture MEMORIAL RUN BRUXELLES X KIPRUN by runpack",
       "company": "PR ESENCE AGENCY",
       "type": "Signé",
@@ -8874,7 +8857,7 @@
      },
      {
       "project": "MED0164_The Endless Night race by runpack",
-      "company": "VEJA FDD",
+      "company": "VEJA FAIR TRADE S.A.R.L.",
       "type": "Signé",
       "ca": 2000,
       "mb": 1399.35
@@ -8892,6 +8875,13 @@
       "type": "Signé",
       "ca": 1600,
       "mb": 1356.8700000000001
+     },
+     {
+      "project": "MED0105_launchpack(s) MERRELL 2026",
+      "company": "Wolverine Europe B.V",
+      "type": "Signé",
+      "ca": 1500,
+      "mb": 1252.5266666666666
      },
      {
       "project": "MED0235_PACK UTMB 2026 x TentBox",
@@ -8913,27 +8903,6 @@
       "type": "Signé",
       "ca": 278.74,
       "mb": 265.5061368485929
-     },
-     {
-      "project": "MED0105_launchpack(s) MERRELL 2026",
-      "company": "Wolverine Europe B.V",
-      "type": "Signé",
-      "ca": -1000,
-      "mb": -835.0177777777777
-     },
-     {
-      "project": "MED0196_SCOTT RUN EXPERIENCE TOUR MARSEILLE x runpack",
-      "company": "SCOTT SPORTS SA - FRANCE",
-      "type": "Signé",
-      "ca": -6826.413427561838,
-      "mb": -5173.180212014135
-     },
-     {
-      "project": "MED0111_On x runpack_SS26",
-      "company": "ON Europe AG",
-      "type": "Signé",
-      "ca": -13861.89020885227,
-      "mb": -12602.152464073577
      }
     ]
    },
@@ -8960,13 +8929,13 @@
    {
     "pack": "velopack",
     "objectif": 110000,
-    "caSig": 73475.76,
-    "caDev": 1800,
-    "mbSig": 53446.57776135887,
-    "mbDev": 1388.1229523381276,
+    "caSig": 78735.93999999999,
+    "caDev": 1000,
+    "mbSig": 56510.306938918984,
+    "mbDev": 1000,
     "clients": 15,
-    "nSig": 14,
-    "nDev": 2,
+    "nSig": 15,
+    "nDev": 1,
     "lines": [
      {
       "project": "MED0160_MONDOVELO x SPK 2026",
@@ -8987,7 +8956,7 @@
       "company": "EKOI - JCR",
       "type": "Signé",
       "ca": 7770,
-      "mb": 7613.7390000000005
+      "mb": 7541.786
      },
      {
       "project": "MED0171_RED BULL CYCLING SURVIVOR 2026 x velopack_SAFETY CAR",
@@ -9025,6 +8994,13 @@
       "mb": 1750
      },
      {
+      "project": "MED0166_Press Trip Nimbl w. ALL TRICKS",
+      "company": "AVANIS",
+      "type": "Signé",
+      "ca": 3248.59,
+      "mb": 1413.14
+     },
+     {
       "project": "MED0206_JULBO VISION LAB  (50% velopack)",
       "company": "NORTH COMMUNICATION",
       "type": "Signé",
@@ -9053,6 +9029,13 @@
       "mb": 1000
      },
      {
+      "project": "MED0261_MAVIC_RB cycling survivor",
+      "company": "MAVIC GROUP",
+      "type": "Signé",
+      "ca": 1000,
+      "mb": 1000
+     },
+     {
       "project": "MED0258_myRavito_velopack",
       "company": "LNT NUTRITION",
       "type": "Devis",
@@ -9060,25 +9043,11 @@
       "mb": 1000
      },
      {
-      "project": "MED0261_MAVIC_RB cycling survivor",
-      "company": "MAVIC GROUP",
-      "type": "Devis",
-      "ca": 800,
-      "mb": 388.1229523381276
-     },
-     {
       "project": "MED0127_Giveaway 6D Sports Nutrition ",
       "company": "RACE COMPANY",
       "type": "Signé",
-      "ca": 0,
-      "mb": 0
-     },
-     {
-      "project": "MED0166_Press Trip Nimbl w. ALL TRICKS",
-      "company": "AVANIS",
-      "type": "Signé",
-      "ca": -511.5899999999997,
-      "mb": -222.54217756011053
+      "ca": 500,
+      "mb": 500
      }
     ]
    },
@@ -9087,7 +9056,7 @@
     "objectif": 50000,
     "caSig": 16650,
     "caDev": 0,
-    "mbSig": 16650,
+    "mbSig": 16631,
     "mbDev": 0,
     "clients": 2,
     "nSig": 2,
@@ -9105,35 +9074,35 @@
       "company": "COM'OVER",
       "type": "Signé",
       "ca": 2900,
-      "mb": 2900
+      "mb": 2881
      }
     ]
    }
   ],
   "unclassified": [],
   "prev": {
-   "date": "2026-09-04",
+   "date": "2026-09-11",
    "ageDays": 7,
    "packs": {
     "footpack": {
-     "ca": 90238.54,
-     "caSig": 81988.54
+     "ca": 95607.94,
+     "caSig": 82357.94
     },
     "runpack": {
-     "ca": 134628.32657243815,
-     "caSig": 110457.32657243815
+     "ca": 140128.32657243815,
+     "caSig": 115957.32657243815
     },
     "basketpack": {
-     "ca": 26463.2,
+     "ca": 6000,
      "caSig": 6000
     },
     "velopack": {
-     "ca": 69449.36,
-     "caSig": 66185.36
+     "ca": 75275.76,
+     "caSig": 73475.76
     },
     "padelpack": {
-     "ca": 16070,
-     "caSig": 13750
+     "ca": 16650,
+     "caSig": 16650
     }
    }
   }

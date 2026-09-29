@@ -69,7 +69,10 @@ const mbOverrideOf = title => {
   return null;
 };
 // Correction manuelle de la MB en montant fixe (€). code projet -> MB € forcée (signés + semaine).
-const MB_OVERRIDE_EUR = { 'SPK0430': 19000 }; // ITS x HOKA Clifton Tour 2026 : MB forcée à 19 k€
+const MB_OVERRIDE_EUR = {
+  'SPK0430': 19000, // ITS x HOKA Clifton Tour 2026 : MB forcée à 19 k€
+  'SPK0461': 20851, // AH27 Sell In Summit Marseille : MB forcée à 20 851 €
+};
 const mbEurOf = title => {
   for (const [code, v] of Object.entries(MB_OVERRIDE_EUR)) if ((title || '').toUpperCase().includes(code)) return v;
   return null;
@@ -136,8 +139,23 @@ function effDate(inv) {
 // Source : factures Furious (émises + prévues statut 0), placées au mois de leur date prévue.
 const o1 = new Map(); // key -> {company, project, months[12], total}
 const amApplied = new Set();
+// Factures annulées : la prod saisit souvent un AVOIR miroir (négatif, cancel=0) EN PLUS de l'annulation.
+// On neutralise ces avoirs orphelins (sinon ils plombent le CA : ex. SPK0085 -851k, SPK0227 -140k).
+const cancelledAmts = {}; // project_id -> { montant arrondi : nombre }
+invoices.forEach(inv => {
+  if (inv.is_cancelled != 1) return;
+  const pid = String(inv.project_id); const a = Math.round(Number(inv.amount_ht) || 0);
+  (cancelledAmts[pid] = cancelledAmts[pid] || {})[a] = (cancelledAmts[pid][a] || 0) + 1;
+});
+const perimAvoir = { n: 0 };
 invoices.forEach(inv => {
   if (inv.is_cancelled == 1) return;
+  // avoir miroir d'une facture annulée du même projet -> neutralisé (consomme un match)
+  const _amt = Math.round(Number(inv.amount_ht) || 0);
+  if (_amt < 0) {
+    const pid = String(inv.project_id); const c = cancelledAmts[pid];
+    if (c && c[-_amt] > 0) { c[-_amt]--; perimAvoir.n++; return; }
+  }
   const idx = monthIndex(effDate(inv));
   if (idx < 0) return; // hors exo 26/27
   const company = inv.company_name || '—';

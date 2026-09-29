@@ -262,5 +262,11 @@
  "MED0258": "velopack",
  "MED0260": "runpack",
  "MED0255": "footpack",
- "MED0261": "velopack"
+ "MED0261": "velopack",
+ "MED0264": "footpack",
+ "MED0266": "footpack",
+ "MED0267": "basketpack",
+ "MED0262": "runpack",
+ "MED0263": "runpack",
+ "MED0265": "footpack"
 }

@@ -1257,13 +1257,16 @@ app.get('/api/sync/status', auth.authMiddleware, (req, res) => res.json(syncStat
 // Directeurs commerciaux : accès équipe complet (comme un admin) sur le pilotage.
 const DIRECTORS = new Set(['Paul']);
 const isDirector = (user) => DIRECTORS.has(user?.furiousName) || DIRECTORS.has(user?.name);
+// Vue équipe complète (tous les portefeuilles) : admin, directeur, ou CODIR (lecture globale,
+// sans Biz Dev / Médias / assignations — restrictions gérées côté front + endpoints dédiés).
+const hasTeamView = (user) => user?.role === 'admin' || user?.role === 'codir' || isDirector(user);
 
 app.get('/api/data/portfolio', auth.authMiddleware, (req, res) => {
   const fyParam = parseInt(req.query.fy, 10);
   const fyStartYear = Number.isInteger(fyParam) ? fyParam : undefined;
   const portfolios = buildDCPortfolios(fyStartYear);
 
-  if (req.user.role === 'admin' || isDirector(req.user)) {
+  if (hasTeamView(req.user)) {
     return res.json({ portfolios, dcList: Object.keys(portfolios) });
   }
 
@@ -1295,9 +1298,9 @@ app.get('/api/data/monthly-recap', auth.authMiddleware, (req, res) => {
   res.json(buildMonthlyRecap(req.query.month));
 });
 
-// Heatmap des objectifs clients (transverse).
+// Heatmap des objectifs clients (transverse). Accessible au CODIR (agence).
 app.get('/api/data/heatmap', auth.authMiddleware, (req, res) => {
-  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  if (!hasTeamView(req.user)) return res.status(403).json({ error: 'Acces reserve' });
   const fyParam = parseInt(req.query.fy, 10);
   res.json(buildHeatmap(Number.isInteger(fyParam) ? fyParam : undefined));
 });
@@ -1545,7 +1548,7 @@ app.get('/api/admin/all-proposals', auth.authMiddleware, auth.adminOnly, (req, r
 app.get('/api/data/objectives', auth.authMiddleware, (req, res) => {
   const fyParam = parseInt(req.query.fy, 10);
   const fy = Number.isInteger(fyParam) ? fyParam : undefined;
-  if (req.user.role === 'admin') {
+  if (req.user.role === 'admin' || req.user.role === 'codir') {
     return res.json({ objectives: objectives.getAllObjectives(fy), imports: objectives.getImportHistory() });
   }
   const myObjectives = objectives.getObjectivesForDC(req.user.furiousName || req.user.name, fy);
