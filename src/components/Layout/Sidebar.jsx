@@ -1,8 +1,13 @@
-import { LayoutDashboard, Shield, UserCog, Upload, Link2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, Shield, UserCog, Upload, Link2, Radio, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 const DC_PAGES = [
   { id: 'admin-dashboard', label: 'Mon Portfolio', icon: LayoutDashboard },
+];
+
+// Rôle Médias : accès à la seule page Médias
+const MEDIA_PAGES = [
+  { id: 'admin-dashboard', label: 'Médias', icon: Radio },
 ];
 
 const ADMIN_PAGES = [
@@ -19,7 +24,7 @@ const CODIR_PAGES = [
 
 export default function Sidebar({ currentPage, onPageChange, userRole }) {
   const [collapsed, setCollapsed] = useState(false);
-  const pages = userRole === 'admin' ? ADMIN_PAGES : userRole === 'codir' ? CODIR_PAGES : DC_PAGES;
+  const pages = userRole === 'admin' ? ADMIN_PAGES : userRole === 'codir' ? CODIR_PAGES : userRole === 'medias' ? MEDIA_PAGES : DC_PAGES;
 
   return (
     <aside className={`hidden md:flex flex-col bg-[#111] border-r border-[#2a2a2a] transition-all duration-300 ${collapsed ? 'w-16' : 'w-56'}`}>

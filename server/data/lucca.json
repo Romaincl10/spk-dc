@@ -1365,8 +1365,8 @@
       "fullName": "Augustin DEVOS",
       "mail": "augustin@spk-group.fr",
       "jobTitle": "Chef de projet",
-      "dtContractStart": "2026-03-09T00:00:00",
-      "dtContractEnd": "2026-09-25T00:00:00",
+      "dtContractStart": "2026-09-28T00:00:00",
+      "dtContractEnd": null,
       "monthly": {
         "2026-06": {
           "deplacement": 11,
@@ -2877,7 +2877,7 @@
       "lastName": "PICOT",
       "fullName": "Théo PICOT",
       "mail": "theo.p@spk-group.fr",
-      "jobTitle": "Coordinateur événementiel",
+      "jobTitle": "Coordinateur ��vénementiel",
       "dtContractStart": "2025-01-06T00:00:00",
       "dtContractEnd": "2026-09-30T00:00:00",
       "monthly": {
@@ -3503,6 +3503,18 @@
       }
     },
     {
+      "id": 121,
+      "firstName": "Arthur",
+      "lastName": "TERRIEN",
+      "fullName": "Arthur TERRIEN",
+      "mail": "arthur@spk-group.fr",
+      "jobTitle": "Coordinateur évènementiel et logistique",
+      "dtContractStart": "2026-09-21T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {},
+      "totals": {}
+    },
+    {
       "id": 58,
       "firstName": "Kévin",
       "lastName": "TRAORE",
@@ -3569,5 +3581,5 @@
       "totals": {}
     }
   ],
-  "syncDate": "2026-09-17T12:22:10.542Z"
+  "syncDate": "2026-09-29T06:39:00.829Z"
 }

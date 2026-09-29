@@ -8,6 +8,7 @@ import AdminDashboard from './components/Pages/Admin/AdminDashboard';
 import Assignments from './components/Pages/Admin/Assignments';
 import UserManagement from './components/Pages/Admin/UserManagement';
 import ObjectifImport from './components/Pages/Admin/ObjectifImport';
+import MediasPage from './components/Pages/Admin/MediasPage';
 
 // Persist current page in sessionStorage so it survives HMR / soft reloads
 const PAGE_KEY = 'spk_dc_page';
@@ -55,6 +56,8 @@ export default function App() {
   // Load data on login
   const loadData = useCallback(async () => {
     if (!user) return;
+    // Rôle Médias : pas de portefeuille/objectifs à charger (la page Médias charge ses propres données)
+    if (user.role === 'medias') { setLoading(false); return; }
     setLoading(true);
     try {
       const data = await apiFetch(`/api/data/portfolio?fy=${fyStartYear}`);
@@ -111,6 +114,10 @@ export default function App() {
   if (!user) return <LoginScreen onLogin={handleLogin} />;
 
   const renderPage = () => {
+    // Rôle Médias : accès à l'onglet Médias uniquement
+    if (user.role === 'medias') {
+      return <MediasPage fyStartYear={fyStartYear} onFyChange={setFyStartYear} currentFyStartYear={getCurrentFyStartYear()} />;
+    }
     if (loading && !portfolio && !portfolios) {
       return (
         <div className="flex items-center justify-center h-64">

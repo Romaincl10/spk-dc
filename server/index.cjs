@@ -1260,6 +1260,8 @@ const isDirector = (user) => DIRECTORS.has(user?.furiousName) || DIRECTORS.has(u
 // Vue équipe complète (tous les portefeuilles) : admin, directeur, ou CODIR (lecture globale,
 // sans Biz Dev / Médias / assignations — restrictions gérées côté front + endpoints dédiés).
 const hasTeamView = (user) => user?.role === 'admin' || user?.role === 'codir' || isDirector(user);
+// Accès Médias : admin, directeur, ou rôle 'medias' (accès Médias uniquement). PAS le codir.
+const canMedias = (user) => user?.role === 'admin' || user?.role === 'medias' || isDirector(user);
 
 app.get('/api/data/portfolio', auth.authMiddleware, (req, res) => {
   const fyParam = parseInt(req.query.fy, 10);
@@ -1308,7 +1310,7 @@ app.get('/api/data/heatmap', auth.authMiddleware, (req, res) => {
 // Heatmap Médias : objectifs CA par client média (tuiles taille=objectif, couleur=avancement),
 // filtrable par tier. Réutilise la matrice objectifs médias de buildMedias.
 app.get('/api/data/medias-heatmap', auth.authMiddleware, (req, res) => {
-  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  if (!canMedias(req.user)) return res.status(403).json({ error: 'Acces reserve' });
   const fyParam = parseInt(req.query.fy, 10);
   const m = buildMedias(Number.isInteger(fyParam) ? fyParam : undefined);
   const clients = (m.clientObjectives || [])
@@ -1324,7 +1326,7 @@ app.get('/api/data/medias-heatmap', auth.authMiddleware, (req, res) => {
 
 // Médias — projets & devis MED0 (transverse). Admin + directeur uniquement.
 app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
-  if (!(req.user.role === 'admin' || isDirector(req.user))) {
+  if (!canMedias(req.user)) {
     return res.status(403).json({ error: 'Acces reserve' });
   }
   const fyParam = parseInt(req.query.fy, 10);
@@ -1333,7 +1335,7 @@ app.get('/api/data/medias', auth.authMiddleware, (req, res) => {
 
 // Récap mensuel des mouvements médias (transverse). Admin + directeur.
 app.get('/api/data/medias-monthly-recap', auth.authMiddleware, (req, res) => {
-  if (!(req.user.role === 'admin' || isDirector(req.user))) return res.status(403).json({ error: 'Acces reserve' });
+  if (!canMedias(req.user)) return res.status(403).json({ error: 'Acces reserve' });
   res.json(buildMediasMonthlyRecap(req.query.month));
 });
 
