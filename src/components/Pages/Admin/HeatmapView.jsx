@@ -15,8 +15,8 @@ function heatColor(pctR, pctT) {
   return '#c0392b';
 }
 
-export default function HeatmapView({ fyStartYear, onOpenClient, hideMedias }) {
-  const [mode, setMode] = useState('agence'); // 'agence' | 'medias'
+export default function HeatmapView({ fyStartYear, onOpenClient, hideMedias, mediaOnly }) {
+  const [mode, setMode] = useState(mediaOnly ? 'medias' : 'agence'); // 'agence' | 'medias'
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dcFilter, setDcFilter] = useState('all');
@@ -59,7 +59,7 @@ export default function HeatmapView({ fyStartYear, onOpenClient, hideMedias }) {
           <h2 className="text-xl font-extrabold italic text-white">Heatmap objectifs clients</h2>
           <p className="text-[#888] text-sm">Taille = objectif · couleur = avancement du CA vs temps écoulé (<span className="text-white font-bold">{pctTemps}%</span>)</p>
         </div>
-        {!hideMedias && (
+        {!hideMedias && !mediaOnly && (
           <div className="ml-auto flex gap-1 bg-[#111] rounded-lg p-0.5">
             <button onClick={() => setMode('agence')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${mode === 'agence' ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>Agences</button>
             <button onClick={() => setMode('medias')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${mode === 'medias' ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Médias</button>
