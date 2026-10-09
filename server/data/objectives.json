@@ -140,14 +140,9 @@
       ],
       "Clément": [
         {
-          "client": "PUMA FRANCE SAS",
-          "target": 1027000,
+          "client": "PUMA",
+          "target": 1717000,
           "signed": 820611.6099999996
-        },
-        {
-          "client": "PUMA SE",
-          "target": 690000,
-          "signed": 372227.78
         },
         {
           "client": "PSF ITALY",

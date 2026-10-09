@@ -1,0 +1,25 @@
+{
+ "date": "2026-10-06",
+ "packs": {
+  "footpack": {
+   "ca": 121607.94,
+   "caSig": 93357.94
+  },
+  "runpack": {
+   "ca": 159963.74,
+   "caSig": 137258.74
+  },
+  "basketpack": {
+   "ca": 6000,
+   "caSig": 6000
+  },
+  "velopack": {
+   "ca": 77875.76,
+   "caSig": 74475.76
+  },
+  "padelpack": {
+   "ca": 16650,
+   "caSig": 16650
+  }
+ }
+}

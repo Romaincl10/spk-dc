@@ -70,8 +70,8 @@ const mbOverrideOf = title => {
 };
 // Correction manuelle de la MB en montant fixe (€). code projet -> MB € forcée (signés + semaine).
 const MB_OVERRIDE_EUR = {
-  'SPK0430': 19000, // ITS x HOKA Clifton Tour 2026 : MB forcée à 19 k€
-  'SPK0461': 20851, // AH27 Sell In Summit Marseille : MB forcée à 20 851 €
+  'SPK0430_': 19000, // ITS x HOKA Clifton Tour 2026 : MB forcée à 19 k€ (pas les variantes SPK0430.2)
+  'SPK0461_': 20851, // AH27 Sell In Summit Marseille : MB forcée à 20 851 €
 };
 const mbEurOf = title => {
   for (const [code, v] of Object.entries(MB_OVERRIDE_EUR)) if ((title || '').toUpperCase().includes(code)) return v;
@@ -141,20 +141,27 @@ const o1 = new Map(); // key -> {company, project, months[12], total}
 const amApplied = new Set();
 // Factures annulées : la prod saisit souvent un AVOIR miroir (négatif, cancel=0) EN PLUS de l'annulation.
 // On neutralise ces avoirs orphelins (sinon ils plombent le CA : ex. SPK0085 -851k, SPK0227 -140k).
-const cancelledAmts = {}; // project_id -> { montant arrondi : nombre }
+// Neutralisation des avoirs miroirs : UNIQUEMENT quand ils reflètent une facture annulée datée
+// DANS LE MÊME EXERCICE 26/27 (refacturation interne, ex. SPK0085). Un avoir qui reverse une
+// facture de l'exercice PRÉCÉDENT (25/26) doit, lui, compter : le CA d'origine est déjà dans les
+// comptes 25/26, donc l'avoir réduit bien le 26/27 (évite le double compte à cheval). Décision Romain.
+// Clé = valeur ABSOLUE arrondie (Math.round est asymétrique sur les négatifs : round(-7633.5)=-7633
+// mais round(7633.5)=7634 -> le matching cassait sur les montants en demi-euro).
+const cancelledAmts = {}; // project_id -> { |montant| arrondi : nombre } (annulées DANS l'exo seulement)
 invoices.forEach(inv => {
   if (inv.is_cancelled != 1) return;
-  const pid = String(inv.project_id); const a = Math.round(Number(inv.amount_ht) || 0);
+  if (monthIndex(effDate(inv)) < 0) return; // annulée hors exercice 26/27 -> ne neutralise pas
+  const pid = String(inv.project_id); const a = Math.round(Math.abs(Number(inv.amount_ht) || 0));
   (cancelledAmts[pid] = cancelledAmts[pid] || {})[a] = (cancelledAmts[pid][a] || 0) + 1;
 });
 const perimAvoir = { n: 0 };
 invoices.forEach(inv => {
   if (inv.is_cancelled == 1) return;
   // avoir miroir d'une facture annulée du même projet -> neutralisé (consomme un match)
-  const _amt = Math.round(Number(inv.amount_ht) || 0);
-  if (_amt < 0) {
-    const pid = String(inv.project_id); const c = cancelledAmts[pid];
-    if (c && c[-_amt] > 0) { c[-_amt]--; perimAvoir.n++; return; }
+  const raw = Number(inv.amount_ht) || 0;
+  if (raw < 0) {
+    const pid = String(inv.project_id); const c = cancelledAmts[pid]; const k = Math.round(Math.abs(raw));
+    if (c && c[k] > 0) { c[k]--; perimAvoir.n++; return; }
   }
   const idx = monthIndex(effDate(inv));
   if (idx < 0) return; // hors exo 26/27
@@ -203,9 +210,12 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   const start = parseYMD(p.projet_start);
   const stop = parseYMD(p.projet_stop);
   if (!start || !stop) return;                         // pas de dates -> non répartissable
-  if (stop < FY_START || start > FY_END) return;       // ne touche pas l'exo 26/27
-  // règle : devis comptabilisé sur le MOIS DE LA DATE DE FIN du projet (plus proche de la réalité)
-  const iStop = monthIndex(stop);
+  if (stop < FY_START) return;                         // devis entièrement passé -> hors exercice
+  // règle : devis comptabilisé sur le MOIS DE LA DATE DE FIN du projet.
+  // Date de fin au-delà du 30/06/27 = erreur de saisie (pas de prod si loin) : on rattache
+  // au mois de DÉBUT s'il tombe dans l'exercice, sinon au dernier mois (juin 27).
+  let iStop = monthIndex(stop);
+  if (iStop < 0) { const iStart = monthIndex(start); iStop = iStart >= 0 ? iStart : 11; }
   const months = Array(12).fill(0);
   let total = 0;
   if (iStop >= 0) { months[iStop] += caPond; total += caPond; }
@@ -377,7 +387,9 @@ const proposalsThisWeek = allProp
 
 // Pipe courant par statut (EN_COURS, tous horizons) — avec split Média / Agence
 const pipeMap = {};
-allProp.filter(p => EN_COURS.includes(p.pipe_name) && !isRecip(p.company_name) && !isExcl(p.title)).forEach(p => {
+allProp.filter(p => EN_COURS.includes(p.pipe_name) && !isRecip(p.company_name) && !isExcl(p.title) && !isDevisExcluded(p.title)).forEach(p => {
+  const stop = parseYMD(p.projet_stop);
+  if (stop && stop < FY_START) return; // devis périmé (projet terminé avant l'exercice) -> hors pipe
   const ca = Number(p.discounted_amount) || Number(p.amount) || 0;
   const proba = Number(p.probability) || 0;
   const caPond = ca * proba / 100;
