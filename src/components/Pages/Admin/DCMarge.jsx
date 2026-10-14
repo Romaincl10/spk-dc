@@ -3,18 +3,20 @@ import { Percent, TrendingDown, AlertTriangle, Target } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import { fmtK, fmtPct } from '../../../utils/format';
 
-// Seuils de marge SPK : >= 54% bon, 45-54% à surveiller, < 45% faible
+// Seuils de marge SPK : >= 54% bon, 45-54% à surveiller, < 45% faible (fallback sans objectif)
 const TARGET = 54;
 const mbColor = (pct) => (pct >= 54 ? '#2ecc71' : pct >= 45 ? '#f39c12' : '#e74c3c');
-// Barre de MB% sur une échelle 0..70% avec repère objectif SPK à 54%
-function MbBar({ pct }) {
-  const scale = 70;
+// Couleur vs objectif du client : au-dessus = vert, jusqu'à 5 pts en dessous = orange, sinon rouge
+const vsColor = (pct, target) => (pct >= target ? '#2ecc71' : pct >= target - 5 ? '#f39c12' : '#e74c3c');
+// Barre de MB% avec repère sur l'OBJECTIF MB du client (ligne blanche). Couleur selon l'écart.
+function MbBar({ pct, target }) {
+  const scale = Math.max(70, target + 8);
   const w = Math.max(0, Math.min(100, (pct / scale) * 100));
-  const mark = (TARGET / scale) * 100;
+  const mark = Math.max(0, Math.min(100, (target / scale) * 100));
   return (
-    <div className="relative h-2 bg-[#2a2a2a] rounded-full overflow-hidden" title={`MB ${fmtPct(pct)} · objectif SPK ${TARGET}%`}>
-      <div className="h-2 rounded-full" style={{ width: `${w}%`, backgroundColor: mbColor(pct) }} />
-      <div className="absolute top-0 bottom-0 w-px bg-white/60" style={{ left: `${mark}%` }} />
+    <div className="relative h-2 bg-[#2a2a2a] rounded-full overflow-hidden" title={`MB ${fmtPct(pct)} · objectif ${fmtPct(target)}`}>
+      <div className="h-2 rounded-full" style={{ width: `${w}%`, backgroundColor: vsColor(pct, target) }} />
+      <div className="absolute top-0 bottom-0 w-px bg-white/70" style={{ left: `${mark}%` }} />
     </div>
   );
 }
@@ -51,13 +53,18 @@ export default function DCMarge({ portfolio, color }) {
   }, [portfolio.objectives]);
 
   const rows = useMemo(() => {
-    const list = breakdown.map(c => ({
-      name: c.name, ca: c.ca || 0, mb: c.mb || 0,
-      pct: (c.ca || 0) > 0 ? Math.round((c.mb || 0) / c.ca * 1000) / 10 : 0,
-      part: mbTotal > 0 ? Math.round((c.mb || 0) / mbTotal * 100) : 0,
-      objPct: objByClient[c.name] ?? null,
-    }));
-    if (sort === 'pct') list.sort((a, b) => a.pct - b.pct);
+    const list = breakdown.map(c => {
+      const pct = (c.ca || 0) > 0 ? Math.round((c.mb || 0) / c.ca * 1000) / 10 : 0;
+      const objPct = objByClient[c.name] ?? null;         // objectif MB% nominatif du client
+      const target = objPct != null ? objPct : TARGET;    // sinon fallback seuil SPK 54%
+      const delta = Math.round((pct - target) * 10) / 10; // écart vs objectif, en points
+      return {
+        name: c.name, ca: c.ca || 0, mb: c.mb || 0, pct, objPct, target, delta,
+        hasObj: objPct != null,
+        part: mbTotal > 0 ? Math.round((c.mb || 0) / mbTotal * 100) : 0,
+      };
+    });
+    if (sort === 'ecart') list.sort((a, b) => a.delta - b.delta); // plus gros retard vs objectif d'abord
     else list.sort((a, b) => b.mb - a.mb);
     return list;
   }, [breakdown, sort, mbTotal, objByClient]);
@@ -123,7 +130,7 @@ export default function DCMarge({ portfolio, color }) {
           <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Marge brute par client</h3>
           <div className="ml-auto flex gap-1 bg-[#111] rounded-lg p-0.5">
             <button onClick={() => setSort('mb')} className={`px-2.5 py-1 text-[10px] font-bold rounded ${sort === 'mb' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Contribution MB</button>
-            <button onClick={() => setSort('pct')} className={`px-2.5 py-1 text-[10px] font-bold rounded ${sort === 'pct' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Marges faibles</button>
+            <button onClick={() => setSort('ecart')} className={`px-2.5 py-1 text-[10px] font-bold rounded ${sort === 'ecart' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Sous objectif</button>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -134,8 +141,9 @@ export default function DCMarge({ portfolio, color }) {
                 <th className="text-right py-2 px-2 font-bold">CA</th>
                 <th className="text-right py-2 px-2 font-bold">MB €</th>
                 <th className="text-right py-2 px-2 font-bold">MB %</th>
-                <th className="text-left py-2 px-2 font-bold w-40">vs objectif SPK 54%</th>
-                <th className="text-right py-2 px-2 font-bold">Obj. MB%</th>
+                <th className="text-right py-2 px-2 font-bold">Objectif MB%</th>
+                <th className="text-left py-2 px-2 font-bold w-40">vs objectif MB</th>
+                <th className="text-right py-2 px-2 font-bold">Écart</th>
                 <th className="text-right py-2 px-2 font-bold">Part MB</th>
               </tr>
             </thead>
@@ -146,8 +154,13 @@ export default function DCMarge({ portfolio, color }) {
                   <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(r.ca)}</td>
                   <td className="py-2 px-2 text-right text-white font-semibold">{fmtK(r.mb)}</td>
                   <td className="py-2 px-2 text-right font-bold" style={{ color: mbColor(r.pct) }}>{fmtPct(r.pct)}</td>
-                  <td className="py-2 px-2"><MbBar pct={r.pct} /></td>
-                  <td className="py-2 px-2 text-right text-[10px] text-[#888]">{r.objPct != null ? fmtPct(r.objPct) : '—'}</td>
+                  <td className="py-2 px-2 text-right text-[11px]">
+                    {r.hasObj ? <span className="text-[#ccc]">{fmtPct(r.objPct)}</span> : <span className="text-[#666] italic" title="Pas d'objectif MB défini — seuil SPK 54%">54% <span className="text-[8px]">(SPK)</span></span>}
+                  </td>
+                  <td className="py-2 px-2"><MbBar pct={r.pct} target={r.target} /></td>
+                  <td className="py-2 px-2 text-right text-[11px] font-bold" style={{ color: r.delta >= 0 ? '#2ecc71' : '#e74c3c' }}>
+                    {r.delta >= 0 ? '+' : ''}{fmtPct(r.delta)}
+                  </td>
                   <td className="py-2 px-2 text-right text-[10px] text-[#aaa]">{r.part}%</td>
                 </tr>
               ))}
@@ -156,8 +169,11 @@ export default function DCMarge({ portfolio, color }) {
                 <td className="py-2 px-2 text-right text-white">{fmtK(caTotal)}</td>
                 <td className="py-2 px-2 text-right text-white">{fmtK(mbTotal)}</td>
                 <td className="py-2 px-2 text-right" style={{ color: mbColor(mbPct) }}>{fmtPct(mbPct)}</td>
-                <td className="py-2 px-2"><MbBar pct={mbPct} /></td>
-                <td className="py-2 px-2 text-right text-[10px] text-[#888]">{obj.pct > 0 ? fmtPct(obj.pct) : '—'}</td>
+                <td className="py-2 px-2 text-right text-[11px] text-[#ccc]">{obj.pct > 0 ? fmtPct(obj.pct) : '—'}</td>
+                <td className="py-2 px-2">{obj.pct > 0 ? <MbBar pct={mbPct} target={obj.pct} /> : null}</td>
+                <td className="py-2 px-2 text-right text-[11px] font-bold" style={{ color: gap == null ? '#888' : gap >= 0 ? '#2ecc71' : '#e74c3c' }}>
+                  {gap == null ? '—' : `${gap >= 0 ? '+' : ''}${fmtPct(gap)}`}
+                </td>
                 <td className="py-2 px-2 text-right text-[10px] text-[#aaa]">100%</td>
               </tr>
             </tbody>
