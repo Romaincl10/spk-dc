@@ -1,0 +1,74 @@
+{
+ "date": "2026-10-09",
+ "byStatus": [
+  {
+   "statut": "Proactif",
+   "n": 74,
+   "ca": 8129869.201999999,
+   "caPond": 317195.12,
+   "med": {
+    "n": 3,
+    "caPond": 9500
+   },
+   "ag": {
+    "n": 71,
+    "caPond": 307695.12
+   }
+  },
+  {
+   "statut": "Reco En cours",
+   "n": 33,
+   "ca": 1958970.79,
+   "caPond": 379651.329,
+   "med": {
+    "n": 3,
+    "caPond": 7850
+   },
+   "ag": {
+    "n": 30,
+    "caPond": 371801.329
+   }
+  },
+  {
+   "statut": "Brief en attente",
+   "n": 10,
+   "ca": 597249,
+   "caPond": 314018.35,
+   "med": {
+    "n": 0,
+    "caPond": 0
+   },
+   "ag": {
+    "n": 10,
+    "caPond": 314018.35
+   }
+  },
+  {
+   "statut": "En attente Réponse client",
+   "n": 22,
+   "ca": 405098.32,
+   "caPond": 204115.104,
+   "med": {
+    "n": 7,
+    "caPond": 40555
+   },
+   "ag": {
+    "n": 15,
+    "caPond": 163560.104
+   }
+  }
+ ],
+ "total": {
+  "n": 139,
+  "ca": 11091187.311999999,
+  "caPond": 1214979.903,
+  "med": {
+   "n": 13,
+   "caPond": 57905
+  },
+  "ag": {
+   "n": 126,
+   "caPond": 1157074.903
+  }
+ }
+}
