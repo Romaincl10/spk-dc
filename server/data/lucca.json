@@ -12,10 +12,16 @@
       "monthly": {
         "2026-04": {
           "deplacement": 1.5
+        },
+        "2026-06": {
+          "autre": 2,
+          "rtt": 1
         }
       },
       "totals": {
-        "deplacement": 1.5
+        "deplacement": 1.5,
+        "autre": 2,
+        "rtt": 1
       }
     },
     {
@@ -83,7 +89,7 @@
         "2026-06": {
           "cp": 4,
           "rtt": 1,
-          "teletravail": 1
+          "teletravail": 8
         },
         "2026-04": {
           "rtt": 0.5,
@@ -93,7 +99,7 @@
       "totals": {
         "cp": 34,
         "autre": 12.5,
-        "teletravail": 63.5,
+        "teletravail": 70.5,
         "seminaire": 2,
         "deplacement": 5,
         "rtt": 7
@@ -158,12 +164,12 @@
           "autre": 1
         },
         "2026-06": {
-          "teletravail": 2
+          "teletravail": 8
         }
       },
       "totals": {
         "cp": 36,
-        "teletravail": 66.5,
+        "teletravail": 72.5,
         "rtt": 5.5,
         "seminaire": 2,
         "autre": 1
@@ -210,7 +216,9 @@
           "teletravail": 8
         },
         "2026-06": {
-          "cp": 4
+          "cp": 4,
+          "teletravail": 8,
+          "rtt": 1
         },
         "2026-02": {
           "teletravail": 8
@@ -230,10 +238,10 @@
       },
       "totals": {
         "cp": 29,
-        "teletravail": 79,
+        "teletravail": 87,
         "autre": 2,
         "seminaire": 2,
-        "rtt": 3,
+        "rtt": 4,
         "recuperation": 3.5
       }
     },
@@ -308,13 +316,13 @@
         "2026-06": {
           "rtt": 1.5,
           "cp": 2,
-          "teletravail": 5.5,
+          "teletravail": 6.5,
           "deplacement": 6.5
         }
       },
       "totals": {
         "cp": 33,
-        "teletravail": 68.5,
+        "teletravail": 69.5,
         "deplacement": 31.5,
         "rtt": 8.5,
         "seminaire": 2,
@@ -467,7 +475,7 @@
           "maladie": 31
         },
         "2026-06": {
-          "maladie": 5
+          "maladie": 28
         }
       },
       "totals": {
@@ -478,7 +486,7 @@
         "teletravail": 12,
         "autre": 4,
         "rtt": 7,
-        "maladie": 38
+        "maladie": 61
       }
     },
     {
@@ -555,16 +563,16 @@
           "deplacement": 4.5
         },
         "2026-06": {
-          "recuperation": 3,
-          "deplacement": 7,
-          "teletravail": 1
+          "recuperation": 4,
+          "deplacement": 11,
+          "teletravail": 4
         }
       },
       "totals": {
-        "recuperation": 17.5,
+        "recuperation": 18.5,
         "cp": 42,
-        "teletravail": 39,
-        "deplacement": 36.5,
+        "teletravail": 42,
+        "deplacement": 40.5,
         "seminaire": 2,
         "rtt": 2.5
       }
@@ -635,14 +643,14 @@
           "deplacement": 5.5
         },
         "2026-06": {
-          "deplacement": 1,
-          "teletravail": 1
+          "deplacement": 3,
+          "teletravail": 3
         }
       },
       "totals": {
-        "teletravail": 42.5,
+        "teletravail": 44.5,
         "cp": 24,
-        "deplacement": 23.5,
+        "deplacement": 25.5,
         "rtt": 7.5,
         "autre": 1.5,
         "recuperation": 10.5,
@@ -713,7 +721,9 @@
           "teletravail": 1
         },
         "2026-06": {
-          "autre": 5
+          "autre": 7,
+          "recuperation": 0.5,
+          "deplacement": 6
         },
         "2026-05": {
           "teletravail": 2,
@@ -722,11 +732,11 @@
         }
       },
       "totals": {
-        "autre": 32.5,
-        "deplacement": 54.5,
+        "autre": 34.5,
+        "deplacement": 60.5,
         "teletravail": 16,
         "seminaire": 2,
-        "recuperation": 6
+        "recuperation": 6.5
       }
     },
     {
@@ -797,13 +807,14 @@
         "2026-06": {
           "cp": 3,
           "deplacement": 2,
-          "recuperation": 0.5
+          "recuperation": 1,
+          "teletravail": 1
         }
       },
       "totals": {
         "cp": 29.5,
-        "teletravail": 23.5,
-        "recuperation": 10,
+        "teletravail": 24.5,
+        "recuperation": 10.5,
         "seminaire": 2,
         "deplacement": 13,
         "autre": 1,
@@ -880,18 +891,20 @@
           "cp": 1
         },
         "2026-06": {
-          "deplacement": 13,
-          "recuperation": 2
+          "deplacement": 14,
+          "recuperation": 4,
+          "maladie": 4
         }
       },
       "totals": {
         "cp": 30,
-        "recuperation": 15,
-        "deplacement": 55.5,
+        "recuperation": 17,
+        "deplacement": 56.5,
         "teletravail": 32.5,
         "seminaire": 2,
         "rtt": 8,
-        "autre": 1
+        "autre": 1,
+        "maladie": 4
       }
     },
     {
@@ -947,11 +960,14 @@
         "2026-05": {
           "teletravail": 1,
           "rtt": 1
+        },
+        "2026-06": {
+          "teletravail": 1
         }
       },
       "totals": {
         "cp": 27,
-        "teletravail": 14,
+        "teletravail": 15,
         "rtt": 6,
         "seminaire": 2,
         "autre": 2,
@@ -1017,15 +1033,18 @@
         },
         "2026-06": {
           "cp": 1,
-          "teletravail": 1
+          "teletravail": 5.5,
+          "recuperation": 0.5,
+          "deplacement": 2
         }
       },
       "totals": {
         "cp": 31,
-        "teletravail": 18,
-        "deplacement": 7,
+        "teletravail": 22.5,
+        "deplacement": 9,
         "rtt": 4,
-        "seminaire": 2
+        "seminaire": 2,
+        "recuperation": 0.5
       }
     },
     {
@@ -1114,16 +1133,16 @@
         },
         "2026-06": {
           "autre": 6,
-          "deplacement": 7,
+          "deplacement": 8,
           "rtt": 0.5,
-          "teletravail": 4.5
+          "teletravail": 5.5
         }
       },
       "totals": {
         "cp": 24,
-        "teletravail": 54.5,
+        "teletravail": 55.5,
         "rtt": 7.5,
-        "deplacement": 71.5,
+        "deplacement": 72.5,
         "recuperation": 4.5,
         "autre": 33,
         "seminaire": 2
@@ -1200,15 +1219,20 @@
           "teletravail": 3,
           "deplacement": 5,
           "cp": 1
+        },
+        "2026-06": {
+          "deplacement": 2.5,
+          "teletravail": 1.5,
+          "recuperation": 2.5
         }
       },
       "totals": {
-        "recuperation": 4,
+        "recuperation": 6.5,
         "rtt": 4,
-        "teletravail": 21,
+        "teletravail": 22.5,
         "cp": 28,
         "seminaire": 2,
-        "deplacement": 15.5
+        "deplacement": 18
       }
     },
     {
@@ -1285,16 +1309,16 @@
         },
         "2026-06": {
           "recuperation": 2,
-          "teletravail": 2.5,
-          "deplacement": 0.5
+          "teletravail": 11,
+          "deplacement": 6
         }
       },
       "totals": {
         "rtt": 6,
         "cp": 27,
-        "teletravail": 101,
+        "teletravail": 109.5,
         "recuperation": 14.5,
-        "deplacement": 22,
+        "deplacement": 27.5,
         "autre": 1.5,
         "seminaire": 2
       }
@@ -1322,13 +1346,16 @@
           "deplacement": 1
         },
         "2026-06": {
-          "teletravail": 1
+          "teletravail": 5.5,
+          "autre": 1,
+          "deplacement": 2.5
         }
       },
       "totals": {
-        "teletravail": 14,
-        "deplacement": 4,
-        "recuperation": 3
+        "teletravail": 18.5,
+        "deplacement": 6.5,
+        "recuperation": 3,
+        "autre": 1
       }
     },
     {
@@ -1340,8 +1367,16 @@
       "jobTitle": "Chef de projet",
       "dtContractStart": "2026-09-28T00:00:00",
       "dtContractEnd": null,
-      "monthly": {},
-      "totals": {}
+      "monthly": {
+        "2026-06": {
+          "deplacement": 11,
+          "recuperation": 1
+        }
+      },
+      "totals": {
+        "deplacement": 11,
+        "recuperation": 1
+      }
     },
     {
       "id": 22,
@@ -1388,12 +1423,16 @@
         },
         "2026-01": {
           "deplacement": 2
+        },
+        "2026-06": {
+          "deplacement": 6,
+          "recuperation": 1
         }
       },
       "totals": {
-        "deplacement": 15,
+        "deplacement": 21,
         "teletravail": 3,
-        "recuperation": 4,
+        "recuperation": 5,
         "cp": 20,
         "rtt": 4
       }
@@ -1541,17 +1580,18 @@
           "deplacement": 1
         },
         "2026-06": {
-          "teletravail": 1,
-          "deplacement": 2
+          "teletravail": 7,
+          "deplacement": 5,
+          "recuperation": 2
         }
       },
       "totals": {
         "cp": 36,
         "rtt": 5,
-        "deplacement": 19.5,
-        "teletravail": 72.5,
+        "deplacement": 22.5,
+        "teletravail": 78.5,
         "autre": 0.5,
-        "recuperation": 2.5,
+        "recuperation": 4.5,
         "seminaire": 2
       }
     },
@@ -1614,7 +1654,7 @@
         },
         "2026-06": {
           "cp": 18,
-          "teletravail": 2
+          "teletravail": 3
         },
         "2026-03": {
           "teletravail": 5.5,
@@ -1630,7 +1670,7 @@
       },
       "totals": {
         "cp": 42,
-        "teletravail": 61.5,
+        "teletravail": 62.5,
         "rtt": 6,
         "autre": 0.5,
         "deplacement": 27.5,
@@ -1702,13 +1742,17 @@
           "rtt": 0.5,
           "teletravail": 3.5,
           "deplacement": 2.5
+        },
+        "2026-06": {
+          "deplacement": 1,
+          "teletravail": 4
         }
       },
       "totals": {
         "cp": 29,
-        "teletravail": 46.5,
+        "teletravail": 50.5,
         "autre": 2,
-        "deplacement": 5.5,
+        "deplacement": 6.5,
         "seminaire": 2,
         "recuperation": 4,
         "rtt": 6
@@ -1772,13 +1816,17 @@
         "2026-05": {
           "deplacement": 2,
           "recuperation": 1
+        },
+        "2026-06": {
+          "deplacement": 8,
+          "recuperation": 1
         }
       },
       "totals": {
         "cp": 21,
         "teletravail": 2,
-        "deplacement": 25.5,
-        "recuperation": 2.5,
+        "deplacement": 33.5,
+        "recuperation": 3.5,
         "seminaire": 2,
         "rtt": 5,
         "autre": 3.5
@@ -1842,7 +1890,7 @@
         "2026-06": {
           "cp": 7,
           "rtt": 1,
-          "teletravail": 5
+          "teletravail": 6
         },
         "2026-05": {
           "cp": 2,
@@ -1853,7 +1901,7 @@
       "totals": {
         "cp": 36.5,
         "rtt": 8,
-        "teletravail": 81.5,
+        "teletravail": 82.5,
         "autre": 3,
         "seminaire": 2,
         "deplacement": 2,
@@ -1868,7 +1916,7 @@
       "mail": "donatien@spk-group.fr",
       "jobTitle": "Creative Maker (en alternance)",
       "dtContractStart": "2026-09-02T00:00:00",
-      "dtContractEnd": null,
+      "dtContractEnd": "2027-09-10T00:00:00",
       "monthly": {},
       "totals": {}
     },
@@ -1940,13 +1988,19 @@
           "recuperation": 1,
           "teletravail": 5,
           "deplacement": 2
+        },
+        "2026-06": {
+          "teletravail": 6,
+          "deplacement": 5,
+          "recuperation": 2,
+          "cp": 3
         }
       },
       "totals": {
-        "cp": 21.5,
-        "teletravail": 48,
-        "deplacement": 18.5,
-        "recuperation": 9,
+        "cp": 24.5,
+        "teletravail": 54,
+        "deplacement": 23.5,
+        "recuperation": 11,
         "seminaire": 2,
         "rtt": 6.5
       }
@@ -2001,7 +2055,8 @@
           "teletravail": 2
         },
         "2026-06": {
-          "cp": 8
+          "cp": 8,
+          "teletravail": 3
         },
         "2026-02": {
           "teletravail": 4
@@ -2012,7 +2067,7 @@
       },
       "totals": {
         "cp": 38,
-        "teletravail": 30,
+        "teletravail": 33,
         "autre": 7.5,
         "rtt": 4,
         "seminaire": 2,
@@ -2101,15 +2156,16 @@
         },
         "2026-06": {
           "deplacement": 5,
-          "recuperation": 0.5
+          "recuperation": 2,
+          "teletravail": 10
         }
       },
       "totals": {
         "cp": 29,
-        "teletravail": 83,
+        "teletravail": 93,
         "seminaire": 2,
         "deplacement": 36.5,
-        "recuperation": 8.5,
+        "recuperation": 10,
         "rtt": 4
       }
     },
@@ -2120,8 +2176,8 @@
       "fullName": "Léo LE TENNIER",
       "mail": "leo@spk-medias.fr",
       "jobTitle": "Créateur de contenu",
-      "dtContractStart": "2026-04-28T00:00:00",
-      "dtContractEnd": "2026-10-26T00:00:00",
+      "dtContractStart": "2026-10-27T00:00:00",
+      "dtContractEnd": null,
       "monthly": {
         "2025-07": {
           "cp": 7,
@@ -2177,13 +2233,14 @@
         },
         "2026-06": {
           "recuperation": 1,
-          "teletravail": 1
+          "teletravail": 4,
+          "deplacement": 4
         }
       },
       "totals": {
         "cp": 13.5,
-        "teletravail": 49,
-        "deplacement": 16.5,
+        "teletravail": 52,
+        "deplacement": 20.5,
         "recuperation": 9,
         "rtt": 1,
         "autre": 1
@@ -2251,7 +2308,7 @@
         },
         "2026-06": {
           "ecole": 5,
-          "teletravail": 1,
+          "teletravail": 5,
           "cp": 2
         },
         "2025-07": {
@@ -2267,10 +2324,22 @@
         "recuperation": 12.5,
         "autre": 0.5,
         "seminaire": 2,
-        "teletravail": 21,
+        "teletravail": 25,
         "deplacement": 18,
         "cp": 13
       }
+    },
+    {
+      "id": 124,
+      "firstName": "Célia",
+      "lastName": "LOMBARDI",
+      "fullName": "Célia LOMBARDI",
+      "mail": "celia@spk-group.fr",
+      "jobTitle": "Planneur.se Stratégique",
+      "dtContractStart": "2026-11-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 64,
@@ -2314,15 +2383,27 @@
         },
         "2026-06": {
           "rtt": 1,
-          "teletravail": 1
+          "teletravail": 2
         }
       },
       "totals": {
         "cp": 20,
         "rtt": 4.5,
-        "teletravail": 8.5,
+        "teletravail": 9.5,
         "seminaire": 2
       }
+    },
+    {
+      "id": 123,
+      "firstName": "Cloé",
+      "lastName": "MATHÉ",
+      "fullName": "Cloé MATHÉ",
+      "mail": "cloe@spk-group.fr",
+      "jobTitle": "Directrice de clientèle",
+      "dtContractStart": "2026-11-02T00:00:00",
+      "dtContractEnd": null,
+      "monthly": {},
+      "totals": {}
     },
     {
       "id": 47,
@@ -2381,14 +2462,14 @@
           "teletravail": 13
         },
         "2026-06": {
-          "rtt": 1,
-          "teletravail": 3
+          "rtt": 2.5,
+          "teletravail": 12
         }
       },
       "totals": {
         "cp": 30,
-        "teletravail": 124.5,
-        "rtt": 4,
+        "teletravail": 133.5,
+        "rtt": 5.5,
         "deplacement": 1.5,
         "autre": 1.5,
         "seminaire": 2
@@ -2468,17 +2549,17 @@
           "cp": 2
         },
         "2026-06": {
-          "deplacement": 6,
-          "recuperation": 2,
-          "teletravail": 1
+          "deplacement": 9,
+          "recuperation": 7,
+          "teletravail": 3
         }
       },
       "totals": {
         "cp": 20,
-        "teletravail": 89.5,
-        "recuperation": 21,
+        "teletravail": 91.5,
+        "recuperation": 26,
         "autre": 0.5,
-        "deplacement": 55.5,
+        "deplacement": 58.5,
         "seminaire": 2,
         "rtt": 3
       }
@@ -2556,17 +2637,20 @@
         },
         "2026-06": {
           "recuperation": 1,
-          "teletravail": 1
+          "teletravail": 7,
+          "cp": 0.5,
+          "maladie": 1
         }
       },
       "totals": {
-        "cp": 25,
+        "cp": 25.5,
         "recuperation": 21,
         "deplacement": 11,
-        "teletravail": 61.5,
+        "teletravail": 67.5,
         "rtt": 4,
         "seminaire": 2,
-        "autre": 2
+        "autre": 2,
+        "maladie": 1
       }
     },
     {
@@ -2633,13 +2717,13 @@
         },
         "2026-06": {
           "rtt": 0.5,
-          "teletravail": 1.5,
+          "teletravail": 6.5,
           "deplacement": 2
         }
       },
       "totals": {
         "cp": 30,
-        "teletravail": 51.5,
+        "teletravail": 56.5,
         "recuperation": 2.5,
         "rtt": 8,
         "seminaire": 2,
@@ -2711,15 +2795,16 @@
         },
         "2026-06": {
           "autre": 1,
-          "recuperation": 1.5
+          "recuperation": 2.5,
+          "teletravail": 1
         }
       },
       "totals": {
-        "teletravail": 39,
+        "teletravail": 40,
         "autre": 22,
         "seminaire": 2,
         "deplacement": 6.5,
-        "recuperation": 4.5
+        "recuperation": 5.5
       }
     },
     {
@@ -2794,13 +2879,17 @@
         },
         "2026-04": {
           "teletravail": 14
+        },
+        "2026-06": {
+          "teletravail": 11,
+          "deplacement": 7
         }
       },
       "totals": {
         "rtt": 5,
         "cp": 32.5,
-        "teletravail": 107.5,
-        "deplacement": 21,
+        "teletravail": 118.5,
+        "deplacement": 28,
         "recuperation": 6.5,
         "autre": 2.5,
         "seminaire": 2
@@ -2874,13 +2963,14 @@
           "recuperation": 6.5
         },
         "2026-06": {
-          "teletravail": 0.5
+          "teletravail": 0.5,
+          "deplacement": 4
         }
       },
       "totals": {
         "cp": 18,
         "teletravail": 10,
-        "deplacement": 56,
+        "deplacement": 60,
         "rtt": 5.5,
         "recuperation": 28,
         "seminaire": 2
@@ -2955,13 +3045,17 @@
           "deplacement": 16.5,
           "teletravail": 1.5,
           "recuperation": 6
+        },
+        "2026-06": {
+          "deplacement": 4,
+          "teletravail": 4
         }
       },
       "totals": {
         "cp": 30.5,
         "rtt": 4,
-        "deplacement": 53.5,
-        "teletravail": 23,
+        "deplacement": 57.5,
+        "teletravail": 27,
         "autre": 0.5,
         "recuperation": 18.5,
         "seminaire": 2
@@ -3028,15 +3122,17 @@
         },
         "2026-06": {
           "rtt": 1,
-          "teletravail": 3
+          "teletravail": 6,
+          "deplacement": 2
         }
       },
       "totals": {
         "cp": 35,
-        "teletravail": 67.5,
+        "teletravail": 70.5,
         "autre": 5,
         "seminaire": 2,
-        "rtt": 6
+        "rtt": 6,
+        "deplacement": 2
       }
     },
     {
@@ -3075,10 +3171,13 @@
         },
         "2026-05": {
           "autre": 9
+        },
+        "2026-06": {
+          "autre": 9
         }
       },
       "totals": {
-        "autre": 85.5
+        "autre": 94.5
       }
     },
     {
@@ -3150,16 +3249,17 @@
         },
         "2026-06": {
           "cp": 1,
-          "teletravail": 1
+          "teletravail": 3,
+          "deplacement": 2
         }
       },
       "totals": {
         "cp": 31,
-        "deplacement": 19,
+        "deplacement": 21,
         "seminaire": 2,
         "autre": 4.5,
         "recuperation": 6.5,
-        "teletravail": 17,
+        "teletravail": 19,
         "rtt": 5
       }
     },
@@ -3223,13 +3323,17 @@
           "teletravail": 5,
           "deplacement": 6,
           "recuperation": 2
+        },
+        "2026-06": {
+          "teletravail": 8,
+          "deplacement": 0.5
         }
       },
       "totals": {
         "rtt": 9,
         "cp": 18,
-        "deplacement": 10,
-        "teletravail": 63.5,
+        "deplacement": 10.5,
+        "teletravail": 71.5,
         "formation": 0.5,
         "recuperation": 3.5,
         "autre": 29,
@@ -3298,7 +3402,9 @@
           "teletravail": 1.5
         },
         "2026-06": {
-          "ecole": 7
+          "ecole": 8,
+          "deplacement": 2,
+          "teletravail": 3
         },
         "2025-08": {
           "cp": 17,
@@ -3307,12 +3413,12 @@
         }
       },
       "totals": {
-        "ecole": 65,
+        "ecole": 66,
         "cp": 25.5,
-        "teletravail": 40,
+        "teletravail": 43,
         "recuperation": 4.5,
         "seminaire": 2,
-        "deplacement": 2.5
+        "deplacement": 4.5
       }
     },
     {
@@ -3392,11 +3498,14 @@
         },
         "2026-04": {
           "cp": 5
+        },
+        "2026-06": {
+          "cp": 2
         }
       },
       "totals": {
         "recuperation": 7.5,
-        "cp": 17,
+        "cp": 19,
         "rtt": 5,
         "deplacement": 3
       }
@@ -3414,5 +3523,5 @@
       "totals": {}
     }
   ],
-  "syncDate": "2026-10-11T18:00:17.108Z"
+  "syncDate": "2026-11-02T13:57:52.034Z"
 }

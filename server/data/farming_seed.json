@@ -2590,5 +2590,450 @@
     }
    ]
   }
+ },
+ "BizDev": {
+  "France Galop": {
+   "col": "#e63946",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-1",
+     "date": "Juin 2027",
+     "title": "Prix de Diane Chantilly",
+     "sub": "course phare France Galop",
+     "span": [
+      12,
+      12
+     ]
+    }
+   ]
+  },
+  "Google Pixel": {
+   "col": "#3b82f6",
+   "concepts": [],
+   "events": []
+  },
+  "Jules": {
+   "col": "#2ecc71",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-2",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "à activer une fois le TDF validé",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Midea": {
+   "col": "#f39c12",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-3",
+     "date": "Fév-Mai 2027",
+     "title": "FC Barcelone — Clásico + phase finale LDC",
+     "sub": "relancer suite 1er projet · focus FC Barcelone",
+     "span": [
+      8,
+      11
+     ]
+    }
+   ]
+  },
+  "Engie": {
+   "col": "#8b5cf6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-4",
+     "date": "Mai-Juin 2027",
+     "title": "Roland-Garros",
+     "sub": "relancer suite RG",
+     "span": [
+      11,
+      12
+     ]
+    }
+   ]
+  },
+  "Lavazza": {
+   "col": "#06b6d4",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-5",
+     "date": "Mai-Juin 2027",
+     "title": "Roland-Garros",
+     "sub": "relancer suite RG · café officiel GC",
+     "span": [
+      11,
+      12
+     ]
+    }
+   ]
+  },
+  "Tecnifibre": {
+   "col": "#ec4899",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-6",
+     "date": "Août 2027",
+     "title": "US Open (New York)",
+     "sub": "à activer après NYC",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Technogym": {
+   "col": "#0ea5e9",
+   "concepts": [],
+   "events": []
+  },
+  "SVR": {
+   "col": "#f97316",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-7",
+     "date": "Août 2027",
+     "title": "UTMB Mont-Blanc",
+     "sub": "à activer après UTMB",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Bitpanda": {
+   "col": "#14b8a6",
+   "concepts": [],
+   "events": []
+  },
+  "Dafy Moto": {
+   "col": "#e63946",
+   "concepts": [],
+   "events": []
+  },
+  "Amazfit": {
+   "col": "#3b82f6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-8",
+     "date": "Août 2027",
+     "title": "UTMB Mont-Blanc",
+     "sub": "à activer après UTMB",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Vitamin Well": {
+   "col": "#2ecc71",
+   "concepts": [],
+   "events": []
+  },
+  "Tissot": {
+   "col": "#f39c12",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-9",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "chronométrage officiel",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Canyon": {
+   "col": "#8b5cf6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-10",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "vélos WorldTour",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Suunto": {
+   "col": "#06b6d4",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-11",
+     "date": "Août 2027",
+     "title": "UTMB Mont-Blanc",
+     "sub": "montres trail",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Oakley": {
+   "col": "#ec4899",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-12",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "lunettes peloton",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Hyundai": {
+   "col": "#0ea5e9",
+   "concepts": [],
+   "events": []
+  },
+  "Lucca": {
+   "col": "#f97316",
+   "concepts": [],
+   "events": []
+  },
+  "Paris Saint-Germain": {
+   "col": "#14b8a6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-13",
+     "date": "Fév-Juin 2027",
+     "title": "Phase finale Ligue des Champions",
+     "sub": "temps fort club",
+     "span": [
+      8,
+      12
+     ]
+    }
+   ]
+  },
+  "UTMB": {
+   "col": "#e63946",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-14",
+     "date": "Août 2027",
+     "title": "UTMB Mont-Blanc",
+     "sub": "temps fort de la marque",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Allianz": {
+   "col": "#3b82f6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-15",
+     "date": "Fév-Mars 2027",
+     "title": "Tournoi des 6 Nations",
+     "sub": "partenaire rugby",
+     "span": [
+      8,
+      9
+     ]
+    }
+   ]
+  },
+  "Paloma": {
+   "col": "#2ecc71",
+   "concepts": [],
+   "events": []
+  },
+  "Obut": {
+   "col": "#f39c12",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-16",
+     "date": "Juil 2027",
+     "title": "Mondial la Marseillaise (pétanque)",
+     "sub": "temps fort pétanque",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "FFT": {
+   "col": "#8b5cf6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-17",
+     "date": "Mai-Juin 2027",
+     "title": "Roland-Garros",
+     "sub": "évènement de la fédération",
+     "span": [
+      11,
+      12
+     ]
+    }
+   ]
+  },
+  "Salomon": {
+   "col": "#06b6d4",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-18",
+     "date": "Août 2027",
+     "title": "UTMB Mont-Blanc",
+     "sub": "trail running",
+     "span": [
+      14,
+      14
+     ]
+    }
+   ]
+  },
+  "Monster Energy": {
+   "col": "#ec4899",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-19",
+     "date": "Mai 2027",
+     "title": "GP de Monaco F1",
+     "sub": "sports mécaniques",
+     "span": [
+      11,
+      11
+     ]
+    }
+   ]
+  },
+  "Alpine": {
+   "col": "#0ea5e9",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-20",
+     "date": "Mai 2027",
+     "title": "GP de Monaco F1",
+     "sub": "écurie F1",
+     "span": [
+      11,
+      11
+     ]
+    },
+    {
+     "id": "ev-bd-21",
+     "date": "Juin 2027",
+     "title": "24h du Mans",
+     "sub": "endurance",
+     "span": [
+      12,
+      12
+     ]
+    }
+   ]
+  },
+  "Danone": {
+   "col": "#f97316",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-22",
+     "date": "Mai-Juin 2027",
+     "title": "Roland-Garros",
+     "sub": "via Evian, eau officielle",
+     "span": [
+      11,
+      12
+     ]
+    }
+   ]
+  },
+  "CMA CGM": {
+   "col": "#14b8a6",
+   "concepts": [],
+   "events": []
+  },
+  "Groupama FDJ United": {
+   "col": "#e63946",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-23",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "équipe WorldTour",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Back Market": {
+   "col": "#3b82f6",
+   "concepts": [],
+   "events": []
+  },
+  "Revolut": {
+   "col": "#2ecc71",
+   "concepts": [],
+   "events": []
+  },
+  "Panzani": {
+   "col": "#f39c12",
+   "concepts": [],
+   "events": []
+  },
+  "Tudor": {
+   "col": "#8b5cf6",
+   "concepts": [],
+   "events": [
+    {
+     "id": "ev-bd-24",
+     "date": "Juil 2027",
+     "title": "Tour de France",
+     "sub": "Tudor Pro Cycling",
+     "span": [
+      13,
+      13
+     ]
+    }
+   ]
+  },
+  "Maif": {
+   "col": "#06b6d4",
+   "concepts": [],
+   "events": []
+  }
  }
 }
