@@ -17,14 +17,20 @@ const ADMIN_PAGES = [
   { id: 'admin-objectifs', label: 'Import Objectifs', icon: Upload },
 ];
 
-// CODIR : lecture globale seule, sans les pages d'administration
+// CODIR / Directeur commercial : lecture globale seule, sans les pages d'administration
 const CODIR_PAGES = [
   { id: 'admin-dashboard', label: 'Vue Globale', icon: Shield },
 ];
+const DIRECTOR_NAMES = ['Paul'];
 
-export default function Sidebar({ currentPage, onPageChange, userRole }) {
+export default function Sidebar({ currentPage, onPageChange, userRole, viewerName }) {
   const [collapsed, setCollapsed] = useState(false);
-  const pages = userRole === 'admin' ? ADMIN_PAGES : userRole === 'codir' ? CODIR_PAGES : userRole === 'medias' ? MEDIA_PAGES : DC_PAGES;
+  const isDirector = DIRECTOR_NAMES.includes(viewerName);
+  const pages = userRole === 'admin' ? ADMIN_PAGES
+    : userRole === 'codir' ? CODIR_PAGES
+    : userRole === 'medias' ? MEDIA_PAGES
+    : isDirector ? CODIR_PAGES
+    : DC_PAGES;
 
   return (
     <aside className={`hidden md:flex flex-col bg-[#111] border-r border-[#2a2a2a] transition-all duration-300 ${collapsed ? 'w-16' : 'w-56'}`}>

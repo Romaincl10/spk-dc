@@ -142,7 +142,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-[#0a0a0a] overflow-hidden">
-      <Sidebar currentPage={currentPage} onPageChange={handlePageChange} userRole={user.role} />
+      <Sidebar currentPage={currentPage} onPageChange={handlePageChange} userRole={user.role} viewerName={user.furiousName || user.name} />
 
       <div className="flex-1 flex flex-col min-w-0">
         <TopBar user={user} onLogout={handleLogout} onSync={handleSync} syncing={syncing}
@@ -153,7 +153,7 @@ export default function App() {
         </main>
       </div>
 
-      <MobileNav currentPage={currentPage} onPageChange={handlePageChange} userRole={user.role} />
+      <MobileNav currentPage={currentPage} onPageChange={handlePageChange} userRole={user.role} viewerName={user.furiousName || user.name} />
     </div>
   );
 }

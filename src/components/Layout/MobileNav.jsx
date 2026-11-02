@@ -9,8 +9,14 @@ const ADMIN_TABS = [
   { id: 'admin-assignments', label: 'Assigner', icon: Link2 },
 ];
 
-export default function MobileNav({ currentPage, onPageChange, userRole }) {
-  const tabs = userRole === 'admin' ? ADMIN_TABS : DC_TABS;
+const DIRECTOR_TABS = [
+  { id: 'admin-dashboard', label: 'Global', icon: Shield },
+];
+const DIRECTOR_NAMES = ['Paul'];
+
+export default function MobileNav({ currentPage, onPageChange, userRole, viewerName }) {
+  const isDirector = DIRECTOR_NAMES.includes(viewerName);
+  const tabs = userRole === 'admin' ? ADMIN_TABS : isDirector ? DIRECTOR_TABS : DC_TABS;
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#111] border-t border-[#2a2a2a] flex items-center justify-around py-2 z-50"
