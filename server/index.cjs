@@ -884,7 +884,7 @@ function buildBizDev(fyStartYearParam) {
     const amount = Number(p.amount) || 0, proba = Number(p.probability) || 0;
     const probabilise = amount * proba / 100;
     const c = ensure(canon);
-    c.devis.push({ id: p.id, title: p.title, amount, probability: proba, probabilise, pipe_name: p.pipe_name, projet_start: p.projet_start, projet_stop: p.projet_stop });
+    c.devis.push({ id: p.id, title: p.title, amount, probability: proba, probabilise, pipe_name: p.pipe_name, projet_start: p.projet_start, projet_stop: p.projet_stop, created_at: p.created_at, last_updated_at: p.last_updated_at });
     c.pipe += probabilise;
   });
 

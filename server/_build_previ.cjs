@@ -60,7 +60,21 @@ const PAID_MEDIA_CA_EQ_MB = [
   'SPK0321', // LE MANS / Amplification instagram @fiawec
   'SPK0101', // LE MANS / Paid Media - Ticketing (toutes variantes)
   'SPK0372', // CNOSF / Accompagnement OP France Olympique (paid)
+  'SPK0532', // LE MANS / Paid Media - Ticketing 2027 (paid, achat média pass-through)
 ];
+// Achat média saisi À LA MAIN (devis sans ligne média dans Furious -> pass-through non capté).
+// code projet -> montant achat média € à retirer du CA (le reste = honoraires SPK, traité CA=MB).
+const ACHAT_MEDIA_MANUAL = { 'SPK0532': 100000 }; // Paid Media Ticketing 2027 : 100 k€ d'achat média
+const achatMediaManuelOf = title => {
+  for (const [code, v] of Object.entries(ACHAT_MEDIA_MANUAL)) if ((title || '').toUpperCase().includes(code)) return v;
+  return null;
+};
+// Correction manuelle de la proba d'un devis (code projet -> proba %). Suivi continu.
+const PROBA_OVERRIDE = { 'SPK0545': 50 }; // Saucony Plan 2027 x IFR : proba forcée à 50%
+const probaOverrideOf = title => {
+  for (const [code, v] of Object.entries(PROBA_OVERRIDE)) if ((title || '').toUpperCase().includes(code)) return v;
+  return null;
+};
 const isPaidMedia = title => PAID_MEDIA_CA_EQ_MB.some(c => (title || '').toUpperCase().includes(c));
 // Correction manuelle de la MB% (bug de marge côté Furious). code projet -> taux de MB.
 const MB_OVERRIDE = { 'SPK0156': 0.35 }; // ITS UTMB 26 : marge Furious erronée (~9%), forcée à 35%
@@ -201,10 +215,12 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   if (isRecip(company)) { perim.recip++; return; }
   if (isExcl(p.title)) return;
   if (isDevisExcluded(p.title)) return; // projet validé -> devis retiré du pipe
-  const probaPct = Number(p.probability) || 0;
+  const _po = probaOverrideOf(p.title);
+  const probaPct = _po != null ? _po : (Number(p.probability) || 0);
   if (probaPct <= 0) return;
   const factor = p.project_id ? amFactor(p.project_id) : 1;
-  const ca = (Number(p.discounted_amount) || Number(p.amount) || 0) * factor;
+  const _amMan = achatMediaManuelOf(p.title); // achat média saisi à la main -> retiré du CA (pass-through)
+  const ca = Math.max(0, (Number(p.discounted_amount) || Number(p.amount) || 0) * factor - (_amMan || 0));
   const caPond = ca * probaPct / 100;
   if (caPond <= 0) return;
   const start = parseYMD(p.projet_start);
@@ -221,7 +237,8 @@ allProp.filter(p => EN_COURS.includes(p.pipe_name)).forEach(p => {
   if (iStop >= 0) { months[iStop] += caPond; total += caPond; }
   if (total <= 0) return;
   // marge brute pondérée : MB% RÉELLE du devis (lignes Furious vente-achat), repli client/global
-  const mb = devisMB(p.id, company, ca);
+  // paid avec achat média retiré à la main : le CA net = honoraires = marge (CA=MB)
+  const mb = _amMan ? { pct: 1, src: 'paid (achat média manuel)' } : devisMB(p.id, company, ca);
   const monthsMB = months.map(v => v * mb.pct);
   const caPondMB = caPond * mb.pct;
   const key = (p.title || p.id) + '||' + company + '||' + p.id;
@@ -390,8 +407,9 @@ const pipeMap = {};
 allProp.filter(p => EN_COURS.includes(p.pipe_name) && !isRecip(p.company_name) && !isExcl(p.title) && !isDevisExcluded(p.title)).forEach(p => {
   const stop = parseYMD(p.projet_stop);
   if (stop && stop < FY_START) return; // devis périmé (projet terminé avant l'exercice) -> hors pipe
-  const ca = Number(p.discounted_amount) || Number(p.amount) || 0;
-  const proba = Number(p.probability) || 0;
+  const ca = Math.max(0, (Number(p.discounted_amount) || Number(p.amount) || 0) - (achatMediaManuelOf(p.title) || 0));
+  const _poP = probaOverrideOf(p.title);
+  const proba = _poP != null ? _poP : (Number(p.probability) || 0);
   const caPond = ca * proba / 100;
   const media = isMediaItem(p.cf_mdias, p.title);
   const o = pipeMap[p.pipe_name] = pipeMap[p.pipe_name] || { statut: p.pipe_name, n: 0, ca: 0, caPond: 0, med: { n: 0, caPond: 0 }, ag: { n: 0, caPond: 0 } };
@@ -413,7 +431,10 @@ const allPrior = snaps.filter(dt => dt < todayYMD);
 const hasSplit = dt => { try { const j = JSON.parse(fs.readFileSync(snapDir + 'pipe_' + dt + '.json', 'utf8')); return !!(j.total && j.total.med); } catch (e) { return false; } };
 const prior = allPrior.filter(hasSplit).length ? allPrior.filter(hasSplit) : allPrior;
 const weekOld = prior.filter(dt => dt <= target);
-const prevDate = weekOld.length ? weekOld[weekOld.length - 1] : (prior.length ? prior[0] : null);
+// PREVI_PIPE_PREV='AAAA-MM-JJ' force la date de comparaison pipe (ex. reporting bi-hebdo vs dernier communiqué)
+const envPrev = (process.env.PREVI_PIPE_PREV || '').trim();
+const prevDate = (envPrev && snaps.includes(envPrev)) ? envPrev
+  : (weekOld.length ? weekOld[weekOld.length - 1] : (prior.length ? prior[0] : null));
 let pipePrev = null;
 if (prevDate) {
   pipePrev = JSON.parse(fs.readFileSync(snapDir + 'pipe_' + prevDate + '.json', 'utf8'));
@@ -454,6 +475,9 @@ const MEDIA_RECLASS = {
   MED0246: 'runpack', // i-run x On Running
   MED0248: 'runpack', // Nutripure suivi athlète UTMB
   MED0257: 'footpack', // Amplification Maillot OGC Nice (champ Furious = "LANGUE DE BUT", média foot)
+  MED0283: 'footpack', // Langue de But x OGC Nice (média foot)
+  MED0291: 'runpack',  // alltricks x UA Hiver (Alltricks = running/trail)
+  MED0282: 'padelpack', // PLAYERS 4PADEL Football Cup (tagué "Multimédia", event club 4Padel) - à confirmer
   MED0160: 'velopack', // VIDÉO ON TOP MONDOVELO x SPK 2026
 };
 // Affiliation : revenus (Awin, Kwanko, Effinity, Adsense, Partenize…) — ce ne sont PAS des packs.
