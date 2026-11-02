@@ -54,7 +54,6 @@ export default function DirecteurCommercial({ fyStartYear }) {
     return Object.entries(by).map(([name, v]) => ({ name, ...v })).sort((a, b) => b.pond - a.pond);
   }, [allDevis]);
   const topDeals = useMemo(() => [...allDevis].sort((a, b) => b.probabilise - a.probabilise).slice(0, 5), [allDevis]);
-  const top3Share = totals.pipe > 0 ? Math.round(topDeals.slice(0, 3).reduce((s, d) => s + (d.probabilise || 0), 0) / totals.pipe * 100) : 0;
   const stale = useMemo(() => {
     const now = Date.now();
     return allDevis
@@ -162,10 +161,9 @@ export default function DirecteurCommercial({ fyStartYear }) {
             <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
               <div className="flex items-center gap-2 mb-2">
                 <Flame size={16} className="text-[#f39c12]" />
-                <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Concentration</h3>
+                <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Top 5 deals en cours</h3>
               </div>
-              <p className="text-[11px] text-[#888] mb-3">Top 3 deals = <span className="font-bold" style={{ color: top3Share >= 60 ? '#e74c3c' : '#f39c12' }}>{top3Share}%</span> du pipe pondéré{top3Share >= 60 ? ' · forte dépendance' : ''}.</p>
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 mt-3">
                 {topDeals.map(d => (
                   <div key={d.id} className="flex items-center justify-between gap-2 text-xs">
                     <span className="text-[#ccc] truncate" title={`${d.client} — ${d.title}`}>{d.client}</span>
