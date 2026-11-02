@@ -1056,7 +1056,7 @@ function buildMedias(fyStartYearParam) {
   const objMediaTotal = Object.values(MEDIA_OBJ).reduce((a, b) => a + b, 0);
 
   const pctTemps = Math.min(100, Math.max(0, Math.round((Date.now() - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
-  return { fyStartYear, projects, devis, totals, byPack, objMediaTotal, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
+  return { fyStartYear, projects, devis, totals, byPack, objMediaTotal, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: objMediaTotal, pctTemps };
 }
 
 /**

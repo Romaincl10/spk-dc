@@ -167,84 +167,114 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
             <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
           </div>
 
-          {/* ─── Vue par média : une carte dédiée par pack, vs objectif annuel ─── */}
+          {/* ─── Vue par média : cartes reprises du reporting CODIR ─── */}
           {byPack.length > 0 && (() => {
             const projete = medMode === 'projete';
-            const objPacks = byPack.filter(p => p.objectif > 0);
-            const totObj = byPack.reduce((s, p) => s + (p.objectif || 0), 0);
-            const totCaSig = objPacks.reduce((s, p) => s + p.caSigne, 0);
-            const totCaProj = objPacks.reduce((s, p) => s + p.caProjete, 0);
-            const totCa = projete ? byPack.reduce((s, p) => s + p.caProjete, 0) : byPack.reduce((s, p) => s + p.caSigne, 0);
-            const totCov = totObj > 0 ? Math.round((projete ? totCaProj : totCaSig) / totObj * 100) : 0;
+            const DISPLAY_ORDER = ['footpack', 'runpack', 'basketpack', 'velopack', 'padelpack'];
+            const packCards = DISPLAY_ORDER.map(pk => byPack.find(p => p.pack === pk)).filter(Boolean);
+            const autre = byPack.find(p => p.pack === 'autre');
+            const caOf = p => projete ? p.caProjete : p.caSigne;
+            const totObj = packCards.reduce((s, p) => s + (p.objectif || 0), 0);
+            const totCa = packCards.reduce((s, p) => s + caOf(p), 0);
+            const totCov = totObj > 0 ? Math.round(totCa / totObj * 1000) / 10 : 0;
             return (
-            <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-              <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <div className="bg-[#111] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <Layers size={16} className="text-[#06b6d4]" />
                 <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Vue par média</h3>
-                <span className="text-xs text-[#888]">{projete ? 'CA signé + pipe' : 'CA signé'} vs objectif annuel</span>
-                <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5 ml-auto">
+                <span className="text-xs text-[#888]">CA {projete ? 'prévi (signé + pipe)' : 'signé'} vs objectif annuel · FY {fyLabel(fyStartYear)}</span>
+                <div className="flex gap-0.5 bg-[#0a0a0a] rounded-lg p-0.5 ml-auto">
                   <button onClick={() => setMedMode('signe')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${!projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Signé</button>
-                  <button onClick={() => setMedMode('projete')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Projeté</button>
+                  <button onClick={() => setMedMode('projete')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Prévi</button>
                 </div>
               </div>
 
-              {/* Bandeau synthèse médias vs objectif cumulé des packs */}
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                <div className="bg-[#141414] rounded-lg p-3">
-                  <p className="text-[9px] uppercase tracking-wider text-[#777]">{projete ? 'CA projeté médias' : 'CA signé médias'}</p>
-                  <p className="text-lg font-extrabold italic text-[#06b6d4] leading-tight mt-0.5">{fmtK(totCa)}</p>
-                </div>
-                <div className="bg-[#141414] rounded-lg p-3">
-                  <p className="text-[9px] uppercase tracking-wider text-[#777]">Objectif packs</p>
-                  <p className="text-lg font-extrabold italic text-white leading-tight mt-0.5">{fmtK(totObj)}</p>
-                </div>
-                <div className="bg-[#141414] rounded-lg p-3">
-                  <p className="text-[9px] uppercase tracking-wider text-[#777]">Couverture objectif</p>
-                  <p className="text-lg font-extrabold italic leading-tight mt-0.5" style={{ color: totCov >= 80 ? '#2ecc71' : totCov >= 50 ? '#f39c12' : '#e74c3c' }}>{totCov}%</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                {byPack.map(p => {
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+                {packCards.map(p => {
                   const meta = packMeta(p.pack);
                   const active = packFilter === p.pack;
-                  const ca = projete ? p.caProjete : p.caSigne;
-                  const cov = p.objectif > 0 ? Math.round(ca / p.objectif * 100) : null;
+                  const ca = caOf(p);
+                  const cov = p.objectif > 0 ? ca / p.objectif * 100 : null;
                   const covCol = cov == null ? '#888' : cov >= 100 ? '#2ecc71' : cov >= 60 ? '#f39c12' : '#e74c3c';
+                  const reste = (p.objectif || 0) - ca;
+                  const totalProj = p.projectsCount + p.devisCount;
                   return (
                     <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
-                      className={`text-left rounded-xl p-3 border transition-all ${active ? 'bg-[#1c1c1c]' : 'bg-[#141414] hover:bg-[#1a1a1a]'}`}
-                      style={{ borderColor: active ? meta.color : '#2a2a2a', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
-                      <div className="h-1 rounded-full mb-2.5" style={{ backgroundColor: meta.color }} />
-                      <div className="flex items-center justify-between gap-1 mb-1">
-                        <span className="text-sm font-extrabold italic uppercase tracking-tight truncate" style={{ color: meta.color }}>{meta.label}</span>
-                        <span className="text-base leading-none shrink-0">{meta.emoji}</span>
-                      </div>
-                      <p className="text-[9px] uppercase tracking-wider text-[#777] mb-2 truncate">{meta.sport}</p>
-                      <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(ca)}</p>
-                      <p className="text-[10px] text-[#888] mt-0.5">
-                        MB <span className="font-bold" style={{ color: p.margePct >= 54 ? '#2ecc71' : p.margePct >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margePct)}</span>
-                        {projete && <span className="text-[#666]"> · signé {fmtK(p.caSigne)}</span>}
-                      </p>
-                      <div className="mt-2 pt-2 border-t border-[#262626]">
-                        {p.objectif > 0 ? (
-                          <>
-                            <div className="flex items-center justify-between text-[10px] mb-1">
-                              <span className="text-[#777]">Obj {fmtK(p.objectif)}</span>
-                              <span className="font-bold" style={{ color: covCol }}>{cov}%</span>
-                            </div>
-                            <div className="h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
-                              <div className="h-1.5 rounded-full" style={{ width: `${Math.min(cov || 0, 100)}%`, backgroundColor: covCol }} />
-                            </div>
-                          </>
-                        ) : (
-                          <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
-                        )}
-                        <div className="flex items-center justify-between text-[10px] mt-1"><span className="text-[#777]">{p.projectsCount} proj.</span><span className="text-[#aaa]">{p.clients} cli. · pipe {fmtK(p.pipe)}</span></div>
+                      className="text-left rounded-xl overflow-hidden border bg-[#0d0d0d] transition-all hover:bg-[#121212]"
+                      style={{ borderColor: active ? meta.color : '#262626', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
+                      <div className="h-[3px]" style={{ backgroundColor: meta.color }} />
+                      <div className="p-4">
+                        {/* En-tête : wordmark + nb projets */}
+                        <div className="flex items-baseline justify-between gap-2 mb-3">
+                          <span className="text-lg font-extrabold italic lowercase text-white tracking-tight truncate">{meta.label.toLowerCase()}<span style={{ color: meta.color }}>.</span></span>
+                          <span className="text-[11px] text-[#888] shrink-0">{totalProj} projets ›</span>
+                        </div>
+                        {/* CA prévi + objectif */}
+                        <p className="text-[9px] uppercase tracking-wider text-[#777] mb-1">CA {projete ? 'prévi' : 'signé'} FY {fyLabel(fyStartYear)}</p>
+                        <div className="flex items-end justify-between gap-2">
+                          <span className="text-3xl font-extrabold italic leading-none" style={{ color: meta.color }}>{fmtK(ca)}</span>
+                          <div className="text-right">
+                            <p className="text-[9px] uppercase tracking-wider text-[#777]">Objectif</p>
+                            <p className="text-base font-extrabold italic text-white leading-tight">{fmtK(p.objectif)}</p>
+                          </div>
+                        </div>
+                        {/* Couverture */}
+                        <div className="flex items-center justify-between mt-4 mb-1.5">
+                          <span className="text-[9px] uppercase tracking-wider text-[#777]">Couverture</span>
+                          <span className="text-sm font-extrabold italic" style={{ color: covCol }}>{cov != null ? fmtPct(Math.round(cov * 10) / 10) : '—'}</span>
+                        </div>
+                        <div className="h-2 bg-[#262626] rounded-full overflow-hidden">
+                          <div className="h-2 rounded-full" style={{ width: `${Math.min(cov || 0, 100)}%`, backgroundColor: meta.color }} />
+                        </div>
+                        <p className="text-[10px] text-[#888] mt-2">{reste > 0 ? `Reste ${fmtK(reste)}` : <span className="text-[#2ecc71] font-bold">Objectif atteint</span>}</p>
+                        {/* Stats bas de carte */}
+                        <div className="grid grid-cols-3 gap-1 mt-4 pt-3 border-t border-[#222]">
+                          <div>
+                            <p className="text-[8px] uppercase tracking-wider text-[#777] mb-0.5">Taux MB</p>
+                            <p className="text-sm font-extrabold italic" style={{ color: meta.color }}>{fmtPct(p.margePct)}</p>
+                          </div>
+                          <div>
+                            <p className="text-[8px] uppercase tracking-wider text-[#777] mb-0.5">Clients</p>
+                            <p className="text-sm font-extrabold italic text-white">{p.clients}</p>
+                          </div>
+                          <div>
+                            <p className="text-[8px] uppercase tracking-wider text-[#777] mb-0.5">Dont signés</p>
+                            <p className="text-sm font-extrabold italic text-white">{p.projectsCount}</p>
+                          </div>
+                        </div>
                       </div>
                     </button>
                   );
                 })}
+              </div>
+
+              {/* Autre (contenus & affiliation) + bandeau cumul packs */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3">
+                {autre && (
+                  <div className="rounded-xl border border-[#262626] bg-[#0d0d0d] overflow-hidden">
+                    <div className="h-[3px] bg-[#8a8a8a]" />
+                    <div className="p-4 flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-extrabold italic text-[#ccc]">autre<span className="text-[#8a8a8a]">.</span></p>
+                        <p className="text-[9px] uppercase tracking-wider text-[#777]">Contenus &amp; affiliation</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(caOf(autre))}</p>
+                        <p className="text-[10px] text-[#888] mt-1">{autre.projectsCount + autre.devisCount} projets · pipe {fmtK(autre.pipe)}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className={`rounded-xl border border-[#06b6d4]/30 bg-[#06b6d4]/5 p-4 flex items-center justify-between ${autre ? 'md:col-span-3' : 'md:col-span-4'}`}>
+                  <div>
+                    <p className="text-[9px] uppercase tracking-wider text-[#777]">Cumul 5 packs — CA {projete ? 'prévi' : 'signé'}</p>
+                    <p className="text-2xl font-extrabold italic text-[#06b6d4] leading-tight mt-0.5">{fmtK(totCa)} <span className="text-sm text-[#888]">/ {fmtK(totObj)}</span></p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[9px] uppercase tracking-wider text-[#777]">Couverture objectif</p>
+                    <p className="text-2xl font-extrabold italic leading-tight mt-0.5" style={{ color: totCov >= 80 ? '#2ecc71' : totCov >= 50 ? '#f39c12' : '#e74c3c' }}>{fmtPct(totCov)}</p>
+                  </div>
+                </div>
               </div>
               <p className="text-[10px] text-[#666] mt-3">Cliquer un média applique un filtre sur les onglets Clients &amp; Pipe.</p>
             </div>
