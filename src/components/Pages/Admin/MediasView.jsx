@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Radio, Briefcase, FileText, Target, ArrowLeft, Grid3x3 } from 'lucide-react';
+import { Radio, Briefcase, FileText, Target, ArrowLeft, Grid3x3, Users, TrendingUp, Layers } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ObjectiveGauge from '../../Common/ObjectiveGauge';
 import RecapMoisMedias from './RecapMoisMedias';
+import HeatmapView from './HeatmapView';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
@@ -25,6 +26,7 @@ const packMeta = (pk) => PACK_META[pk] || PACK_META.autre;
 export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [view, setView] = useState('synthese'); // 'synthese' | 'clients' | 'pipe' | 'heatmap'
   const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct'
   const [selectedClient, setSelectedClient] = useState(null);
   const [packFilter, setPackFilter] = useState(null); // null = tous les médias
@@ -53,14 +55,6 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const projects = data?.projects || [];
   const devis = data?.devis || [];
   const byPack = data?.byPack || [];
-  // Filtrage « vue par média » : les listes projets/devis se restreignent au pack sélectionné
-  const fProjects = packFilter ? projects.filter(p => p.pack === packFilter) : projects;
-  const fDevis = packFilter ? devis.filter(d => d.pack === packFilter) : devis;
-  const fCaSigne = fProjects.reduce((s, p) => s + (p.total_amount || 0), 0);
-  const fMbEur = fProjects.reduce((s, p) => s + (p.marginEur || 0), 0);
-  const fMbPct = fCaSigne > 0 ? Math.round(fMbEur / fCaSigne * 1000) / 10 : 0;
-  const fPipe = fDevis.reduce((s, d) => s + (d.probabilise || 0), 0);
-  const fPipeBrut = fDevis.reduce((s, d) => s + (d.amount || 0), 0);
   const totals = data?.totals || { projectsCount: 0, caSigne: 0, mbEur: 0, devisCount: 0, pipe: 0, pipeBrut: 0, margePct: 0 };
   const objTargetTotal = data?.objTargetTotal || 0;
   const objCaTotal = data?.objCaTotal || 0;
@@ -73,6 +67,34 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
     return list;
   })();
 
+  // Filtrage « par média » (lentille globale sur les onglets Clients & Pipe)
+  const fProjects = packFilter ? projects.filter(p => p.pack === packFilter) : projects;
+  const fDevis = packFilter ? devis.filter(d => d.pack === packFilter) : devis;
+  const fCaSigne = fProjects.reduce((s, p) => s + (p.total_amount || 0), 0);
+  const fMbEur = fProjects.reduce((s, p) => s + (p.marginEur || 0), 0);
+  const fMbPct = fCaSigne > 0 ? Math.round(fMbEur / fCaSigne * 1000) / 10 : 0;
+  const fPipe = fDevis.reduce((s, d) => s + (d.probabilise || 0), 0);
+  const fPipeBrut = fDevis.reduce((s, d) => s + (d.amount || 0), 0);
+
+  // Récap par client (onglet Clients) — projets + devis agrégés par client canonique
+  const clientsRecap = (() => {
+    const by = {};
+    const key = x => x.canonical_client || x.company_name || 'Inconnu';
+    fProjects.forEach(p => { const c = key(p); (by[c] ||= { client: c, ca: 0, mb: 0, nProj: 0, pipe: 0, pipeBrut: 0, nDev: 0, packs: new Set() }); by[c].ca += p.total_amount || 0; by[c].mb += p.marginEur || 0; by[c].nProj++; by[c].packs.add(p.pack); });
+    fDevis.forEach(d => { const c = key(d); (by[c] ||= { client: c, ca: 0, mb: 0, nProj: 0, pipe: 0, pipeBrut: 0, nDev: 0, packs: new Set() }); by[c].pipe += d.probabilise || 0; by[c].pipeBrut += d.amount || 0; by[c].nDev++; by[c].packs.add(d.pack); });
+    return Object.values(by).map(c => ({ ...c, mbPct: c.ca > 0 ? Math.round(c.mb / c.ca * 1000) / 10 : 0, packs: [...c.packs].filter(Boolean) }))
+      .sort((a, b) => (b.ca + b.pipe) - (a.ca + a.pipe));
+  })();
+
+  // Pipe par étape (onglet Pipe)
+  const pipeByStage = (() => {
+    const by = {};
+    fDevis.forEach(d => { const s = d.pipe_name || 'Autre'; (by[s] ||= { name: s, n: 0, pond: 0, brut: 0 }); by[s].n++; by[s].pond += d.probabilise || 0; by[s].brut += d.amount || 0; });
+    return Object.values(by).sort((a, b) => b.pond - a.pond);
+  })();
+  const maxPackPipe = Math.max(1, ...byPack.map(p => p.pipe));
+  const maxStagePond = Math.max(1, ...pipeByStage.map(s => s.pond));
+
   // Détail d'un client média : projets + devis rattachés (matching par nom normalisé)
   const detail = selectedClient ? (() => {
     const sn = norm(selectedClient);
@@ -82,13 +104,26 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
     const ca = projs.reduce((s, p) => s + (p.total_amount || 0), 0);
     const mb = projs.reduce((s, p) => s + (p.marginEur || 0), 0);
     const pipe = dvs.reduce((s, p) => s + (p.probabilise || 0), 0);
-    // Objectif CA du client (matrice objectifs médias)
     const objRow = allObjectives.find(o => m(o.client));
     const target = objRow?.target || 0;
     return { name: selectedClient, projects: projs, devis: dvs, ca, mb, pipe, target, mbPct: ca > 0 ? Math.round(mb / ca * 1000) / 10 : 0 };
   })() : null;
 
   if (detail) return <MediaClientFiche detail={detail} pctTemps={data?.pctTemps || 0} fyStartYear={fyStartYear} onBack={() => setSelectedClient(null)} />;
+
+  const TABS = [
+    { id: 'synthese', label: 'Synthèse', icon: Target },
+    { id: 'clients', label: 'Clients', icon: Users },
+    { id: 'pipe', label: 'Pipe', icon: TrendingUp },
+    { id: 'heatmap', label: 'Heatmap', icon: Grid3x3 },
+  ];
+  const packChip = packFilter && (
+    <button onClick={() => setPackFilter(null)}
+      className="text-[10px] font-bold px-2 py-1 rounded-lg transition-colors"
+      style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>
+      {packMeta(packFilter).emoji} {packMeta(packFilter).label} ✕
+    </button>
+  );
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -98,290 +133,365 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
           <Radio size={20} className="text-[#06b6d4]" />
         </div>
         <div>
-          <h2 className="text-xl font-extrabold italic text-white">Médias — BU footpack · runpack · velopack…</h2>
-          <p className="text-[#888] text-sm">Tous les projets & devis médias (code MED0) — exercice {fyLabel(fyStartYear)}</p>
+          <h2 className="text-xl font-extrabold italic text-white">Médias : footpack · runpack · velopack…</h2>
+          <p className="text-[#888] text-sm">Projets &amp; devis médias (code MED0) — exercice {fyLabel(fyStartYear)}</p>
         </div>
       </div>
 
-      {/* KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <KPICard label="CA signé médias" value={totals.caSigne} suffix="€"
-          subtitle={`${totals.projectsCount} projets`} color="text-[#06b6d4]" />
-        <KPICard label="Marge brute" value={totals.mbEur} suffix="€" subtitle={`MB ${fmtPct(totals.margePct || 0)}`}
-          color={totals.margePct >= 54 ? 'text-[#2ecc71]' : totals.margePct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
-        <KPICard label="Pipe pondéré" value={totals.pipe} suffix="€"
-          subtitle={`${totals.devisCount} devis · ${fmtK(totals.pipeBrut)} brut`} color="text-[#3b82f6]" />
-        <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
+      {/* Sous-onglets */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex gap-1 bg-[#111] rounded-lg p-1">
+          {TABS.map(t => {
+            const Ic = t.icon;
+            return (
+              <button key={t.id} onClick={() => setView(t.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === t.id ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>
+                <Ic size={13} /> {t.label}
+              </button>
+            );
+          })}
+        </div>
+        {view !== 'heatmap' && packChip}
       </div>
 
-      {/* ─── Vue par média : une carte dédiée par pack, vs objectif annuel ─── */}
-      {byPack.length > 0 && (() => {
-        const projete = medMode === 'projete';
-        const objPacks = byPack.filter(p => p.objectif > 0);
-        const totObj = byPack.reduce((s, p) => s + (p.objectif || 0), 0);
-        const totCaSig = byPack.reduce((s, p) => s + p.caSigne, 0);
-        const totCa = projete ? byPack.reduce((s, p) => s + p.caProjete, 0) : totCaSig;
-        const totCov = totObj > 0 ? Math.round((projete ? byPack.filter(p => p.objectif > 0).reduce((s, p) => s + p.caProjete, 0) : objPacks.reduce((s, p) => s + p.caSigne, 0)) / totObj * 100) : 0;
-        return (
-        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-          <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <Grid3x3 size={16} className="text-[#06b6d4]" />
-            <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Vue par média</h3>
-            <span className="text-xs text-[#888]">{projete ? 'CA signé + pipe' : 'CA signé'} vs objectif annuel · exercice {fyLabel(fyStartYear)}</span>
-            <div className="flex items-center gap-2 ml-auto flex-wrap">
-              <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5">
-                <button onClick={() => setMedMode('signe')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${!projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Signé</button>
-                <button onClick={() => setMedMode('projete')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Projeté</button>
+      {view === 'synthese' && (
+        <div className="space-y-5">
+          {/* KPIs globaux */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <KPICard label="CA signé médias" value={totals.caSigne} suffix="€"
+              subtitle={`${totals.projectsCount} projets`} color="text-[#06b6d4]" />
+            <KPICard label="Marge brute" value={totals.mbEur} suffix="€" subtitle={`MB ${fmtPct(totals.margePct || 0)}`}
+              color={totals.margePct >= 54 ? 'text-[#2ecc71]' : totals.margePct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
+            <KPICard label="Pipe pondéré" value={totals.pipe} suffix="€"
+              subtitle={`${totals.devisCount} devis · ${fmtK(totals.pipeBrut)} brut`} color="text-[#3b82f6]" />
+            <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
+          </div>
+
+          {/* ─── Vue par média : une carte dédiée par pack, vs objectif annuel ─── */}
+          {byPack.length > 0 && (() => {
+            const projete = medMode === 'projete';
+            const objPacks = byPack.filter(p => p.objectif > 0);
+            const totObj = byPack.reduce((s, p) => s + (p.objectif || 0), 0);
+            const totCaSig = objPacks.reduce((s, p) => s + p.caSigne, 0);
+            const totCaProj = objPacks.reduce((s, p) => s + p.caProjete, 0);
+            const totCa = projete ? byPack.reduce((s, p) => s + p.caProjete, 0) : byPack.reduce((s, p) => s + p.caSigne, 0);
+            const totCov = totObj > 0 ? Math.round((projete ? totCaProj : totCaSig) / totObj * 100) : 0;
+            return (
+            <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
+                <Layers size={16} className="text-[#06b6d4]" />
+                <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Vue par média</h3>
+                <span className="text-xs text-[#888]">{projete ? 'CA signé + pipe' : 'CA signé'} vs objectif annuel</span>
+                <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5 ml-auto">
+                  <button onClick={() => setMedMode('signe')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${!projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Signé</button>
+                  <button onClick={() => setMedMode('projete')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Projeté</button>
+                </div>
               </div>
-              {packFilter && (
-                <button onClick={() => setPackFilter(null)}
-                  className="text-[10px] font-bold px-2 py-1 rounded-lg bg-[#06b6d4]/15 text-[#06b6d4] hover:bg-[#06b6d4]/25 transition-colors">
-                  Tous les médias ✕
-                </button>
-              )}
-            </div>
-          </div>
 
-          {/* Bandeau synthèse médias vs objectif cumulé des packs */}
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="bg-[#141414] rounded-lg p-3">
-              <p className="text-[9px] uppercase tracking-wider text-[#777]">{projete ? 'CA projeté médias' : 'CA signé médias'}</p>
-              <p className="text-lg font-extrabold italic text-[#06b6d4] leading-tight mt-0.5">{fmtK(totCa)}</p>
-            </div>
-            <div className="bg-[#141414] rounded-lg p-3">
-              <p className="text-[9px] uppercase tracking-wider text-[#777]">Objectif packs</p>
-              <p className="text-lg font-extrabold italic text-white leading-tight mt-0.5">{fmtK(totObj)}</p>
-            </div>
-            <div className="bg-[#141414] rounded-lg p-3">
-              <p className="text-[9px] uppercase tracking-wider text-[#777]">Couverture objectif</p>
-              <p className="text-lg font-extrabold italic leading-tight mt-0.5" style={{ color: totCov >= 80 ? '#2ecc71' : totCov >= 50 ? '#f39c12' : '#e74c3c' }}>{totCov}%</p>
-            </div>
-          </div>
+              {/* Bandeau synthèse médias vs objectif cumulé des packs */}
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                <div className="bg-[#141414] rounded-lg p-3">
+                  <p className="text-[9px] uppercase tracking-wider text-[#777]">{projete ? 'CA projeté médias' : 'CA signé médias'}</p>
+                  <p className="text-lg font-extrabold italic text-[#06b6d4] leading-tight mt-0.5">{fmtK(totCa)}</p>
+                </div>
+                <div className="bg-[#141414] rounded-lg p-3">
+                  <p className="text-[9px] uppercase tracking-wider text-[#777]">Objectif packs</p>
+                  <p className="text-lg font-extrabold italic text-white leading-tight mt-0.5">{fmtK(totObj)}</p>
+                </div>
+                <div className="bg-[#141414] rounded-lg p-3">
+                  <p className="text-[9px] uppercase tracking-wider text-[#777]">Couverture objectif</p>
+                  <p className="text-lg font-extrabold italic leading-tight mt-0.5" style={{ color: totCov >= 80 ? '#2ecc71' : totCov >= 50 ? '#f39c12' : '#e74c3c' }}>{totCov}%</p>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            {byPack.map(p => {
-              const meta = packMeta(p.pack);
-              const active = packFilter === p.pack;
-              const ca = projete ? p.caProjete : p.caSigne;
-              const cov = p.objectif > 0 ? Math.round(ca / p.objectif * 100) : null;
-              const covCol = cov == null ? '#888' : cov >= 100 ? '#2ecc71' : cov >= 60 ? '#f39c12' : '#e74c3c';
-              return (
-                <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
-                  className={`text-left rounded-xl p-3 border transition-all ${active ? 'bg-[#1c1c1c]' : 'bg-[#141414] hover:bg-[#1a1a1a]'}`}
-                  style={{ borderColor: active ? meta.color : '#2a2a2a', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
-                  <div className="h-1 rounded-full mb-2.5" style={{ backgroundColor: meta.color }} />
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="text-sm font-extrabold italic uppercase tracking-tight truncate" style={{ color: meta.color }}>{meta.label}</span>
-                    <span className="text-base leading-none shrink-0">{meta.emoji}</span>
-                  </div>
-                  <p className="text-[9px] uppercase tracking-wider text-[#777] mb-2 truncate">{meta.sport}</p>
-                  <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(ca)}</p>
-                  <p className="text-[10px] text-[#888] mt-0.5">
-                    MB <span className="font-bold" style={{ color: p.margePct >= 54 ? '#2ecc71' : p.margePct >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margePct)}</span>
-                    {projete && <span className="text-[#666]"> · signé {fmtK(p.caSigne)}</span>}
-                  </p>
-                  {/* Objectif + couverture */}
-                  <div className="mt-2 pt-2 border-t border-[#262626]">
-                    {p.objectif > 0 ? (
-                      <>
-                        <div className="flex items-center justify-between text-[10px] mb-1">
-                          <span className="text-[#777]">Obj {fmtK(p.objectif)}</span>
-                          <span className="font-bold" style={{ color: covCol }}>{cov}%</span>
-                        </div>
-                        <div className="h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
-                          <div className="h-1.5 rounded-full" style={{ width: `${Math.min(cov || 0, 100)}%`, backgroundColor: covCol }} />
-                        </div>
-                      </>
-                    ) : (
-                      <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
-                    )}
-                    <div className="flex items-center justify-between text-[10px] mt-1"><span className="text-[#777]">{p.projectsCount} proj.</span><span className="text-[#aaa]">{p.clients} cli. · pipe {fmtK(p.pipe)}</span></div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        );
-      })()}
-
-      {/* Jauge objectif Médias */}
-      <ObjectiveGauge
-        label={`Objectif Médias · exercice ${fyLabel(fyStartYear)}`}
-        realized={totals.caSigne} target={data?.objTarget || 1200000}
-        pipe={totals.pipe} pace={data?.pctTemps || 0} color="#06b6d4" />
-
-      {/* Récap du mois — médias */}
-      <RecapMoisMedias />
-
-      {/* Objectifs CA par client (matrice commerciale médias) */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <Target size={16} className="text-[#06b6d4]" />
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs CA par client</h3>
-          <span className="text-xs text-[#888]">
-            {fmtK(objCaTotal)} / {fmtK(objTargetTotal)} · <span className="font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : objPct >= 50 ? '#f39c12' : '#e74c3c' }}>{objPct}%</span>
-          </span>
-          <div className="flex items-center gap-2 ml-auto flex-wrap">
-            {/* Tri */}
-            <select value={objSort} onChange={e => setObjSort(e.target.value)} className="bg-[#111] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[10px] font-bold text-[#ccc] outline-none">
-              <option value="ca">Tri : CA réalisé</option>
-              <option value="pct">Tri : % réalisé (retards)</option>
-            </select>
-          </div>
-        </div>
-        {clientObjectives.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun objectif média défini</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
-                  <th className="text-left py-2 px-2 font-bold w-8">#</th>
-                  <th className="text-left py-2 px-2 font-bold">Client</th>
-                  <th className="text-right py-2 px-2 font-bold">CA réalisé</th>
-                  <th className="text-right py-2 px-2 font-bold">Objectif CA</th>
-                  <th className="text-left py-2 px-2 font-bold w-40">% réalisé</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientObjectives.map(o => {
-                  const pct = o.pct;
-                  const barPct = Math.min(pct || 0, 100);
-                  const col = pct == null ? '#888' : pct >= 100 ? '#2ecc71' : pct >= 60 ? '#f39c12' : '#e74c3c';
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                {byPack.map(p => {
+                  const meta = packMeta(p.pack);
+                  const active = packFilter === p.pack;
+                  const ca = projete ? p.caProjete : p.caSigne;
+                  const cov = p.objectif > 0 ? Math.round(ca / p.objectif * 100) : null;
+                  const covCol = cov == null ? '#888' : cov >= 100 ? '#2ecc71' : cov >= 60 ? '#f39c12' : '#e74c3c';
                   return (
-                    <tr key={o.ranking} onClick={() => setSelectedClient(o.client)}
-                      className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
-                      <td className="py-2 px-2 text-[#666] text-xs">{o.ranking}</td>
-                      <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{o.client}</td>
-                      <td className="py-2 px-2 text-right font-bold text-white">{o.ca > 0 ? fmtK(o.ca) : '—'}</td>
-                      <td className="py-2 px-2 text-right text-[#aaa]">{o.target > 0 ? fmtK(o.target) : '—'}</td>
-                      <td className="py-2 px-2">
-                        {o.target > 0 ? (
-                          <div className="flex items-center gap-2">
-                            <div className="flex-1 h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
-                              <div className="h-1.5 rounded-full" style={{ width: `${barPct}%`, backgroundColor: col }} />
+                    <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
+                      className={`text-left rounded-xl p-3 border transition-all ${active ? 'bg-[#1c1c1c]' : 'bg-[#141414] hover:bg-[#1a1a1a]'}`}
+                      style={{ borderColor: active ? meta.color : '#2a2a2a', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
+                      <div className="h-1 rounded-full mb-2.5" style={{ backgroundColor: meta.color }} />
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="text-sm font-extrabold italic uppercase tracking-tight truncate" style={{ color: meta.color }}>{meta.label}</span>
+                        <span className="text-base leading-none shrink-0">{meta.emoji}</span>
+                      </div>
+                      <p className="text-[9px] uppercase tracking-wider text-[#777] mb-2 truncate">{meta.sport}</p>
+                      <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(ca)}</p>
+                      <p className="text-[10px] text-[#888] mt-0.5">
+                        MB <span className="font-bold" style={{ color: p.margePct >= 54 ? '#2ecc71' : p.margePct >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margePct)}</span>
+                        {projete && <span className="text-[#666]"> · signé {fmtK(p.caSigne)}</span>}
+                      </p>
+                      <div className="mt-2 pt-2 border-t border-[#262626]">
+                        {p.objectif > 0 ? (
+                          <>
+                            <div className="flex items-center justify-between text-[10px] mb-1">
+                              <span className="text-[#777]">Obj {fmtK(p.objectif)}</span>
+                              <span className="font-bold" style={{ color: covCol }}>{cov}%</span>
                             </div>
-                            <span className="text-[10px] font-bold w-9 text-right" style={{ color: col }}>{pct}%</span>
-                          </div>
-                        ) : (o.ca > 0 ? <span className="text-[10px] text-[#2ecc71]">hors objectif</span> : <span className="text-[#555]">—</span>)}
-                      </td>
-                    </tr>
+                            <div className="h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
+                              <div className="h-1.5 rounded-full" style={{ width: `${Math.min(cov || 0, 100)}%`, backgroundColor: covCol }} />
+                            </div>
+                          </>
+                        ) : (
+                          <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
+                        )}
+                        <div className="flex items-center justify-between text-[10px] mt-1"><span className="text-[#777]">{p.projectsCount} proj.</span><span className="text-[#aaa]">{p.clients} cli. · pipe {fmtK(p.pipe)}</span></div>
+                      </div>
+                    </button>
                   );
                 })}
-                <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({clientObjectives.length})</td>
-                  <td className="py-2 px-2 text-right text-white">{fmtK(objCaTotal)}</td>
-                  <td className="py-2 px-2 text-right text-[#aaa]">{fmtK(objTargetTotal)}</td>
-                  <td className="py-2 px-2 text-[10px] font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : '#f39c12' }}>{objPct}%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+              </div>
+              <p className="text-[10px] text-[#666] mt-3">Cliquer un média applique un filtre sur les onglets Clients &amp; Pipe.</p>
+            </div>
+            );
+          })()}
 
-      {/* Projets médias */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-        <div className="flex items-center gap-2 mb-3">
-          <Briefcase size={16} className="text-[#06b6d4]" />
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Projets médias</h3>
-          {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{fProjects.length}</span>
-        </div>
-        {fProjects.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun projet médias{packFilter ? ` · ${packMeta(packFilter).label}` : " sur l'exercice"}</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
-                  <th className="text-left py-2 px-2 font-bold">Projet</th>
-                  <th className="text-left py-2 px-2 font-bold">Client</th>
-                  <th className="text-right py-2 px-2 font-bold">CA</th>
-                  <th className="text-right py-2 px-2 font-bold">MB%</th>
-                  <th className="text-left py-2 px-2 font-bold">Période</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fProjects.map(p => (
-                  <tr key={p.id} onClick={() => setSelectedClient(p.canonical_client || p.company_name)}
-                    className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
-                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[280px]">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(p.pack).color }} title={packMeta(p.pack).label} />
-                      {p.title}
-                    </td>
-                    <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[150px]">{p.canonical_client || p.company_name}</td>
-                    <td className="py-2 px-2 text-right font-bold text-white">{fmtK(p.total_amount)}</td>
-                    <td className="py-2 px-2 text-right text-xs" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
-                    <td className="py-2 px-2 text-xs text-[#888] whitespace-nowrap">{formatDate(p.start_date)} → {formatDate(p.end_date)}</td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({fProjects.length})</td>
-                  <td className="py-2 px-2 text-right text-white">{fmtK(fCaSigne)}</td>
-                  <td className="py-2 px-2 text-right text-[#888] text-xs">{fmtPct(fMbPct)}</td>
-                  <td />
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        )}
-      </div>
+          {/* Jauge objectif Médias global */}
+          <ObjectiveGauge
+            label={`Objectif Médias · exercice ${fyLabel(fyStartYear)}`}
+            realized={totals.caSigne} target={data?.objTarget || 1200000}
+            pipe={totals.pipe} pace={data?.pctTemps || 0} color="#06b6d4" />
 
-      {/* Devis médias */}
-      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-        <div className="flex items-center gap-2 mb-3">
-          <FileText size={16} className="text-[#3b82f6]" />
-          <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Devis médias en cours</h3>
-          {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
-          <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{fDevis.length}</span>
-        </div>
-        {fDevis.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
-                  <th className="text-left py-2 px-2 font-bold">Devis</th>
-                  <th className="text-left py-2 px-2 font-bold">Client</th>
-                  <th className="text-right py-2 px-2 font-bold">Montant</th>
-                  <th className="text-right py-2 px-2 font-bold">Proba</th>
-                  <th className="text-right py-2 px-2 font-bold">Pondéré</th>
-                  <th className="text-left py-2 px-2 font-bold">Statut</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fDevis.map(d => (
-                  <tr key={d.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[260px]">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(d.pack).color }} title={packMeta(d.pack).label} />
-                      {d.title}
-                    </td>
-                    <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[140px]">{d.canonical_client || d.company_name}</td>
-                    <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(d.amount)}</td>
-                    <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: d.probability >= 70 ? '#2ecc71' : d.probability >= 40 ? '#f39c12' : '#888' }}>{d.probability}%</td>
-                    <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
-                    <td className="py-2 px-2 text-xs text-[#888]">{d.pipe_name || '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr className="border-t-2 border-[#3b82f6]/20 bg-[#3b82f6]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({fDevis.length})</td>
-                  <td className="py-2 px-2 text-right text-[#ccc] text-xs">{fmtK(fPipeBrut)}</td>
-                  <td />
-                  <td className="py-2 px-2 text-right text-[#3b82f6]">{fmtK(fPipe)}</td>
-                  <td />
-                </tr>
-              </tfoot>
-            </table>
+          {/* Récap du mois — médias */}
+          <RecapMoisMedias />
+
+          {/* Objectifs CA par client (matrice commerciale médias) */}
+          <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+            <div className="flex items-center gap-2 mb-3 flex-wrap">
+              <Target size={16} className="text-[#06b6d4]" />
+              <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Objectifs CA par client</h3>
+              <span className="text-xs text-[#888]">
+                {fmtK(objCaTotal)} / {fmtK(objTargetTotal)} · <span className="font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : objPct >= 50 ? '#f39c12' : '#e74c3c' }}>{objPct}%</span>
+              </span>
+              <div className="flex items-center gap-2 ml-auto flex-wrap">
+                <select value={objSort} onChange={e => setObjSort(e.target.value)} className="bg-[#111] border border-[#2a2a2a] rounded-lg px-2 py-1 text-[10px] font-bold text-[#ccc] outline-none">
+                  <option value="ca">Tri : CA réalisé</option>
+                  <option value="pct">Tri : % réalisé (retards)</option>
+                </select>
+              </div>
+            </div>
+            {clientObjectives.length === 0 ? (
+              <p className="text-[#666] text-sm text-center py-4">Aucun objectif média défini</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                      <th className="text-left py-2 px-2 font-bold w-8">#</th>
+                      <th className="text-left py-2 px-2 font-bold">Client</th>
+                      <th className="text-right py-2 px-2 font-bold">CA réalisé</th>
+                      <th className="text-right py-2 px-2 font-bold">Objectif CA</th>
+                      <th className="text-left py-2 px-2 font-bold w-40">% réalisé</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {clientObjectives.map(o => {
+                      const pct = o.pct;
+                      const barPct = Math.min(pct || 0, 100);
+                      const col = pct == null ? '#888' : pct >= 100 ? '#2ecc71' : pct >= 60 ? '#f39c12' : '#e74c3c';
+                      return (
+                        <tr key={o.ranking} onClick={() => setSelectedClient(o.client)}
+                          className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
+                          <td className="py-2 px-2 text-[#666] text-xs">{o.ranking}</td>
+                          <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{o.client}</td>
+                          <td className="py-2 px-2 text-right font-bold text-white">{o.ca > 0 ? fmtK(o.ca) : '—'}</td>
+                          <td className="py-2 px-2 text-right text-[#aaa]">{o.target > 0 ? fmtK(o.target) : '—'}</td>
+                          <td className="py-2 px-2">
+                            {o.target > 0 ? (
+                              <div className="flex items-center gap-2">
+                                <div className="flex-1 h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
+                                  <div className="h-1.5 rounded-full" style={{ width: `${barPct}%`, backgroundColor: col }} />
+                                </div>
+                                <span className="text-[10px] font-bold w-9 text-right" style={{ color: col }}>{pct}%</span>
+                              </div>
+                            ) : (o.ca > 0 ? <span className="text-[10px] text-[#2ecc71]">hors objectif</span> : <span className="text-[#555]">—</span>)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
+                      <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({clientObjectives.length})</td>
+                      <td className="py-2 px-2 text-right text-white">{fmtK(objCaTotal)}</td>
+                      <td className="py-2 px-2 text-right text-[#aaa]">{fmtK(objTargetTotal)}</td>
+                      <td className="py-2 px-2 text-[10px] font-bold" style={{ color: objPct >= 80 ? '#2ecc71' : '#f39c12' }}>{objPct}%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {view === 'clients' && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <Users size={16} className="text-[#06b6d4]" />
+            <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Récap par client</h3>
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{clientsRecap.length}</span>
+          </div>
+          {clientsRecap.length === 0 ? (
+            <p className="text-[#666] text-sm text-center py-4">Aucun client média{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                    <th className="text-left py-2 px-2 font-bold">Client</th>
+                    <th className="text-left py-2 px-2 font-bold">Médias</th>
+                    <th className="text-right py-2 px-2 font-bold">Projets</th>
+                    <th className="text-right py-2 px-2 font-bold">CA signé</th>
+                    <th className="text-right py-2 px-2 font-bold">MB%</th>
+                    <th className="text-right py-2 px-2 font-bold">Devis</th>
+                    <th className="text-right py-2 px-2 font-bold">Pipe pondéré</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clientsRecap.map(c => (
+                    <tr key={c.client} onClick={() => setSelectedClient(c.client)}
+                      className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
+                      <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{c.client}</td>
+                      <td className="py-2 px-2">
+                        <span className="flex gap-1">
+                          {c.packs.map(pk => <span key={pk} className="w-2 h-2 rounded-full" title={packMeta(pk).label} style={{ backgroundColor: packMeta(pk).color }} />)}
+                        </span>
+                      </td>
+                      <td className="py-2 px-2 text-right text-[#aaa] text-xs">{c.nProj}</td>
+                      <td className="py-2 px-2 text-right font-bold text-white">{c.ca > 0 ? fmtK(c.ca) : '—'}</td>
+                      <td className="py-2 px-2 text-right text-xs" style={{ color: c.mbPct >= 54 ? '#2ecc71' : c.mbPct >= 45 ? '#f39c12' : c.ca > 0 ? '#e74c3c' : '#555' }}>{c.ca > 0 ? fmtPct(c.mbPct) : '—'}</td>
+                      <td className="py-2 px-2 text-right text-[#aaa] text-xs">{c.nDev || '—'}</td>
+                      <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{c.pipe > 0 ? fmtK(c.pipe) : '—'}</td>
+                    </tr>
+                  ))}
+                  <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
+                    <td className="py-2 px-2 text-white text-xs" colSpan={3}>TOTAL ({clientsRecap.length})</td>
+                    <td className="py-2 px-2 text-right text-white">{fmtK(fCaSigne)}</td>
+                    <td className="py-2 px-2 text-right text-[#888] text-xs">{fmtPct(fMbPct)}</td>
+                    <td />
+                    <td className="py-2 px-2 text-right text-[#3b82f6]">{fmtK(fPipe)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+          <p className="text-[10px] text-[#666] mt-3">Cliquer un client ouvre sa fiche (projets + devis détaillés).</p>
+        </div>
+      )}
+
+      {view === 'pipe' && (
+        <div className="space-y-5">
+          {/* KPIs pipe */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <KPICard label="Pipe pondéré médias" value={fPipe} suffix="€" subtitle={`${fDevis.length} devis en cours`} color="text-[#3b82f6]" />
+            <KPICard label="Pipe brut" value={fPipeBrut} suffix="€" subtitle="montant total devis" />
+            <KPICard label="Taux de pondération" value={fPipeBrut > 0 ? Math.round(fPipe / fPipeBrut * 100) : 0} suffix="%" subtitle="proba moyenne pondérée" />
+          </div>
+
+          {/* Pipe par média */}
+          <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+            <div className="flex items-center gap-2 mb-3"><Layers size={16} className="text-[#3b82f6]" /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Pipe par média</h3></div>
+            <div className="space-y-2.5">
+              {byPack.filter(p => p.pipe > 0 || p.devisCount > 0).map(p => {
+                const meta = packMeta(p.pack);
+                const active = packFilter === p.pack;
+                return (
+                  <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
+                    className={`w-full text-left rounded-lg p-2 transition-colors ${active ? 'bg-[#1c1c1c]' : 'hover:bg-[#161616]'}`}>
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="font-bold uppercase tracking-tight" style={{ color: meta.color }}>{meta.emoji} {meta.label}</span>
+                      <span className="text-[#888]"><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span> · {p.devisCount} devis</span>
+                    </div>
+                    <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden">
+                      <div className="h-2 rounded-full" style={{ width: `${Math.round(p.pipe / maxPackPipe * 100)}%`, backgroundColor: meta.color }} />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Pipe par étape */}
+          {pipeByStage.length > 0 && (
+            <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+              <div className="flex items-center gap-2 mb-3"><TrendingUp size={16} className="text-[#3b82f6]" /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Pipe par étape</h3>{packFilter && <span className="text-[10px] text-[#888]">· {packMeta(packFilter).label}</span>}</div>
+              <div className="space-y-2.5">
+                {pipeByStage.map(s => (
+                  <div key={s.name}>
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="text-[#ccc] font-medium">{s.name}</span>
+                      <span className="text-[#888]"><span className="font-bold text-[#3b82f6]">{fmtK(s.pond)}</span> · {s.n} devis</span>
+                    </div>
+                    <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden">
+                      <div className="h-2 rounded-full bg-[#3b82f6]" style={{ width: `${Math.round(s.pond / maxStagePond * 100)}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Devis médias en cours */}
+          <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <FileText size={16} className="text-[#3b82f6]" />
+              <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Devis médias en cours</h3>
+              {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
+              <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{fDevis.length}</span>
+            </div>
+            {fDevis.length === 0 ? (
+              <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                      <th className="text-left py-2 px-2 font-bold">Devis</th>
+                      <th className="text-left py-2 px-2 font-bold">Client</th>
+                      <th className="text-right py-2 px-2 font-bold">Montant</th>
+                      <th className="text-right py-2 px-2 font-bold">Proba</th>
+                      <th className="text-right py-2 px-2 font-bold">Pondéré</th>
+                      <th className="text-left py-2 px-2 font-bold">Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {fDevis.map(d => (
+                      <tr key={d.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
+                        <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[260px]">
+                          <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(d.pack).color }} title={packMeta(d.pack).label} />
+                          {d.title}
+                        </td>
+                        <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[140px]">{d.canonical_client || d.company_name}</td>
+                        <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(d.amount)}</td>
+                        <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: d.probability >= 70 ? '#2ecc71' : d.probability >= 40 ? '#f39c12' : '#888' }}>{d.probability}%</td>
+                        <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
+                        <td className="py-2 px-2 text-xs text-[#888]">{d.pipe_name || '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="border-t-2 border-[#3b82f6]/20 bg-[#3b82f6]/5 font-bold">
+                      <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({fDevis.length})</td>
+                      <td className="py-2 px-2 text-right text-[#ccc] text-xs">{fmtK(fPipeBrut)}</td>
+                      <td />
+                      <td className="py-2 px-2 text-right text-[#3b82f6]">{fmtK(fPipe)}</td>
+                      <td />
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {view === 'heatmap' && (
+        <HeatmapView fyStartYear={fyStartYear} mediaOnly onOpenClient={({ client }) => setSelectedClient(client)} />
+      )}
     </div>
   );
 }
@@ -432,7 +542,10 @@ function MediaClientFiche({ detail, pctTemps, fyStartYear, onBack }) {
               <tbody>
                 {projects.map(p => (
                   <tr key={p.id} className="border-b border-[#1a1a1a]">
-                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[320px]">{p.title}</td>
+                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[320px]">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(p.pack).color }} title={packMeta(p.pack).label} />
+                      {p.title}
+                    </td>
                     <td className="py-2 px-2 text-right font-bold text-white">{fmtK(p.total_amount)}</td>
                     <td className="py-2 px-2 text-right text-xs" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
                     <td className="py-2 px-2 text-xs text-[#888] whitespace-nowrap">{formatDate(p.start_date)} → {formatDate(p.end_date)}</td>
@@ -460,7 +573,10 @@ function MediaClientFiche({ detail, pctTemps, fyStartYear, onBack }) {
               <tbody>
                 {devis.map(d => (
                   <tr key={d.id} className="border-b border-[#1a1a1a]">
-                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[280px]">{d.title}</td>
+                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[280px]">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(d.pack).color }} title={packMeta(d.pack).label} />
+                      {d.title}
+                    </td>
                     <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(d.amount)}</td>
                     <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: d.probability >= 70 ? '#2ecc71' : d.probability >= 40 ? '#f39c12' : '#888' }}>{d.probability}%</td>
                     <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
