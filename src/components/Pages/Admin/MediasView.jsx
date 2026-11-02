@@ -29,7 +29,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const [view, setView] = useState('synthese'); // 'synthese' | 'clients' | 'pipe' | 'heatmap'
   const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct'
   const [selectedClient, setSelectedClient] = useState(null);
-  const [packFilter, setPackFilter] = useState(null); // null = tous les médias
+  const [selectedPack, setSelectedPack] = useState(null); // drill-down : fiche détail d'un média
   const [medMode, setMedMode] = useState('projete'); // 'signe' | 'projete' (signé + pipe)
 
   useEffect(() => {
@@ -67,9 +67,9 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
     return list;
   })();
 
-  // Filtrage « par média » (lentille globale sur les onglets Clients & Pipe)
-  const fProjects = packFilter ? projects.filter(p => p.pack === packFilter) : projects;
-  const fDevis = packFilter ? devis.filter(d => d.pack === packFilter) : devis;
+  // Listes globales (onglets Clients & Pipe) — le détail par média passe par le drill-down
+  const fProjects = projects;
+  const fDevis = devis;
   const fCaSigne = fProjects.reduce((s, p) => s + (p.total_amount || 0), 0);
   const fMbEur = fProjects.reduce((s, p) => s + (p.marginEur || 0), 0);
   const fMbPct = fCaSigne > 0 ? Math.round(fMbEur / fCaSigne * 1000) / 10 : 0;
@@ -109,7 +109,22 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
     return { name: selectedClient, projects: projs, devis: dvs, ca, mb, pipe, target, mbPct: ca > 0 ? Math.round(mb / ca * 1000) / 10 : 0 };
   })() : null;
 
+  // Détail d'un média (drill-down pack) : KPIs + clients + projets + devis du pack
+  const packDetail = selectedPack ? (() => {
+    const pk = selectedPack;
+    const entry = byPack.find(p => p.pack === pk) || { pack: pk, objectif: 0, caSigne: 0, caProjete: 0, mbEur: 0, margePct: 0, pipe: 0, pipeBrut: 0, projectsCount: 0, devisCount: 0, clients: 0 };
+    const projs = projects.filter(p => p.pack === pk).sort((a, b) => b.total_amount - a.total_amount);
+    const dvs = devis.filter(d => d.pack === pk).sort((a, b) => b.probabilise - a.probabilise);
+    const by = {};
+    const key = x => x.canonical_client || x.company_name || 'Inconnu';
+    projs.forEach(p => { const c = key(p); (by[c] ||= { client: c, ca: 0, mb: 0, nProj: 0, pipe: 0, nDev: 0 }); by[c].ca += p.total_amount || 0; by[c].mb += p.marginEur || 0; by[c].nProj++; });
+    dvs.forEach(d => { const c = key(d); (by[c] ||= { client: c, ca: 0, mb: 0, nProj: 0, pipe: 0, nDev: 0 }); by[c].pipe += d.probabilise || 0; by[c].nDev++; });
+    const clients = Object.values(by).map(c => ({ ...c, mbPct: c.ca > 0 ? Math.round(c.mb / c.ca * 1000) / 10 : 0 })).sort((a, b) => (b.ca + b.pipe) - (a.ca + a.pipe));
+    return { pack: pk, entry, projects: projs, devis: dvs, clients };
+  })() : null;
+
   if (detail) return <MediaClientFiche detail={detail} pctTemps={data?.pctTemps || 0} fyStartYear={fyStartYear} onBack={() => setSelectedClient(null)} />;
+  if (packDetail) return <MediaPackFiche data={packDetail} projete={medMode === 'projete'} pctTemps={data?.pctTemps || 0} fyStartYear={fyStartYear} onBack={() => setSelectedPack(null)} onOpenClient={setSelectedClient} />;
 
   const TABS = [
     { id: 'synthese', label: 'Synthèse', icon: Target },
@@ -117,13 +132,6 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
     { id: 'pipe', label: 'Pipe', icon: TrendingUp },
     { id: 'heatmap', label: 'Heatmap', icon: Grid3x3 },
   ];
-  const packChip = packFilter && (
-    <button onClick={() => setPackFilter(null)}
-      className="text-[10px] font-bold px-2 py-1 rounded-lg transition-colors"
-      style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>
-      {packMeta(packFilter).emoji} {packMeta(packFilter).label} ✕
-    </button>
-  );
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -151,7 +159,6 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
             );
           })}
         </div>
-        {view !== 'heatmap' && packChip}
       </div>
 
       {view === 'synthese' && (
@@ -192,16 +199,14 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                 {packCards.map(p => {
                   const meta = packMeta(p.pack);
-                  const active = packFilter === p.pack;
                   const ca = caOf(p);
                   const cov = p.objectif > 0 ? ca / p.objectif * 100 : null;
                   const covCol = cov == null ? '#888' : cov >= 100 ? '#2ecc71' : cov >= 60 ? '#f39c12' : '#e74c3c';
                   const reste = (p.objectif || 0) - ca;
                   const totalProj = p.projectsCount + p.devisCount;
                   return (
-                    <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
-                      className="text-left rounded-xl overflow-hidden border bg-[#0d0d0d] transition-all hover:bg-[#121212]"
-                      style={{ borderColor: active ? meta.color : '#262626', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
+                    <button key={p.pack} onClick={() => setSelectedPack(p.pack)}
+                      className="text-left rounded-xl overflow-hidden border border-[#262626] bg-[#0d0d0d] transition-all hover:bg-[#121212] hover:border-[#3a3a3a]">
                       <div className="h-[3px]" style={{ backgroundColor: meta.color }} />
                       <div className="p-4">
                         {/* En-tête : wordmark + nb projets */}
@@ -251,7 +256,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
               {/* Autre (contenus & affiliation) + bandeau cumul packs */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-3">
                 {autre && (
-                  <div className="rounded-xl border border-[#262626] bg-[#0d0d0d] overflow-hidden">
+                  <button onClick={() => setSelectedPack('autre')} className="text-left rounded-xl border border-[#262626] bg-[#0d0d0d] overflow-hidden transition-all hover:border-[#3a3a3a] hover:bg-[#121212]">
                     <div className="h-[3px] bg-[#8a8a8a]" />
                     <div className="p-4 flex items-center justify-between gap-3">
                       <div>
@@ -263,7 +268,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
                         <p className="text-[10px] text-[#888] mt-1">{autre.projectsCount + autre.devisCount} projets · pipe {fmtK(autre.pipe)}</p>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 )}
                 <div className={`rounded-xl border border-[#06b6d4]/30 bg-[#06b6d4]/5 p-4 flex items-center justify-between ${autre ? 'md:col-span-3' : 'md:col-span-4'}`}>
                   <div>
@@ -276,7 +281,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
                   </div>
                 </div>
               </div>
-              <p className="text-[10px] text-[#666] mt-3">Cliquer un média applique un filtre sur les onglets Clients &amp; Pipe.</p>
+              <p className="text-[10px] text-[#666] mt-3">Cliquer un média ouvre son détail (clients, projets, devis).</p>
             </div>
             );
           })()}
@@ -366,7 +371,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
             <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{clientsRecap.length}</span>
           </div>
           {clientsRecap.length === 0 ? (
-            <p className="text-[#666] text-sm text-center py-4">Aucun client média{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
+            <p className="text-[#666] text-sm text-center py-4">Aucun client média</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -428,12 +433,11 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
             <div className="space-y-2.5">
               {byPack.filter(p => p.pipe > 0 || p.devisCount > 0).map(p => {
                 const meta = packMeta(p.pack);
-                const active = packFilter === p.pack;
                 return (
-                  <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
-                    className={`w-full text-left rounded-lg p-2 transition-colors ${active ? 'bg-[#1c1c1c]' : 'hover:bg-[#161616]'}`}>
+                  <button key={p.pack} onClick={() => setSelectedPack(p.pack)}
+                    className="w-full text-left rounded-lg p-2 transition-colors hover:bg-[#1c1c1c]">
                     <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="font-bold uppercase tracking-tight" style={{ color: meta.color }}>{meta.emoji} {meta.label}</span>
+                      <span className="font-bold uppercase tracking-tight" style={{ color: meta.color }}>{meta.emoji} {meta.label} ›</span>
                       <span className="text-[#888]"><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span> · {p.devisCount} devis</span>
                     </div>
                     <div className="h-2 bg-[#2a2a2a] rounded-full overflow-hidden">
@@ -448,7 +452,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
           {/* Pipe par étape */}
           {pipeByStage.length > 0 && (
             <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
-              <div className="flex items-center gap-2 mb-3"><TrendingUp size={16} className="text-[#3b82f6]" /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Pipe par étape</h3>{packFilter && <span className="text-[10px] text-[#888]">· {packMeta(packFilter).label}</span>}</div>
+              <div className="flex items-center gap-2 mb-3"><TrendingUp size={16} className="text-[#3b82f6]" /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Pipe par étape</h3></div>
               <div className="space-y-2.5">
                 {pipeByStage.map(s => (
                   <div key={s.name}>
@@ -470,11 +474,10 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
             <div className="flex items-center gap-2 mb-3">
               <FileText size={16} className="text-[#3b82f6]" />
               <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Devis médias en cours</h3>
-              {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
               <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{fDevis.length}</span>
             </div>
             {fDevis.length === 0 ? (
-              <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
+              <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -521,6 +524,133 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
 
       {view === 'heatmap' && (
         <HeatmapView fyStartYear={fyStartYear} mediaOnly onOpenClient={({ client }) => setSelectedClient(client)} />
+      )}
+    </div>
+  );
+}
+
+// ─── Fiche détail d'un média (pack) : KPIs + clients + projets + devis ───
+function MediaPackFiche({ data, projete, pctTemps, fyStartYear, onBack, onOpenClient }) {
+  const { pack, entry, projects, devis, clients } = data;
+  const meta = packMeta(pack);
+  const ca = projete ? entry.caProjete : entry.caSigne;
+  const cov = entry.objectif > 0 ? Math.round(ca / entry.objectif * 1000) / 10 : null;
+  return (
+    <div className="space-y-5 animate-fade-in">
+      <div className="flex items-center gap-3">
+        <button onClick={onBack} className="text-[#888] hover:text-white transition-colors p-1"><ArrowLeft size={20} /></button>
+        <div className="w-1.5 h-9 rounded-full" style={{ backgroundColor: meta.color }} />
+        <div>
+          <h2 className="text-xl font-extrabold italic lowercase text-white leading-tight">{meta.label.toLowerCase()}<span style={{ color: meta.color }}>.</span> <span className="text-base align-middle">{meta.emoji}</span></h2>
+          <p className="text-[10px] text-[#666] uppercase tracking-wider">{meta.sport} · média · exercice {fyLabel(fyStartYear)}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <KPICard label="CA signé" value={entry.caSigne} suffix="€" subtitle={`${entry.projectsCount} projets`} color="text-[#06b6d4]" />
+        <KPICard label="CA prévi" value={entry.caProjete} suffix="€" subtitle="signé + pipe" color="text-[#06b6d4]" />
+        <KPICard label="Objectif" value={entry.objectif} suffix="€" subtitle={entry.objectif > 0 ? 'annuel' : 'hors objectif'} />
+        <KPICard label="Couverture" value={cov != null ? cov : 0} suffix="%"
+          subtitle={projete ? 'avec pipe' : 'signé'}
+          color={cov == null ? 'text-[#888]' : cov >= 100 ? 'text-[#2ecc71]' : cov >= 60 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
+        <KPICard label="Marge brute" value={entry.mbEur} suffix="€" subtitle={`MB ${fmtPct(entry.margePct)}`}
+          color={entry.margePct >= 54 ? 'text-[#2ecc71]' : entry.margePct >= 45 ? 'text-[#f39c12]' : 'text-[#e74c3c]'} />
+        <KPICard label="Pipe pondéré" value={entry.pipe} suffix="€" subtitle={`${entry.devisCount} devis`} color="text-[#3b82f6]" />
+      </div>
+
+      {entry.objectif > 0 && (
+        <ObjectiveGauge label={`Objectif ${meta.label} · exercice ${fyLabel(fyStartYear)}`} realized={entry.caSigne} target={entry.objectif} pipe={entry.pipe} pace={pctTemps} color={meta.color} />
+      )}
+
+      {/* Clients du média */}
+      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-3"><Users size={16} style={{ color: meta.color }} /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Clients {meta.label} ({clients.length})</h3></div>
+        {clients.length === 0 ? <p className="text-[#666] text-sm py-3">Aucun client.</p> : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                <th className="text-left py-2 px-2 font-bold">Client</th>
+                <th className="text-right py-2 px-2 font-bold">Projets</th>
+                <th className="text-right py-2 px-2 font-bold">CA signé</th>
+                <th className="text-right py-2 px-2 font-bold">MB%</th>
+                <th className="text-right py-2 px-2 font-bold">Devis</th>
+                <th className="text-right py-2 px-2 font-bold">Pipe</th>
+              </tr></thead>
+              <tbody>
+                {clients.map(c => (
+                  <tr key={c.client} onClick={() => onOpenClient(c.client)} className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
+                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[200px]">{c.client}</td>
+                    <td className="py-2 px-2 text-right text-[#aaa] text-xs">{c.nProj}</td>
+                    <td className="py-2 px-2 text-right font-bold text-white">{c.ca > 0 ? fmtK(c.ca) : '—'}</td>
+                    <td className="py-2 px-2 text-right text-xs" style={{ color: c.mbPct >= 54 ? '#2ecc71' : c.mbPct >= 45 ? '#f39c12' : c.ca > 0 ? '#e74c3c' : '#555' }}>{c.ca > 0 ? fmtPct(c.mbPct) : '—'}</td>
+                    <td className="py-2 px-2 text-right text-[#aaa] text-xs">{c.nDev || '—'}</td>
+                    <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{c.pipe > 0 ? fmtK(c.pipe) : '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Projets du média */}
+      <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-3"><Briefcase size={16} style={{ color: meta.color }} /><h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Projets {meta.label} ({projects.length})</h3></div>
+        {projects.length === 0 ? <p className="text-[#666] text-sm py-3">Aucun projet.</p> : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                <th className="text-left py-2 px-2 font-bold">Projet</th>
+                <th className="text-left py-2 px-2 font-bold">Client</th>
+                <th className="text-right py-2 px-2 font-bold">CA</th>
+                <th className="text-right py-2 px-2 font-bold">MB%</th>
+                <th className="text-left py-2 px-2 font-bold">Période</th>
+              </tr></thead>
+              <tbody>
+                {projects.map(p => (
+                  <tr key={p.id} className="border-b border-[#1a1a1a]">
+                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[300px]">{p.title}</td>
+                    <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[150px]">{p.canonical_client || p.company_name}</td>
+                    <td className="py-2 px-2 text-right font-bold text-white">{fmtK(p.total_amount)}</td>
+                    <td className="py-2 px-2 text-right text-xs" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
+                    <td className="py-2 px-2 text-xs text-[#888] whitespace-nowrap">{formatDate(p.start_date)} → {formatDate(p.end_date)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* Devis du média */}
+      {devis.length > 0 && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-3"><FileText size={16} className="text-[#3b82f6]" /><h3 className="text-sm font-bold text-[#3b82f6] uppercase tracking-wider">Devis en cours ({devis.length})</h3></div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead><tr className="border-b border-[#2a2a2a] text-[10px] uppercase text-[#888]">
+                <th className="text-left py-2 px-2 font-bold">Devis</th>
+                <th className="text-left py-2 px-2 font-bold">Client</th>
+                <th className="text-right py-2 px-2 font-bold">Montant</th>
+                <th className="text-right py-2 px-2 font-bold">Proba</th>
+                <th className="text-right py-2 px-2 font-bold">Pondéré</th>
+                <th className="text-left py-2 px-2 font-bold">Statut</th>
+              </tr></thead>
+              <tbody>
+                {devis.map(d => (
+                  <tr key={d.id} className="border-b border-[#1a1a1a]">
+                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[260px]">{d.title}</td>
+                    <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[140px]">{d.canonical_client || d.company_name}</td>
+                    <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(d.amount)}</td>
+                    <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: d.probability >= 70 ? '#2ecc71' : d.probability >= 40 ? '#f39c12' : '#888' }}>{d.probability}%</td>
+                    <td className="py-2 px-2 text-right font-bold text-[#3b82f6]">{fmtK(d.probabilise)}</td>
+                    <td className="py-2 px-2 text-xs text-[#888]">{d.pipe_name || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </div>
   );
