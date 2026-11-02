@@ -165,13 +165,8 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       {/* DC Tabs — masqués pour les utilisateurs DC (vue unique sur leur portfolio) */}
       {!isDC && (
         <div className="flex items-center gap-3 overflow-x-auto pb-2">
-          {/* Groupe DC : Global DC + les DC opérationnels, dans une même barre */}
+          {/* Groupe DC : les 5 DC opérationnels, puis Global DC (synthèse) à droite, même barre */}
           <div className="flex items-center gap-1 bg-[#111] border border-[#2a2a2a] rounded-lg p-1 shrink-0">
-            <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
-              className={`px-3.5 py-1.5 rounded-md text-sm font-bold whitespace-nowrap transition-colors
-                ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'text-[#ccc] hover:text-white'}`}>
-              Global DC
-            </button>
             {dcNames.filter(n => n !== 'A assigner' && !DIRECTOR_NAMES.includes(n)).map((name, i) => (
               <button key={name} onClick={() => { setSelectedDC(name); setSubTab('synthese'); }}
                 className={`px-3.5 py-1.5 rounded-md text-sm font-bold whitespace-nowrap transition-colors
@@ -180,6 +175,14 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
                 {name}
               </button>
             ))}
+            {/* Séparateur + synthèse des 5 DC */}
+            <div className="w-px h-6 bg-[#333] mx-1 shrink-0" />
+            <button onClick={() => { setSelectedDC('Globale'); setSubTab('synthese'); }}
+              title="Synthèse des 5 DC"
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-sm font-bold italic whitespace-nowrap transition-colors
+                ${selectedDC === 'Globale' ? 'bg-[#e63946] text-white' : 'text-[#e63946] hover:text-white hover:bg-[#e63946]/15'}`}>
+              <Layers size={14} /> Global DC
+            </button>
           </div>
 
           {/* Groupe transverse : Biz Dev + Médias (masqués pour le CODIR) + Heatmap */}
