@@ -924,6 +924,8 @@ function buildMedias(fyStartYearParam) {
   // Priorité : champ Furious cf_mdia (projets) / cf_mdias (devis), puis table de secours
   // par code projet (_media_pack_map.json), puis heuristique sur le titre.
   const MED_PACKS = ['footpack', 'runpack', 'velopack', 'basketpack', 'padelpack'];
+  // Objectifs annuels par pack (exercice 26/27) — alignés sur le reporting CODIR.
+  const MEDIA_OBJ = { footpack: 400000, runpack: 500000, basketpack: 40000, velopack: 110000, padelpack: 50000 };
   const normPack = v => { const s = (v || '').toLowerCase().trim(); return MED_PACKS.includes(s) ? s : null; };
   const packCodeKey = t => { const m = (t || '').match(/\b((?:SPK|MED|DC|M)\d{3,4})/i); return m ? m[1].toUpperCase() : null; };
   const packByTitle = t => { const s = (t || '').toLowerCase(); return MED_PACKS.find(p => s.includes(p)) || null; };
@@ -1031,7 +1033,8 @@ function buildMedias(fyStartYearParam) {
   const objTargetTotal = mediaObjectives.reduce((s, o) => s + (o.target || 0), 0);
   const objCaTotal = clientObjectives.reduce((s, o) => s + o.ca, 0);
 
-  // ── Vue par média : agrégat CA / MB / pipe par pack ──
+  // ── Vue par média : agrégat CA / MB / pipe par pack, vs objectif annuel ──
+  // On garde toujours les 5 packs (même à 0, pour voir la couverture objectif) + "autre" si activité.
   const PACK_ORDER = [...MED_PACKS, 'autre'];
   const byPack = PACK_ORDER.map(pk => {
     const pr = projects.filter(p => p.pack === pk);
@@ -1041,15 +1044,19 @@ function buildMedias(fyStartYearParam) {
     const pipe = dv.reduce((s, d) => s + d.probabilise, 0);
     const pipeBrut = dv.reduce((s, d) => s + d.amount, 0);
     const clients = new Set([...pr, ...dv].map(x => x.canonical_client || x.company_name)).size;
+    const objectif = MEDIA_OBJ[pk] || 0;
     return {
-      pack: pk, projectsCount: pr.length, devisCount: dv.length, clients,
+      pack: pk, objectif, projectsCount: pr.length, devisCount: dv.length, clients,
       caSigne, mbEur, margePct: caSigne > 0 ? Math.round(mbEur / caSigne * 1000) / 10 : 0,
-      pipe, pipeBrut,
+      pipe, pipeBrut, caProjete: caSigne + pipe,
+      couverture: objectif > 0 ? Math.round(caSigne / objectif * 100) : null,
+      couvertureProjete: objectif > 0 ? Math.round((caSigne + pipe) / objectif * 100) : null,
     };
-  }).filter(p => p.caSigne > 0 || p.pipe > 0 || p.projectsCount > 0 || p.devisCount > 0);
+  }).filter(p => p.objectif > 0 || p.caSigne > 0 || p.pipe > 0 || p.projectsCount > 0 || p.devisCount > 0);
+  const objMediaTotal = Object.values(MEDIA_OBJ).reduce((a, b) => a + b, 0);
 
   const pctTemps = Math.min(100, Math.max(0, Math.round((Date.now() - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
-  return { fyStartYear, projects, devis, totals, byPack, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
+  return { fyStartYear, projects, devis, totals, byPack, objMediaTotal, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
 }
 
 /**

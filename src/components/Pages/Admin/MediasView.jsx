@@ -11,14 +11,14 @@ const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
 const MEDIA = '#06b6d4';
 const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 
-// DA dédiée par média (pack). Wordmark typographique SPK + couleur signature + sport.
+// DA dédiée par média (pack). Couleurs alignées sur le reporting CODIR.
 const PACK_META = {
-  footpack:   { label: 'Footpack',   sport: 'Football',   color: '#22c55e', emoji: '⚽' },
-  runpack:    { label: 'Runpack',    sport: 'Running & trail', color: '#e63946', emoji: '🏃' },
-  velopack:   { label: 'Velopack',   sport: 'Cyclisme',   color: '#f59e0b', emoji: '🚴' },
-  basketpack: { label: 'Basketpack', sport: 'Basketball', color: '#ff7a00', emoji: '🏀' },
-  padelpack:  { label: 'Padelpack',  sport: 'Padel',      color: '#8b5cf6', emoji: '🎾' },
-  autre:      { label: 'Autre',      sport: 'Contenus & affiliation', color: '#06b6d4', emoji: '🎬' },
+  footpack:   { label: 'Footpack',   sport: 'Football',   color: '#ff7a3c', emoji: '⚽' },
+  runpack:    { label: 'Runpack',    sport: 'Running & trail', color: '#ff5040', emoji: '🏃' },
+  velopack:   { label: 'Velopack',   sport: 'Cyclisme',   color: '#ffd23c', emoji: '🚴' },
+  basketpack: { label: 'Basketpack', sport: 'Basketball', color: '#3ca0ff', emoji: '🏀' },
+  padelpack:  { label: 'Padelpack',  sport: 'Padel',      color: '#5edb6f', emoji: '🎾' },
+  autre:      { label: 'Autre',      sport: 'Contenus & affiliation', color: '#8a8a8a', emoji: '🎬' },
 };
 const packMeta = (pk) => PACK_META[pk] || PACK_META.autre;
 
@@ -28,6 +28,7 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct'
   const [selectedClient, setSelectedClient] = useState(null);
   const [packFilter, setPackFilter] = useState(null); // null = tous les médias
+  const [medMode, setMedMode] = useState('projete'); // 'signe' | 'projete' (signé + pipe)
 
   useEffect(() => {
     let alive = true;
@@ -113,24 +114,57 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
         <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
       </div>
 
-      {/* ─── Vue par média : une carte dédiée par pack ─── */}
-      {byPack.length > 0 && (
+      {/* ─── Vue par média : une carte dédiée par pack, vs objectif annuel ─── */}
+      {byPack.length > 0 && (() => {
+        const projete = medMode === 'projete';
+        const objPacks = byPack.filter(p => p.objectif > 0);
+        const totObj = byPack.reduce((s, p) => s + (p.objectif || 0), 0);
+        const totCaSig = byPack.reduce((s, p) => s + p.caSigne, 0);
+        const totCa = projete ? byPack.reduce((s, p) => s + p.caProjete, 0) : totCaSig;
+        const totCov = totObj > 0 ? Math.round((projete ? byPack.filter(p => p.objectif > 0).reduce((s, p) => s + p.caProjete, 0) : objPacks.reduce((s, p) => s + p.caSigne, 0)) / totObj * 100) : 0;
+        return (
         <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             <Grid3x3 size={16} className="text-[#06b6d4]" />
             <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Vue par média</h3>
-            <span className="text-xs text-[#888]">CA signé &amp; pipe par pack · exercice {fyLabel(fyStartYear)}</span>
-            {packFilter && (
-              <button onClick={() => setPackFilter(null)}
-                className="ml-auto text-[10px] font-bold px-2 py-1 rounded-lg bg-[#06b6d4]/15 text-[#06b6d4] hover:bg-[#06b6d4]/25 transition-colors">
-                Tous les médias ✕
-              </button>
-            )}
+            <span className="text-xs text-[#888]">{projete ? 'CA signé + pipe' : 'CA signé'} vs objectif annuel · exercice {fyLabel(fyStartYear)}</span>
+            <div className="flex items-center gap-2 ml-auto flex-wrap">
+              <div className="flex gap-0.5 bg-[#111] rounded-lg p-0.5">
+                <button onClick={() => setMedMode('signe')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${!projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Signé</button>
+                <button onClick={() => setMedMode('projete')} className={`px-2 py-1 text-[10px] font-bold rounded-md transition-colors ${projete ? 'bg-[#06b6d4] text-white' : 'text-[#888] hover:text-white'}`}>Projeté</button>
+              </div>
+              {packFilter && (
+                <button onClick={() => setPackFilter(null)}
+                  className="text-[10px] font-bold px-2 py-1 rounded-lg bg-[#06b6d4]/15 text-[#06b6d4] hover:bg-[#06b6d4]/25 transition-colors">
+                  Tous les médias ✕
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* Bandeau synthèse médias vs objectif cumulé des packs */}
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="bg-[#141414] rounded-lg p-3">
+              <p className="text-[9px] uppercase tracking-wider text-[#777]">{projete ? 'CA projeté médias' : 'CA signé médias'}</p>
+              <p className="text-lg font-extrabold italic text-[#06b6d4] leading-tight mt-0.5">{fmtK(totCa)}</p>
+            </div>
+            <div className="bg-[#141414] rounded-lg p-3">
+              <p className="text-[9px] uppercase tracking-wider text-[#777]">Objectif packs</p>
+              <p className="text-lg font-extrabold italic text-white leading-tight mt-0.5">{fmtK(totObj)}</p>
+            </div>
+            <div className="bg-[#141414] rounded-lg p-3">
+              <p className="text-[9px] uppercase tracking-wider text-[#777]">Couverture objectif</p>
+              <p className="text-lg font-extrabold italic leading-tight mt-0.5" style={{ color: totCov >= 80 ? '#2ecc71' : totCov >= 50 ? '#f39c12' : '#e74c3c' }}>{totCov}%</p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {byPack.map(p => {
               const meta = packMeta(p.pack);
               const active = packFilter === p.pack;
+              const ca = projete ? p.caProjete : p.caSigne;
+              const cov = p.objectif > 0 ? Math.round(ca / p.objectif * 100) : null;
+              const covCol = cov == null ? '#888' : cov >= 100 ? '#2ecc71' : cov >= 60 ? '#f39c12' : '#e74c3c';
               return (
                 <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
                   className={`text-left rounded-xl p-3 border transition-all ${active ? 'bg-[#1c1c1c]' : 'bg-[#141414] hover:bg-[#1a1a1a]'}`}
@@ -141,20 +175,35 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
                     <span className="text-base leading-none shrink-0">{meta.emoji}</span>
                   </div>
                   <p className="text-[9px] uppercase tracking-wider text-[#777] mb-2 truncate">{meta.sport}</p>
-                  <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(p.caSigne)}</p>
+                  <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(ca)}</p>
                   <p className="text-[10px] text-[#888] mt-0.5">
                     MB <span className="font-bold" style={{ color: p.margePct >= 54 ? '#2ecc71' : p.margePct >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margePct)}</span>
+                    {projete && <span className="text-[#666]"> · signé {fmtK(p.caSigne)}</span>}
                   </p>
-                  <div className="mt-2 pt-2 border-t border-[#262626] space-y-0.5">
-                    <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
-                    <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Projets</span><span className="text-[#aaa]">{p.projectsCount} · {p.clients} cli.</span></div>
+                  {/* Objectif + couverture */}
+                  <div className="mt-2 pt-2 border-t border-[#262626]">
+                    {p.objectif > 0 ? (
+                      <>
+                        <div className="flex items-center justify-between text-[10px] mb-1">
+                          <span className="text-[#777]">Obj {fmtK(p.objectif)}</span>
+                          <span className="font-bold" style={{ color: covCol }}>{cov}%</span>
+                        </div>
+                        <div className="h-1.5 bg-[#2a2a2a] rounded-full overflow-hidden">
+                          <div className="h-1.5 rounded-full" style={{ width: `${Math.min(cov || 0, 100)}%`, backgroundColor: covCol }} />
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
+                    )}
+                    <div className="flex items-center justify-between text-[10px] mt-1"><span className="text-[#777]">{p.projectsCount} proj.</span><span className="text-[#aaa]">{p.clients} cli. · pipe {fmtK(p.pipe)}</span></div>
                   </div>
                 </button>
               );
             })}
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* Jauge objectif Médias */}
       <ObjectiveGauge
