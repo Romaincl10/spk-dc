@@ -920,6 +920,17 @@ function buildMedias(fyStartYearParam) {
   const fyEndInclusive = new Date(fyStartYear + 1, 5, 30, 23, 59, 59);
   const isMed = t => /^MED0/i.test((t || '').trim());
 
+  // ── Résolution du pack média (footpack / runpack / velopack / basketpack / padelpack) ──
+  // Priorité : champ Furious cf_mdia (projets) / cf_mdias (devis), puis table de secours
+  // par code projet (_media_pack_map.json), puis heuristique sur le titre.
+  const MED_PACKS = ['footpack', 'runpack', 'velopack', 'basketpack', 'padelpack'];
+  const normPack = v => { const s = (v || '').toLowerCase().trim(); return MED_PACKS.includes(s) ? s : null; };
+  const packCodeKey = t => { const m = (t || '').match(/\b((?:SPK|MED|DC|M)\d{3,4})/i); return m ? m[1].toUpperCase() : null; };
+  const packByTitle = t => { const s = (t || '').toLowerCase(); return MED_PACKS.find(p => s.includes(p)) || null; };
+  let PACK_MAP = {};
+  try { PACK_MAP = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', '_media_pack_map.json'), 'utf8')); } catch (e) {}
+  const resolvePack = (cfVal, title) => normPack(cfVal) || normPack(PACK_MAP[packCodeKey(title)]) || packByTitle(title) || 'autre';
+
   // CA reconnu par projet MED0 = factures datées (date effective : émise ou prévue) DANS l'exercice.
   // On ne compte plus le montant total du projet mais uniquement ce qui est facturé sur la période.
   // Exclut les MED0 rattachés exceptionnellement à un DC (comptés dans son portefeuille)
@@ -966,6 +977,7 @@ function buildMedias(fyStartYearParam) {
       start_date: p.start_date, end_date: p.end_date, created_at: p.created_at,
       total_amount: caFY, marginEur: mEur, margin: caFY > 0 ? Math.round(mEur / caFY * 1000) / 10 : 0,
       actif: p.actif, advancement: Number(p.advancement) || 0, inFY,
+      pack: resolvePack(p.cf_mdia, p.title),
     };
   }).filter(p => p.total_amount > 0 || p.inFY).sort((a, b) => b.total_amount - a.total_amount);
 
@@ -981,6 +993,7 @@ function buildMedias(fyStartYearParam) {
       canonical_client: getCanonicalClientName(p.company_name),
       amount, probability: proba, probabilise: amount * proba / 100,
       pipe_name: p.pipe_name, projet_start: p.projet_start, projet_stop: p.projet_stop, active, inFY,
+      pack: resolvePack(p.cf_mdias, p.title),
     };
   }).filter(p => p.inFY && p.active).sort((a, b) => b.probabilise - a.probabilise);
 
@@ -1018,8 +1031,25 @@ function buildMedias(fyStartYearParam) {
   const objTargetTotal = mediaObjectives.reduce((s, o) => s + (o.target || 0), 0);
   const objCaTotal = clientObjectives.reduce((s, o) => s + o.ca, 0);
 
+  // ── Vue par média : agrégat CA / MB / pipe par pack ──
+  const PACK_ORDER = [...MED_PACKS, 'autre'];
+  const byPack = PACK_ORDER.map(pk => {
+    const pr = projects.filter(p => p.pack === pk);
+    const dv = devis.filter(d => d.pack === pk);
+    const caSigne = pr.reduce((s, p) => s + p.total_amount, 0);
+    const mbEur = pr.reduce((s, p) => s + p.marginEur, 0);
+    const pipe = dv.reduce((s, d) => s + d.probabilise, 0);
+    const pipeBrut = dv.reduce((s, d) => s + d.amount, 0);
+    const clients = new Set([...pr, ...dv].map(x => x.canonical_client || x.company_name)).size;
+    return {
+      pack: pk, projectsCount: pr.length, devisCount: dv.length, clients,
+      caSigne, mbEur, margePct: caSigne > 0 ? Math.round(mbEur / caSigne * 1000) / 10 : 0,
+      pipe, pipeBrut,
+    };
+  }).filter(p => p.caSigne > 0 || p.pipe > 0 || p.projectsCount > 0 || p.devisCount > 0);
+
   const pctTemps = Math.min(100, Math.max(0, Math.round((Date.now() - fyStart.getTime()) / (fyEnd.getTime() - fyStart.getTime()) * 100)));
-  return { fyStartYear, projects, devis, totals, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
+  return { fyStartYear, projects, devis, totals, byPack, clientObjectives, autres: autresCA, objTargetTotal, objCaTotal, objTarget: 1200000, pctTemps };
 }
 
 /**

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Radio, Briefcase, FileText, Target, ArrowLeft } from 'lucide-react';
+import { Radio, Briefcase, FileText, Target, ArrowLeft, Grid3x3 } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ObjectiveGauge from '../../Common/ObjectiveGauge';
 import RecapMoisMedias from './RecapMoisMedias';
@@ -11,11 +11,23 @@ const fyLabel = (y) => `${String(y).slice(2)}/${String(y + 1).slice(2)}`;
 const MEDIA = '#06b6d4';
 const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 
+// DA dédiée par média (pack). Wordmark typographique SPK + couleur signature + sport.
+const PACK_META = {
+  footpack:   { label: 'Footpack',   sport: 'Football',   color: '#22c55e', emoji: '⚽' },
+  runpack:    { label: 'Runpack',    sport: 'Running & trail', color: '#e63946', emoji: '🏃' },
+  velopack:   { label: 'Velopack',   sport: 'Cyclisme',   color: '#f59e0b', emoji: '🚴' },
+  basketpack: { label: 'Basketpack', sport: 'Basketball', color: '#ff7a00', emoji: '🏀' },
+  padelpack:  { label: 'Padelpack',  sport: 'Padel',      color: '#8b5cf6', emoji: '🎾' },
+  autre:      { label: 'Autre',      sport: 'Contenus & affiliation', color: '#06b6d4', emoji: '🎬' },
+};
+const packMeta = (pk) => PACK_META[pk] || PACK_META.autre;
+
 export default function MediasView({ fyStartYear, openClient, onOpened }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [objSort, setObjSort] = useState('ca'); // 'ca' | 'pct'
   const [selectedClient, setSelectedClient] = useState(null);
+  const [packFilter, setPackFilter] = useState(null); // null = tous les médias
 
   useEffect(() => {
     let alive = true;
@@ -39,6 +51,15 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
 
   const projects = data?.projects || [];
   const devis = data?.devis || [];
+  const byPack = data?.byPack || [];
+  // Filtrage « vue par média » : les listes projets/devis se restreignent au pack sélectionné
+  const fProjects = packFilter ? projects.filter(p => p.pack === packFilter) : projects;
+  const fDevis = packFilter ? devis.filter(d => d.pack === packFilter) : devis;
+  const fCaSigne = fProjects.reduce((s, p) => s + (p.total_amount || 0), 0);
+  const fMbEur = fProjects.reduce((s, p) => s + (p.marginEur || 0), 0);
+  const fMbPct = fCaSigne > 0 ? Math.round(fMbEur / fCaSigne * 1000) / 10 : 0;
+  const fPipe = fDevis.reduce((s, d) => s + (d.probabilise || 0), 0);
+  const fPipeBrut = fDevis.reduce((s, d) => s + (d.amount || 0), 0);
   const totals = data?.totals || { projectsCount: 0, caSigne: 0, mbEur: 0, devisCount: 0, pipe: 0, pipeBrut: 0, margePct: 0 };
   const objTargetTotal = data?.objTargetTotal || 0;
   const objCaTotal = data?.objCaTotal || 0;
@@ -91,6 +112,49 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
           subtitle={`${totals.devisCount} devis · ${fmtK(totals.pipeBrut)} brut`} color="text-[#3b82f6]" />
         <KPICard label="Projets / Devis" value={totals.projectsCount} suffix={` / ${totals.devisCount}`} />
       </div>
+
+      {/* ─── Vue par média : une carte dédiée par pack ─── */}
+      {byPack.length > 0 && (
+        <div className="bg-[#161616] border border-[#2a2a2a] rounded-xl p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <Grid3x3 size={16} className="text-[#06b6d4]" />
+            <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Vue par média</h3>
+            <span className="text-xs text-[#888]">CA signé &amp; pipe par pack · exercice {fyLabel(fyStartYear)}</span>
+            {packFilter && (
+              <button onClick={() => setPackFilter(null)}
+                className="ml-auto text-[10px] font-bold px-2 py-1 rounded-lg bg-[#06b6d4]/15 text-[#06b6d4] hover:bg-[#06b6d4]/25 transition-colors">
+                Tous les médias ✕
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {byPack.map(p => {
+              const meta = packMeta(p.pack);
+              const active = packFilter === p.pack;
+              return (
+                <button key={p.pack} onClick={() => setPackFilter(active ? null : p.pack)}
+                  className={`text-left rounded-xl p-3 border transition-all ${active ? 'bg-[#1c1c1c]' : 'bg-[#141414] hover:bg-[#1a1a1a]'}`}
+                  style={{ borderColor: active ? meta.color : '#2a2a2a', boxShadow: active ? `inset 0 0 0 1px ${meta.color}` : 'none' }}>
+                  <div className="h-1 rounded-full mb-2.5" style={{ backgroundColor: meta.color }} />
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <span className="text-sm font-extrabold italic uppercase tracking-tight truncate" style={{ color: meta.color }}>{meta.label}</span>
+                    <span className="text-base leading-none shrink-0">{meta.emoji}</span>
+                  </div>
+                  <p className="text-[9px] uppercase tracking-wider text-[#777] mb-2 truncate">{meta.sport}</p>
+                  <p className="text-xl font-extrabold italic text-white leading-none">{fmtK(p.caSigne)}</p>
+                  <p className="text-[10px] text-[#888] mt-0.5">
+                    MB <span className="font-bold" style={{ color: p.margePct >= 54 ? '#2ecc71' : p.margePct >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margePct)}</span>
+                  </p>
+                  <div className="mt-2 pt-2 border-t border-[#262626] space-y-0.5">
+                    <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Pipe</span><span className="font-bold text-[#3b82f6]">{fmtK(p.pipe)}</span></div>
+                    <div className="flex items-center justify-between text-[10px]"><span className="text-[#777]">Projets</span><span className="text-[#aaa]">{p.projectsCount} · {p.clients} cli.</span></div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Jauge objectif Médias */}
       <ObjectiveGauge
@@ -173,10 +237,11 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
         <div className="flex items-center gap-2 mb-3">
           <Briefcase size={16} className="text-[#06b6d4]" />
           <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Projets médias</h3>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{projects.length}</span>
+          {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
+          <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: `${MEDIA}20`, color: MEDIA }}>{fProjects.length}</span>
         </div>
-        {projects.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun projet médias sur l'exercice</p>
+        {fProjects.length === 0 ? (
+          <p className="text-[#666] text-sm text-center py-4">Aucun projet médias{packFilter ? ` · ${packMeta(packFilter).label}` : " sur l'exercice"}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -190,10 +255,13 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
                 </tr>
               </thead>
               <tbody>
-                {projects.map(p => (
+                {fProjects.map(p => (
                   <tr key={p.id} onClick={() => setSelectedClient(p.canonical_client || p.company_name)}
                     className="border-b border-[#1a1a1a] hover:bg-[#06b6d4]/10 cursor-pointer">
-                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[280px]">{p.title}</td>
+                    <td className="py-2 px-2 text-white font-medium text-xs truncate max-w-[280px]">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(p.pack).color }} title={packMeta(p.pack).label} />
+                      {p.title}
+                    </td>
                     <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[150px]">{p.canonical_client || p.company_name}</td>
                     <td className="py-2 px-2 text-right font-bold text-white">{fmtK(p.total_amount)}</td>
                     <td className="py-2 px-2 text-right text-xs" style={{ color: p.margin >= 54 ? '#2ecc71' : p.margin >= 45 ? '#f39c12' : '#e74c3c' }}>{fmtPct(p.margin)}</td>
@@ -203,9 +271,9 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
               </tbody>
               <tfoot>
                 <tr className="border-t-2 border-[#06b6d4]/30 bg-[#06b6d4]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({projects.length})</td>
-                  <td className="py-2 px-2 text-right text-white">{fmtK(totals.caSigne)}</td>
-                  <td className="py-2 px-2 text-right text-[#888] text-xs">{fmtPct(totals.margePct || 0)}</td>
+                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({fProjects.length})</td>
+                  <td className="py-2 px-2 text-right text-white">{fmtK(fCaSigne)}</td>
+                  <td className="py-2 px-2 text-right text-[#888] text-xs">{fmtPct(fMbPct)}</td>
                   <td />
                 </tr>
               </tfoot>
@@ -219,10 +287,11 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
         <div className="flex items-center gap-2 mb-3">
           <FileText size={16} className="text-[#3b82f6]" />
           <h3 className="text-sm font-bold text-[#ccc] uppercase tracking-wider">Devis médias en cours</h3>
-          <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{devis.length}</span>
+          {packFilter && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: `${packMeta(packFilter).color}22`, color: packMeta(packFilter).color }}>{packMeta(packFilter).emoji} {packMeta(packFilter).label}</span>}
+          <span className="text-xs font-bold px-2 py-0.5 bg-[#3b82f6]/20 text-[#3b82f6] rounded-full ml-auto">{fDevis.length}</span>
         </div>
-        {devis.length === 0 ? (
-          <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours</p>
+        {fDevis.length === 0 ? (
+          <p className="text-[#666] text-sm text-center py-4">Aucun devis médias en cours{packFilter ? ` · ${packMeta(packFilter).label}` : ''}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -237,9 +306,12 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
                 </tr>
               </thead>
               <tbody>
-                {devis.map(d => (
+                {fDevis.map(d => (
                   <tr key={d.id} className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a]">
-                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[260px]">{d.title}</td>
+                    <td className="py-2 px-2 text-[#3b82f6] font-medium text-xs italic truncate max-w-[260px]">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle" style={{ backgroundColor: packMeta(d.pack).color }} title={packMeta(d.pack).label} />
+                      {d.title}
+                    </td>
                     <td className="py-2 px-2 text-[#888] text-xs truncate max-w-[140px]">{d.canonical_client || d.company_name}</td>
                     <td className="py-2 px-2 text-right text-[#ccc]">{fmtK(d.amount)}</td>
                     <td className="py-2 px-2 text-right text-xs font-bold" style={{ color: d.probability >= 70 ? '#2ecc71' : d.probability >= 40 ? '#f39c12' : '#888' }}>{d.probability}%</td>
@@ -250,10 +322,10 @@ export default function MediasView({ fyStartYear, openClient, onOpened }) {
               </tbody>
               <tfoot>
                 <tr className="border-t-2 border-[#3b82f6]/20 bg-[#3b82f6]/5 font-bold">
-                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({devis.length})</td>
-                  <td className="py-2 px-2 text-right text-[#ccc] text-xs">{fmtK(totals.pipeBrut)}</td>
+                  <td className="py-2 px-2 text-white text-xs" colSpan={2}>TOTAL ({fDevis.length})</td>
+                  <td className="py-2 px-2 text-right text-[#ccc] text-xs">{fmtK(fPipeBrut)}</td>
                   <td />
-                  <td className="py-2 px-2 text-right text-[#3b82f6]">{fmtK(totals.pipe)}</td>
+                  <td className="py-2 px-2 text-right text-[#3b82f6]">{fmtK(fPipe)}</td>
                   <td />
                 </tr>
               </tfoot>
