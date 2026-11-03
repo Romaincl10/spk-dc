@@ -1379,20 +1379,26 @@ app.get('/api/data/medias-monthly-recap', auth.authMiddleware, (req, res) => {
 // Farming — board éditable (concepts + événements) d'un DC, persistant sur le volume.
 app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
   const dc = req.query.dc || 'Hadrien';
-  // Options de clients : toutes les lignes clients à objectif du DC (saison 26/27) + Biz Dev,
-  // pour que le board farming couvre l'ensemble du portefeuille, pas seulement les seedés.
+  // Options de clients : lignes à objectif du DC + Biz Dev + clients assignés (client_assignments).
+  // Les clients assignés permettent aux DC sans objectif (ex. Alizée, compte admin) d'avoir
+  // leur portefeuille dans le Plan de jeu.
   let clientOptions = [];
   try {
+    let objNames = [], bizDevNames = [];
     const port = buildDCPortfolios(2026)[dc];
     if (port) {
-      const objNames = (port.objectives || [])
+      objNames = (port.objectives || [])
         .filter(o => o.client !== '_BIZ_DEV' && ((o.target || 0) > 0 || (o.actual || 0) > 0))
         .map(o => o.client);
-      // Lignes Biz Dev réelles (conquête + établis hors objectif), ex. NUTRIPURE, TECNIFIBRE
       const bizDev = (port.objectives || []).find(o => o.client === '_BIZ_DEV');
-      const bizDevNames = bizDev ? [...(bizDev.clients || []), ...(bizDev.otherClients || [])].map(c => c.client) : [];
-      clientOptions = [...new Set([...objNames, ...bizDevNames])].filter(Boolean).sort((a, b) => a.localeCompare(b));
+      bizDevNames = bizDev ? [...(bizDev.clients || []), ...(bizDev.otherClients || [])].map(c => c.client) : [];
     }
+    // Clients assignés à ce DC (par nom), même sans objectif
+    const nd = normalize(dc);
+    const assignedNames = Object.entries(assign.getAllClientAssignments(2026) || {})
+      .filter(([, dcName]) => dcName && normalize(dcName) === nd)
+      .map(([client]) => client);
+    clientOptions = [...new Set([...objNames, ...bizDevNames, ...assignedNames])].filter(Boolean).sort((a, b) => a.localeCompare(b));
   } catch (e) { console.error('[Farming] clientOptions', e.message); }
   res.json({ dc, clients: farming.getDC(dc), clientOptions });
 });
