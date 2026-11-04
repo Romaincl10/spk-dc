@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
-import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout, CalendarRange, Layers, Percent } from 'lucide-react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
+import { FileText, Users as UsersIcon, Map, TrendingUp, Briefcase, ClipboardList, Sprout, CalendarRange, Layers, Percent, Radar } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ProgressBar from '../../Common/ProgressBar';
 import { fmtK, fmtPct } from '../../../utils/format';
+import { apiFetch } from '../../../utils/api';
 import DCSynthese from './DCSynthese';
 import DCFocusClient from './DCFocusClient';
 import DCRoadmap from './DCRoadmap';
@@ -11,6 +12,7 @@ import DCFocusDevis from './DCFocusDevis';
 import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
 import DCFarming from './DCFarming';
+import Opportunites from './Opportunites';
 import RecapMois from './RecapMois';
 import DCMarge from './DCMarge';
 import RecapMoisGlobal from './RecapMoisGlobal';
@@ -32,6 +34,8 @@ const DC_SUBTABS = [
   { id: 'devis', label: 'Focus Devis', icon: ClipboardList },
   { id: 'roadmap', label: 'Roadmap', icon: Map },
 ];
+// Onglet Opportunités — cartes du scan du matin à intégrer dans le Plan de jeu.
+const OPP_SUBTAB = { id: 'opportunites', label: 'Opportunités', icon: Radar };
 // Onglet Farming — DC ayant un board (seed farming). Contenu éditorial hors Furious.
 const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
 const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
@@ -110,6 +114,14 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
   }, [portfolios, dcNames]);
 
   const selectedIsDirector = DIRECTOR_NAMES.includes(selectedDC);
+  // Compteur d'opportunités du matin du DC sélectionné (pastille sur l'onglet)
+  const [oppCount, setOppCount] = useState(0);
+  const loadOppCount = useCallback(() => {
+    if (!selectedDC || ['Globale', 'Médias', 'Heatmap', 'A assigner'].includes(selectedDC) || selectedIsDirector) { setOppCount(0); return; }
+    apiFetch(`/api/data/opportunites?dc=${encodeURIComponent(selectedDC)}`)
+      .then(d => setOppCount((d.cards || []).length)).catch(() => setOppCount(0));
+  }, [selectedDC, selectedIsDirector]);
+  useEffect(() => { loadOppCount(); }, [loadOppCount]);
   const currentPortfolio = selectedDC !== 'Globale' && portfolios ? portfolios[selectedDC] : null;
   const currentColor = getColor(selectedDC, dcNames.indexOf(selectedDC));
 
@@ -228,6 +240,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
             <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
               {(() => {
                 const main = DC_SUBTABS.filter(t => !DETAIL_IDS.includes(t.id)); // Synthèse, Focus Client
+                main.unshift(OPP_SUBTAB); // Opportunités en tête : point d'entrée du matin
                 let ins = main.findIndex(t => t.id === 'focus') + 1;
                 if (FARMING_DCS.includes(selectedDC)) { main.splice(ins, 0, FARMING_SUBTAB); ins++; }
                 main.splice(ins, 0, RECAP_SUBTAB);
@@ -237,11 +250,13 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
               })().map(t => {
                 const Icon = t.icon;
                 const active = t.id === 'detail' ? DETAIL_IDS.includes(subTab) : subTab === t.id;
+                const isOpp = t.id === 'opportunites';
                 return (
                   <button key={t.id} onClick={() => setSubTab(t.id === 'detail' ? 'projets' : t.id)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors
-                      ${active ? 'bg-[#2a2a2a] text-white' : 'text-[#ccc] hover:text-white'}`}>
+                      ${active ? 'bg-[#2a2a2a] text-white' : isOpp && oppCount > 0 ? 'text-[#e63946] hover:text-white' : 'text-[#ccc] hover:text-white'}`}>
                     <Icon size={14} /> {t.label}
+                    {isOpp && oppCount > 0 && <span className="ml-0.5 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-[#e63946] text-white leading-none">{oppCount}</span>}
                   </button>
                 );
               })}
@@ -452,6 +467,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
           {subTab === 'projets' && <DCFocusProjet portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'devis' && <DCFocusDevis portfolio={currentPortfolio} color={currentColor} />}
           {subTab === 'roadmap' && <DCRoadmap portfolio={currentPortfolio} color={currentColor} viewMode={viewMode} fyStartYear={fyStartYear} />}
+          {subTab === 'opportunites' && <Opportunites dc={selectedDC} onChanged={loadOppCount} />}
           {subTab === 'farming' && FARMING_DCS.includes(selectedDC) && <DCFarming dc={selectedDC} />}
           {subTab === 'recap' && <RecapMois dc={selectedDC} />}
           {subTab === 'marge' && <DCMarge portfolio={currentPortfolio} color={currentColor} />}

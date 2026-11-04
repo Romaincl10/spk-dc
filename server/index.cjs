@@ -19,6 +19,7 @@ const objectives = require('./objectives.cjs');
 const assign = require('./assignments.cjs');
 const activity = require('./activity.cjs');
 const farming = require('./farming.cjs');
+const opp = require('./opportunites.cjs');
 const { getCanonicalClientName, getCanonicalClientNameForProject } = require('./clientGroups.cjs');
 
 const app = express();
@@ -1410,6 +1411,52 @@ app.put('/api/data/farming', auth.authMiddleware, (req, res) => {
   if (del) return res.json({ success: true, deleted: farming.deleteClient(dc, client) });
   if (!data) return res.status(400).json({ error: 'data requis' });
   res.json({ success: true, client: farming.saveClient(dc, client, data) });
+});
+
+// ── Routes: Opportunités du matin (scan → Plan de jeu) ──────────
+// Cartes déposées par le scan, en attente de validation par le DC.
+app.get('/api/data/opportunites', auth.authMiddleware, (req, res) => {
+  const dc = req.query.dc;
+  if (!dc) return res.status(400).json({ error: 'dc requis' });
+  res.json({ dc, cards: opp.getDC(dc) });
+});
+
+// Dépôt de cartes (utilisé par le skill de scan).
+app.post('/api/data/opportunites', auth.authMiddleware, (req, res) => {
+  const { dc, cards } = req.body;
+  if (!dc || !Array.isArray(cards)) return res.status(400).json({ error: 'dc, cards[] requis' });
+  res.json({ success: true, added: opp.addCards(dc, cards) });
+});
+
+// Intégration d'une carte dans le Plan de jeu (moment → timeline, concept → kanban Froid).
+// parts: tableau optionnel ['moment','concept'] ; par défaut tout ce que la carte porte.
+app.post('/api/data/opportunites/integrate', auth.authMiddleware, (req, res) => {
+  const { dc, id, parts } = req.body;
+  if (!dc || !id) return res.status(400).json({ error: 'dc, id requis' });
+  const card = opp.getCard(dc, id);
+  if (!card) return res.status(404).json({ error: 'carte introuvable' });
+  const board = (farming.getDC(dc) || {})[card.client]
+    || { col: '#e63946', concepts: [], events: [], conceptsArchived: [], eventsArchived: [] };
+  board.events = board.events || []; board.concepts = board.concepts || [];
+  const doM = card.moment && (!parts || parts.includes('moment'));
+  const doC = card.concept && (!parts || parts.includes('concept'));
+  const now = Date.now();
+  if (doM) board.events.push({ id: 'ev-scan-' + now, date: card.moment.date || '', title: card.moment.title || '', sub: card.moment.sub || '', span: card.moment.span || [] });
+  if (doC) board.concepts.push({ id: 'c-scan-' + now, name: card.concept.name || '', offer: card.concept.offer || '', timing: card.concept.timing || '', desc: card.concept.desc || '', budget: card.concept.budget || '', tag: 'piste', span: card.concept.span || [], moment: card.concept.moment || (card.moment && card.moment.date) || '', proven: false, status: card.concept.status || 'Idée' });
+  farming.saveClient(dc, card.client, board);
+  // Retire du vivier ce qui vient d'être intégré ; si la carte est vide, on la supprime.
+  const upd = { ...card };
+  if (doM) upd.moment = null;
+  if (doC) upd.concept = null;
+  if (!upd.moment && !upd.concept) opp.removeCard(dc, id); else opp.setCard(dc, id, upd);
+  res.json({ success: true, integrated: { moment: !!doM, concept: !!doC }, client: card.client });
+});
+
+// Rejet d'une carte (le DC passe).
+app.post('/api/data/opportunites/dismiss', auth.authMiddleware, (req, res) => {
+  const { dc, id } = req.body;
+  if (!dc || !id) return res.status(400).json({ error: 'dc, id requis' });
+  res.json({ success: true, dismissed: opp.removeCard(dc, id) });
 });
 
 // ── Routes: Assignments (admin) ──────────────────────────
