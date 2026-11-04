@@ -35,7 +35,9 @@ const DC_SUBTABS = [
   { id: 'roadmap', label: 'Roadmap', icon: Map },
 ];
 // Onglet Opportunités — cartes du scan du matin à intégrer dans le Plan de jeu.
+// Phase de test : limité à Alizée. Ajouter des DC ici pour élargir.
 const OPP_SUBTAB = { id: 'opportunites', label: 'Opportunités', icon: Radar };
+const OPP_DCS = ['Alizée'];
 // Onglet Farming — DC ayant un board (seed farming). Contenu éditorial hors Furious.
 const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
 const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
@@ -117,10 +119,10 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
   // Compteur d'opportunités du matin du DC sélectionné (pastille sur l'onglet)
   const [oppCount, setOppCount] = useState(0);
   const loadOppCount = useCallback(() => {
-    if (!selectedDC || ['Globale', 'Médias', 'Heatmap', 'A assigner'].includes(selectedDC) || selectedIsDirector) { setOppCount(0); return; }
+    if (!OPP_DCS.includes(selectedDC)) { setOppCount(0); return; }
     apiFetch(`/api/data/opportunites?dc=${encodeURIComponent(selectedDC)}`)
       .then(d => setOppCount((d.cards || []).length)).catch(() => setOppCount(0));
-  }, [selectedDC, selectedIsDirector]);
+  }, [selectedDC]);
   useEffect(() => { loadOppCount(); }, [loadOppCount]);
   const currentPortfolio = selectedDC !== 'Globale' && portfolios ? portfolios[selectedDC] : null;
   const currentColor = getColor(selectedDC, dcNames.indexOf(selectedDC));
@@ -240,7 +242,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
             <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
               {(() => {
                 const main = DC_SUBTABS.filter(t => !DETAIL_IDS.includes(t.id)); // Synthèse, Focus Client
-                main.unshift(OPP_SUBTAB); // Opportunités en tête : point d'entrée du matin
+                if (OPP_DCS.includes(selectedDC)) main.unshift(OPP_SUBTAB); // Opportunités (test : Alizée seule)
                 let ins = main.findIndex(t => t.id === 'focus') + 1;
                 if (FARMING_DCS.includes(selectedDC)) { main.splice(ins, 0, FARMING_SUBTAB); ins++; }
                 main.splice(ins, 0, RECAP_SUBTAB);
