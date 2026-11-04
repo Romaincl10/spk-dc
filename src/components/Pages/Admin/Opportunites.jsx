@@ -54,7 +54,7 @@ export default function Opportunites({ dc, onChanged }) {
               <div key={c.id} className="bg-[#111] border border-[#2a2a2a] rounded-xl overflow-hidden">
                 <div className="flex items-center justify-between gap-3 px-4 pt-3 flex-wrap">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-base font-extrabold italic lowercase text-white truncate">{(c.brand || c.client || '').toLowerCase()}<span className="text-[#e63946]">.</span></span>
+                    <span className="text-base font-extrabold text-white truncate">{c.client || c.brand || ''}</span>
                     {c.sourceUrl && <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#06b6d4] inline-flex items-center gap-0.5 hover:underline shrink-0">source <ExternalLink size={10} /></a>}
                   </div>
                   <button onClick={() => act(c.id, 'dismiss')} disabled={working}

@@ -40,7 +40,7 @@ const OPP_SUBTAB = { id: 'opportunites', label: 'Opportunités', icon: Radar };
 const OPP_DCS = ['Alizée'];
 // Onglet Farming — DC ayant un board (seed farming). Contenu éditorial hors Furious.
 const FARMING_SUBTAB = { id: 'farming', label: 'Farming', icon: Sprout };
-const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon'];
+const FARMING_DCS = ['Hadrien', 'Audrey', 'Clément', 'Naël', 'Ninon', 'Alizée'];
 // Onglet Récap du mois — mouvements du mois (tous DC).
 const RECAP_SUBTAB = { id: 'recap', label: 'Récap du mois', icon: CalendarRange };
 // Onglet Marge — analyse de la marge brute du portefeuille (juste avant Détail).

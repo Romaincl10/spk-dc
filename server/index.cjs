@@ -1459,6 +1459,31 @@ app.post('/api/data/opportunites/dismiss', auth.authMiddleware, (req, res) => {
   res.json({ success: true, dismissed: opp.removeCard(dc, id) });
 });
 
+// Résout le DC d'un utilisateur (pour que le skill dépose dans SA case sans préciser le dc).
+function resolveDCForUser(user) {
+  if (!user) return null;
+  let keys = [];
+  try { keys = Object.keys(buildDCPortfolios(2026) || {}); } catch (e) {}
+  const cands = [user.furiousName, (user.furiousName || '').split(' ')[0], (user.name || '').split(' ')[0]].filter(Boolean);
+  for (const c of cands) { const hit = keys.find(k => normalize(k) === normalize(c)); if (hit) return hit; }
+  return user.furiousName || user.name || null;
+}
+
+// Mes opportunités (le DC authentifié) : le skill dépose ici depuis le compte du DC,
+// la case se remplit automatiquement pour le bon DC sans avoir à nommer le dc.
+app.get('/api/data/opportunites/mine', auth.authMiddleware, (req, res) => {
+  const dc = resolveDCForUser(req.user);
+  if (!dc) return res.status(400).json({ error: 'DC introuvable pour cet utilisateur' });
+  res.json({ dc, cards: opp.getDC(dc) });
+});
+app.post('/api/data/opportunites/mine', auth.authMiddleware, (req, res) => {
+  const dc = resolveDCForUser(req.user);
+  if (!dc) return res.status(400).json({ error: 'DC introuvable pour cet utilisateur' });
+  const { cards } = req.body;
+  if (!Array.isArray(cards)) return res.status(400).json({ error: 'cards[] requis' });
+  res.json({ success: true, dc, added: opp.addCards(dc, cards) });
+});
+
 // ── Routes: Assignments (admin) ──────────────────────────
 
 app.get('/api/admin/assignments/clients', auth.authMiddleware, auth.adminOnly, (req, res) => {
