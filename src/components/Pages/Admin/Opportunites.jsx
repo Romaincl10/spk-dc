@@ -63,6 +63,11 @@ export default function Opportunites({ dc, onChanged }) {
                   </button>
                 </div>
                 {c.actu && <p className="text-[12.5px] text-[#cfcfcf] px-4 pt-2">{c.actu}</p>}
+                {c.insight && (
+                  <div className="mx-4 mt-2 px-3 py-2 rounded-lg bg-[#f39c12]/10 border border-[#f39c12]/30">
+                    <p className="text-[11.5px] text-[#e8c88a] leading-snug"><span className="font-extrabold text-[#f39c12] uppercase tracking-wide text-[10px]">Insight </span>{c.insight}</p>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-[#2a2a2a] mt-3">
                   {/* Moment */}
                   <div className="bg-[#141414] p-4 flex flex-col gap-2">
