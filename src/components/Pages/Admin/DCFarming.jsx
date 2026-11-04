@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Lightbulb, CalendarDays, GanttChartSquare, Pencil, Trash2, Plus, RotateCcw, X, Check, Archive } from 'lucide-react';
+import { Lightbulb, CalendarDays, GanttChartSquare, Pencil, Trash2, Plus, RotateCcw, X, Check, Archive, Download } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 
 const MONTHS = ['Juin 26', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc', 'Jan 27', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin 27', 'Juil', 'Août'];
@@ -161,6 +161,7 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
   const [view, setView] = useState('client'); // 'client' | 'global'
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
+  const [exported, setExported] = useState(false);
 
   useEffect(() => {
     let alive = true;
@@ -256,6 +257,45 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
 
   const handleDrop = (colKey) => { if (dragged) setConceptStatus(dragged, colKey); setDragged(null); setOverCol(null); };
 
+  // Export Claude : Markdown du plan de jeu du DC, à glisser dans Claude pour travailler la stratégie.
+  const buildMarkdown = () => {
+    const lines = [`# Plan de jeu : ${dc}`, `_Export du ${new Date().toLocaleDateString('fr-FR')}_`, ''];
+    Object.entries(clientsData).forEach(([name, cd]) => {
+      const events = cd.events || [], concepts = cd.concepts || [];
+      if (!events.length && !concepts.length) return;
+      lines.push(`## ${name}`, '');
+      if (events.length) {
+        lines.push('### Moments à ne pas manquer');
+        [...events].sort((a, b) => (a.span?.[0] ?? 0) - (b.span?.[0] ?? 0)).forEach(e => {
+          lines.push(`- **${e.title}** (${momentLabel(e.span) || e.date || ''})${e.sub ? ` : ${e.sub}` : ''}`);
+        });
+        lines.push('');
+      }
+      if (concepts.length) {
+        lines.push('### Concepts d\'activation');
+        concepts.forEach(c => {
+          const meta = [c.offer, c.budget, c.moment || momentLabel(c.span)].filter(Boolean).join(' · ');
+          lines.push(`- **${c.name}** [${heatOf(c.status).head}]${meta ? ` — ${meta}` : ''}`);
+          if (c.desc) lines.push(`  ${c.desc}`);
+        });
+        lines.push('');
+      }
+    });
+    lines.push('---', `Travaille la stratégie d'approche de ${dc} à partir de ce plan de jeu : priorités, angle par marque, argumentaire de pitch.`);
+    return lines.join('\n');
+  };
+  const exportClaude = () => {
+    try {
+      const blob = new Blob([buildMarkdown()], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `plan-de-jeu-${dc}-${new Date().toISOString().slice(0, 10)}.md`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setExported(true); setTimeout(() => setExported(false), 2500);
+    } catch (e) { console.error('[Export]', e); }
+  };
+
   return (
     <div className="space-y-6">
       {/* Bandeau d'échec de sauvegarde — évite toute perte silencieuse */}
@@ -277,6 +317,10 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
             {saveState === 'saving' ? '… enregistrement' : '✓ enregistré'}
           </span>
         )}
+        <button onClick={exportClaude} title="Télécharger le plan de jeu pour le glisser dans Claude"
+          className={`ml-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${exported ? 'bg-[#2ecc71] text-[#05331a]' : 'bg-[#e63946] text-white hover:brightness-110'}`}>
+          {exported ? <><Check size={13} /> Exporté</> : <><Download size={13} /> Export Claude</>}
+        </button>
       </div>
 
       {/* Sélecteur de client + ajout — vue par client uniquement */}
