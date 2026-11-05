@@ -1778,10 +1778,13 @@ if (fs.existsSync(distPath)) {
 
 // ── Cron ─────────────────────────────────────────────────
 
-// Sync matinale : données fraîches dès le début de journée (jours ouvrés et week-end)
-cron.schedule('0 7 * * *', () => { console.log('[Cron] 07:00 — Furious sync (matin)'); syncFurious(); }, { timezone: 'Europe/Paris' });
+// Sync Furious en continu : toutes les 30 min de 6h à 22h (heure de Paris), pour des
+// données quasi temps réel. syncFurious() ignore un appel si une synchro tourne déjà,
+// donc pas de risque de chevauchement.
+cron.schedule('*/30 6-22 * * *', () => { console.log('[Cron] Furious sync (30 min)'); syncFurious(); }, { timezone: 'Europe/Paris' });
+// Filet de nuit : une synchro à 3h pour repartir frais le matin.
+cron.schedule('0 3 * * *', () => { console.log('[Cron] 03:00 — Furious sync (nuit)'); syncFurious(); }, { timezone: 'Europe/Paris' });
 cron.schedule('0 20 * * *', () => { console.log('[Cron] 20:00 — Lucca sync'); syncLucca(); }, { timezone: 'Europe/Paris' });
-cron.schedule('0 21 * * *', () => { console.log('[Cron] 21:00 — Furious sync (soir)'); syncFurious(); }, { timezone: 'Europe/Paris' });
 
 // ── Startup ──────────────────────────────────────────────
 
