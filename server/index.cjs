@@ -1811,4 +1811,18 @@ app.listen(PORT, () => {
   } else {
     console.log(`[SPK DC] Cached data is fresh (${ageH.toFixed(1)}h) — skipping initial sync`);
   }
+
+  // Seed démo des opportunités (phase de test du Scan du matin).
+  // Le filesystem Railway est éphémère : à chaque (re)déploiement on recharge
+  // le vivier du DC de démo. addCards dédoublonne (client|moment|concept), donc
+  // seules les cartes absentes sont réinjectées (celles déjà swipées reviennent,
+  // les autres ne sont pas dupliquées). Désactivable via SEED_DEMO_OPP=false.
+  if (process.env.SEED_DEMO_OPP !== 'false') {
+    try {
+      const demo = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'demo_opportunites.json'), 'utf8'));
+      let total = 0;
+      for (const [dc, cards] of Object.entries(demo)) total += opp.addCards(dc, cards);
+      console.log(`[SPK DC] Seed démo opportunités : ${total} carte(s) ajoutée(s)`);
+    } catch (e) { console.error('[SPK DC] Seed démo opportunités:', e.message); }
+  }
 });
