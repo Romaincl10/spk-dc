@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Check, X, CalendarDays, Lightbulb, Radar, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Check, X, CalendarDays, Lightbulb, Radar, ArrowUpRight, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 
 // Univers → couleur d'accent (le scan pose `cat` sur la carte ; repli par mots-clés).
@@ -55,6 +55,7 @@ export default function MobileSwipe({ dc, onClose }) {
   const [leaving, setLeaving] = useState(null); // 'right' | 'left'
   const [done, setDone] = useState(0);
   const [kept, setKept] = useState(0);
+  const [expanded, setExpanded] = useState(false);
   const startX = useRef(null);
 
   const load = useCallback(() => {
@@ -73,13 +74,14 @@ export default function MobileSwipe({ dc, onClose }) {
     apiFetch(`/api/data/opportunites/${path}`, { method: 'POST', body: JSON.stringify({ dc, id: top.id }) }).catch(() => {});
     setTimeout(() => {
       setCards(cs => cs.slice(1));
-      setDrag(0); setLeaving(null);
+      setDrag(0); setLeaving(null); setExpanded(false);
       setDone(n => n + 1);
       if (dir === 'right') setKept(n => n + 1);
     }, 280);
   };
 
-  const onStart = (e) => { if (leaving) return; startX.current = e.touches ? e.touches[0].clientX : e.clientX; };
+  // En mode détail déplié, on laisse le scroll vertical : on coupe le swipe horizontal.
+  const onStart = (e) => { if (leaving || expanded) return; startX.current = e.touches ? e.touches[0].clientX : e.clientX; };
   const onMove = (e) => { if (startX.current == null) return; const x = e.touches ? e.touches[0].clientX : e.clientX; setDrag(x - startX.current); };
   const onEnd = () => {
     if (startX.current == null) return;
@@ -158,8 +160,8 @@ export default function MobileSwipe({ dc, onClose }) {
               <div className="pointer-events-none absolute top-6 left-6 text-[#2ecc71] font-black italic text-2xl border-[3px] border-[#2ecc71] rounded-xl px-2.5 py-0.5 rotate-[-13deg] z-10" style={{ opacity: yes }}>GARDER</div>
               <div className="pointer-events-none absolute top-6 right-6 text-[#e63946] font-black italic text-2xl border-[3px] border-[#e63946] rounded-xl px-2.5 py-0.5 rotate-[13deg] z-10" style={{ opacity: no }}>PASSER</div>
 
-              {/* contenu : flex column qui remplit, sans dépassement */}
-              <div className="flex-1 min-h-0 p-4 pt-3 flex flex-col gap-2.5 overflow-hidden">
+              {/* contenu : résumé digeste par défaut, détail complet scrollable si déplié */}
+              <div className={`flex-1 min-h-0 p-4 pt-3 flex flex-col gap-2.5 ${expanded ? 'overflow-y-auto' : 'overflow-hidden'}`} style={{ touchAction: expanded ? 'pan-y' : 'none' }}>
                 {/* pastille univers */}
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full" style={{ color: col, backgroundColor: `${col}1a`, border: `1px solid ${col}40` }}>{cat}</span>
@@ -177,14 +179,14 @@ export default function MobileSwipe({ dc, onClose }) {
                   )}
                 </div>
 
-                {/* actu (2 lignes max) */}
-                {top.actu && <p className="text-[13px] text-[#c4c4c4] leading-snug line-clamp-2 shrink-0">{top.actu}</p>}
+                {/* actu */}
+                {top.actu && <p className={`text-[13px] text-[#c4c4c4] leading-snug shrink-0 ${expanded ? '' : 'line-clamp-2'}`}>{top.actu}</p>}
 
-                {/* insight (3 lignes max) */}
+                {/* insight */}
                 {top.insight && (
                   <div className="rounded-2xl px-3.5 py-2.5 shrink-0" style={{ backgroundColor: `${col}12`, border: `1px solid ${col}2e` }}>
                     <div className="text-[9px] font-black uppercase tracking-[0.2em] mb-1" style={{ color: col }}>L'angle SPK</div>
-                    <p className="text-[12px] text-[#e8e8e8] leading-snug line-clamp-3">{top.insight}</p>
+                    <p className={`text-[12px] text-[#e8e8e8] leading-snug ${expanded ? '' : 'line-clamp-3'}`}>{top.insight}</p>
                   </div>
                 )}
 
@@ -195,16 +197,16 @@ export default function MobileSwipe({ dc, onClose }) {
                       <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[#06b6d4] flex items-center gap-1.5 shrink-0"><CalendarDays size={13} /> Moment</span>
                       <span className="text-[10px] font-extrabold text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded-md shrink-0">{top.moment.date}</span>
                     </div>
-                    <p className="text-[13px] font-extrabold italic text-white mt-1 leading-snug line-clamp-1">{top.moment.title}</p>
+                    <p className={`text-[13px] font-extrabold italic text-white mt-1 leading-snug ${expanded ? '' : 'line-clamp-1'}`}>{top.moment.title}</p>
                   </div>
                 )}
 
-                {/* concept (occupe le reste) */}
+                {/* concept (occupe le reste en mode résumé) */}
                 {top.concept && (
-                  <div className="rounded-2xl bg-[#0b0b0b] border border-[#232323] px-3.5 py-2.5 flex-1 min-h-0 flex flex-col">
+                  <div className={`rounded-2xl bg-[#0b0b0b] border border-[#232323] px-3.5 py-2.5 flex flex-col ${expanded ? 'shrink-0' : 'flex-1 min-h-0'}`}>
                     <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[#4F9DF7] flex items-center gap-1.5 shrink-0"><Lightbulb size={13} /> Concept</span>
-                    <p className="text-[15px] font-black italic text-white mt-1 leading-tight line-clamp-2 shrink-0">{top.concept.name}</p>
-                    {top.concept.desc && <p className="text-[12px] text-[#9a9a9a] mt-1 leading-snug line-clamp-2 min-h-0">{top.concept.desc}</p>}
+                    <p className={`text-[15px] font-black italic text-white mt-1 leading-tight shrink-0 ${expanded ? '' : 'line-clamp-2'}`}>{top.concept.name}</p>
+                    {top.concept.desc && <p className={`text-[12px] text-[#9a9a9a] mt-1 leading-snug min-h-0 ${expanded ? '' : 'line-clamp-2'}`}>{top.concept.desc}</p>}
                     <div className="flex flex-wrap gap-1.5 mt-auto pt-2 shrink-0">
                       {top.concept.offer && <span className="text-[10px] font-bold text-[#cfcfcf] bg-[#1a1a1a] border border-[#2c2c2c] px-2.5 py-1 rounded-lg">{top.concept.offer}</span>}
                       {top.concept.budget && <span className="text-[10px] font-extrabold text-[#4F9DF7] bg-[#4F9DF7]/12 border border-[#4F9DF7]/25 px-2.5 py-1 rounded-lg">{top.concept.budget}</span>}
@@ -212,6 +214,14 @@ export default function MobileSwipe({ dc, onClose }) {
                   </div>
                 )}
               </div>
+
+              {/* Voir plus / moins : déplie le détail complet sans quitter l'écran */}
+              <button
+                onClick={(e) => { e.stopPropagation(); setExpanded(v => !v); }}
+                onMouseDown={e => e.stopPropagation()} onTouchStart={e => e.stopPropagation()}
+                className="shrink-0 w-full flex items-center justify-center gap-1 py-2 border-t border-[#1e1e1e] text-[11px] font-bold uppercase tracking-wider text-[#8a8a8a] active:bg-[#141414]">
+                {expanded ? <>Voir moins <ChevronUp size={13} /></> : <>Voir le détail <ChevronDown size={13} /></>}
+              </button>
             </div>
           );
         })()}
