@@ -9,6 +9,7 @@ import Assignments from './components/Pages/Admin/Assignments';
 import UserManagement from './components/Pages/Admin/UserManagement';
 import ObjectifImport from './components/Pages/Admin/ObjectifImport';
 import MediasPage from './components/Pages/Admin/MediasPage';
+import MobileSwipe from './components/Pages/Admin/MobileSwipe';
 
 // Persist current page in sessionStorage so it survives HMR / soft reloads
 const PAGE_KEY = 'spk_dc_page';
@@ -37,7 +38,14 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hash, setHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''));
   const needsRefreshRef = useRef(false);
+
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -112,6 +120,13 @@ export default function App() {
   }, [loadData]);
 
   if (!user) return <LoginScreen onLogin={handleLogin} />;
+
+  // Route isolée mobile « swipe » (#swipe ou #swipe=DC) : écran plein, sans toucher au reste.
+  const swipeMatch = /^#swipe(?:=(.+))?$/.exec(hash || '');
+  if (swipeMatch) {
+    const swipeDC = swipeMatch[1] ? decodeURIComponent(swipeMatch[1]) : (user.furiousName || user.name);
+    return <MobileSwipe dc={swipeDC} onClose={() => { window.location.hash = ''; }} />;
+  }
 
   const renderPage = () => {
     // Rôle Médias : accès à l'onglet Médias uniquement
