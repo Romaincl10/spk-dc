@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Crosshair, TrendingUp, Briefcase, FileText, ChevronRight, Sparkles, Swords, Layers, AlertTriangle, BarChart3, Flame } from 'lucide-react';
+import { Crosshair, TrendingUp, Briefcase, FileText, ChevronRight, Sparkles, Swords, Layers, AlertTriangle, BarChart3, Flame, Grid3x3 } from 'lucide-react';
 import KPICard from '../../Common/KPICard';
 import ObjectiveGauge from '../../Common/ObjectiveGauge';
 import DCFarming from './DCFarming';
+import MatriceClient from './MatriceClient';
 import { apiFetch } from '../../../utils/api';
 import { fmtK, fmtPct } from '../../../utils/format';
 import { formatDate } from '../../../utils/dateRange';
@@ -83,8 +84,10 @@ export default function DirecteurCommercial({ fyStartYear }) {
       <div className="flex gap-1 bg-[#111] rounded-lg p-0.5 w-fit">
         <button onClick={() => setTab('portefeuille')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${tab === 'portefeuille' ? 'bg-[#8b5cf6] text-white' : 'text-[#888] hover:text-white'}`}>Portefeuille</button>
         <button onClick={() => setTab('planjeu')} className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${tab === 'planjeu' ? 'bg-[#8b5cf6] text-white' : 'text-[#888] hover:text-white'}`}><Swords size={13} /> Plan de jeu</button>
+        <button onClick={() => setTab('matrice')} className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${tab === 'matrice' ? 'bg-[#8b5cf6] text-white' : 'text-[#888] hover:text-white'}`}><Grid3x3 size={13} /> Matrice client</button>
       </div>
 
+      {tab === 'matrice' && <MatriceClient />}
       {tab === 'planjeu' && <DCFarming dc="BizDev" mode="planjeu" />}
       {tab === 'portefeuille' && loading && (
         <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>
