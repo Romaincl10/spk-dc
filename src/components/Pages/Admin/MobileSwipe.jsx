@@ -15,6 +15,8 @@ const CAT_COLORS = {
   Football: '#2ecc71',
   Basket: '#ff8a3d',
   Media: '#06b6d4',
+  Auto: '#f43f5e',
+  Hippisme: '#d9a441',
 };
 const KW = [
   { test: /hyrox|fitness|crossfit|salle/i, cat: 'Fitness' },
@@ -24,7 +26,9 @@ const KW = [
   { test: /padel/i, cat: 'Padel' },
   { test: /v[ée]lo|cycl|gravel|bike|tour de france/i, cat: 'Cyclisme' },
   { test: /basket|3x3/i, cat: 'Basket' },
-  { test: /foot|ligue 1|\bom\b|psg/i, cat: 'Football' },
+  { test: /foot|ligue 1|\bom\b|psg|maillot/i, cat: 'Football' },
+  { test: /\bf1\b|formule 1|alpine|moteur|grand prix/i, cat: 'Auto' },
+  { test: /galop|hippodrome|\barc\b|cheval|hongre|longchamp/i, cat: 'Hippisme' },
   { test: /presse|m[ée]dia|provence/i, cat: 'Media' },
 ];
 function catFor(c) {
