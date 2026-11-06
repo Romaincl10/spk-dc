@@ -46,7 +46,9 @@ function todayLabel() {
 }
 
 // Écran mobile « swipe » (isolé, route #swipe) : valider les opportunités à la main.
-// Swipe droite ou ✓ = intégrer (moment + concept dans le Plan de jeu). Gauche ou ✗ = passer.
+// Chaque carte tient sur un seul écran iPhone (pas de scroll interne) : textes calibrés
+// en line-clamp. Swipe droite ou ✓ = intégrer (moment + concept dans le Plan de jeu).
+// Gauche ou ✗ = passer.
 export default function MobileSwipe({ dc, onClose }) {
   const [cards, setCards] = useState(null);
   const [drag, setDrag] = useState(0);
@@ -90,28 +92,27 @@ export default function MobileSwipe({ dc, onClose }) {
   const remaining = cards ? cards.length : 0;
 
   return (
-    <div className="fixed inset-0 bg-[#070707] text-white flex flex-col select-none" style={{ touchAction: 'pan-y' }}>
+    <div className="fixed inset-0 bg-[#070707] text-white flex flex-col select-none overflow-hidden" style={{ touchAction: 'pan-y' }}>
       {/* halo d'ambiance */}
       <div className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full blur-3xl opacity-[0.18]"
         style={{ background: top ? colorFor(top) : '#e63946' }} />
 
-      {/* En-tête */}
-      <div className="relative flex items-end justify-between px-5 pb-3 border-b border-[#1a1a1a]" style={{ paddingTop: 'max(16px, env(safe-area-inset-top))' }}>
+      {/* En-tête compact */}
+      <div className="relative flex items-center justify-between px-5 pb-2.5 border-b border-[#1a1a1a] shrink-0" style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}>
         <div>
           <div className="flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#e63946]">
             <Sparkles size={11} /> Scan du matin
           </div>
-          <div className="text-[19px] font-black italic leading-tight mt-0.5">{todayLabel()}</div>
-          <div className="text-[11px] text-[#777] -mt-0.5">{dc} : {remaining} opportunité{remaining > 1 ? 's' : ''} à trier</div>
+          <div className="text-[16px] font-black italic leading-tight mt-0.5">{todayLabel()}</div>
         </div>
         <div className="flex flex-col items-end">
-          <div className="text-[34px] font-black italic leading-none" style={{ color: top ? colorFor(top) : '#444' }}>{cards ? remaining : '…'}</div>
-          <div className="text-[9px] uppercase tracking-[0.18em] text-[#5a5a5a] mt-0.5">en attente</div>
+          <div className="text-[30px] font-black italic leading-none" style={{ color: top ? colorFor(top) : '#444' }}>{cards ? remaining : '…'}</div>
+          <div className="text-[9px] uppercase tracking-[0.18em] text-[#5a5a5a] mt-0.5">à trier</div>
         </div>
       </div>
 
       {/* Pile de cartes */}
-      <div className="flex-1 relative overflow-hidden px-4 py-4">
+      <div className="flex-1 min-h-0 relative overflow-hidden px-4 py-3">
         {cards === null && (
           <div className="absolute inset-0 flex items-center justify-center"><div className="w-8 h-8 border-2 border-[#e63946] border-t-transparent rounded-full animate-spin" /></div>
         )}
@@ -126,15 +127,12 @@ export default function MobileSwipe({ dc, onClose }) {
           </div>
         )}
 
-        {/* 2e et 3e cartes en profondeur */}
-        {cards && cards[2] && (
-          <div className="absolute inset-x-8 top-7 bottom-7 rounded-3xl bg-[#0e0e0e] border border-[#1c1c1c]" style={{ transform: 'scale(0.9)' }} />
-        )}
+        {/* cartes en profondeur */}
         {cards && cards[1] && (
-          <div className="absolute inset-x-6 top-5 bottom-5 rounded-3xl bg-[#111] border border-[#202020]" style={{ transform: 'scale(0.95)' }} />
+          <div className="absolute inset-x-6 top-4 bottom-4 rounded-3xl bg-[#111] border border-[#202020]" style={{ transform: 'scale(0.96)' }} />
         )}
 
-        {/* carte du dessus */}
+        {/* carte du dessus : remplit toute la zone, aucun scroll interne */}
         {top && (() => {
           const col = colorFor(top);
           const cat = catFor(top);
@@ -145,7 +143,7 @@ export default function MobileSwipe({ dc, onClose }) {
             <div
               onTouchStart={onStart} onTouchMove={onMove} onTouchEnd={onEnd}
               onMouseDown={onStart} onMouseMove={e => startX.current != null && onMove(e)} onMouseUp={onEnd} onMouseLeave={() => startX.current != null && onEnd()}
-              className="absolute inset-x-4 top-4 bottom-4 rounded-3xl overflow-hidden flex flex-col border"
+              className="absolute inset-0 m-4 rounded-3xl overflow-hidden flex flex-col border"
               style={{
                 borderColor: '#262626',
                 background: 'linear-gradient(170deg,#171717 0%,#0d0d0d 60%)',
@@ -154,59 +152,60 @@ export default function MobileSwipe({ dc, onClose }) {
                 boxShadow: '0 24px 60px rgba(0,0,0,.6)',
               }}>
               {/* bandeau d'accent */}
-              <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg,${col},${col}00)` }} />
+              <div className="h-1.5 w-full shrink-0" style={{ background: `linear-gradient(90deg,${col},${col}00)` }} />
 
               {/* badges swipe */}
-              <div className="pointer-events-none absolute top-6 left-6 text-[#2ecc71] font-black italic text-2xl border-[3px] border-[#2ecc71] rounded-xl px-2.5 py-0.5 rotate-[-13deg]" style={{ opacity: yes }}>GARDER</div>
-              <div className="pointer-events-none absolute top-6 right-6 text-[#e63946] font-black italic text-2xl border-[3px] border-[#e63946] rounded-xl px-2.5 py-0.5 rotate-[13deg]" style={{ opacity: no }}>PASSER</div>
+              <div className="pointer-events-none absolute top-6 left-6 text-[#2ecc71] font-black italic text-2xl border-[3px] border-[#2ecc71] rounded-xl px-2.5 py-0.5 rotate-[-13deg] z-10" style={{ opacity: yes }}>GARDER</div>
+              <div className="pointer-events-none absolute top-6 right-6 text-[#e63946] font-black italic text-2xl border-[3px] border-[#e63946] rounded-xl px-2.5 py-0.5 rotate-[13deg] z-10" style={{ opacity: no }}>PASSER</div>
 
-              <div className="p-5 pt-4 flex flex-col gap-3.5 overflow-y-auto">
+              {/* contenu : flex column qui remplit, sans dépassement */}
+              <div className="flex-1 min-h-0 p-4 pt-3 flex flex-col gap-2.5 overflow-hidden">
                 {/* pastille univers */}
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full" style={{ color: col, backgroundColor: `${col}1a`, border: `1px solid ${col}40` }}>{cat}</span>
-                  {top.hot && <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] px-2 py-1 rounded-full text-[#e63946] bg-[#e63946]/10 border border-[#e63946]/40">À ne pas rater</span>}
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full" style={{ color: col, backgroundColor: `${col}1a`, border: `1px solid ${col}40` }}>{cat}</span>
+                  {top.hot && <span className="text-[10px] font-extrabold uppercase tracking-[0.1em] px-2 py-1 rounded-full text-[#e63946] bg-[#e63946]/10 border border-[#e63946]/40">À ne pas rater</span>}
                 </div>
 
                 {/* marque + source */}
-                <div>
-                  <div className="text-[26px] font-black italic text-white leading-[1.05] tracking-tight">{top.client || top.brand}</div>
+                <div className="shrink-0">
+                  <div className="text-[22px] font-black italic text-white leading-[1.05] tracking-tight">{top.client || top.brand}</div>
                   {top.source && (
                     <a href={top.source.url} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-[11px] text-[#7a7a7a] mt-1 hover:text-[#aaa]">
+                      className="inline-flex items-center gap-1 text-[11px] text-[#7a7a7a] mt-0.5 hover:text-[#aaa]">
                       via {top.source.name} <ArrowUpRight size={11} />
                     </a>
                   )}
                 </div>
 
-                {/* actu */}
-                {top.actu && <p className="text-[13.5px] text-[#c4c4c4] leading-snug">{top.actu}</p>}
+                {/* actu (2 lignes max) */}
+                {top.actu && <p className="text-[13px] text-[#c4c4c4] leading-snug line-clamp-2 shrink-0">{top.actu}</p>}
 
-                {/* insight */}
+                {/* insight (3 lignes max) */}
                 {top.insight && (
-                  <div className="rounded-2xl px-3.5 py-3" style={{ backgroundColor: `${col}12`, border: `1px solid ${col}2e` }}>
+                  <div className="rounded-2xl px-3.5 py-2.5 shrink-0" style={{ backgroundColor: `${col}12`, border: `1px solid ${col}2e` }}>
                     <div className="text-[9px] font-black uppercase tracking-[0.2em] mb-1" style={{ color: col }}>L'angle SPK</div>
-                    <p className="text-[12.5px] text-[#e8e8e8] leading-snug">{top.insight}</p>
+                    <p className="text-[12px] text-[#e8e8e8] leading-snug line-clamp-3">{top.insight}</p>
                   </div>
                 )}
 
                 {/* moment */}
                 {top.moment && (
-                  <div className="rounded-2xl bg-[#0b0b0b] border border-[#232323] p-3.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#06b6d4] flex items-center gap-1.5"><CalendarDays size={13} /> Moment à caler</span>
-                      <span className="text-[11px] font-extrabold text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded-md">{top.moment.date}</span>
+                  <div className="rounded-2xl bg-[#0b0b0b] border border-[#232323] px-3.5 py-2.5 shrink-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[#06b6d4] flex items-center gap-1.5 shrink-0"><CalendarDays size={13} /> Moment</span>
+                      <span className="text-[10px] font-extrabold text-[#06b6d4] bg-[#06b6d4]/10 px-2 py-0.5 rounded-md shrink-0">{top.moment.date}</span>
                     </div>
-                    <p className="text-[15px] font-extrabold italic text-white mt-1.5 leading-snug">{top.moment.title}</p>
+                    <p className="text-[13px] font-extrabold italic text-white mt-1 leading-snug line-clamp-1">{top.moment.title}</p>
                   </div>
                 )}
 
-                {/* concept */}
+                {/* concept (occupe le reste) */}
                 {top.concept && (
-                  <div className="rounded-2xl bg-[#0b0b0b] border border-[#232323] p-3.5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#4F9DF7] flex items-center gap-1.5"><Lightbulb size={13} /> Concept à pousser</span>
-                    <p className="text-[16px] font-black italic text-white mt-1.5 leading-tight">{top.concept.name}</p>
-                    {top.concept.desc && <p className="text-[12.5px] text-[#9a9a9a] mt-1.5 leading-snug">{top.concept.desc}</p>}
-                    <div className="flex flex-wrap gap-1.5 mt-2.5">
+                  <div className="rounded-2xl bg-[#0b0b0b] border border-[#232323] px-3.5 py-2.5 flex-1 min-h-0 flex flex-col">
+                    <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[#4F9DF7] flex items-center gap-1.5 shrink-0"><Lightbulb size={13} /> Concept</span>
+                    <p className="text-[15px] font-black italic text-white mt-1 leading-tight line-clamp-2 shrink-0">{top.concept.name}</p>
+                    {top.concept.desc && <p className="text-[12px] text-[#9a9a9a] mt-1 leading-snug line-clamp-2 min-h-0">{top.concept.desc}</p>}
+                    <div className="flex flex-wrap gap-1.5 mt-auto pt-2 shrink-0">
                       {top.concept.offer && <span className="text-[10px] font-bold text-[#cfcfcf] bg-[#1a1a1a] border border-[#2c2c2c] px-2.5 py-1 rounded-lg">{top.concept.offer}</span>}
                       {top.concept.budget && <span className="text-[10px] font-extrabold text-[#4F9DF7] bg-[#4F9DF7]/12 border border-[#4F9DF7]/25 px-2.5 py-1 rounded-lg">{top.concept.budget}</span>}
                     </div>
@@ -220,18 +219,18 @@ export default function MobileSwipe({ dc, onClose }) {
 
       {/* Boutons (alternative au swipe) */}
       {top && (
-        <div className="relative flex items-center justify-center gap-10 px-4 pb-1 pt-1">
-          <div className="flex flex-col items-center gap-1">
-            <button onClick={() => act('left')} aria-label="Passer" className="w-[62px] h-[62px] rounded-full bg-[#121212] border-2 border-[#e63946] flex items-center justify-center active:scale-90 transition-transform shadow-[0_8px_24px_rgba(230,57,70,0.25)]"><X size={27} className="text-[#e63946]" strokeWidth={2.5} /></button>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#555]">Passer</span>
+        <div className="relative flex items-center justify-center gap-10 px-4 pt-1 shrink-0">
+          <div className="flex flex-col items-center gap-0.5">
+            <button onClick={() => act('left')} aria-label="Passer" className="w-14 h-14 rounded-full bg-[#121212] border-2 border-[#e63946] flex items-center justify-center active:scale-90 transition-transform shadow-[0_8px_24px_rgba(230,57,70,0.25)]"><X size={26} className="text-[#e63946]" strokeWidth={2.5} /></button>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-[#555]">Passer</span>
           </div>
-          <div className="flex flex-col items-center gap-1">
-            <button onClick={() => act('right')} aria-label="Garder" className="w-[62px] h-[62px] rounded-full bg-[#121212] border-2 border-[#2ecc71] flex items-center justify-center active:scale-90 transition-transform shadow-[0_8px_24px_rgba(46,204,113,0.25)]"><Check size={28} className="text-[#2ecc71]" strokeWidth={2.5} /></button>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#555]">Garder</span>
+          <div className="flex flex-col items-center gap-0.5">
+            <button onClick={() => act('right')} aria-label="Garder" className="w-14 h-14 rounded-full bg-[#121212] border-2 border-[#2ecc71] flex items-center justify-center active:scale-90 transition-transform shadow-[0_8px_24px_rgba(46,204,113,0.25)]"><Check size={27} className="text-[#2ecc71]" strokeWidth={2.5} /></button>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-[#555]">Garder</span>
           </div>
         </div>
       )}
-      {top && <p className="text-center text-[10px] text-[#444] pt-2 pb-[max(12px,env(safe-area-inset-bottom))]">Swipe à droite pour garder, à gauche pour passer</p>}
+      {top && <p className="text-center text-[10px] text-[#444] pt-1.5 pb-[max(10px,env(safe-area-inset-bottom))] shrink-0">Swipe à droite pour garder, à gauche pour passer</p>}
     </div>
   );
 }
