@@ -1249,6 +1249,7 @@ app.get('/api/status', (req, res) => {
       projects: !!loadData('furious_projects'), sprints: !!loadData('furious_sprints'),
       proposals: !!loadData('furious_proposals'), lucca: !!loadData('lucca'),
     },
+    oppDemo: opp.getDC('Alizée').length,
   });
 });
 
