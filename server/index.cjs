@@ -1250,6 +1250,7 @@ app.get('/api/status', (req, res) => {
       proposals: !!loadData('furious_proposals'), lucca: !!loadData('lucca'),
     },
     oppDemo: opp.getDC('Alizée').length,
+    kevinUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'kevin.geoffroy'),
   });
 });
 
@@ -1790,6 +1791,21 @@ cron.schedule('0 20 * * *', () => { console.log('[Cron] 20:00 — Lucca sync'); 
 // ── Startup ──────────────────────────────────────────────
 
 auth.initDefaultUsers();
+
+// Seed compte DG Kévin GEOFFROY (vue directeur, cf. DIRECTORS) — idempotent.
+// Le filesystem Railway est éphémère : on provisionne le compte au démarrage s'il
+// est absent, pour le créer par simple déploiement. Désactivable via SEED_KEVIN=false.
+if (process.env.SEED_KEVIN !== 'false') {
+  try {
+    const exists = auth.getUsers().some(u => (u.login || '').toLowerCase() === 'kevin.geoffroy');
+    if (!exists) {
+      const r = auth.createUser({ login: 'kevin.geoffroy', password: '*YuzBprd6gbN7UWb', name: 'Kévin', role: 'dc', furiousName: 'Kévin' });
+      console.log('[SPK DC] Seed DG Kévin :', r.error ? r.error : 'compte créé');
+    } else {
+      console.log('[SPK DC] Seed DG Kévin : déjà présent');
+    }
+  } catch (e) { console.error('[SPK DC] Seed DG Kévin :', e.message); }
+}
 
 app.listen(PORT, () => {
   console.log(`\n[SPK DC] Server running on port ${PORT}`);
