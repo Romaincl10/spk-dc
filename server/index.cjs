@@ -1294,7 +1294,7 @@ app.get('/api/sync/status', auth.authMiddleware, (req, res) => res.json(syncStat
 // ── Routes: Portfolio ────────────────────────────────────
 
 // Directeurs commerciaux : accès équipe complet (comme un admin) sur le pilotage.
-const DIRECTORS = new Set(['Paul']);
+const DIRECTORS = new Set(['Paul', 'Kévin', 'Kévin GEOFFROY']);
 const isDirector = (user) => DIRECTORS.has(user?.furiousName) || DIRECTORS.has(user?.name);
 // Vue équipe complète (tous les portefeuilles) : admin, directeur, ou CODIR (lecture globale,
 // sans Biz Dev / Médias / assignations — restrictions gérées côté front + endpoints dédiés).

@@ -21,7 +21,7 @@ const ADMIN_PAGES = [
 const CODIR_PAGES = [
   { id: 'admin-dashboard', label: 'Vue Globale', icon: Shield },
 ];
-const DIRECTOR_NAMES = ['Paul'];
+const DIRECTOR_NAMES = ['Paul', 'Kévin', 'Kévin GEOFFROY'];
 
 export default function Sidebar({ currentPage, onPageChange, userRole, viewerName }) {
   const [collapsed, setCollapsed] = useState(false);

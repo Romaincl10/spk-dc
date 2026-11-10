@@ -12,7 +12,7 @@ const ADMIN_TABS = [
 const DIRECTOR_TABS = [
   { id: 'admin-dashboard', label: 'Global', icon: Shield },
 ];
-const DIRECTOR_NAMES = ['Paul'];
+const DIRECTOR_NAMES = ['Paul', 'Kévin', 'Kévin GEOFFROY'];
 
 export default function MobileNav({ currentPage, onPageChange, userRole, viewerName }) {
   const isDirector = DIRECTOR_NAMES.includes(viewerName);

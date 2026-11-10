@@ -77,7 +77,7 @@ const probaOverrideOf = title => {
 };
 const isPaidMedia = title => PAID_MEDIA_CA_EQ_MB.some(c => (title || '').toUpperCase().includes(c));
 // Correction manuelle de la MB% (bug de marge côté Furious). code projet -> taux de MB.
-const MB_OVERRIDE = { 'SPK0156': 0.35 }; // ITS UTMB 26 : marge Furious erronée (~9%), forcée à 35%
+const MB_OVERRIDE = { 'SPK0156': 0.35, 'SPK0471': 0.5286 }; // ITS UTMB 26 : marge Furious erronée (~9%), forcée à 35% ; SPK0471 OP CO adidas x Decathlon : MB réelle 52,86%
 const mbOverrideOf = title => {
   for (const [code, rate] of Object.entries(MB_OVERRIDE)) if ((title || '').toUpperCase().includes(code)) return rate;
   return null;
