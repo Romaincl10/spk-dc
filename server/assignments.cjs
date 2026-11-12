@@ -9,6 +9,29 @@ const DATA_DIR = process.env.DATA_DIR ? require('path').resolve(process.env.DATA
 const CLIENT_FILE = path.join(DATA_DIR, 'client_assignments.json');
 const PROJECT_FILE = path.join(DATA_DIR, 'project_assignments.json');
 const PROPOSAL_FILE = path.join(DATA_DIR, 'proposal_assignments.json');
+const LOG_FILE = path.join(DATA_DIR, 'assignment_log.json');
+
+// ── Journal des assignations ─────────────────────────────
+// Trace chaque changement : qui, quand, quoi, ancien DC → nouveau DC.
+// Démarre au déploiement de cette fonctionnalité (les changements antérieurs
+// n'ont pas été enregistrés et restent irrécupérables).
+function loadLog() {
+  try { if (fs.existsSync(LOG_FILE)) return JSON.parse(fs.readFileSync(LOG_FILE, 'utf8')); }
+  catch (e) { console.error('[Assignments] Error loading log:', e.message); }
+  return [];
+}
+function logAssignment(entry) {
+  try {
+    const log = loadLog();
+    log.unshift({ ts: new Date().toISOString(), ...entry });
+    if (log.length > 3000) log.length = 3000; // garde-fou taille
+    fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2), 'utf8');
+  } catch (e) { console.error('[Assignments] Error writing log:', e.message); }
+}
+function getAssignmentHistory(limit) {
+  const log = loadLog();
+  return limit ? log.slice(0, Number(limit)) : log;
+}
 
 // ── Client assignments ───────────────────────────────────
 
@@ -80,8 +103,9 @@ function getClientAssignmentDetail(fyStartYear) {
 
 // Assigne un client. fyStartYear fourni \u2192 override dat\u00e9 (byYear) ; sinon \u2192 d\u00e9faut h\u00e9rit\u00e9.
 // removeOverride: retire l'override de l'exercice pour revenir \u00e0 la valeur h\u00e9rit\u00e9e.
-function assignClient(clientName, dcName, fyStartYear, removeOverride) {
+function assignClient(clientName, dcName, fyStartYear, removeOverride, actor) {
   const data = loadClientAssignments();
+  const prev = getClientDC(clientName, fyStartYear); // DC effectif avant changement
   if (fyStartYear != null) {
     const fy = String(fyStartYear);
     data.byYear[fy] = data.byYear[fy] || {};
@@ -92,6 +116,15 @@ function assignClient(clientName, dcName, fyStartYear, removeOverride) {
     data.assignments[clientName] = dcName;
   }
   saveClientAssignments(data);
+  const next = getClientDC(clientName, fyStartYear); // DC effectif après changement
+  if (prev !== next) {
+    logAssignment({
+      actor: actor || 'inconnu', type: 'client', target: clientName,
+      fy: fyStartYear != null ? Number(fyStartYear) : null,
+      from: prev || '(à assigner)', to: next || '(à assigner)',
+      removeOverride: !!removeOverride,
+    });
+  }
 }
 
 function assignClientsBulk(assignments) {
@@ -133,10 +166,18 @@ function getAllProjectAssignments() {
  * @param {string} projectId
  * @param {string[]} dcNames - array of DC names
  */
-function assignProject(projectId, dcNames) {
+function assignProject(projectId, dcNames, actor, label) {
   const data = loadProjectAssignments();
-  data.assignments[projectId] = Array.isArray(dcNames) ? dcNames : [dcNames];
+  const prev = data.assignments[projectId] || [];
+  const next = Array.isArray(dcNames) ? dcNames : [dcNames];
+  data.assignments[projectId] = next;
   saveProjectAssignments(data);
+  if (prev.join('|') !== next.join('|')) {
+    logAssignment({
+      actor: actor || 'inconnu', type: 'project', target: label || String(projectId),
+      from: prev.join(', ') || '(à assigner)', to: next.join(', ') || '(à assigner)',
+    });
+  }
 }
 
 function assignProjectsBulk(assignments) {
@@ -180,10 +221,18 @@ function getAllProposalAssignments() {
  * @param {string} proposalId
  * @param {string[]} dcNames - array of DC names
  */
-function assignProposal(proposalId, dcNames) {
+function assignProposal(proposalId, dcNames, actor, label) {
   const data = loadProposalAssignments();
-  data.assignments[proposalId] = Array.isArray(dcNames) ? dcNames : [dcNames];
+  const prev = data.assignments[proposalId] || [];
+  const next = Array.isArray(dcNames) ? dcNames : [dcNames];
+  data.assignments[proposalId] = next;
   saveProposalAssignments(data);
+  if (prev.join('|') !== next.join('|')) {
+    logAssignment({
+      actor: actor || 'inconnu', type: 'proposal', target: label || String(proposalId),
+      from: prev.join(', ') || '(à assigner)', to: next.join(', ') || '(à assigner)',
+    });
+  }
 }
 
 function assignProposalsBulk(assignments) {
@@ -229,4 +278,5 @@ module.exports = {
   getAllProjectAssignments, getProjectDCs, assignProject, assignProjectsBulk,
   getAllProposalAssignments, getProposalDCs, assignProposal, assignProposalsBulk,
   getActiveDCs, loadClientAssignments, loadProjectAssignments, loadProposalAssignments,
+  getAssignmentHistory,
 };

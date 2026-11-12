@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Search, Users, FolderKanban, FileText, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Search, Users, FolderKanban, FileText, CheckCircle, AlertTriangle, History, ArrowRight } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 import { fmtK } from '../../../utils/format';
 
@@ -41,7 +41,16 @@ export default function Assignments({ onAssigned, fyStartYear, onFyChange, curre
     } catch (e) { console.error(e); }
   };
 
+  const [history, setHistory] = useState([]);
+  const loadHistory = async () => {
+    try {
+      const data = await apiFetch('/api/admin/assignments/history?limit=500');
+      setHistory(data.history || []);
+    } catch (e) { console.error(e); }
+  };
+
   useEffect(() => { loadClients(); loadProjects(); loadProposals(); }, [fy]);
+  useEffect(() => { loadHistory(); }, []);
 
   // dcName='' + removeOverride=true → revient à la valeur héritée du défaut pour cet exercice
   const handleAssignClient = async (clientName, dcName, removeOverride = false) => {
@@ -51,6 +60,7 @@ export default function Assignments({ onAssigned, fyStartYear, onFyChange, curre
         method: 'PUT', body: JSON.stringify({ clientName, dcName, fyStartYear: fy, removeOverride }),
       });
       await loadClients();
+      loadHistory();
       onAssigned?.();
     } catch (e) { console.error(e); }
     setSaving(null);
@@ -175,6 +185,11 @@ export default function Assignments({ onAssigned, fyStartYear, onFyChange, curre
             {unassignedProposalCount > 0 && (
               <span className="bg-[#f39c12] text-black text-[10px] font-bold px-1.5 rounded-full">{unassignedProposalCount}</span>
             )}
+          </button>
+          <button onClick={() => { setTab('history'); setSearch(''); }}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-md transition-colors
+              ${tab === 'history' ? 'bg-[#e63946] text-white' : 'text-[#888] hover:text-white'}`}>
+            <History size={16} /> Historique
           </button>
         </div>
 
@@ -318,6 +333,50 @@ export default function Assignments({ onAssigned, fyStartYear, onFyChange, curre
               );
             })}
           </div>
+        </div>
+      )}
+
+      {/* HISTORIQUE DES ASSIGNATIONS */}
+      {tab === 'history' && (
+        <div className="bg-[#111] border border-[#2a2a2a] rounded-xl overflow-hidden">
+          <div className="px-4 py-3 border-b border-[#2a2a2a] flex items-center justify-between">
+            <p className="text-sm font-bold text-white flex items-center gap-2"><History size={15} /> Journal des assignations</p>
+            <span className="text-[11px] text-[#666]">{history.length} mouvement{history.length > 1 ? 's' : ''}</span>
+          </div>
+          {history.length === 0 ? (
+            <div className="px-4 py-10 text-center">
+              <p className="text-sm text-[#888]">Aucun changement enregistré pour l'instant.</p>
+              <p className="text-xs text-[#555] mt-1">Le journal démarre à l'activation : il tracera chaque future assignation (qui, quand, ancien DC vers nouveau).</p>
+            </div>
+          ) : (
+            <div className="divide-y divide-[#1c1c1c] max-h-[60vh] overflow-y-auto">
+              {history
+                .filter(h => !search || (h.target || '').toLowerCase().includes(search.toLowerCase()) || (h.actor || '').toLowerCase().includes(search.toLowerCase()) || (h.to || '').toLowerCase().includes(search.toLowerCase()))
+                .map((h, i) => {
+                  const typeLabel = h.type === 'client' ? 'Client' : h.type === 'project' ? 'Projet' : 'Devis';
+                  const typeColor = h.type === 'client' ? '#06b6d4' : h.type === 'project' ? '#8b5cf6' : '#f39c12';
+                  const d = h.ts ? new Date(h.ts) : null;
+                  return (
+                    <div key={i} className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#1a1a1a]">
+                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded shrink-0" style={{ color: typeColor, backgroundColor: `${typeColor}1a` }}>{typeLabel}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-white font-medium truncate">{h.target}</p>
+                        <p className="text-[11px] text-[#888] flex items-center gap-1.5 flex-wrap">
+                          <span className="text-[#aaa]">{h.from || '(à assigner)'}</span>
+                          <ArrowRight size={11} className="text-[#555]" />
+                          <span className="font-bold text-white">{h.to || '(à assigner)'}</span>
+                          {h.fy != null && <span className="text-[#555]">· exercice {fyLabel(h.fy)}</span>}
+                        </p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="text-xs font-bold text-[#ccc]">{h.actor}</p>
+                        <p className="text-[10px] text-[#666]">{d ? d.toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' }) : ''}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -1498,8 +1498,14 @@ app.put('/api/admin/assignments/client', auth.authMiddleware, auth.adminOnly, (r
   const { clientName, dcName, fyStartYear, removeOverride } = req.body;
   if (!clientName) return res.status(400).json({ error: 'clientName requis' });
   // fyStartYear fourni → override daté par exercice ; sinon → défaut hérité (legacy)
-  assign.assignClient(clientName, dcName || '', fyStartYear != null ? Number(fyStartYear) : undefined, !!removeOverride);
+  assign.assignClient(clientName, dcName || '', fyStartYear != null ? Number(fyStartYear) : undefined, !!removeOverride, req.user?.name || req.user?.login || 'inconnu');
   res.json({ success: true });
+});
+
+// Historique des assignations (qui a assigné quoi, quand). Démarre à l'activation
+// de la feature : les changements antérieurs n'ont pas été tracés.
+app.get('/api/admin/assignments/history', auth.authMiddleware, auth.adminOnly, (req, res) => {
+  res.json({ history: assign.getAssignmentHistory(req.query.limit ? Number(req.query.limit) : 500) });
 });
 
 // Définit/modifie l'objectif CA d'un client pour un DC (exercice donné).
@@ -1533,7 +1539,7 @@ app.get('/api/admin/assignments/projects', auth.authMiddleware, auth.adminOnly, 
 app.put('/api/admin/assignments/project', auth.authMiddleware, auth.adminOnly, (req, res) => {
   const { projectId, dcNames } = req.body;
   if (!projectId) return res.status(400).json({ error: 'projectId requis' });
-  assign.assignProject(projectId, dcNames || []);
+  assign.assignProject(projectId, dcNames || [], req.user?.name || req.user?.login || 'inconnu', req.body?.label);
   res.json({ success: true });
 });
 
@@ -1544,7 +1550,7 @@ app.get('/api/admin/assignments/proposals', auth.authMiddleware, auth.adminOnly,
 app.put('/api/admin/assignments/proposal', auth.authMiddleware, auth.adminOnly, (req, res) => {
   const { proposalId, dcNames } = req.body;
   if (!proposalId) return res.status(400).json({ error: 'proposalId requis' });
-  assign.assignProposal(proposalId, dcNames || []);
+  assign.assignProposal(proposalId, dcNames || [], req.user?.name || req.user?.login || 'inconnu', req.body?.label);
   res.json({ success: true });
 });
 
