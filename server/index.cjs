@@ -1401,7 +1401,10 @@ app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
     const assignedNames = Object.entries(assign.getAllClientAssignments(2026) || {})
       .filter(([, dcName]) => dcName && normalize(dcName) === nd)
       .map(([client]) => client);
-    clientOptions = [...new Set([...objNames, ...bizDevNames, ...assignedNames])].filter(Boolean).sort((a, b) => a.localeCompare(b));
+    // Regroupe les entités d'une même marque sous leur nom canonique (ex. GMF + GMF
+    // ASSURANCES → « GMF ASSURANCES » ; ON + ON Europe AG → « ON » ; Kappa France → « KAPPA »).
+    clientOptions = [...new Set([...objNames, ...bizDevNames, ...assignedNames]
+      .map(n => getCanonicalClientName(n)))].filter(Boolean).sort((a, b) => a.localeCompare(b));
   } catch (e) { console.error('[Farming] clientOptions', e.message); }
   res.json({ dc, clients: farming.getDC(dc), clientOptions });
 });
