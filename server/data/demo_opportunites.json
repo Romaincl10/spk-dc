@@ -1,115 +1,77 @@
 {
   "Alizée": [
     {
-      "client": "CMA CGM",
-      "cat": "Rugby",
-      "hot": true,
-      "source": { "name": "SportBusiness", "url": "https://sponsorship.sportbusiness.com/news/cma-cgm-set-for-france-rugby-front-of-jersey-deal/" },
-      "actu": "CMA CGM s'apprete a remplacer Altrad comme sponsor maillot du XV de France (~10 M€/an, a partir de la saison 2027-28), selon SportBusiness. En parallele, sa branche CMA Media rachete RMC Sport : le groupe marseillais bascule clairement dans le sport.",
-      "insight": "CMA CGM arrive dans le rugby ET les medias au meme moment : il devra donner du sens a ce virage, pas juste poser un logo. SPK, marseillais comme lui, est idealement place pour construire le recit d'entree dans le rugby francais et activer autour du XV de France.",
-      "moment": { "date": "Saison 2027-28", "title": "Entree de CMA CGM sur le maillot du XV de France" },
-      "concept": { "name": "Cap sur le XV", "desc": "Plateforme de contenu : du porte-conteneurs au maillot bleu. Un recit d'ancrage territorial et d'ambition pour accompagner l'arrivee de CMA CGM dans le rugby.", "offer": "Brand Content + Event", "budget": "60-80 k€" }
-    },
-    {
-      "client": "HYROX FRANCE",
+      "client": "Technogym",
       "cat": "Fitness",
       "hot": true,
-      "source": { "name": "france.hyrox.com", "url": "https://france.hyrox.com" },
-      "actu": "Saison 26/27 en plein vol : apres Nice (29 oct-1er nov), HYROX investit la Porte de Versailles du 16 au 20 decembre (Youngstars inclus). Le fitness-racing est sold-out etape par etape.",
-      "insight": "HYROX capte une communaute endurance ultra-engagee que SPK adresse deja via Runpack. La zone warm-up/expo reste un terrain de brand content quasi inexploite : y poser un dispositif = visibilite garantie aupres de milliers de pratiquants.",
-      "moment": { "date": "16-20 dec 2026", "title": "HYROX Paris, Porte de Versailles" },
-      "concept": { "name": "Village de la Box", "desc": "Capture + contenu createurs sur la zone warm-up : on filme les athletes avant le depart, on alimente les reseaux de la marque en temps reel.", "offer": "Brand Content + Runpack", "budget": "45-60 k€" }
+      "source": { "name": "ilsole24ore.com", "url": "https://en.ilsole24ore.com/art/wellness-wins-at-the-games-technogym-will-be-milan-cortina-2026-partner-AHxtOjrD" },
+      "actu": "Fournisseur officiel et exclusif des JO pour la 10e fois : Technogym equipe 22 centres d'entrainement et 3 500 athletes a Milano-Cortina 2026. En parallele, il s'allie a Google Cloud (Gemini) pour pousser l'IA dans l'entrainement.",
+      "insight": "Technogym est partout sur le haut niveau et mise tout sur l'IA, mais active peu la communaute fitness grand public en France. SPK peut traduire ce recit 'wellness + performance' en experience locale, la ou la marque reste institutionnelle.",
+      "moment": { "date": "6-22 fev 2026", "title": "JO Milano-Cortina, Technogym fournisseur officiel" },
+      "concept": { "name": "Wellness Arena FR", "desc": "Dispositif experientiel fitness + IA : on fait tester la techno Technogym a une communaute FR et on capte le contenu.", "offer": "Event + Brand Content", "budget": "45-60 k€" }
     },
     {
-      "client": "Alpine F1",
-      "cat": "Auto",
-      "hot": true,
-      "source": { "name": "motorsportmagazine.com", "url": "https://www.motorsportmagazine.com/special-article/f1-26-new-season-guide/105/alpines-a526-built-around-mercedes-power-as-team-tackles-f1s-complex-2026-regulations" },
-      "actu": "L'A526 motorisee Mercedes marque un reset total (fin du moteur Renault, -30 kg). Gasly prolonge, Colapinto confirme : Alpine communique sur un 'new chapter' pour la grande reforme reglementaire 2026.",
-      "insight": "Marque francaise qui repart de zero, avec la fanbase enorme de Colapinto (Amerique latine). Le recit 'renaissance' est un or narratif : SPK peut l'activer en contenu + experience fan plutot que sur la perf pure, incertaine.",
-      "moment": { "date": "Mars 2026", "title": "Lancement saison F1, nouvelle ere" },
-      "concept": { "name": "New Chapter FR", "desc": "Serie de contenus sociaux autour du redemarrage Alpine + activation supporters sur le GP de France.", "offer": "Brand Content + Social", "budget": "45-60 k€" }
-    },
-    {
-      "client": "UTMB",
-      "cat": "Trail",
-      "source": { "name": "utmb.world", "url": "https://utmb.world/fr/press" },
-      "actu": "UTMB densifie son portefeuille premium : TUDOR nouveau partenaire (annonce juillet 2026), SVR sur la protection de la peau des athletes, Vibram prolonge 3 ans.",
-      "insight": "TUDOR et SVR sont deja dans l'univers SPK. Plutot que pitcher UTMB en direct, on vend a ses partenaires une activation terrain sur les World Series 2027 : cross-sell a forte valeur.",
-      "moment": { "date": "Hiver 2026-27", "title": "Lancement programme World Series 2027" },
-      "concept": { "name": "Pacing TUDOR x UTMB", "desc": "Contenu horloger sur le chrono du trail : le temps comme heros, au coeur des World Series.", "offer": "Brand Content", "budget": "30-40 k€" }
-    },
-    {
-      "client": "Salomon",
-      "cat": "Trail",
-      "source": { "name": "salomon.com", "url": "https://www.salomon.com/fr-fr/c/collection/new-collection/trail-running" },
-      "actu": "La S/Lab Genesis s'impose comme l'arme vitesse/competition, la collab Pas Normal Studios brouille trail et cyclisme, et l'EcoTrail Paris lance un parcours de 120 km (21-22 mars 2026).",
-      "insight": "Salomon depasse le produit pur pour un territoire 'performance + culture'. SPK doit pitcher le recit, pas la chaussure : positionner la marque sur le lifestyle endurance la ou ses concurrents restent techniques.",
-      "moment": { "date": "21-22 mars 2026", "title": "EcoTrail Paris, nouveau 120 km" },
-      "concept": { "name": "S/Lab Field Lab", "desc": "Test & content du S/Lab sur le nouveau 120 km : athletes, creators et data de course en recit.", "offer": "Event + Brand Content", "budget": "50 k€" }
-    },
-    {
-      "client": "Tecnifibre",
-      "cat": "Tennis",
-      "source": { "name": "tennisnow.com", "url": "https://tennisnow.com/lacoste-and-tecnifibre-have-joined-forces/" },
-      "actu": "Sloane Stephens bascule sur la raquette Tecnifibre Fire pour son retour 2026, la marque devient stringing partner du Dallas Open et official racquet partner de NYJTL (New York).",
-      "insight": "Tecnifibre (groupe Lacoste) accelere son casting joueurs et son ancrage US. L'angle 'comeback' est un storytelling puissant et peu couteux a produire, duplicable sur le marche FR a l'approche de la terre battue.",
-      "moment": { "date": "Printemps 2026", "title": "Saison terre battue / Roland-Garros" },
-      "concept": { "name": "Fire Comeback", "desc": "Serie de contenus autour des retours de joueurs equipes Tecnifibre : la raquette comme partenaire de resilience.", "offer": "Brand Content + Social", "budget": "25-35 k€" }
-    },
-    {
-      "client": "Canyon",
-      "cat": "Cyclisme",
-      "source": { "name": "granfondoguide.com", "url": "https://www.granfondoguide.com/api/getDashboardContent/8997" },
-      "actu": "Canyon lance une equipe multidisciplinaire all-terrain ('The Wildcards' : gravel, cyclo-cross, VTT marathon) et devient partenaire de L'Etape du Tour de France 2026-2029 (jusqu'a 16 000 cyclistes vers l'Alpe d'Huez).",
-      "insight": "Canyon mise sur le gravel et l'evenementiel grand public plutot que le seul pro. SPK a la main pour activer la communaute amateur sur L'Etape : contenu participatif + Velopack, la ou la marque veut du volume.",
-      "moment": { "date": "Juillet 2026", "title": "L'Etape du Tour, Alpe d'Huez" },
-      "concept": { "name": "Gravel Wildcards", "desc": "Dispositif communaute all-terrain : defis amateurs, contenu terrain et presence Canyon sur L'Etape.", "offer": "Event + Velopack", "budget": "40-55 k€" }
-    },
-    {
-      "client": "Groupama-FDJ United",
-      "cat": "Cyclisme",
-      "source": { "name": "domestiquecycling.com", "url": "https://www.domestiquecycling.com/en/features/groupama-fdj-united-2026-tour-de-france-team-guide-french-champion-gregoire-looks-to-make-his-mark/" },
-      "actu": "Saison 2026 la plus faible en 25 ans (12 victoires), Marc Madiot passe president, et l'equipe se reconstruit autour de ses jeunes leaders francais : Gregoire, Madouas, Gaudu. Mercato 2027 deja actif.",
-      "insight": "Annee de transition = besoin de recit. SPK peut vendre le storytelling 'nouvelle generation francaise' pour rallumer la ferveur autour de Gregoire, et redonner du sens au partenaire-titre aupres du grand public.",
-      "moment": { "date": "Decembre 2026", "title": "Presentation de l'equipe 2027" },
-      "concept": { "name": "Generation Bleue", "desc": "Serie documentaire sur les jeunes leaders FR de la formation : l'avenir du cyclisme francais en contenu.", "offer": "Brand Content", "budget": "30-40 k€" }
-    },
-    {
-      "client": "France Galop",
-      "cat": "Hippisme",
-      "source": { "name": "equidia.fr", "url": "https://www.equidia.fr/articles/actualite/france-galop-ouvre-la-voie-aux-hongres-dans-le-qatar-prix-de-larc-de-triomphe" },
-      "actu": "Vote historique : l'Arc de Triomphe s'ouvre aux hongres des 2027, et France Galop modernise la mise en scene (ceremonie du tirage a Paris). La discipline cherche a elargir son audience.",
-      "insight": "France Galop modernise son produit phare pour rajeunir le public. SPK peut produire le recit 'Arc, nouvelle ere' et un dispositif grand public pour faire sortir l'hippisme de sa niche.",
-      "moment": { "date": "Octobre 2027", "title": "Qatar Prix de l'Arc, nouvelle ere" },
-      "concept": { "name": "Arc, Nouvelle Ere", "desc": "Plateforme de contenu + experience grand public pour raconter l'ouverture de l'Arc et capter une audience plus jeune.", "offer": "Event + Brand Content", "budget": "50-70 k€" }
-    },
-    {
-      "client": "Back Market",
-      "cat": "Tech",
-      "source": { "name": "macommune.info", "url": "https://www.macommune.info/back-market-recherche-200-club-sportifs-amateurs-feminins" },
-      "actu": "Back Market entre dans le sport : appel a candidature pour sponsoriser 200 clubs feminins amateurs, 1er partenariat athlete avec le traileur Baptiste Chassagne, et un nouveau CEO (Clement Petit) depuis le 1er septembre.",
-      "insight": "La marque entre dans le sport par le feminin amateur et le trail (durabilite), mais sans dispositif structure. Nouveau CEO = fenetre pour re-pitcher. SPK peut transformer le programme '200 clubs' en vraie plateforme activable.",
-      "moment": { "date": "Rentree 2026-27", "title": "Deploiement du programme 200 clubs" },
-      "concept": { "name": "200 Clubs, 1 Recit", "desc": "Plateforme de contenu sport feminin + reconditionne : on raconte les clubs, on cree la preuve sociale de l'engagement Back Market.", "offer": "Brand Content + Event", "budget": "35-50 k€" }
-    },
-    {
-      "client": "Oakley",
+      "client": "Monster Energy",
       "cat": "Lifestyle",
-      "source": { "name": "lareclame.fr", "url": "https://lareclame.fr/akqa-oakley-itsokoneobsession-198611" },
-      "actu": "Oakley deploie sa campagne mondiale 'Disruptive by Design', poursuit sa collab running avec Satisfy (chapitre VIII, monture Scar) et pousse les wearables avec Meta.",
-      "insight": "Oakley connecte performance et culture street/running. SPK peut decliner 'Disruptive by Design' sur le marche FR via la communaute running urbaine, la ou la marque reste surtout mondiale/US.",
-      "moment": { "date": "Hiver 2026-27", "title": "Relais FR Disruptive by Design" },
-      "concept": { "name": "Disruptive Lab FR", "desc": "Declinaison running-culture France : creators urbains, contenu produit et prise de parole locale.", "offer": "Brand Content + Runpack", "budget": "40 k€" }
+      "source": { "name": "wbdsports.com", "url": "https://media.wbdsports.com/post/monster-energy-announced-as-main-partner-of-whoop-uci-mountain-b" },
+      "actu": "Monster accelere dans l'action sport : main partner de la WHOOP UCI Mountain Bike World Series (present sur les 14 manches), partenaire fondateur de la X Games League qui debute en 2026, et title sponsor du SMX.",
+      "insight": "Monster domine l'action sport mais active surtout aux US. La communaute VTT / freeride / skate francaise est forte et mal adressee : SPK peut construire le lien terrain FR autour des manches europeennes.",
+      "moment": { "date": "Saison 2026", "title": "WHOOP UCI MTB World Series, 14 manches" },
+      "concept": { "name": "Monster Ride Tribe", "desc": "Contenu + presence terrain sur les manches FR : creators VTT, defis communaute, captation sur site.", "offer": "Event + Brand Content", "budget": "40-55 k€" }
     },
     {
-      "client": "Revolut",
+      "client": "Suunto",
+      "cat": "Trail",
+      "source": { "name": "suunto.com", "url": "https://www.suunto.com/fr-be/News/suunto-launches-race-3s-next-generation-performance-watch/" },
+      "actu": "Suunto lance la Race 3S (15 oct) : titane, AMOLED 2 000 nits, 38 h de GPS, Climb Guidance pour le trail, 499 €, avec le nouveau Suunto AI Coach offert 3 mois.",
+      "insight": "Suunto reprend l'offensive sur le trail face a Garmin et Coros, mais manque d'ancrage communaute en France. SPK peut porter le produit aupres des trailers FR par le test et le contenu, pas la fiche technique.",
+      "moment": { "date": "Saison trail 2026-27", "title": "Lancement Suunto Race 3S" },
+      "concept": { "name": "Race 3S Field Test", "desc": "Test produit sur les trails francais avec des createurs, mise en scene du AI Coach et de l'autonomie sur ultra.", "offer": "Brand Content + Event", "budget": "30-45 k€" }
+    },
+    {
+      "client": "Tudor",
+      "cat": "Auto",
+      "source": { "name": "tudorwatch.com", "url": "https://www.tudorwatch.com/fr/pressroom" },
+      "actu": "Tudor densifie son sport : partenaire de l'ecurie F1 Visa Cash App Racing Bulls, chronometreur officiel du Dakar 2026, Team Alinghi sur la 38e America's Cup, et nouveaux ambassadeurs trail (Dauwalter, Bonnet, Chassagne).",
+      "insight": "Tudor construit un territoire 'montre d'aventure' multi-sport, deja proche de l'univers SPK (UTMB). SPK peut activer un de ses terrains (Dakar, trail) sur le marche FR plutot que de laisser la marque en pur sponsoring visibilite.",
+      "moment": { "date": "Janvier 2026", "title": "Dakar 2026, Tudor chronometreur officiel" },
+      "concept": { "name": "Tudor Time FR", "desc": "Recit 'le temps de l'aventure' : contenu autour des terrains extremes de Tudor (Dakar, trail), decline pour le public francais.", "offer": "Brand Content", "budget": "30-40 k€" }
+    },
+    {
+      "client": "Hyundai",
       "cat": "Football",
-      "source": { "name": "ministryofsport.com", "url": "https://ministryofsport.com/como-1907-elevates-revolut-to-front-of-shirt-partner-ahead-of-historic-champions-league-campaign/" },
-      "actu": "Revolut scale son sport marketing : sponsor au dos des maillots de Manchester City (fev. 2026), devant de maillot du Como 1907 (26/27) et title partner de l'ecurie Audi F1.",
-      "insight": "Revolut multiplie les deals de visibilite en Europe mais active peu en France. SPK peut proposer le volet manquant : activation fan + retail FR autour de Revolut Pay et des RevPoints, pour transformer la visibilite en usage.",
-      "moment": { "date": "2026-27", "title": "Deploiement activation France" },
-      "concept": { "name": "RevPoints Matchday", "desc": "Activation supporters jour de match : on connecte l'experience stade/ecran a Revolut Pay et aux RevPoints.", "offer": "Brand Content + Digital", "budget": "35-50 k€" }
+      "source": { "name": "sportcal.com", "url": "https://www.sportcal.com/media/hyundai-adds-to-soccer-sponsorships-portfolio-with-multi-year-ucl-deal/" },
+      "actu": "Hyundai devient partenaire automobile officiel de l'UEFA Champions League (saison 2026-27 a 2030-31), avec l'IONIQ 3 electrique comme fer de lance en Europe.",
+      "insight": "Hyundai mise gros sur le foot europeen pour conquerir le marche, mais devra activer localement pour exister au-dela du logo. SPK peut proposer l'activation fan FR autour de la Ligue des Champions et du lancement IONIQ.",
+      "moment": { "date": "Saison 2026-27", "title": "Hyundai partenaire auto de l'UEFA Champions League" },
+      "concept": { "name": "IONIQ Matchday", "desc": "Activation supporters jour de match UCL + experience produit IONIQ 3, pour transformer la visibilite en essais.", "offer": "Event + Digital", "budget": "45-60 k€" }
+    },
+    {
+      "client": "Danone",
+      "cat": "Cyclisme",
+      "source": { "name": "danone.com", "url": "https://www.danone.com/fr/newsroom/communiques-de-presse/tour-de-france-announcement" },
+      "actu": "Danone devient fournisseur officiel du Tour de France et du Tour de France Femmes avec Zwift des 2026 (hydratation Volvic), et nomme Carlos Alcaraz ambassadeur mondial sur l'axe nutrition-performance.",
+      "insight": "Danone passe de la nutrition grand public a la performance sportive. Le Tour est une vitrine enorme mais standardisee : SPK peut creer l'activation terrain / contenu qui incarne le lien hydratation-performance aupres du public FR.",
+      "moment": { "date": "Juillet 2026", "title": "Tour de France, Danone fournisseur officiel" },
+      "concept": { "name": "Hydratation Performance", "desc": "Dispositif de contenu + terrain sur le Tour : la science de l'hydratation racontee simplement, du pro a l'amateur.", "offer": "Brand Content + Event", "budget": "40-55 k€" }
+    },
+    {
+      "client": "Paris Saint-Germain",
+      "cat": "Tech",
+      "source": { "name": "sportcal.com", "url": "https://www.sportcal.com/sponsorship/psg-adds-harvey-as-legal-ai-partner-bayer-leverkusen-net-ab-inbev-deal/" },
+      "actu": "Le PSG se transforme en club techno : alliance premium avec Google (Gemini, Pixel) jusqu'en 2029, nouveau sponsor de manche Beyond Developments, partenaire IA juridique Harvey et partenaire auto BYD.",
+      "insight": "Le PSG empile les partenaires tech / IA et cherche a donner du sens a ce virage. SPK, qui connait l'ecosysteme sport FR, peut etre le trait d'union creatif entre ces marques tech et la ferveur du club.",
+      "moment": { "date": "Saison 2026-27", "title": "Le PSG, club IA (Google Gemini, Harvey)" },
+      "concept": { "name": "PSG x Tech", "desc": "Plateforme de contenu reliant les partenaires tech du club et les supporters : l'IA au service de l'experience fan.", "offer": "Brand Content + Digital", "budget": "40-60 k€" }
+    },
+    {
+      "client": "Lavazza",
+      "cat": "Tennis",
+      "source": { "name": "worldcoffeeportal.com", "url": "https://www.worldcoffeeportal.com/news/lavazza-extends-roland-garros-coffee-partnership-for-a-further-five-years/" },
+      "actu": "Lavazza complete son 'Grand Chelem' du tennis : Roland-Garros prolonge 5 ans (2026-2030), Madrid prolonge, cafe officiel des Internazionali de Rome, et ambassadeur Jannik Sinner reconduit jusqu'en 2030.",
+      "insight": "Lavazza est partout sur le tennis mais surtout en visibilite 'cafe officiel'. SPK peut transformer cette presence en experience : le rituel cafe comme moment de contenu autour des tournois et de Sinner.",
+      "moment": { "date": "Mai-juin 2026", "title": "Roland-Garros, Lavazza cafe officiel" },
+      "concept": { "name": "Le Rituel Lavazza", "desc": "Contenu autour du rituel cafe dans le tennis : coulisses tournois, moments Sinner, declinaison retail FR.", "offer": "Brand Content + Social", "budget": "25-35 k€" }
     }
   ]
 }

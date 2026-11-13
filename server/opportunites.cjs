@@ -37,6 +37,16 @@ function addCards(dc, cards) {
   return added.length;
 }
 
+// Remplace entièrement le vivier d'un DC (utilisé par le seed démo : chaque
+// déploiement repart exactement des cartes du fichier, vague propre).
+function setDC(dc, cards) {
+  const d = load();
+  const now = new Date().toISOString();
+  d[dc] = (cards || []).map((c, i) => ({ id: c.id || ('opp-' + Date.now() + '-' + i), createdAt: now, ...c }));
+  save(d);
+  return d[dc].length;
+}
+
 function getCard(dc, id) {
   return getDC(dc).find(c => c.id === id);
 }
@@ -55,4 +65,4 @@ function removeCard(dc, id) {
   return d[dc].length < before;
 }
 
-module.exports = { getDC, addCards, getCard, setCard, removeCard };
+module.exports = { getDC, addCards, setDC, getCard, setCard, removeCard };

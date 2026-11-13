@@ -1839,16 +1839,16 @@ app.listen(PORT, () => {
   }
 
   // Seed démo des opportunités (phase de test du Scan du matin).
-  // Le filesystem Railway est éphémère : à chaque (re)déploiement on recharge
-  // le vivier du DC de démo. addCards dédoublonne (client|moment|concept), donc
-  // seules les cartes absentes sont réinjectées (celles déjà swipées reviennent,
-  // les autres ne sont pas dupliquées). Désactivable via SEED_DEMO_OPP=false.
+  // Le vivier du DC de démo est REMPLACÉ par les cartes du fichier à chaque
+  // (re)déploiement : chaque push = une vague propre, identique au fichier.
+  // Pour pousser une nouvelle vague, on édite demo_opportunites.json et on déploie.
+  // Désactivable via SEED_DEMO_OPP=false (laisse alors place aux vraies cartes du scan).
   if (process.env.SEED_DEMO_OPP !== 'false') {
     try {
       const demo = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'demo_opportunites.json'), 'utf8'));
       let total = 0;
-      for (const [dc, cards] of Object.entries(demo)) total += opp.addCards(dc, cards);
-      console.log(`[SPK DC] Seed démo opportunités : ${total} carte(s) ajoutée(s)`);
+      for (const [dc, cards] of Object.entries(demo)) total += opp.setDC(dc, cards);
+      console.log(`[SPK DC] Seed démo opportunités : vivier remplacé (${total} carte(s))`);
     } catch (e) { console.error('[SPK DC] Seed démo opportunités:', e.message); }
   }
 });

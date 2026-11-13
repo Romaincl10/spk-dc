@@ -366,6 +366,7 @@ const projectsThisWeek = projects
       project: decodeHtml(p.title || String(p.id)),
       ca, mb, mbPct: ca > 0 ? mb / ca * 100 : 0,
       media: isMediaItem(p.cf_mdia, p.title), pack: packOfCf(p.cf_mdia),
+      created: (p.created_at || '').slice(0, 10),
     };
   });
 // Ajouts manuels aux "projets créés cette semaine" : avenants signés dont le projet Furious
@@ -377,7 +378,7 @@ const WEEKLY_MANUAL_PROJECTS = [
 WEEKLY_MANUAL_PROJECTS.forEach(m => {
   if (m.signedDate >= wkStart && m.signedDate <= wkEnd) {
     projectsThisWeek.push({ company: m.company, referent: m.referent, project: m.project,
-      ca: m.ca, mb: m.mb, mbPct: m.ca > 0 ? m.mb / m.ca * 100 : 0, media: m.media, pack: m.pack });
+      ca: m.ca, mb: m.mb, mbPct: m.ca > 0 ? m.mb / m.ca * 100 : 0, media: m.media, pack: m.pack, created: m.signedDate });
   }
 });
 projectsThisWeek.sort((a, b) => b.ca - a.ca);

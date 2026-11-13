@@ -282,5 +282,8 @@
  "MED0286": "runpack",
  "MED0302": "runpack",
  "MED0274": "footpack",
- "MED0300": "velopack"
+ "MED0300": "velopack",
+ "MED0291": "runpack",
+ "MED0305": "velopack",
+ "MED0303": "footpack"
 }
