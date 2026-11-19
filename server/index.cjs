@@ -1410,6 +1410,33 @@ app.get('/api/data/farming', auth.authMiddleware, (req, res) => {
   res.json({ dc, clients: farming.getDC(dc), clientOptions });
 });
 
+// Calendrier historique N-1 : projets agence réalisés sur chaque client lors de
+// l'exercice précédent (par défaut), groupés par client canonique. Sert l'onglet
+// « Historique » du Plan de jeu pour donner au DC le rythme passé du client.
+app.get('/api/data/farming-history', auth.authMiddleware, (req, res) => {
+  const curY = fyBounds().y;
+  const fyParam = (req.query.fy != null && Number.isFinite(Number(req.query.fy))) ? Number(req.query.fy) : curY - 1;
+  const { fyStart, fyEnd } = fyBounds(fyParam);
+  const all = (loadData('furious_projects') && loadData('furious_projects').data) || [];
+  const byClient = {};
+  all.forEach(p => {
+    if (shouldExcludeProject(p)) return;
+    const sd = p.start_date ? new Date(p.start_date) : null;
+    const ed = p.end_date ? new Date(p.end_date) : null;
+    const inFY = (sd && ed) ? !(ed < fyStart || sd > fyEnd) : (sd ? (sd >= fyStart && sd <= fyEnd) : false);
+    if (!inFY) return;
+    const canon = getCanonicalClientNameForProject(p.company_name, p.title);
+    (byClient[canon] = byClient[canon] || []).push({
+      id: p.id, title: p.title,
+      code: ((p.title || '').match(/SPK\d+/i) || [''])[0],
+      start: p.start_date || null, end: p.end_date || null,
+      amount: Number(p.total_amount) || 0, margin: Number(p.margin) || 0,
+    });
+  });
+  Object.values(byClient).forEach(arr => arr.sort((a, b) => (a.start || '').localeCompare(b.start || '')));
+  res.json({ fy: fyParam, label: `${String(fyParam).slice(2)}/${String(fyParam + 1).slice(2)}`, clients: byClient });
+});
+
 // Board farming collaboratif : tout utilisateur authentifié (DC comme admin) peut sauvegarder.
 app.put('/api/data/farming', auth.authMiddleware, (req, res) => {
   const { dc, client, data, delete: del } = req.body;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Lightbulb, CalendarDays, GanttChartSquare, Pencil, Trash2, Plus, RotateCcw, X, Check, Archive, Download } from 'lucide-react';
+import { Lightbulb, CalendarDays, GanttChartSquare, Pencil, Trash2, Plus, RotateCcw, X, Check, Archive, Download, History } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 
 const MONTHS = ['Juin 26', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc', 'Jan 27', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin 27', 'Juil', 'Août'];
@@ -27,6 +27,59 @@ function Thermometer({ level }) {
 }
 
 const btnCls = 'flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded transition-colors';
+
+// ─── Calendrier historique N-1 : projets SPK réalisés sur chaque client ───
+const FY_MONTHS = ['Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc', 'Jan', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin'];
+function fyMonthIdx(dateStr, fy) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  const idx = (d.getFullYear() - fy) * 12 + (d.getMonth() - 6); // Juil = mois 6 → index 0
+  return Math.max(0, Math.min(11, idx));
+}
+const fmtEuro = (n) => (Math.abs(n) >= 1000 ? Math.round(n / 1000) + ' k€' : Math.round(n) + ' €');
+
+function HistoryCalendar({ data, clientList, accentFor }) {
+  if (!data) return <div className="flex items-center justify-center h-40"><div className="w-7 h-7 border-2 border-[#8b5cf6] border-t-transparent rounded-full animate-spin" /></div>;
+  const { fy, label, clients } = data;
+  const rows = clientList.map(name => ({ name, projects: clients[name] || [] })).filter(r => r.projects.length);
+  if (!rows.length) return <p className="text-[#888] text-sm py-10 text-center">Aucun projet réalisé en {label || 'N-1'} sur les clients du plan.</p>;
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-[#888]">Projets SPK réalisés sur l'exercice <span className="font-bold text-white">{label}</span> (N-1), par client du plan : le rythme passé pour nourrir la saison en cours.</p>
+      {rows.map(({ name, projects }) => {
+        const col = accentFor(name);
+        const total = projects.reduce((s, p) => s + (p.amount || 0), 0);
+        return (
+          <div key={name} className="bg-[#111] border border-[#232323] rounded-xl p-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="font-black italic text-sm uppercase" style={{ color: col }}>{name}</span>
+              <span className="text-[11px] text-[#888]">{projects.length} projet{projects.length > 1 ? 's' : ''} · {fmtEuro(total)}</span>
+            </div>
+            <div className="grid gap-px text-[9px] text-[#555] mb-1" style={{ gridTemplateColumns: 'repeat(12,1fr)' }}>
+              {FY_MONTHS.map((m, i) => <div key={i} className="text-center">{m}</div>)}
+            </div>
+            <div className="space-y-1">
+              {projects.map(p => {
+                const s = fyMonthIdx(p.start, fy) ?? 0;
+                const e = Math.max(s, fyMonthIdx(p.end, fy) ?? s);
+                return (
+                  <div key={p.id} className="grid gap-px items-center" style={{ gridTemplateColumns: 'repeat(12,1fr)' }}>
+                    <div className="rounded px-2 py-1 text-[10px] font-bold text-white truncate"
+                      style={{ gridColumn: `${s + 1} / ${e + 2}`, backgroundColor: col + 'cc' }}
+                      title={`${p.code ? p.code + ' — ' : ''}${p.title}${p.amount ? ' · ' + fmtEuro(p.amount) : ''}`}>
+                      {p.code || p.title}{p.amount ? ` · ${fmtEuro(p.amount)}` : ''}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 // ─── Formulaire d'édition d'un concept ───
 function ConceptForm({ initial, color, onSave, onCancel }) {
@@ -158,8 +211,11 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
   const [trashConcepts, setTrashConcepts] = useState(false);
   const [trashEvents, setTrashEvents] = useState(false);
   const [saveState, setSaveState] = useState('idle'); // idle | saving | saved | error
-  const [view, setView] = useState('client'); // 'client' | 'global'
+  const [view, setView] = useState('client'); // 'client' | 'global' | 'history'
+  const [histData, setHistData] = useState(null);
   const [adding, setAdding] = useState(false);
+  // Onglet Historique N-1 en test sur Alizée uniquement pour l'instant.
+  const showHistory = dc === 'Alizée';
   const [newName, setNewName] = useState('');
   const [exported, setExported] = useState(false);
 
@@ -186,6 +242,17 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
       .catch(e => { console.error('[Farming]', e); if (alive) setLoading(false); });
     return () => { alive = false; };
   }, [dc]);
+
+  // Charge le calendrier historique N-1 quand on bascule sur l'onglet Historique.
+  useEffect(() => {
+    if (view !== 'history' || !showHistory) return;
+    let alive = true;
+    setHistData(null);
+    apiFetch(`/api/data/farming-history?dc=${encodeURIComponent(dc)}`)
+      .then(d => { if (alive) setHistData(d); })
+      .catch(e => { console.error('[Farming] history', e); if (alive) setHistData({ fy: 0, label: '', clients: {} }); });
+    return () => { alive = false; };
+  }, [view, dc, showHistory]);
 
   const persist = useCallback((clientName, data) => {
     setClientsData(prev => ({ ...prev, [clientName]: data }));
@@ -311,6 +378,9 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
         <div className="flex gap-1 bg-[#111] rounded-lg p-0.5">
           <button onClick={() => setView('client')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === 'client' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Vue par {T.entity}</button>
           <button onClick={() => setView('global')} className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === 'global' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}>Vue globale</button>
+          {showHistory && (
+            <button onClick={() => setView('history')} className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${view === 'history' ? 'bg-[#2a2a2a] text-white' : 'text-[#888] hover:text-white'}`}><History size={13} /> Historique N-1</button>
+          )}
         </div>
         {saveState !== 'idle' && saveState !== 'error' && (
           <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full ${saveState === 'saving' ? 'text-[#888]' : 'text-[#5FC97A]'}`}>
@@ -353,6 +423,11 @@ export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
 
       {/* Vue globale : timeline consolidée de tous les clients (à venir) */}
       {view === 'global' && <GlobalTimeline clients={globalClients} nowIdx={nowIdx} entity={T.entity} />}
+
+      {/* Historique N-1 : projets SPK réalisés sur chaque client l'an passé */}
+      {view === 'history' && showHistory && (
+        <HistoryCalendar data={histData} clientList={clientList} accentFor={n => clientsData[n]?.col || '#8b5cf6'} />
+      )}
 
       {view === 'client' && !client && (
         <p className="text-[#888] text-sm py-10 text-center">{T.empty}</p>

@@ -20,6 +20,8 @@ import GlobalTracking from './GlobalTracking';
 import HeatmapView from './HeatmapView';
 
 const DIRECTOR_NAMES = ['Paul', 'Kévin', 'Kévin GEOFFROY'];
+// DC arrivées en cours d'exercice : pas d'exercice N-1 à proposer.
+const NEW_DCS = ['Cloé'];
 // Directeurs disposant de leur propre cockpit Biz Dev (sinon : atterrissage sur Global DC)
 const BIZDEV_OWNERS = ['Paul'];
 const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6', 'Kévin': '#14b8a6', 'Cloé': '#eab308' };
@@ -70,9 +72,10 @@ const fyLabel = (y) => `${y}/${y + 1}`;
 
 export default function AdminDashboard({ portfolios, userRole, viewerName, fyStartYear, onFyChange, currentFyStartYear, loading }) {
   const isDirectorViewer = DIRECTOR_NAMES.includes(viewerName);
-  // Exercices disponibles : courant + précédent (le plus récent en premier)
+  // Exercices disponibles : courant + précédent (le plus récent en premier).
+  // DC arrivée en cours d'exercice (ex. Cloé) : pas d'historique N-1, on masque le précédent.
   const cur = currentFyStartYear ?? fyStartYear;
-  const exercises = [cur, cur - 1];
+  const exercises = NEW_DCS.includes(viewerName) ? [cur] : [cur, cur - 1];
   // DC opérationnel : vue verrouillée sur son portfolio. Le directeur commercial navigue comme un admin.
   const isDC = userRole === 'dc' && !isDirectorViewer;
   // CODIR : lecture globale, sans Biz Dev / Médias / assignations
