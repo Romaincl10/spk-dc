@@ -1251,6 +1251,7 @@ app.get('/api/status', (req, res) => {
     },
     oppDemo: opp.getDC('Alizée').length,
     kevinUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'kevin.geoffroy'),
+    cloeUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'cloe.mathe.dc'),
   });
 });
 
@@ -1814,6 +1815,20 @@ if (process.env.SEED_KEVIN !== 'false') {
       console.log('[SPK DC] Seed DG Kévin : déjà présent');
     }
   } catch (e) { console.error('[SPK DC] Seed DG Kévin :', e.message); }
+}
+
+// Seed compte DC Cloé MATHE (DC standard) — idempotent, même logique que ci-dessus.
+// Désactivable via SEED_CLOE=false.
+if (process.env.SEED_CLOE !== 'false') {
+  try {
+    const exists = auth.getUsers().some(u => (u.login || '').toLowerCase() === 'cloe.mathe.dc');
+    if (!exists) {
+      const r = auth.createUser({ login: 'cloe.mathe.dc', password: 'vYAE#UqW?ZUwE%Fb', name: 'Cloé', role: 'dc', furiousName: 'Cloé' });
+      console.log('[SPK DC] Seed DC Cloé :', r.error ? r.error : 'compte créé');
+    } else {
+      console.log('[SPK DC] Seed DC Cloé : déjà présent');
+    }
+  } catch (e) { console.error('[SPK DC] Seed DC Cloé :', e.message); }
 }
 
 app.listen(PORT, () => {

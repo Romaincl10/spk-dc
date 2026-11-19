@@ -22,7 +22,7 @@ import HeatmapView from './HeatmapView';
 const DIRECTOR_NAMES = ['Paul', 'Kévin', 'Kévin GEOFFROY'];
 // Directeurs disposant de leur propre cockpit Biz Dev (sinon : atterrissage sur Global DC)
 const BIZDEV_OWNERS = ['Paul'];
-const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6', 'Kévin': '#14b8a6' };
+const DC_COLORS = { 'Audrey': '#e63946', 'Hadrien': '#3b82f6', 'Ninon': '#2ecc71', 'Clément': '#f39c12', 'A assigner': '#666', 'Alizée': '#ec4899', 'Naël': '#0ea5e9', 'Paul': '#8b5cf6', 'Kévin': '#14b8a6', 'Cloé': '#eab308' };
 const FALLBACK_COLORS = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#ec4899', '#0ea5e9'];
 const DC_ORDER = ['Audrey', 'Hadrien', 'Clément', 'Naël', 'Ninon', 'Alizée'];
 const MEDIAS_COLOR = '#06b6d4';
