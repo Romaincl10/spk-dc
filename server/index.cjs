@@ -654,7 +654,7 @@ function buildDCPortfolios(fyStartYearParam) {
     // via patterns `match` (niveau groupe) ou nom canonique. Sert à isoler le Biz Dev
     // (clients hors objectif) SANS double comptage — même logique que matchObjective().
     const claimedClientNames = new Set();
-    objData.filter(o => o.client !== '_BIZ_DEV').forEach(obj => {
+    objData.filter(o => o.client !== '_BIZ_DEV' && o.client !== '_GLOBAL').forEach(obj => {
       if (Array.isArray(obj.match) && obj.match.length) {
         clientBreakdown.forEach(c => { if (obj.match.some(p => normalize(c.name).includes(p))) claimedClientNames.add(c.name); });
       } else {
@@ -682,7 +682,10 @@ function buildDCPortfolios(fyStartYearParam) {
     // Enrich objectives with actual values from clientBreakdown
     // Use getCanonicalClientName() on both sides to ensure robust matching
     // (e.g. "Intersport" → "INTERSPORT FRANCE" matches clientBreakdown canonical name)
-    const enrichedObjectives = objData.map(obj => {
+    // Objectif global du DC (cumulé portefeuille clients + biz dev), s'il est défini :
+    // une seule ligne _GLOBAL qui pilote la jauge globale, à la place de la somme des lignes.
+    const globalTarget = Number((objData.find(o => o.client === '_GLOBAL') || {}).target) || 0;
+    const enrichedObjectives = objData.filter(o => o.client !== '_GLOBAL').map(obj => {
       if (obj.client === '_BIZ_DEV') return computeBizDev(obj);
       const { actual, pipe, names } = matchObjective(obj);
       return { ...obj, actual, pipe, canonicalNames: names, progress: obj.target > 0 ? Math.round(actual / obj.target * 100) : (actual > 0 ? 100 : 0) };
@@ -700,6 +703,10 @@ function buildDCPortfolios(fyStartYearParam) {
     // Total objective
     const totalObjTarget = enrichedObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + o.target, 0);
     const totalObjActual = enrichedObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + o.actual, 0);
+    // Si un objectif global est posé : la jauge vise ce montant et se mesure sur TOUT le CA
+    // du DC (portefeuille + biz dev), pas seulement les clients à objectif nominatif.
+    const objGaugeTarget = globalTarget > 0 ? globalTarget : totalObjTarget;
+    const objGaugeActual = globalTarget > 0 ? caTotal : totalObjActual;
 
     // Projets et devis récents (2 derniers mois basé sur created_at)
     const twoMonthsAgo = new Date(now);
@@ -760,9 +767,10 @@ function buildDCPortfolios(fyStartYearParam) {
         pipelineTotal, pipelineProbabilise,
         totalSold, totalSpent,
         avancementGlobal: totalSold > 0 ? Math.round(totalSpent / totalSold * 1000) / 10 : 0,
-        objectifTotal: totalObjTarget,
-        objectifActuel: totalObjActual,
-        objectifProgress: totalObjTarget > 0 ? Math.round(totalObjActual / totalObjTarget * 100) : 0,
+        objectifTotal: objGaugeTarget,
+        objectifActuel: objGaugeActual,
+        objectifProgress: objGaugeTarget > 0 ? Math.round(objGaugeActual / objGaugeTarget * 100) : 0,
+        objectifGlobalSet: globalTarget > 0,
       },
     };
   }
@@ -777,10 +785,12 @@ function buildDCPortfolios(fyStartYearParam) {
         if (key && !portfolios[key]) {
           // DC sans données Furious : on charge quand même ses objectifs (réalisé = 0)
           const objData = loadObjectivesForDC(key, fyStartYear);
-          const emptyObjectives = objData.map(o => o.client === '_BIZ_DEV'
+          const globalTarget = Number((objData.find(o => o.client === '_GLOBAL') || {}).target) || 0;
+          const emptyObjectives = objData.filter(o => o.client !== '_GLOBAL').map(o => o.client === '_BIZ_DEV'
             ? { ...o, actual: 0, pipe: 0, clients: [], progress: 0 }
             : { ...o, actual: 0, pipe: 0, progress: 0 });
-          const objTarget = emptyObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + (o.target || 0), 0);
+          const sumTarget = emptyObjectives.filter(o => o.client !== '_BIZ_DEV').reduce((s, o) => s + (o.target || 0), 0);
+          const objTarget = globalTarget > 0 ? globalTarget : sumTarget;
           portfolios[key] = {
             dcName: key,
             projects: [], proposals: [], invoices: [], purchases: [],
@@ -792,7 +802,7 @@ function buildDCPortfolios(fyStartYearParam) {
               projetsActifs: 0, projetsTotal: 0,
               clientsActifs: 0, pipelineTotal: 0, pipelineProbabilise: 0,
               totalSold: 0, totalSpent: 0, avancementGlobal: 0,
-              objectifTotal: objTarget, objectifActuel: 0, objectifProgress: 0,
+              objectifTotal: objTarget, objectifActuel: 0, objectifProgress: 0, objectifGlobalSet: globalTarget > 0,
             },
           };
         }
@@ -1252,6 +1262,7 @@ app.get('/api/status', (req, res) => {
     oppDemo: opp.getDC('Alizée').length,
     kevinUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'kevin.geoffroy'),
     cloeUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'cloe.mathe.dc'),
+    naelGlobal: (loadObjectivesForDC('Naël', (new Date().getMonth() >= 6 ? new Date().getFullYear() : new Date().getFullYear() - 1)).find(o => o.client === '_GLOBAL') || {}).target || 0,
   });
 });
 
@@ -1856,6 +1867,28 @@ if (process.env.SEED_CLOE !== 'false') {
       console.log('[SPK DC] Seed DC Cloé : déjà présent');
     }
   } catch (e) { console.error('[SPK DC] Seed DC Cloé :', e.message); }
+}
+
+// Seed objectif global Naël : 900 k€ cumulé (portefeuille clients + Biz Dev) — idempotent.
+// Pose une ligne _GLOBAL qui pilote sa jauge globale. Désactivable via SEED_NAEL_GLOBAL=false.
+if (process.env.SEED_NAEL_GLOBAL !== 'false') {
+  try {
+    const fp = path.join(DATA_DIR, 'objectives.json');
+    const now = new Date();
+    const fy = String(now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1);
+    let data = { objectives: {}, imports: [] };
+    if (fs.existsSync(fp)) data = JSON.parse(fs.readFileSync(fp, 'utf8'));
+    data.objectives = data.objectives || {};
+    data.objectives[fy] = data.objectives[fy] || {};
+    const list = data.objectives[fy]['Naël'] = data.objectives[fy]['Naël'] || [];
+    if (!list.some(o => o.client === '_GLOBAL')) {
+      list.push({ client: '_GLOBAL', target: 900000, type: 'global', label: 'Objectif global (portefeuille + Biz Dev)' });
+      fs.writeFileSync(fp, JSON.stringify(data, null, 2), 'utf8');
+      console.log(`[SPK DC] Seed objectif global Naël ${fy} : 900 k€`);
+    } else {
+      console.log('[SPK DC] Seed objectif global Naël : déjà présent');
+    }
+  } catch (e) { console.error('[SPK DC] Seed objectif global Naël :', e.message); }
 }
 
 app.listen(PORT, () => {
