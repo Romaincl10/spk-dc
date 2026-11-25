@@ -1482,11 +1482,14 @@ app.post('/api/data/opportunites', auth.authMiddleware, (req, res) => {
 // Intégration d'une carte dans le Plan de jeu (moment → timeline, concept → kanban Froid).
 // parts: tableau optionnel ['moment','concept'] ; par défaut tout ce que la carte porte.
 app.post('/api/data/opportunites/integrate', auth.authMiddleware, (req, res) => {
-  const { dc, id, parts } = req.body;
+  const { dc, id, parts, targetDc } = req.body;
   if (!dc || !id) return res.status(400).json({ error: 'dc, id requis' });
   const card = opp.getCard(dc, id);
   if (!card) return res.status(404).json({ error: 'carte introuvable' });
-  const board = (farming.getDC(dc) || {})[card.client]
+  // Le vivier (dc) et le Plan de jeu cible (targetDc) peuvent différer : les cartes
+  // Biz Dev vivent dans BizDev-Prospects/Clients mais s'intègrent au board « BizDev ».
+  const boardDc = targetDc || dc;
+  const board = (farming.getDC(boardDc) || {})[card.client]
     || { col: '#e63946', concepts: [], events: [], conceptsArchived: [], eventsArchived: [] };
   board.events = board.events || []; board.concepts = board.concepts || [];
   const doM = card.moment && (!parts || parts.includes('moment'));
@@ -1494,7 +1497,7 @@ app.post('/api/data/opportunites/integrate', auth.authMiddleware, (req, res) => 
   const now = Date.now();
   if (doM) board.events.push({ id: 'ev-scan-' + now, date: card.moment.date || '', title: card.moment.title || '', sub: card.moment.sub || '', span: card.moment.span || [] });
   if (doC) board.concepts.push({ id: 'c-scan-' + now, name: card.concept.name || '', offer: card.concept.offer || '', timing: card.concept.timing || '', desc: card.concept.desc || '', budget: card.concept.budget || '', tag: 'piste', span: card.concept.span || [], moment: card.concept.moment || (card.moment && card.moment.date) || '', proven: false, status: card.concept.status || 'Idée' });
-  farming.saveClient(dc, card.client, board);
+  farming.saveClient(boardDc, card.client, board);
   // Retire du vivier ce qui vient d'être intégré ; si la carte est vide, on la supprime.
   const upd = { ...card };
   if (doM) upd.moment = null;
