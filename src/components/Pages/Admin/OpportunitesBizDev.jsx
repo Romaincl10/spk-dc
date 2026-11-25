@@ -9,11 +9,40 @@ const CAT_COLORS = {
   Distributeur: '#14b8a6', Equipementier: '#e6a23c', Institution: '#f39c12', Annonceur: '#c084fc',
 };
 const colorFor = (c) => CAT_COLORS[c?.cat] || '#e63946';
-const TARGET_BOARD = 'BizDev'; // Plan de jeu Biz Dev (cockpit directeur)
+const TARGET_BOARD = 'BizDev';
+
+// Domaine officiel par marque, pour afficher le vrai logo (via Clearbit) et rendre la carte reconnaissable.
+const DOMAINS = {
+  'CMA CGM': 'cma-cgm.com', 'HYROX France': 'hyrox.com', 'Alpine F1': 'alpinecars.com', 'UTMB': 'utmb.world',
+  'Salomon': 'salomon.com', 'Tecnifibre': 'tecnifibre.com', 'Canyon': 'canyon.com', 'Back Market': 'backmarket.com',
+  'Technogym': 'technogym.com', 'Monster Energy': 'monsterenergy.com', 'Tudor': 'tudorwatch.com', 'Hyundai': 'hyundai.com',
+  'Danone': 'danone.com', 'Paris Saint-Germain': 'psg.fr', 'Oakley': 'oakley.com', 'Revolut': 'revolut.com',
+  'Suunto': 'suunto.com', 'Lavazza': 'lavazza.com', 'France Galop': 'france-galop.com', 'Groupama-FDJ United': 'groupama-fdj.com',
+  'Intersport': 'intersport.fr', 'Puma': 'puma.com', 'Lacoste': 'lacoste.com', 'Decathlon': 'decathlon.com',
+  'FFF': 'fff.fr', 'Asics': 'asics.com', 'Nike': 'nike.com', 'Mizuno': 'mizuno.com', 'Adidas': 'adidas.com',
+};
+
+function Logo({ client, col }) {
+  const [err, setErr] = useState(false);
+  const domain = DOMAINS[client];
+  const letter = (client || '?').trim().charAt(0).toUpperCase() || '?';
+  if (err || !domain) {
+    return (
+      <div className="w-11 h-11 rounded-xl flex items-center justify-center font-black text-[18px] shrink-0"
+        style={{ backgroundColor: `${col}22`, color: col, border: `1px solid ${col}40` }}>{letter}</div>
+    );
+  }
+  return (
+    <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center overflow-hidden p-1.5 shrink-0 shadow-sm">
+      <img src={`https://logo.clearbit.com/${domain}`} alt={client} className="max-w-full max-h-full object-contain"
+        onError={() => setErr(true)} loading="lazy" />
+    </div>
+  );
+}
 
 function OppCard({ c, bucket, onIntegrated }) {
   const col = colorFor(c);
-  const [busy, setBusy] = useState(null); // 'moment' | 'concept' | 'both'
+  const [busy, setBusy] = useState(null);
   const [addedM, setAddedM] = useState(false);
   const [addedC, setAddedC] = useState(false);
 
@@ -36,20 +65,27 @@ function OppCard({ c, bucket, onIntegrated }) {
   const hasC = c.concept && !addedC;
 
   return (
-    <div className="relative rounded-2xl border border-[#262626] overflow-hidden flex flex-col"
-      style={{ background: 'linear-gradient(170deg,#161616 0%,#0d0d0d 65%)' }}>
-      <div className="h-1 w-full" style={{ background: `linear-gradient(90deg,${col},${col}00)` }} />
-      <div className="p-4 flex flex-col gap-2.5 flex-1">
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[10px] font-extrabold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full"
-            style={{ color: col, backgroundColor: `${col}1a`, border: `1px solid ${col}40` }}>{c.cat}</span>
-          <div className="flex items-center gap-1.5">
-            {c.hot && <span className="text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded-full text-[#e63946] bg-[#e63946]/10 border border-[#e63946]/40 flex items-center gap-0.5"><Flame size={9} /> chaud</span>}
-            {c.date && <span className="text-[10px] font-bold text-[#888] bg-[#1c1c1c] px-2 py-0.5 rounded-full">{c.date}</span>}
+    <div className="group relative rounded-2xl border border-[#262626] overflow-hidden flex flex-col hover:border-[#3a3a3a] transition-colors"
+      style={{ background: 'linear-gradient(180deg,#161616 0%,#0d0d0d 100%)', boxShadow: '0 8px 30px rgba(0,0,0,.35)' }}>
+
+      {/* Hero : logo + marque, bandeau degrade a la couleur de l'univers */}
+      <div className="relative px-4 pt-4 pb-3" style={{ background: `linear-gradient(135deg, ${col}26 0%, ${col}08 45%, transparent 75%)` }}>
+        <div className="flex items-start gap-3">
+          <Logo client={c.client} col={col} />
+          <div className="min-w-0 flex-1">
+            <div className="text-[18px] font-black italic text-white leading-[1.1]">{c.client}</div>
+            <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+              <span className="text-[9px] font-extrabold uppercase tracking-[0.14em] px-2 py-0.5 rounded-full"
+                style={{ color: col, backgroundColor: `${col}1f`, border: `1px solid ${col}45` }}>{c.cat}</span>
+              {c.hot && <span className="text-[9px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded-full text-[#e63946] bg-[#e63946]/12 border border-[#e63946]/45 flex items-center gap-0.5"><Flame size={9} /> chaud</span>}
+              {c.date && <span className="text-[9px] font-bold text-[#9a9a9a] bg-[#ffffff0d] border border-[#ffffff14] px-2 py-0.5 rounded-full">{c.date}</span>}
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="text-[19px] font-black italic text-white leading-[1.05] tracking-tight">{c.client}</div>
+      {/* Corps */}
+      <div className="px-4 pb-4 pt-1 flex flex-col gap-2.5 flex-1">
         {c.actu && <p className="text-[12.5px] text-[#c4c4c4] leading-snug">{c.actu}</p>}
         {c.insight && (
           <div className="rounded-xl px-3 py-2" style={{ backgroundColor: `${col}12`, border: `1px solid ${col}2e` }}>
@@ -58,7 +94,6 @@ function OppCard({ c, bucket, onIntegrated }) {
           </div>
         )}
 
-        {/* Moment (événement) */}
         {c.moment && (
           <div className={`rounded-xl bg-[#0b0b0b] border px-3 py-2 ${addedM ? 'border-[#2ecc71]/40 opacity-70' : 'border-[#232323]'}`}>
             <div className="flex items-center justify-between gap-2">
@@ -69,7 +104,6 @@ function OppCard({ c, bucket, onIntegrated }) {
           </div>
         )}
 
-        {/* Concept */}
         {c.concept && (
           <div className={`rounded-xl bg-[#0b0b0b] border px-3 py-2 ${addedC ? 'border-[#2ecc71]/40 opacity-70' : 'border-[#232323]'}`}>
             <span className="text-[9px] font-black uppercase tracking-[0.16em] text-[#4F9DF7] flex items-center gap-1"><Lightbulb size={11} /> Concept</span>
@@ -82,7 +116,6 @@ function OppCard({ c, bucket, onIntegrated }) {
           </div>
         )}
 
-        {/* Actions : ajouter au Plan de jeu */}
         {(hasM || hasC) ? (
           <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-1">
             {hasM && (
@@ -137,7 +170,7 @@ function Section({ title, subtitle, color, cards, bucket, onIntegrated }) {
       {cards.length === 0 ? (
         <p className="text-[#666] text-sm py-6 text-center bg-[#111] border border-[#232323] rounded-xl">Aucune opportunité pour l'instant.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
           {list.map((c, i) => <OppCard key={c.id || i} c={c} bucket={bucket} onIntegrated={onIntegrated} />)}
         </div>
       )}
@@ -145,8 +178,6 @@ function Section({ title, subtitle, color, cards, bucket, onIntegrated }) {
   );
 }
 
-// Vue Opportunités Biz Dev (directeur) : veille datée et sourcée, scindée Prospects / Clients.
-// Chaque carte permet d'ajouter l'événement et/ou le concept au Plan de jeu Biz Dev en un clic.
 export default function OpportunitesBizDev() {
   const [data, setData] = useState(null);
   const [seg, setSeg] = useState('prospects');
