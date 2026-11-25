@@ -12,6 +12,7 @@ import DCFocusDevis from './DCFocusDevis';
 import DirecteurCommercial from './DirecteurCommercial';
 import MediasView from './MediasView';
 import DCFarming from './DCFarming';
+import OpportunitesBizDev from './OpportunitesBizDev';
 import Opportunites from './Opportunites';
 import RecapMois from './RecapMois';
 import DCMarge from './DCMarge';
@@ -227,6 +228,14 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
                 ${selectedDC === 'Heatmap' ? 'bg-[#e63946] text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white bg-[#161616]'}`}>
               Heatmap
             </button>
+            {!restricted && (
+              <button onClick={() => { setSelectedDC('Opportunités'); setSubTab('synthese'); }}
+                className={`px-4 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors border
+                  ${selectedDC === 'Opportunités' ? 'text-white border-transparent' : 'text-[#ccc] border-[#2a2a2a] hover:text-white bg-[#161616]'}`}
+                style={{ backgroundColor: selectedDC === 'Opportunités' ? '#8b5cf6' : '#161616' }}>
+                Opportunités
+              </button>
+            )}
           </div>
 
           {/* À assigner — masqué pour le CODIR */}
@@ -241,7 +250,7 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
       )}
 
       {/* Sub-tabs (DC detail) — masqués pour le directeur commercial et les onglets transverses */}
-      {selectedDC !== 'Globale' && selectedDC !== 'Médias' && selectedDC !== 'Heatmap' && !selectedIsDirector && (
+      {selectedDC !== 'Globale' && selectedDC !== 'Médias' && selectedDC !== 'Heatmap' && selectedDC !== 'Opportunités' && !selectedIsDirector && (
         <div className="space-y-2">
           <div className="flex items-center justify-between gap-3">
             <div className="flex gap-1 bg-[#111] rounded-lg p-1 w-fit">
@@ -462,6 +471,9 @@ export default function AdminDashboard({ portfolios, userRole, viewerName, fySta
 
       {/* ═══ HEATMAP ═══ objectifs clients (transverse) */}
       {selectedDC === 'Heatmap' && <HeatmapView fyStartYear={fyStartYear} onOpenClient={handleOpenClient} hideMedias={restricted} />}
+
+      {/* ═══ OPPORTUNITÉS BIZ DEV ═══ veille prospects / clients (transverse) */}
+      {selectedDC === 'Opportunités' && <OpportunitesBizDev />}
 
       {/* ═══ COCKPIT DIRECTEUR COMMERCIAL ═══ (Paul) — Biz Dev nouveaux clients */}
       {selectedIsDirector && <DirecteurCommercial fyStartYear={fyStartYear} />}
