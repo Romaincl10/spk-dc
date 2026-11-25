@@ -1263,6 +1263,7 @@ app.get('/api/status', (req, res) => {
     kevinUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'kevin.geoffroy'),
     cloeUser: auth.getUsers().some(u => (u.login || '').toLowerCase() === 'cloe.mathe.dc'),
     naelGlobal: (loadObjectivesForDC('Naël', (new Date().getMonth() >= 6 ? new Date().getFullYear() : new Date().getFullYear() - 1)).find(o => o.client === '_GLOBAL') || {}).target || 0,
+    bizdevOpp: { prospects: opp.getDC('BizDev-Prospects').length, clients: opp.getDC('BizDev-Clients').length },
   });
 });
 
@@ -1446,6 +1447,12 @@ app.get('/api/data/farming-history', auth.authMiddleware, (req, res) => {
   });
   Object.values(byClient).forEach(arr => arr.sort((a, b) => (a.start || '').localeCompare(b.start || '')));
   res.json({ fy: fyParam, label: `${String(fyParam).slice(2)}/${String(fyParam + 1).slice(2)}`, clients: byClient });
+});
+
+// Opportunités Biz Dev (vue directeur) : cartes datees et sourcees, scindees
+// Prospects (Matrice) / Clients actuels. Alimentees par la veille (seed au demarrage).
+app.get('/api/data/opportunites-bizdev', auth.authMiddleware, (req, res) => {
+  res.json({ prospects: opp.getDC('BizDev-Prospects'), clients: opp.getDC('BizDev-Clients') });
 });
 
 // Board farming collaboratif : tout utilisateur authentifié (DC comme admin) peut sauvegarder.
@@ -1925,5 +1932,16 @@ app.listen(PORT, () => {
       for (const [dc, cards] of Object.entries(demo)) total += opp.setDC(dc, cards);
       console.log(`[SPK DC] Seed démo opportunités : vivier remplacé (${total} carte(s))`);
     } catch (e) { console.error('[SPK DC] Seed démo opportunités:', e.message); }
+  }
+
+  // Seed des opportunités Biz Dev (vue directeur Paul) : deux viviers Prospects / Clients,
+  // remplacés à chaque déploiement depuis la veille. Désactivable via SEED_BIZDEV_OPP=false.
+  if (process.env.SEED_BIZDEV_OPP !== 'false') {
+    try {
+      const bd = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'bizdev_opportunites.json'), 'utf8'));
+      const np = opp.setDC('BizDev-Prospects', bd.prospects || []);
+      const nc = opp.setDC('BizDev-Clients', bd.clients || []);
+      console.log(`[SPK DC] Seed opportunités Biz Dev : ${np} prospects, ${nc} clients`);
+    } catch (e) { console.error('[SPK DC] Seed opportunités Biz Dev:', e.message); }
   }
 });
