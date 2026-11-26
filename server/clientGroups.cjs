@@ -84,6 +84,10 @@ const CLIENT_GROUPS = {
 
   // Fédération Sport Boules
   'FEDERATION FRANCAISE DU SPORT BOULES': ['federation francaise du sport boules'],
+
+  // CNOSF — la Fondation du Sport Français est considérée comme le même client (mêmes interlocuteurs)
+  'CNOSF': ['cnosf', 'cnoscf', 'comite national olympique et sportif francais',
+    'fondation du sport francais - fondation sport et engagement', 'fondation du sport francais', 'fondation du sport'],
 };
 
 function norm(s) {

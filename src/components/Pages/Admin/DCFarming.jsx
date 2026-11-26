@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { Lightbulb, CalendarDays, GanttChartSquare, Pencil, Trash2, Plus, RotateCcw, X, Check, Archive, Download, History } from 'lucide-react';
 import { apiFetch } from '../../../utils/api';
 
-const MONTHS = ['Juin 26', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc', 'Jan 27', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin 27', 'Juil', 'Août'];
-const MLABEL = ['Juin 26', 'Juil 26', 'Août 26', 'Sept 26', 'Oct 26', 'Nov 26', 'Déc 26', 'Jan 27', 'Fév 27', 'Mars 27', 'Avr 27', 'Mai 27', 'Juin 27', 'Juil 27', 'Août 27'];
+const MONTHS = ['Juin 26', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc', 'Jan 27', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin 27', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc 27'];
+const MLABEL = ['Juin 26', 'Juil 26', 'Août 26', 'Sept 26', 'Oct 26', 'Nov 26', 'Déc 26', 'Jan 27', 'Fév 27', 'Mars 27', 'Avr 27', 'Mai 27', 'Juin 27', 'Juil 27', 'Août 27', 'Sept 27', 'Oct 27', 'Nov 27', 'Déc 27'];
 const momentLabel = (sp) => !sp ? '' : (sp[0] === sp[1] ? MLABEL[sp[0]] : `${MLABEL[sp[0]]} → ${MLABEL[sp[1]]}`);
 const genId = (p) => `${p}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 const nowISO = () => new Date().toISOString();
-const GRID = '240px repeat(15, minmax(24px, 1fr))';
+const GRID = '240px repeat(19, minmax(22px, 1fr))';
 
 const STATUS_COLS = [
   { key: '',         head: 'À qualifier', heat: 'À qualifier',        headCls: 'bg-[#2a2a2a] text-[#eee]',    therm: 0, c: null },
@@ -192,8 +192,8 @@ function EventForm({ initial, onSave, onCancel }) {
 }
 
 const PALETTE = ['#e63946', '#3b82f6', '#2ecc71', '#f39c12', '#8b5cf6', '#06b6d4', '#ec4899', '#0ea5e9', '#f97316', '#14b8a6'];
-// Index du mois courant dans la saison 26/27 (Juin 26 = 0 … Août 27 = 14)
-const currentMonthIdx = () => { const d = new Date(); return Math.max(0, Math.min(14, (d.getFullYear() - 2026) * 12 + d.getMonth() - 5)); };
+// Index du mois courant dans la saison 26/27 (Juin 26 = 0 … Déc 27 = 18)
+const currentMonthIdx = () => { const d = new Date(); return Math.max(0, Math.min(18, (d.getFullYear() - 2026) * 12 + d.getMonth() - 5)); };
 
 export default function DCFarming({ dc = 'Hadrien', mode = 'farming' }) {
   const isPlan = mode === 'planjeu';
